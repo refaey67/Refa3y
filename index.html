@@ -16,6 +16,7 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/webm-muxer@5.0.2/build/webm-muxer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;500;600;700&family=Cinzel:wght@500;700&family=Courier+Prime:wght@400;700&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Reem+Kufi:wght@500;700&family=Tajawal:wght@500;700&display=swap" rel="stylesheet">
@@ -235,14 +236,14 @@
             </div>
 
             <div class="flex items-center gap-2 flex-wrap">
-              <a id="liveExternalStreamLink" href="https://stream.radiojar.com/8s5u5tpdtwzuv" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-amber-400/35 text-amber-200 text-xs font-semibold flex items-center gap-1.5 transition" title="فتح رابط البث المباشر في نافذة مستقلة">
+              <a id="liveExternalStreamLink" href="https://service.webvideocore.net/CL1olYogIrDWvwqiKK7eCxOS4PStqG9DuEjAr2ZjQtvS3d4y9r0cvRhvS17SGN/a_7a4vuubc6mo8.m3u8" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-amber-400/35 text-amber-200 text-xs font-semibold flex items-center gap-1.5 transition" title="فتح رابط البث المباشر في نافذة مستقلة">
                 <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
                 </svg>
                 <span>رابط البث المباشر</span>
               </a>
               <a id="liveOfficialSiteLink" href="https://misrquran.gov.eg/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/35 text-emerald-200 text-xs font-semibold flex items-center gap-1.5 transition" title="الموقع الرسمي لإذاعة القرآن الكريم من القاهرة">
-                <span>الموقع الرسمي للإذاعة</span>
+                <span>الموقع الرسمي للإذاعة (ماسبيرو)</span>
               </a>
             </div>
           </div>
@@ -327,7 +328,7 @@
             <!-- عرض رابط البث المباشر الحالي مع زر النسخ -->
             <div class="flex items-center gap-1.5 w-full sm:w-auto sm:flex-1 max-w-md bg-slate-900/90 border border-slate-800 rounded-xl px-2.5 py-1.5">
               <span class="text-[11px] text-amber-300 font-semibold shrink-0">الرابط:</span>
-              <input id="liveStreamUrlDisplay" type="text" readonly value="https://stream.radiojar.com/8s5u5tpdtwzuv" dir="ltr" class="w-full bg-transparent text-[11px] font-mono text-slate-300 focus:outline-none truncate" />
+              <input id="liveStreamUrlDisplay" type="text" readonly value="https://service.webvideocore.net/CL1olYogIrDWvwqiKK7eCxOS4PStqG9DuEjAr2ZjQtvS3d4y9r0cvRhvS17SGN/a_7a4vuubc6mo8.m3u8" dir="ltr" class="w-full bg-transparent text-[11px] font-mono text-slate-300 focus:outline-none truncate" />
               <button id="btnCopyLiveUrl" type="button" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-[11px] font-bold transition shrink-0">
                 نسخ الرابط
               </button>
@@ -3576,19 +3577,27 @@
     }
 
     // =========================================================================
-    // 10.5 مشغل البث المباشر لإذاعة القرآن الكريم (٢٤/٧)
+    // 10.5 مشغل البث المباشر لإذاعة القرآن الكريم من القاهرة (98.2 FM) — ٢٤/٧
     // =========================================================================
     const LIVE_RADIO_STATIONS = {
       cairo_official: {
         id: 'cairo_official',
         name: 'إذاعة القرآن الكريم من القاهرة (98.2 FM)',
-        subtitle: 'إذاعة القرآن الكريم من القاهرة (98.2 FM) — بث حي متواصل على مدار الساعة',
+        subtitle: 'البث الرسمي الحي لإذاعة القرآن الكريم من القاهرة (98.2 FM — الهيئة الوطنية للإعلام بماسبيرو)',
         officialPage: 'https://misrquran.gov.eg/',
         streams: [
-          'https://stream.radiojar.com/8s5u5tpdtwzuv',
-          'https://n0a.radiojar.com/8s5u5tpdtwzuv',
-          'https://n02.radiojar.com/8s5u5tpdtwzuv',
-          'https://qurango.net/radio/mix'
+          'https://service.webvideocore.net/CL1olYogIrDWvwqiKK7eCxOS4PStqG9DuEjAr2ZjQtvS3d4y9r0cvRhvS17SGN/a_7a4vuubc6mo8.m3u8',
+          'https://cdnvideo.webvideocore.net/enc4_l8n79qkvv6q25uqo5rj0r1d5ft9te3vs43dma51pcsj71scrl5d5lpv0q2ag4q5qu44r9ohc1g7bpjtu41qbos6l2keosq6g9n2ncp042aqe7ocdtgb76qgc9ptafi413krju4sd0lakiv6l0bkbhg7ubno8cq1pvg0cahapmma8l1mgns0/index.m3u8?clip_id=7a4vuubc6mo8',
+          'https://n01.radiojar.com/8s5u5tpdtwzuv',
+          'https://n03.radiojar.com/8s5u5tpdtwzuv',
+          'https://stream.radiojar.com/8s5u5tpdtwzuv'
+        ],
+        serverLabels: [
+          'خادم ماسبيرو الرسمي ١ (HLS مستقر)',
+          'خادم ماسبيرو الرسمي ٢ (CDN HLS)',
+          'خادم القاهرة المباشر ٣ (RadioJar N01)',
+          'خادم القاهرة المباشر ٤ (RadioJar N03)',
+          'خادم القاهرة المباشر ٥ (RadioJar Main)'
         ]
       },
       minshawi_mujawwad_radio: {
@@ -3637,8 +3646,7 @@
         subtitle: 'بث مباشر متواصل على مدار الساعة لتلاوات الشيخ مصطفى إسماعيل',
         officialPage: 'https://qurango.net/radio/mustafa_ismail',
         streams: [
-          'https://qurango.net/radio/mustafa_ismail',
-          'https://qurango.net/radio/mix'
+          'https://qurango.net/radio/mustafa_ismail'
         ]
       }
     };
@@ -3665,6 +3673,37 @@
     state.currentLiveStationId = 'cairo_official';
     state.currentLiveStreamIdx = 0;
     state.isLiveRadioPlaying = false;
+    state.userRequestedLiveStop = true;
+    let liveHlsInstance = null;
+    let liveStallTimer = null;
+    let liveReconnectTimer = null;
+
+    function clearLiveTimers() {
+      if (liveStallTimer) {
+        clearTimeout(liveStallTimer);
+        liveStallTimer = null;
+      }
+      if (liveReconnectTimer) {
+        clearTimeout(liveReconnectTimer);
+        liveReconnectTimer = null;
+      }
+    }
+
+    function destroyLiveHls() {
+      if (liveHlsInstance) {
+        try {
+          liveHlsInstance.destroy();
+        } catch (e) {}
+        liveHlsInstance = null;
+      }
+    }
+
+    function getCurrentServerLabel(st, idx) {
+      if (st.serverLabels && st.serverLabels[idx]) {
+        return st.serverLabels[idx];
+      }
+      return `خادم ${toArabicDigits(idx + 1)}`;
+    }
 
     function setLiveRadioStatusUI(statusType, message) {
       if (!liveRadioStateText || !liveRadioBadge || !liveRadioDot) return;
@@ -3707,87 +3746,202 @@
       if (liveStreamUrlDisplay) liveStreamUrlDisplay.value = streamUrl;
     }
 
+    function fallbackToNextLiveServer() {
+      if (state.userRequestedLiveStop) return;
+      clearLiveTimers();
+      const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
+      state.currentLiveStreamIdx = (state.currentLiveStreamIdx + 1) % st.streams.length;
+      syncLiveStationLinks();
+      const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
+      setLiveRadioStatusUI('loading', `جاري التحويل تلقائياً إلى ${srvLabel}...`);
+      liveReconnectTimer = setTimeout(() => {
+        if (!state.userRequestedLiveStop) {
+          startLiveRadioStream(true);
+        }
+      }, 450);
+    }
+
     function startLiveRadioStream(autoPlay = true) {
       if (!liveRadioAudio) return;
+      clearLiveTimers();
+      destroyLiveHls();
+
       const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
       if (state.currentLiveStreamIdx >= st.streams.length) {
         state.currentLiveStreamIdx = 0;
       }
       const streamUrl = st.streams[state.currentLiveStreamIdx];
+      const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
       syncLiveStationLinks();
 
-      if (autoPlay) {
-        if (!audioEl.paused) {
-          audioEl.pause();
-        }
-        setLiveRadioStatusUI('loading', 'جاري الاتصال بالبث المباشر...');
-        liveRadioAudio.src = streamUrl;
-        liveRadioAudio.load();
-        liveRadioAudio.play().catch(() => {
-          updateLivePlayButtonsUI(false);
-          setLiveRadioStatusUI('idle', 'اضغط لتشغيل البث المباشر');
+      if (!autoPlay) {
+        state.userRequestedLiveStop = true;
+        return;
+      }
+
+      state.userRequestedLiveStop = false;
+      if (!audioEl.paused) {
+        audioEl.pause();
+      }
+      setLiveRadioStatusUI('loading', `جاري الاتصال • ${srvLabel}...`);
+
+      const isHlsStream = streamUrl.includes('.m3u8');
+
+      // إذا كان البث بصيغة HLS (.m3u8) الخاصة بموقع ماسبيرو الرسمي (misrquran.gov.eg)
+      if (isHlsStream && typeof Hls !== 'undefined' && Hls.isSupported()) {
+        liveHlsInstance = new Hls({
+          enableWorker: true,
+          lowLatencyMode: false,
+          backBufferLength: 60,
+          maxBufferLength: 30,
+          maxMaxBufferLength: 60,
+          manifestLoadingMaxRetry: 8,
+          manifestLoadingRetryDelay: 1000,
+          levelLoadingMaxRetry: 8,
+          levelLoadingRetryDelay: 1000,
+          fragLoadingMaxRetry: 8,
+          fragLoadingRetryDelay: 1000
+        });
+
+        liveHlsInstance.loadSource(streamUrl);
+        liveHlsInstance.attachMedia(liveRadioAudio);
+
+        liveHlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+          if (state.userRequestedLiveStop) return;
+          liveRadioAudio.play().catch(() => {
+            updateLivePlayButtonsUI(false);
+            setLiveRadioStatusUI('idle', 'اضغط لتشغيل البث المباشر');
+          });
+        });
+
+        liveHlsInstance.on(Hls.Events.ERROR, (event, data) => {
+          if (data.fatal) {
+            if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+              setLiveRadioStatusUI('loading', `جاري استعادة تدفق البث • ${srvLabel}...`);
+              liveHlsInstance.startLoad();
+              liveStallTimer = setTimeout(() => {
+                if (liveRadioAudio.paused && !state.userRequestedLiveStop) {
+                  fallbackToNextLiveServer();
+                }
+              }, 6000);
+            } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+              liveHlsInstance.recoverMediaError();
+            } else {
+              fallbackToNextLiveServer();
+            }
+          }
         });
       } else {
-        liveRadioAudio.src = streamUrl;
+        // للمتصفحات التي تدعم HLS مدمجاً (مثل Safari/iOS) أو روابط MP3 المباشرة
+        const sep = streamUrl.includes('?') ? '&' : '?';
+        const effectiveUrl = isHlsStream ? streamUrl : `${streamUrl}${sep}_t=${Date.now()}`;
+        liveRadioAudio.src = effectiveUrl;
+        liveRadioAudio.load();
+        liveRadioAudio.play().catch(() => {
+          if (!state.userRequestedLiveStop) {
+            fallbackToNextLiveServer();
+          }
+        });
       }
+
+      // مؤقت مراقبة لمنع التعليق الطويل إذا تأخر استجابة الخادم أكثر من ١٠ ثوانٍ
+      liveStallTimer = setTimeout(() => {
+        if (!state.userRequestedLiveStop && liveRadioAudio.paused) {
+          fallbackToNextLiveServer();
+        }
+      }, 10000);
+    }
+
+    function stopLiveRadioStream() {
+      state.userRequestedLiveStop = true;
+      clearLiveTimers();
+      if (liveRadioAudio) {
+        liveRadioAudio.pause();
+      }
+      destroyLiveHls();
+      updateLivePlayButtonsUI(false);
+      setLiveRadioStatusUI('idle', 'البث المباشر متوقف مؤقتاً');
     }
 
     if (liveRadioAudio) {
       liveRadioAudio.addEventListener('playing', () => {
+        clearLiveTimers();
         if (!audioEl.paused) audioEl.pause();
         updateLivePlayButtonsUI(true);
         const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
-        setLiveRadioStatusUI('playing', `يبث الآن مباشرة • خادم ${toArabicDigits(state.currentLiveStreamIdx + 1)}`);
+        const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
+        setLiveRadioStatusUI('playing', `يبث الآن مباشرة • ${srvLabel}`);
       });
 
       liveRadioAudio.addEventListener('waiting', () => {
-        if (state.isLiveRadioPlaying) {
-          setLiveRadioStatusUI('loading', 'جاري استكمال تدفق البث المباشر...');
+        if (!state.userRequestedLiveStop) {
+          const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
+          const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
+          setLiveRadioStatusUI('loading', `جاري استكمال تدفق البث • ${srvLabel}...`);
+          if (liveStallTimer) clearTimeout(liveStallTimer);
+          liveStallTimer = setTimeout(() => {
+            if (!state.userRequestedLiveStop) {
+              if (liveHlsInstance) {
+                try { liveHlsInstance.startLoad(); } catch (e) {}
+              } else {
+                startLiveRadioStream(true);
+              }
+            }
+          }, 8000);
+        }
+      });
+
+      liveRadioAudio.addEventListener('stalled', () => {
+        if (!state.userRequestedLiveStop) {
+          if (liveStallTimer) clearTimeout(liveStallTimer);
+          liveStallTimer = setTimeout(() => {
+            if (!state.userRequestedLiveStop) {
+              if (liveHlsInstance) {
+                try { liveHlsInstance.startLoad(); } catch (e) {}
+              } else {
+                startLiveRadioStream(true);
+              }
+            }
+          }, 6000);
+        }
+      });
+
+      liveRadioAudio.addEventListener('ended', () => {
+        // البث الحي لا ينبغي أن ينتهي؛ إذا انتهى بسبب انتهاء الجلسة نعيد الاتصال تلقائياً
+        if (!state.userRequestedLiveStop) {
+          startLiveRadioStream(true);
         }
       });
 
       liveRadioAudio.addEventListener('pause', () => {
-        updateLivePlayButtonsUI(false);
-        setLiveRadioStatusUI('idle', 'البث المباشر متوقف مؤقتاً');
+        if (state.userRequestedLiveStop) {
+          updateLivePlayButtonsUI(false);
+          setLiveRadioStatusUI('idle', 'البث المباشر متوقف مؤقتاً');
+        }
       });
 
       liveRadioAudio.addEventListener('error', () => {
-        const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
-        if (state.currentLiveStreamIdx + 1 < st.streams.length) {
-          state.currentLiveStreamIdx += 1;
-          syncLiveStationLinks();
-          if (state.isLiveRadioPlaying) {
-            liveRadioAudio.src = st.streams[state.currentLiveStreamIdx];
-            liveRadioAudio.load();
-            liveRadioAudio.play().catch(() => {});
-          }
-        } else {
-          updateLivePlayButtonsUI(false);
-          setLiveRadioStatusUI('error', 'تعذر الاتصال بالخادم — اضغط تبديل الخادم أو افتح الرابط المباشر');
+        // إذا كان HLS يدير الاتصال فسيعالج الخطأ تلقائياً، وإلا ننتقل للخادم التالي
+        if (!liveHlsInstance && !state.userRequestedLiveStop) {
+          fallbackToNextLiveServer();
         }
       });
     }
 
     // إيقاف البث المباشر تلقائياً عند تشغيل تلاوة الآيات في الاستوديو لمنع تداخل الصوتين
     audioEl.addEventListener('play', () => {
-      if (liveRadioAudio && !liveRadioAudio.paused) {
-        liveRadioAudio.pause();
+      if (!state.userRequestedLiveStop || (liveRadioAudio && !liveRadioAudio.paused)) {
+        stopLiveRadioStream();
       }
     });
 
     if (btnLiveRadioPlay) {
       btnLiveRadioPlay.addEventListener('click', () => {
         if (!liveRadioAudio) return;
-        if (liveRadioAudio.paused) {
-          if (!liveRadioAudio.src || liveRadioAudio.src === window.location.href) {
-            startLiveRadioStream(true);
-          } else {
-            if (!audioEl.paused) audioEl.pause();
-            setLiveRadioStatusUI('loading', 'جاري الاتصال بالبث المباشر...');
-            liveRadioAudio.play().catch(() => startLiveRadioStream(true));
-          }
+        if (state.isLiveRadioPlaying || !state.userRequestedLiveStop) {
+          stopLiveRadioStream();
         } else {
-          liveRadioAudio.pause();
+          startLiveRadioStream(true);
         }
       });
     }

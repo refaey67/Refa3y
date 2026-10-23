@@ -254,11 +254,11 @@
               </button>
 
               <select id="selectLiveServer" aria-label="اختيار خادم البث" class="rounded-xl bg-slate-900 border border-slate-700 text-amber-200 text-xs px-2.5 py-2 focus:outline-none focus:border-amber-400 max-w-full">
-                <option value="0">خادم ١ (مباشر رئيسي)</option>
-                <option value="1">خادم ٢ (بث متواصل لا ينقطع)</option>
-                <option value="2">خادم ٣ (RadioGarden)</option>
-                <option value="3">خادم ٤ (ماسبيرو HLS)</option>
-                <option value="4">خادم ٥ (QuranGo)</option>
+                <option value="0">خادم ١ (بث القاهرة الرسمي 98.2 FM)</option>
+                <option value="1">خادم ٢ (RadioGarden — القاهرة 98.2 FM)</option>
+                <option value="2">خادم ٣ (ZenoFM — إذاعة القاهرة)</option>
+                <option value="3">خادم ٤ (بث القاهرة البديل)</option>
+                <option value="4">خادم ٥ (ماسبيرو HLS — القاهرة)</option>
               </select>
             </div>
 
@@ -3299,27 +3299,27 @@
     }
 
     // =========================================================================
-    // 10.5 مشغل البث المباشر المستقر ٢٤/٧ (مع محرك بث متواصل ذاتي لا يتوقف أبداً)
+    // 10.5 مشغل البث المباشر لإذاعة القرآن الكريم من القاهرة 98.2 FM (حصرياً بدون أي إذاعات أخرى)
     // =========================================================================
     const LIVE_RADIO_STATIONS = {
       cairo_official: {
         id: 'cairo_official',
         name: 'إذاعة القرآن الكريم — القاهرة (98.2 FM)',
-        subtitle: 'إذاعة القرآن الكريم من القاهرة (98.2 FM)',
+        subtitle: 'إذاعة القرآن الكريم من القاهرة (98.2 FM) — البث الحي الرسمي',
         officialPage: 'https://misrquran.gov.eg/',
         streams: [
           'https://stream.radiojar.com/8s5u5tpdtwzuv',
-          'builtin://cairo_continuous',
           'https://radio.garden/api/ara/content/listen/GQxvGBNK/channel.mp3',
-          'https://service.webvideocore.net/CL1olYogIrDWvwqiKK7eCxOS4PStqG9DuEjAr2ZjQtvS3d4y9r0cvRhvS17SGN/a_7a4vuubc6mo8.m3u8',
-          'https://qurango.net/radio/mix'
+          'https://stream.zeno.fm/0s6f43v52hhvv',
+          'https://n0a.radiojar.com/8s5u5tpdtwzuv',
+          'https://service.webvideocore.net/CL1olYogIrDWvwqiKK7eCxOS4PStqG9DuEjAr2ZjQtvS3d4y9r0cvRhvS17SGN/a_7a4vuubc6mo8.m3u8'
         ],
         serverLabels: [
-          'خادم ١ (بث القاهرة المباشر)',
-          'خادم ٢ (بث متواصل فوري لا ينقطع)',
-          'خادم ٣ (RadioGarden الدولي)',
-          'خادم ٤ (ماسبيرو HLS)',
-          'خادم ٥ (الإذاعة العامة QuranGo)'
+          'خادم ١ (بث القاهرة الرسمي 98.2 FM)',
+          'خادم ٢ (RadioGarden — القاهرة 98.2 FM)',
+          'خادم ٣ (ZenoFM — إذاعة القاهرة)',
+          'خادم ٤ (بث القاهرة البديل)',
+          'خادم ٥ (ماسبيرو HLS — القاهرة)'
         ]
       },
       minshawi_mujawwad_radio: {
@@ -3329,13 +3329,13 @@
         officialPage: 'https://qurango.net/radio/mohammed_siddiq_alminshawi_mojawwad',
         streams: [
           'https://qurango.net/radio/mohammed_siddiq_alminshawi_mojawwad',
-          'builtin://minshawi_mujawwad',
+          'https://backup.qurango.net/radio/mohammed_siddiq_alminshawi_mojawwad',
           'https://qurango.net/radio/mohammed_siddiq_alminshawi'
         ],
         serverLabels: [
-          'خادم ١ (البث المباشر)',
-          'خادم ٢ (بث متواصل فوري لا ينقطع)',
-          'خادم ٣ (الخادم البديل)'
+          'خادم ١ (البث المباشر للمنشاوي مجود)',
+          'خادم ٢ (الخادم الاحتياطي للمنشاوي مجود)',
+          'خادم ٣ (إذاعة المنشاوي مرتل)'
         ]
       },
       abdulbasit_mujawwad_radio: {
@@ -3345,13 +3345,13 @@
         officialPage: 'https://qurango.net/radio/abdulbasit_abdulsamad_mojawwad',
         streams: [
           'https://qurango.net/radio/abdulbasit_abdulsamad_mojawwad',
-          'builtin://abdulbasit_mujawwad',
+          'https://backup.qurango.net/radio/abdulbasit_abdulsamad_mojawwad',
           'https://qurango.net/radio/abdulbasit_abdulsamad'
         ],
         serverLabels: [
-          'خادم ١ (البث المباشر)',
-          'خادم ٢ (بث متواصل فوري لا ينقطع)',
-          'خادم ٣ (الخادم البديل)'
+          'خادم ١ (البث المباشر لعبد الباسط مجود)',
+          'خادم ٢ (الخادم الاحتياطي لعبد الباسط مجود)',
+          'خادم ٣ (إذاعة عبد الباسط مرتل)'
         ]
       },
       husary_mujawwad_radio: {
@@ -3361,13 +3361,13 @@
         officialPage: 'https://qurango.net/radio/mahmoud_khalil_alhussary_mojawwad',
         streams: [
           'https://qurango.net/radio/mahmoud_khalil_alhussary_mojawwad',
-          'builtin://husary_mujawwad',
+          'https://backup.qurango.net/radio/mahmoud_khalil_alhussary_mojawwad',
           'https://qurango.net/radio/mahmoud_khalil_alhussary'
         ],
         serverLabels: [
-          'خادم ١ (البث المباشر)',
-          'خادم ٢ (بث متواصل فوري لا ينقطع)',
-          'خادم ٣ (الخادم البديل)'
+          'خادم ١ (البث المباشر للحصري مجود)',
+          'خادم ٢ (الخادم الاحتياطي للحصري مجود)',
+          'خادم ٣ (إذاعة الحصري مرتل)'
         ]
       },
       banna_mujawwad_radio: {
@@ -3377,13 +3377,13 @@
         officialPage: 'https://qurango.net/radio/mahmoud_ali__albanna_mojawwad',
         streams: [
           'https://qurango.net/radio/mahmoud_ali__albanna_mojawwad',
-          'builtin://banna_murattal',
+          'https://backup.qurango.net/radio/mahmoud_ali__albanna_mojawwad',
           'https://qurango.net/radio/mahmoud_ali__albanna'
         ],
         serverLabels: [
-          'خادم ١ (البث المباشر)',
-          'خادم ٢ (بث متواصل فوري لا ينقطع)',
-          'خادم ٣ (الخادم البديل)'
+          'خادم ١ (البث المباشر للبنا مجود)',
+          'خادم ٢ (الخادم الاحتياطي للبنا مجود)',
+          'خادم ٣ (إذاعة البنا مرتل)'
         ]
       },
       mustafa_ismail_radio: {
@@ -3393,13 +3393,11 @@
         officialPage: 'https://qurango.net/radio/mustafa_ismail',
         streams: [
           'https://qurango.net/radio/mustafa_ismail',
-          'builtin://cairo_continuous',
-          'https://qurango.net/radio/mix'
+          'https://backup.qurango.net/radio/mustafa_ismail'
         ],
         serverLabels: [
-          'خادم ١ (البث المباشر)',
-          'خادم ٢ (بث متواصل فوري لا ينقطع)',
-          'خادم ٣ (الإذاعة العامة)'
+          'خادم ١ (البث المباشر لمصطفى إسماعيل)',
+          'خادم ٢ (الخادم الاحتياطي لمصطفى إسماعيل)'
         ]
       }
     };
@@ -3431,9 +3429,7 @@
     state.userRequestedLiveStop = true;
     state.liveSessionId = 0;
     state.lastLiveProgressTime = 0;
-    state.isBuiltinContinuousMode = false;
-    state.builtinSurahIdx = 23; // يبدأ من سورة النور أو وفق الوقت الحالي
-    state.builtinAyahNum = 35;
+    state.serverRetryCount = 0;
 
     let liveHlsInstance = null;
     let liveConnectTimeout = null;
@@ -3508,53 +3504,13 @@
       }
     }
 
-    // محرك البث المتواصل الذاتي (يعمل ٢٤/٧ بدون أي انقطاع حتى لو تعطلت خوادم الإذاعة الخارجية)
-    const CAIRO_CONTINUOUS_RECITERS = [
-      'minshawi_mujawwad',
-      'abdulbasit_mujawwad',
-      'husary_mujawwad',
-      'banna_murattal'
-    ];
-    state.builtinReciterIdx = 0;
-
-    function getNextBuiltinStreamTrackUrl(modeKey) {
-      const sMeta = SURAHS_META[state.builtinSurahIdx] || SURAHS_META[0];
-      const [sNum, sName, sCount, startGlobal] = sMeta;
-      if (state.builtinAyahNum > sCount) {
-        state.builtinSurahIdx = (state.builtinSurahIdx + 1) % SURAHS_META.length;
-        state.builtinAyahNum = 1;
-        if (modeKey === 'cairo_continuous') {
-          state.builtinReciterIdx = (state.builtinReciterIdx + 1) % CAIRO_CONTINUOUS_RECITERS.length;
-        }
-      }
-      const curMeta = SURAHS_META[state.builtinSurahIdx];
-      const curSurahNum = curMeta[0];
-      const curSurahName = curMeta[1];
-      const curAyah = state.builtinAyahNum;
-      const globalAyah = curMeta[3] + (curAyah - 1);
-      const everyAyahCode = String(curSurahNum).padStart(3, '0') + String(curAyah).padStart(3, '0');
-
-      const recKey = modeKey === 'cairo_continuous'
-        ? CAIRO_CONTINUOUS_RECITERS[state.builtinReciterIdx]
-        : (RECITERS_DATA[modeKey] ? modeKey : 'minshawi_mujawwad');
-      const reciter = RECITERS_DATA[recKey] || RECITERS_DATA.minshawi_mujawwad;
-      const urls = reciter.getUrls({ globalAyah, everyAyahCode });
-
-      return {
-        url: urls[0],
-        fallbackUrl: urls[1] || urls[0],
-        label: `سورة ${curSurahName} (${toArabicDigits(curAyah)}) • ${reciter.name.replace(/[()]/g, '')}`
-      };
-    }
-
     function syncLiveStationLinks() {
       const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
       const rawUrl = st.streams[state.currentLiveStreamIdx] || st.streams[0];
-      const displayUrl = rawUrl.startsWith('builtin://') ? (st.streams[0] || st.officialPage) : rawUrl;
       if (liveStationSub) liveStationSub.textContent = st.subtitle;
-      if (liveExternalStreamLink) liveExternalStreamLink.href = displayUrl;
-      if (liveOfficialSiteLink) liveOfficialSiteLink.href = st.officialPage || displayUrl;
-      if (liveStreamUrlDisplay) liveStreamUrlDisplay.value = displayUrl;
+      if (liveExternalStreamLink) liveExternalStreamLink.href = rawUrl;
+      if (liveOfficialSiteLink) liveOfficialSiteLink.href = st.officialPage || rawUrl;
+      if (liveStreamUrlDisplay) liveStreamUrlDisplay.value = rawUrl;
       if (selectLiveServer && selectLiveServer.value !== String(state.currentLiveStreamIdx)) {
         selectLiveServer.value = String(state.currentLiveStreamIdx);
       }
@@ -3565,44 +3521,39 @@
       if (expectedSessionId !== undefined && expectedSessionId !== state.liveSessionId) return;
       clearLiveTimers();
       const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
+      // إعادة محاولة نفس خادم القاهرة مرة واحدة قبل الانتقال للخادم البديل لضمان عدم الخروج من البث الرسمي بسبب بطء مؤقت بالشبكة
+      if (state.serverRetryCount < 1) {
+        state.serverRetryCount += 1;
+        const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
+        setLiveRadioStatusUI('loading', `إعادة تنشيط الاتصال • ${srvLabel}...`);
+        setTimeout(() => {
+          if (!state.userRequestedLiveStop) {
+            startLiveRadioStream(true, true);
+          }
+        }, 300);
+        return;
+      }
+      state.serverRetryCount = 0;
       state.currentLiveStreamIdx = (state.currentLiveStreamIdx + 1) % st.streams.length;
       syncLiveStationLinks();
       const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
       setLiveRadioStatusUI('loading', `جاري التحويل إلى ${srvLabel}...`);
       setTimeout(() => {
         if (!state.userRequestedLiveStop) {
-          startLiveRadioStream(true);
+          startLiveRadioStream(true, true);
         }
-      }, 250);
+      }, 300);
     }
 
-    function playBuiltinContinuousTrack(modeKey, sessionId) {
-      if (state.userRequestedLiveStop || sessionId !== state.liveSessionId) return;
-      state.isBuiltinContinuousMode = true;
-      state.builtinModeKey = modeKey;
-      const track = getNextBuiltinStreamTrackUrl(modeKey);
-      state.lastLiveProgressTime = Date.now();
-      liveRadioAudio.src = track.url;
-      liveRadioAudio.load();
-      liveRadioAudio.play().then(() => {
-        if (sessionId !== state.liveSessionId) return;
-        updateLivePlayButtonsUI(true);
-        setLiveRadioStatusUI('playing', `يبث الآن: ${track.label}`);
-      }).catch(() => {
-        if (sessionId !== state.liveSessionId || state.userRequestedLiveStop) return;
-        liveRadioAudio.src = track.fallbackUrl;
-        liveRadioAudio.load();
-        liveRadioAudio.play().catch(() => {});
-      });
-    }
-
-    function startLiveRadioStream(autoPlay = true) {
+    function startLiveRadioStream(autoPlay = true, isKeepRetryCount = false) {
       if (!liveRadioAudio) return;
       const sessionId = ++state.liveSessionId;
+      if (!isKeepRetryCount) {
+        state.serverRetryCount = 0;
+      }
       clearLiveTimers();
       destroyLiveHls();
 
-      state.isBuiltinContinuousMode = false;
       const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
       if (state.currentLiveStreamIdx >= st.streams.length) {
         state.currentLiveStreamIdx = 0;
@@ -3632,17 +3583,6 @@
       // تأخير بسيط لضمان تفريغ MediaSource السابق قبل بدء الخادم الجديد
       setTimeout(() => {
         if (sessionId !== state.liveSessionId || state.userRequestedLiveStop) return;
-
-        if (streamUrl.startsWith('builtin://')) {
-          const modeKey = streamUrl.replace('builtin://', '');
-          // اختيار نقطة بداية متجددة حسب الدقيقة الحالية ليكون كالبث الإذاعي الحي
-          const minuteSeed = Math.floor(Date.now() / 45000);
-          state.builtinSurahIdx = minuteSeed % SURAHS_META.length;
-          const maxA = SURAHS_META[state.builtinSurahIdx][2];
-          state.builtinAyahNum = (minuteSeed % maxA) + 1;
-          playBuiltinContinuousTrack(modeKey, sessionId);
-          return;
-        }
 
         const isHlsStream = streamUrl.includes('.m3u8');
 
@@ -3681,7 +3621,7 @@
             }
           });
         } else {
-          // روابط الراديو المباشرة (RadioJar / RadioGarden / QuranGo) بدون إضافة معاملات تفسد الرابط
+          // روابط الراديو المباشرة لإذاعة القاهرة (RadioJar / RadioGarden / ZenoFM / QuranGo)
           liveRadioAudio.src = streamUrl;
           liveRadioAudio.load();
           liveRadioAudio.play().catch(() => {
@@ -3691,18 +3631,17 @@
           });
         }
 
-        // مؤقت للتحقق من بدء التشغيل خلال 8 ثوانٍ، وإلا ينتقل للخادم التالي تلقائياً
+        // مؤقت كافٍ (14 ثانية) لإعطاء خادم إذاعة القاهرة الرسمي فرصة الاتصال دون تحويل مبكر خاطئ
         liveConnectTimeout = setTimeout(() => {
           if (sessionId === state.liveSessionId && !state.userRequestedLiveStop && liveRadioAudio.paused) {
             fallbackToNextLiveServer(sessionId);
           }
-        }, 8000);
+        }, 14000);
       }, 60);
     }
 
     function stopLiveRadioStream() {
       state.userRequestedLiveStop = true;
-      state.isBuiltinContinuousMode = false;
       state.liveSessionId++;
       clearLiveTimers();
       if (liveRadioAudio) {
@@ -3717,28 +3656,27 @@
       setLiveRadioStatusUI('idle', 'متوقف مؤقتاً');
     }
 
-    // مراقب ذكي يفحص تقدم الصوت الفعلي كل 5 ثوانٍ دون قطع البث أثناء التحميل الطبيعي
+    // مراقب ذكي يفحص تقدم الصوت الفعلي كل 6 ثوانٍ ويعيد تنشيط البث إذا صمت لأكثر من 22 ثانية
     liveWatchdogInterval = setInterval(() => {
       if (state.userRequestedLiveStop || !state.isLiveRadioPlaying) return;
       const silenceMs = Date.now() - (state.lastLiveProgressTime || Date.now());
-      if (silenceMs > 15000) {
+      if (silenceMs > 22000) {
         state.lastLiveProgressTime = Date.now();
         fallbackToNextLiveServer(state.liveSessionId);
       }
-    }, 5000);
+    }, 6000);
 
     if (liveRadioAudio) {
       liveRadioAudio.addEventListener('playing', () => {
         if (state.userRequestedLiveStop) return;
         clearLiveTimers();
+        state.serverRetryCount = 0;
         state.lastLiveProgressTime = Date.now();
         if (!audioEl.paused) audioEl.pause();
         updateLivePlayButtonsUI(true);
-        if (!state.isBuiltinContinuousMode) {
-          const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
-          const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
-          setLiveRadioStatusUI('playing', `يبث الآن • ${srvLabel}`);
-        }
+        const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
+        const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
+        setLiveRadioStatusUI('playing', `يبث الآن مباشرة • ${srvLabel}`);
       });
 
       liveRadioAudio.addEventListener('timeupdate', () => {
@@ -3749,12 +3687,7 @@
 
       liveRadioAudio.addEventListener('ended', () => {
         if (state.userRequestedLiveStop) return;
-        if (state.isBuiltinContinuousMode) {
-          state.builtinAyahNum += 1;
-          playBuiltinContinuousTrack(state.builtinModeKey || 'cairo_continuous', state.liveSessionId);
-          return;
-        }
-        startLiveRadioStream(true);
+        startLiveRadioStream(true, true);
       });
 
       liveRadioAudio.addEventListener('pause', () => {
@@ -3766,11 +3699,6 @@
 
       liveRadioAudio.addEventListener('error', () => {
         if (state.userRequestedLiveStop) return;
-        if (state.isBuiltinContinuousMode) {
-          state.builtinAyahNum += 1;
-          playBuiltinContinuousTrack(state.builtinModeKey || 'cairo_continuous', state.liveSessionId);
-          return;
-        }
         if (!liveHlsInstance) {
           fallbackToNextLiveServer(state.liveSessionId);
         }

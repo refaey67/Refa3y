@@ -82,20 +82,38 @@
         </div>
       </div>
 
-      <!-- أبعاد الفيديو والشاشة -->
+      <!-- التنقل السريع وأدوات الواجهة -->
       <div class="flex items-center gap-2 flex-wrap justify-center">
-        <button id="btnAspect169" type="button" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20">
-          <span>عرض سينمائي 16:9</span>
-        </button>
-        <button id="btnAspect916" type="button" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-600/60">
-          <span>طولي ريلز 9:16</span>
-        </button>
-        <button id="btnFullscreen" type="button" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-500/30">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/>
-          </svg>
-          <span>ملء الشاشة</span>
-        </button>
+        <!-- أزرار التنقل بين الواجهة الرئيسية والقسمين -->
+        <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-700/80">
+          <button id="btnNavHome" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 shadow">
+            الرئيسية
+          </button>
+          <button id="btnNavLiveRadio" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>راديو مباشر</span>
+          </button>
+          <button id="btnNavVideoStudio" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200">
+            تصميم الفيديوهات
+          </button>
+        </div>
+
+        <!-- أدوات أبعاد الفيديو (تظهر فقط داخل قسم تصميم الفيديوهات لتخفيف الواجهة) -->
+        <div id="headerVideoTools" class="hidden items-center gap-2 flex-wrap justify-center">
+          <button id="btnAspect169" type="button" class="px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20">
+            <span>عرض سينمائي 16:9</span>
+          </button>
+          <button id="btnAspect916" type="button" class="px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-600/60">
+            <span>طولي ريلز 9:16</span>
+          </button>
+          <button id="btnFullscreen" type="button" class="px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-500/30">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/>
+            </svg>
+            <span>ملء الشاشة</span>
+          </button>
+        </div>
+
         <button id="btnInstallApp" type="button" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-gradient-to-l from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 shadow-md shadow-amber-500/25">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/>
@@ -105,114 +123,100 @@
       </div>
     </header>
 
-    <!-- الشبكة الرئيسية: شاشة الفيديو + أدوات التحكم -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-
-      <!-- العمود الأيمن/الأوسط: شاشة العرض والتحكم في المشغل (بدون جزء المتابعة) -->
-      <div class="lg:col-span-8 lg:sticky lg:top-6 space-y-4">
-
-        <div id="stageContainer" class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center relative">
-          <div id="canvasWrapper" class="video-stage-wrapper relative w-full rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center" style="aspect-ratio: 16 / 9; max-height: 74vh;">
-            <canvas id="videoCanvas" width="1280" height="720" class="w-full h-full object-contain block cursor-pointer"></canvas>
-
-            <!-- زر التشغيل المبدئي -->
-            <button id="bigPlayOverlay" type="button" aria-label="تشغيل الفيديو" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/45 hover:bg-slate-950/30 transition group">
-              <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-amber-500/90 group-hover:bg-amber-400 group-hover:scale-105 transition-all flex items-center justify-center shadow-2xl shadow-amber-500/50 border-2 border-amber-100">
-                <svg class="w-10 h-10 sm:w-12 sm:h-12 text-slate-950 translate-x-[-2px]" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-              <span class="mt-3 px-4 py-1.5 rounded-full bg-slate-950/85 border border-amber-400/50 text-amber-200 text-xs sm:text-sm font-semibold shadow-lg">
-                اضغط لتشغيل التلاوة وعرض النص القرآني (Transcript)
-              </span>
-            </button>
-
-            <!-- شارات ونوافذ التصدير المباشر -->
-            <div id="recordingBadge" class="hidden absolute top-3 left-3 px-3.5 py-1.5 rounded-full bg-amber-500/95 text-slate-950 text-xs font-bold flex items-center gap-2 shadow-lg z-20">
-              <span class="w-2.5 h-2.5 rounded-full bg-slate-950 animate-ping"></span>
-              <span id="recordingStatusText">جاري معالجة وتصدير الفيديو...</span>
-            </div>
-
-            <div id="exportProgressOverlay" class="hidden absolute inset-0 bg-slate-950/80 backdrop-blur-md flex flex-col items-center justify-center p-6 z-30 text-center">
-              <div class="w-full max-w-md bg-slate-900/95 border border-amber-400/40 rounded-2xl p-5 shadow-2xl space-y-4">
-                <div class="flex items-center justify-center gap-3">
-                  <svg class="w-7 h-7 text-amber-400 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                  </svg>
-                  <h3 id="exportOverlayTitle" class="text-base sm:text-lg font-bold text-amber-300">جاري دمج صوت القارئ وتصدير الفيديو...</h3>
-                </div>
-                <p id="exportOverlaySub" class="text-xs text-slate-300">يتم توليد الفيديو مع عرض النص القرآني كـ Transcript متصل مع التلاوة</p>
-                <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700">
-                  <div id="exportProgressBar" class="bg-gradient-to-l from-amber-400 via-amber-500 to-yellow-300 h-full transition-all duration-150" style="width: 0%"></div>
-                </div>
-                <div class="flex items-center justify-between text-xs font-mono text-amber-200">
-                  <span id="exportProgressPercent">0%</span>
-                  <button id="btnCancelExport" type="button" class="px-3 py-1 rounded-lg bg-rose-600/80 hover:bg-rose-500 text-white font-sans font-semibold transition">إلغاء التصدير</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- شريط التحكم والتقدم -->
-          <div class="w-full mt-3.5 space-y-2.5 px-1">
-            <div class="flex items-center gap-3">
-              <span id="timeCurrent" class="text-xs font-mono text-amber-300 w-12 text-left shrink-0">00:00</span>
-              <input id="seekSlider" type="range" min="0" max="1000" value="0" class="w-full h-2 rounded-lg bg-slate-800 cursor-pointer" />
-              <span id="timeDuration" class="text-xs font-mono text-slate-300 w-12 text-right shrink-0">--:--</span>
-            </div>
-
-            <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
-              <div class="flex items-center gap-2">
-                <button id="btnPlayPause" type="button" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm flex items-center gap-2 transition shadow-md shadow-amber-500/20">
-                  <svg id="iconPlay" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                  <svg id="iconPause" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                  <span id="labelPlayPause">تشغيل التلاوة</span>
-                </button>
-
-                <button id="btnRestart" type="button" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="إعادة من البداية">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/>
-                  </svg>
-                </button>
-
-                <div class="flex items-center gap-1.5 bg-slate-800/80 border border-slate-700/70 rounded-xl px-2.5 py-1.5">
-                  <button id="btnMute" type="button" class="text-amber-300 hover:text-amber-200" title="كتم / تشغيل الصوت">
-                    <svg id="iconVolOn" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"/>
-                    </svg>
-                    <svg id="iconVolMute" class="w-4 h-4 hidden text-rose-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"/>
-                    </svg>
-                  </button>
-                  <input id="volumeSlider" type="range" min="0" max="100" value="100" class="w-20 h-1.5 rounded-lg cursor-pointer" />
-                </div>
-              </div>
-
-              <div class="flex items-center gap-2 flex-wrap">
-                <span id="audioStatusBadge" class="text-xs px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 font-medium">
-                  جاهز للتشغيل
-                </span>
-
-                <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-200 text-xs font-semibold cursor-pointer hover:bg-amber-500/20 transition">
-                  <input id="chkAutoDownloadOnSelect" type="checkbox" class="rounded accent-amber-500 w-3.5 h-3.5" />
-                  <span>تحميل تلقائي فور الاختيار</span>
-                </label>
-
-                <button id="btnRecordVideo" type="button" class="px-4 py-2 rounded-xl bg-gradient-to-l from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-lg shadow-emerald-500/20">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
-                  </svg>
-                  <span id="labelRecordBtn">تحميل المقطع فوراً (فيديو + صوت القارئ)</span>
-                </button>
-
-                <a id="downloadVideoLink" href="#videoCanvas" download="quran_video.mp4" class="hidden px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs sm:text-sm items-center gap-1.5 transition shadow-md">
-                  <span>حفظ نسخة أخرى</span>
-                </a>
-              </div>
-            </div>
-          </div>
+    <!-- شاشة البداية الخفيفة: اختيار القسم (الإذاعات والتلاوات المباشرة أو تصميم الفيديوهات) -->
+    <section id="homeModeSelector" class="py-4 sm:py-8">
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="text-center space-y-2">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-200 text-xs font-bold">
+            ✦ مرحباً بك في استوديو Refa3y للقرآن الكريم ✦
+          </span>
+          <h2 class="text-xl sm:text-3xl font-bold text-slate-100">اختر القسم الذي تود فتحه الآن</h2>
+          <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
+            صُممت الواجهة لتكون خفيفة وسريعة؛ يمكنك الاستماع فوراً للإذاعات والتلاوات المباشرة أو الانتقال إلى استوديو تصميم الفيديوهات القرآنية
+          </p>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- الاختيار الأول: الإذاعات والتلاوات المباشرة -->
+          <button id="cardSelectLiveRadio" type="button" class="glass-panel group text-right rounded-2xl p-6 sm:p-7 border-2 border-emerald-400/40 hover:border-emerald-400 transition-all duration-200 flex flex-col justify-between gap-5 hover:-translate-y-1 shadow-xl">
+            <div class="space-y-4 w-full">
+              <div class="flex items-center justify-between gap-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/30 to-amber-500/20 border border-emerald-400/50 flex items-center justify-center shadow-lg shadow-emerald-500/15 group-hover:scale-105 transition">
+                  <svg class="w-8 h-8 text-emerald-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.652a3.75 3.75 0 0 1 0-5.304m5.304 0a3.75 3.75 0 0 1 0 5.304m-7.425 2.121a6.75 6.75 0 0 1 0-9.546m9.546 0a6.75 6.75 0 0 1 0 9.546M5.106 18.894c-3.808-3.807-3.808-9.98 0-13.788m13.788 0c3.808 3.807 3.808 9.98 0 13.788M12 12h.008v.008H12V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/>
+                  </svg>
+                </div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 border border-emerald-400/40 text-emerald-200">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span>بث حي ٢٤/٧</span>
+                </span>
+              </div>
+
+              <div class="space-y-2">
+                <h3 class="text-lg sm:text-xl font-bold text-amber-200 group-hover:text-amber-100 transition">
+                  ١. راديو مباشر
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  استمع مباشرة إلى البث الحي الرسمي لإذاعة القرآن الكريم من القاهرة (98.2 FM — ماسبيرو) وإذاعات التلاوات المتواصلة لكبار القراء (المنشاوي، عبد الباسط، الحصري، البنا، ومصطفى إسماعيل).
+                </p>
+              </div>
+            </div>
+
+            <div class="w-full pt-3 border-t border-slate-800/90 flex items-center justify-between text-xs sm:text-sm font-bold text-emerald-300 group-hover:text-emerald-200">
+              <span>فتح المحطات والإذاعة المباشرة الآن</span>
+              <span class="px-3 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-400/40 group-hover:bg-emerald-500 group-hover:text-slate-950 transition">دخول ←</span>
+            </div>
+          </button>
+
+          <!-- الاختيار الثاني: تصميم الفيديوهات القرآنية -->
+          <button id="cardSelectVideoStudio" type="button" class="glass-panel group text-right rounded-2xl p-6 sm:p-7 border-2 border-amber-400/40 hover:border-amber-400 transition-all duration-200 flex flex-col justify-between gap-5 hover:-translate-y-1 shadow-xl">
+            <div class="space-y-4 w-full">
+              <div class="flex items-center justify-between gap-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/30 to-yellow-500/15 border border-amber-400/50 flex items-center justify-center shadow-lg shadow-amber-500/15 group-hover:scale-105 transition">
+                  <svg class="w-8 h-8 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/>
+                  </svg>
+                </div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 border border-amber-400/40 text-amber-200">
+                  <span>١١٤ سورة • ٢٠ خلفية</span>
+                </span>
+              </div>
+
+              <div class="space-y-2">
+                <h3 class="text-lg sm:text-xl font-bold text-amber-200 group-hover:text-amber-100 transition">
+                  ٢. تصميم الفيديوهات
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  صمّم وحمّل مقاطع فيديو قرآنية (عرضي 16:9 أو ريلز 9:16) مع دمج الآيات المختارة في شريط تقدم واحد وعرض النص كـ Transcript متصل وتوقيع حفظ الحقوق.
+                </p>
+              </div>
+            </div>
+
+            <div class="w-full pt-3 border-t border-slate-800/90 flex items-center justify-between text-xs sm:text-sm font-bold text-amber-300 group-hover:text-amber-200">
+              <span>فتح استوديو تصميم الفيديوهات الآن</span>
+              <span class="px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-400/40 group-hover:bg-amber-500 group-hover:text-slate-950 transition">دخول ←</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- واجهة قسم الإذاعات والتلاوات المباشرة المستقلة (مخفية مبدئياً وتظهر عند اختيار الإذاعة المباشرة) -->
+    <div id="liveRadioViewWrapper" class="hidden max-w-4xl mx-auto space-y-4">
+      <div class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 border border-emerald-400/35">
+        <div class="flex items-center gap-2.5">
+          <span class="px-3 py-1 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 text-xs font-bold">قسم راديو مباشر — المحطات المباشرة ٢٤/٧</span>
+          <span class="text-xs text-slate-300 hidden sm:inline">استماع فوري لإذاعة القرآن الكريم من القاهرة وإذاعات كبار القراء</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btnSwitchRadioToStudio" type="button" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs font-bold transition">
+            الانتقال لتصميم الفيديوهات
+          </button>
+          <button id="btnBackFromRadioToHome" type="button" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold transition">
+            العودة للرئيسية ←
+          </button>
+        </div>
+      </div>
 
         <!-- إطار البث المباشر لإذاعة القرآن الكريم (٢٤ ساعة) -->
         <section id="liveRadioSection" class="glass-panel rounded-2xl p-4 sm:p-5 border border-amber-400/40 relative overflow-hidden space-y-4">
@@ -335,6 +339,135 @@
             </div>
           </div>
         </section>
+
+    </div>
+
+    <!-- الشبكة الرئيسية لقسم تصميم الفيديوهات: مخفية مبدئياً لتخفيف الواجهة وتظهر فور اختيار تصميم الفيديوهات -->
+    <div id="videoStudioGrid" class="hidden space-y-4">
+      <div class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 border border-amber-400/30">
+        <div class="flex items-center gap-2.5">
+          <span class="px-3 py-1 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-bold">قسم تصميم الفيديوهات القرآنية</span>
+          <span class="text-xs text-slate-300 hidden sm:inline">اختر القارئ والآيات والخلفية ثم حمّل الفيديو مباشرة</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btnSwitchStudioToRadio" type="button" class="px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-emerald-200 text-xs font-bold transition flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>الانتقال إلى راديو مباشر</span>
+          </button>
+          <button id="btnBackFromStudioToHome" type="button" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold transition">
+            العودة للرئيسية ←
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+
+      <!-- العمود الأيمن/الأوسط: شاشة العرض والتحكم في المشغل -->
+      <div class="lg:col-span-8 lg:sticky lg:top-6 space-y-4">
+
+        <div id="stageContainer" class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center relative">
+          <div id="canvasWrapper" class="video-stage-wrapper relative w-full rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center" style="aspect-ratio: 16 / 9; max-height: 74vh;">
+            <canvas id="videoCanvas" width="1280" height="720" class="w-full h-full object-contain block cursor-pointer"></canvas>
+
+            <!-- زر التشغيل المبدئي -->
+            <button id="bigPlayOverlay" type="button" aria-label="تشغيل الفيديو" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/45 hover:bg-slate-950/30 transition group">
+              <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-amber-500/90 group-hover:bg-amber-400 group-hover:scale-105 transition-all flex items-center justify-center shadow-2xl shadow-amber-500/50 border-2 border-amber-100">
+                <svg class="w-10 h-10 sm:w-12 sm:h-12 text-slate-950 translate-x-[-2px]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              <span class="mt-3 px-4 py-1.5 rounded-full bg-slate-950/85 border border-amber-400/50 text-amber-200 text-xs sm:text-sm font-semibold shadow-lg">
+                اضغط لتشغيل التلاوة وعرض النص القرآني (Transcript)
+              </span>
+            </button>
+
+            <!-- شارات ونوافذ التصدير المباشر -->
+            <div id="recordingBadge" class="hidden absolute top-3 left-3 px-3.5 py-1.5 rounded-full bg-amber-500/95 text-slate-950 text-xs font-bold flex items-center gap-2 shadow-lg z-20">
+              <span class="w-2.5 h-2.5 rounded-full bg-slate-950 animate-ping"></span>
+              <span id="recordingStatusText">جاري معالجة وتصدير الفيديو...</span>
+            </div>
+
+            <div id="exportProgressOverlay" class="hidden absolute inset-0 bg-slate-950/80 backdrop-blur-md flex flex-col items-center justify-center p-6 z-30 text-center">
+              <div class="w-full max-w-md bg-slate-900/95 border border-amber-400/40 rounded-2xl p-5 shadow-2xl space-y-4">
+                <div class="flex items-center justify-center gap-3">
+                  <svg class="w-7 h-7 text-amber-400 animate-spin shrink-0" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                  </svg>
+                  <h3 id="exportOverlayTitle" class="text-base sm:text-lg font-bold text-amber-300">جاري دمج صوت القارئ وتصدير الفيديو...</h3>
+                </div>
+                <p id="exportOverlaySub" class="text-xs text-slate-300">يتم توليد الفيديو مع عرض النص القرآني كـ Transcript متصل مع التلاوة</p>
+                <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden border border-slate-700">
+                  <div id="exportProgressBar" class="bg-gradient-to-l from-amber-400 via-amber-500 to-yellow-300 h-full transition-all duration-150" style="width: 0%"></div>
+                </div>
+                <div class="flex items-center justify-between text-xs font-mono text-amber-200">
+                  <span id="exportProgressPercent">0%</span>
+                  <button id="btnCancelExport" type="button" class="px-3 py-1 rounded-lg bg-rose-600/80 hover:bg-rose-500 text-white font-sans font-semibold transition">إلغاء التصدير</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- شريط التحكم والتقدم -->
+          <div class="w-full mt-3.5 space-y-2.5 px-1">
+            <div class="flex items-center gap-3">
+              <span id="timeCurrent" class="text-xs font-mono text-amber-300 w-12 text-left shrink-0">00:00</span>
+              <input id="seekSlider" type="range" min="0" max="1000" value="0" class="w-full h-2 rounded-lg bg-slate-800 cursor-pointer" />
+              <span id="timeDuration" class="text-xs font-mono text-slate-300 w-12 text-right shrink-0">--:--</span>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <div class="flex items-center gap-2">
+                <button id="btnPlayPause" type="button" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm flex items-center gap-2 transition shadow-md shadow-amber-500/20">
+                  <svg id="iconPlay" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  <svg id="iconPause" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                  <span id="labelPlayPause">تشغيل التلاوة</span>
+                </button>
+
+                <button id="btnRestart" type="button" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="إعادة من البداية">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/>
+                  </svg>
+                </button>
+
+                <div class="flex items-center gap-1.5 bg-slate-800/80 border border-slate-700/70 rounded-xl px-2.5 py-1.5">
+                  <button id="btnMute" type="button" class="text-amber-300 hover:text-amber-200" title="كتم / تشغيل الصوت">
+                    <svg id="iconVolOn" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"/>
+                    </svg>
+                    <svg id="iconVolMute" class="w-4 h-4 hidden text-rose-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"/>
+                    </svg>
+                  </button>
+                  <input id="volumeSlider" type="range" min="0" max="100" value="100" class="w-20 h-1.5 rounded-lg cursor-pointer" />
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 flex-wrap">
+                <span id="audioStatusBadge" class="text-xs px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 font-medium">
+                  جاهز للتشغيل
+                </span>
+
+                <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-200 text-xs font-semibold cursor-pointer hover:bg-amber-500/20 transition">
+                  <input id="chkAutoDownloadOnSelect" type="checkbox" class="rounded accent-amber-500 w-3.5 h-3.5" />
+                  <span>تحميل تلقائي فور الاختيار</span>
+                </label>
+
+                <button id="btnRecordVideo" type="button" class="px-4 py-2 rounded-xl bg-gradient-to-l from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-lg shadow-emerald-500/20">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                  </svg>
+                  <span id="labelRecordBtn">تحميل المقطع فوراً (فيديو + صوت القارئ)</span>
+                </button>
+
+                <a id="downloadVideoLink" href="#videoCanvas" download="quran_video.mp4" class="hidden px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs sm:text-sm items-center gap-1.5 transition shadow-md">
+                  <span>حفظ نسخة أخرى</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
       </div>
 
@@ -644,6 +777,7 @@
         </div>
 
       </div>
+    </div>
     </div>
 
   </div>
@@ -2262,6 +2396,11 @@
     }
 
     function renderVideoFrame(now) {
+      // تخفيف استهلاك المعالج والذاكرة عندما يكون المستخدم في الواجهة الرئيسية أو قسم الإذاعات المباشرة
+      if (state.activeAppSection !== 'studio' && !state.isRecording) {
+        requestAnimationFrame(renderVideoFrame);
+        return;
+      }
       const tSec = now * 0.001;
       const ayah = AYAHS_DATA[state.currentAyahKey];
       const totalDur = getUnifiedDuration();
@@ -4012,6 +4151,104 @@
     }
 
     // =========================================================================
+    // 10.8 نظام تبديل الأقسام لتخفيف الواجهة (الرئيسية / الإذاعات المباشرة / تصميم الفيديوهات)
+    // =========================================================================
+    state.activeAppSection = 'home';
+    state.studioInitialized = false;
+
+    const homeModeSelector = document.getElementById('homeModeSelector');
+    const liveRadioViewWrapper = document.getElementById('liveRadioViewWrapper');
+    const videoStudioGrid = document.getElementById('videoStudioGrid');
+    const headerVideoTools = document.getElementById('headerVideoTools');
+
+    const btnNavHome = document.getElementById('btnNavHome');
+    const btnNavLiveRadio = document.getElementById('btnNavLiveRadio');
+    const btnNavVideoStudio = document.getElementById('btnNavVideoStudio');
+
+    const cardSelectLiveRadio = document.getElementById('cardSelectLiveRadio');
+    const cardSelectVideoStudio = document.getElementById('cardSelectVideoStudio');
+    const btnBackFromRadioToHome = document.getElementById('btnBackFromRadioToHome');
+    const btnSwitchRadioToStudio = document.getElementById('btnSwitchRadioToStudio');
+    const btnBackFromStudioToHome = document.getElementById('btnBackFromStudioToHome');
+    const btnSwitchStudioToRadio = document.getElementById('btnSwitchStudioToRadio');
+
+    function ensureStudioResourcesReady() {
+      if (state.studioInitialized) return;
+      state.studioInitialized = true;
+      initBackgroundsGallery();
+      loadCurrentSelection(false);
+      setTimeout(() => ensureFullQuranLoaded(), 400);
+    }
+
+    function switchAppSection(targetSection) {
+      state.activeAppSection = targetSection;
+
+      if (homeModeSelector) homeModeSelector.classList.toggle('hidden', targetSection !== 'home');
+      if (liveRadioViewWrapper) liveRadioViewWrapper.classList.toggle('hidden', targetSection !== 'radio');
+      if (videoStudioGrid) videoStudioGrid.classList.toggle('hidden', targetSection !== 'studio');
+
+      if (headerVideoTools) {
+        if (targetSection === 'studio') {
+          headerVideoTools.classList.remove('hidden');
+          headerVideoTools.classList.add('flex');
+        } else {
+          headerVideoTools.classList.add('hidden');
+          headerVideoTools.classList.remove('flex');
+        }
+      }
+
+      const activeBtnClass = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 shadow flex items-center gap-1.5';
+      const inactiveBtnClass = 'px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200 flex items-center gap-1.5';
+
+      if (btnNavHome) btnNavHome.className = targetSection === 'home' ? activeBtnClass : inactiveBtnClass;
+      if (btnNavLiveRadio) btnNavLiveRadio.className = targetSection === 'radio' ? activeBtnClass : inactiveBtnClass;
+      if (btnNavVideoStudio) btnNavVideoStudio.className = targetSection === 'studio' ? activeBtnClass : inactiveBtnClass;
+
+      if (targetSection === 'studio') {
+        ensureStudioResourcesReady();
+      } else if (targetSection === 'radio') {
+        if (!audioEl.paused) {
+          audioEl.pause();
+        }
+        syncLiveStationLinks();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    if (cardSelectLiveRadio) {
+      cardSelectLiveRadio.addEventListener('click', () => {
+        switchAppSection('radio');
+      });
+    }
+    if (cardSelectVideoStudio) {
+      cardSelectVideoStudio.addEventListener('click', () => {
+        switchAppSection('studio');
+      });
+    }
+    if (btnNavHome) {
+      btnNavHome.addEventListener('click', () => switchAppSection('home'));
+    }
+    if (btnNavLiveRadio) {
+      btnNavLiveRadio.addEventListener('click', () => switchAppSection('radio'));
+    }
+    if (btnNavVideoStudio) {
+      btnNavVideoStudio.addEventListener('click', () => switchAppSection('studio'));
+    }
+    if (btnBackFromRadioToHome) {
+      btnBackFromRadioToHome.addEventListener('click', () => switchAppSection('home'));
+    }
+    if (btnSwitchRadioToStudio) {
+      btnSwitchRadioToStudio.addEventListener('click', () => switchAppSection('studio'));
+    }
+    if (btnBackFromStudioToHome) {
+      btnBackFromStudioToHome.addEventListener('click', () => switchAppSection('home'));
+    }
+    if (btnSwitchStudioToRadio) {
+      btnSwitchStudioToRadio.addEventListener('click', () => switchAppSection('radio'));
+    }
+
+    // =========================================================================
     // 11. التشغيل عند تحميل الصفحة
     // ==========================================================================
     window.addEventListener('load', () => {
@@ -4019,9 +4256,7 @@
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => initRefa3yPwaSetup()).catch(() => {});
       }
-      initBackgroundsGallery();
-      loadCurrentSelection(false);
-      setTimeout(() => ensureFullQuranLoaded(), 800);
+      syncLiveStationLinks();
       requestAnimationFrame(renderVideoFrame);
     });
   </script>

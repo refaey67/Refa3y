@@ -19,7 +19,7 @@
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Cinzel:wght@600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@600&family=Reem+Kufi:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700&family=Cinzel:wght@600;700&family=Dancing+Script:wght@700&family=Harmattan:wght@400;700&family=Lateef:wght@400;700&family=Noto+Naskh+Arabic:wght@500;700&family=Playfair+Display:wght@600&family=Reem+Kufi:wght@600;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --gold-light: #fde68a;
@@ -98,9 +98,6 @@
           </button>
           <button id="btnAspect916" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60">
             <span>طولي ريلز 9:16</span>
-          </button>
-          <button id="btnFullscreen" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-amber-200 border border-amber-500/30 flex items-center gap-1">
-            <span>ملء الشاشة</span>
           </button>
         </div>
 
@@ -662,27 +659,16 @@
                   <select id="selectMediaFitMode" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none focus:border-amber-400">
                     <option value="16:9" selected>16:9</option>
                     <option value="9:16">9:16</option>
-                    <option value="fullscreen">ملء شاشة</option>
                   </select>
                 </div>
               </div>
 
-              <div class="grid grid-cols-2 gap-2 bg-slate-900/90 border border-slate-800 rounded-xl p-2">
-                <div>
-                  <div class="flex justify-between text-[11px] mb-0.5">
-                    <span class="text-slate-300">إضاءة الخلفية</span>
-                    <span id="valBgBrightness" class="text-amber-300 font-mono">100%</span>
-                  </div>
-                  <input id="sliderBgBrightness" type="range" min="35" max="130" value="100" class="w-full h-1.5 rounded-lg cursor-pointer" />
+              <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5">
+                <div class="flex justify-between text-[11px] mb-0.5">
+                  <span class="text-slate-300">إضاءة الخلفية</span>
+                  <span id="valBgBrightness" class="text-amber-300 font-mono">100%</span>
                 </div>
-
-                <div>
-                  <div class="flex justify-between text-[11px] mb-0.5">
-                    <span class="text-slate-300">إزاحة الموضع</span>
-                    <span id="valMediaPan" class="text-amber-300 font-mono">50%</span>
-                  </div>
-                  <input id="sliderMediaPan" type="range" min="0" max="100" value="50" class="w-full h-1.5 rounded-lg cursor-pointer" />
-                </div>
+                <input id="sliderBgBrightness" type="range" min="35" max="130" value="100" class="w-full h-1.5 rounded-lg cursor-pointer" />
               </div>
             </div>
           </div>
@@ -715,6 +701,21 @@
               </div>
             </div>
 
+            <!-- اختيار نوع الخط العربي للآيات القرآنية -->
+            <div>
+              <label for="selectAyahFontFamily" class="block text-xs text-slate-300 mb-1">نوع الخط العربي للآيات القرآنية:</label>
+              <select id="selectAyahFontFamily" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2.5 focus:outline-none focus:border-amber-400">
+                <option value="Amiri Quran" selected>خط أميري قرآني عثماني (Amiri Quran — الافتراضي)</option>
+                <option value="Scheherazade New">خط شهرزاد المصحفي النسخي (Scheherazade New)</option>
+                <option value="Noto Naskh Arabic">خط النسخ القرآني الواضح (Noto Naskh Arabic)</option>
+                <option value="Lateef">خط لطيف التراثي الأنيق (Lateef)</option>
+                <option value="Amiri">خط أميري الكلاسيكي الأصيل (Amiri)</option>
+                <option value="Aref Ruqaa">خط عارف رقعة الفني (Aref Ruqaa)</option>
+                <option value="Reem Kufi">خط ريم الكوفي المصحفي (Reem Kufi)</option>
+                <option value="Harmattan">خط هرمتان المبسّط الواضح (Harmattan)</option>
+              </select>
+            </div>
+
             <div class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 space-y-1.5">
               <div class="flex items-center justify-between text-xs">
                 <span class="text-slate-300">حجم خط الآيات:</span>
@@ -727,8 +728,44 @@
               </div>
             </div>
 
+            <!-- التحكم في ستايل وشفافية البرواز خلف الآيات أو إزالته تماماً -->
+            <div class="bg-slate-900/95 border border-slate-800 rounded-xl p-2.5 space-y-2.5">
+              <div>
+                <label for="selectAyahFrameStyle" class="block text-xs text-amber-300 font-semibold mb-1">ستايل البرواز خلف الآيات المكتوبة:</label>
+                <select id="selectAyahFrameStyle" class="w-full rounded-xl bg-slate-950 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none focus:border-amber-400">
+                  <option value="ornate_gold" selected>برواز ذهبي مزخرف كلاسيكي (الافتراضي)</option>
+                  <option value="double_royal">برواز ملكي مزدوج الإطار والزخرفة</option>
+                  <option value="mihrab_arch">برواز محراب مسجدي مقوس</option>
+                  <option value="emerald_luxury">برواز زمردي قرآني مذهب</option>
+                  <option value="minimal_soft">برواز عصري ناعم بدون زخارف</option>
+                  <option value="cinematic_band">شريط سينمائي متدرج مفتوح الجانبين</option>
+                  <option value="none">إزالة البرواز تماماً (النص القرآني فقط)</option>
+                </select>
+              </div>
+              <div id="ayahFrameOpacityBox">
+                <div class="flex justify-between text-xs mb-0.5">
+                  <span class="text-slate-300">شفافية البرواز خلف الآيات</span>
+                  <span id="valAyahFrameOpacity" class="text-amber-300 font-mono">88%</span>
+                </div>
+                <input id="sliderAyahFrameOpacity" type="range" min="0" max="100" value="88" class="w-full h-1.5 rounded-lg cursor-pointer" />
+              </div>
+            </div>
+
             <!-- مؤثرات خاصة بواجهة الصور فقط (تُلغى وتختفي تماماً في واجهة رفع الفيديو) -->
-            <div id="imageOnlyEffectsBox" class="space-y-2 pt-0.5">
+            <div id="imageOnlyEffectsBox" class="space-y-2.5 pt-1 border-t border-slate-800/80">
+              <div>
+                <label for="selectImageVisualEffect" class="block text-xs text-amber-300 font-semibold mb-1">تأثيرات بصرية مشهورة (لواجهه الصور):</label>
+                <select id="selectImageVisualEffect" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none focus:border-amber-400">
+                  <option value="golden_dust" selected>جزيئات النور الذهبية الصاعدة (الافتراضي)</option>
+                  <option value="god_rays">أشعة نور ساقطة من الأعلى (God Rays)</option>
+                  <option value="starry_night">تلألؤ نجوم السحر المتلألئة (Starry Night)</option>
+                  <option value="light_rain">قطرات غيث ونور هادئة (Light Rain)</option>
+                  <option value="golden_bokeh">دوائر بوكيه ضوئية دافئة (Golden Bokeh)</option>
+                  <option value="spiritual_pulse">هالة نورانية خاشعة تتفاعل مع التلاوة</option>
+                  <option value="none">بدون تأثير بصري إضافي</option>
+                </select>
+              </div>
+
               <div>
                 <div class="flex justify-between text-xs mb-0.5">
                   <span class="text-slate-300">توهج الإضاءة</span>
@@ -739,18 +776,10 @@
 
               <div>
                 <div class="flex justify-between text-xs mb-0.5">
-                  <span class="text-slate-300">جزيئات النور</span>
+                  <span class="text-slate-300">كثافة التأثير البصري / جزيئات النور</span>
                   <span id="valParticles" class="text-amber-300 font-mono">60%</span>
                 </div>
                 <input id="sliderParticles" type="range" min="0" max="100" value="60" class="w-full h-1.5 rounded-lg cursor-pointer" />
-              </div>
-
-              <div>
-                <div class="flex justify-between text-xs mb-0.5">
-                  <span class="text-slate-300">حركة الكاميرا</span>
-                  <span id="valMotion" class="text-amber-300 font-mono">75%</span>
-                </div>
-                <input id="sliderMotion" type="range" min="0" max="100" value="75" class="w-full h-1.5 rounded-lg cursor-pointer" />
               </div>
             </div>
 
@@ -772,9 +801,19 @@
             </div>
           </div>
 
-          <!-- ٥. توقيع (Refa3y) -->
+          <!-- ٥. توقيع حفظ الحقوق (الافتراضي Refa3y مع إتاحة كتابة اسم آخر) -->
           <div class="glass-panel rounded-2xl p-4 space-y-3">
-            <h2 class="text-sm sm:text-base font-bold text-amber-300">٥. توقيع (Refa3y)</h2>
+            <h2 class="text-sm sm:text-base font-bold text-amber-300">٥. توقيع حفظ الحقوق</h2>
+
+            <div>
+              <label for="inputWatermarkText" class="block text-xs text-slate-300 mb-1">اسم التوقيع (الافتراضي: Refa3y أو اكتب اسماً آخر):</label>
+              <div class="flex items-center gap-1.5">
+                <input id="inputWatermarkText" type="text" value="Refa3y" maxlength="32" placeholder="Refa3y" class="flex-1 rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none focus:border-amber-400" />
+                <button id="btnResetWatermarkText" type="button" class="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-[11px] text-amber-300 border border-slate-700 transition shrink-0" title="استعادة الاسم الافتراضي Refa3y">
+                  Refa3y ↺
+                </button>
+              </div>
+            </div>
 
             <div>
               <label for="selectWatermarkPos" class="block text-xs text-slate-300 mb-1">مكان التوقيع:</label>
@@ -991,11 +1030,16 @@
       aspectRatio: '16:9',
       textMode: 'transcript',
       ayahPosition: 'bottom',
+      ayahFontFamily: 'Amiri Quran',
       ayahFontSize: 28,
+      ayahFrameStyle: 'ornate_gold',
+      ayahFrameOpacity: 0.88,
+      watermarkText: 'Refa3y',
       watermarkSize: 16,
       glowIntensity: 0.85,
       particlesIntensity: 0.60,
-      motionIntensity: 0.75,
+      imageVisualEffect: 'golden_dust',
+      motionIntensity: 0,
       showHeaderInfo: true,
       showAudioWave: true,
       activePhraseIndex: 0,
@@ -1050,14 +1094,17 @@
     const audioStatusBadge = document.getElementById('audioStatusBadge');
     const btnAspect169 = document.getElementById('btnAspect169');
     const btnAspect916 = document.getElementById('btnAspect916');
-    const btnFullscreen = document.getElementById('btnFullscreen');
     const selectTextMode = document.getElementById('selectTextMode');
+    const selectAyahFontFamily = document.getElementById('selectAyahFontFamily');
+    const selectAyahFrameStyle = document.getElementById('selectAyahFrameStyle');
+    const sliderAyahFrameOpacity = document.getElementById('sliderAyahFrameOpacity');
+    const valAyahFrameOpacity = document.getElementById('valAyahFrameOpacity');
+    const ayahFrameOpacityBox = document.getElementById('ayahFrameOpacityBox');
+    const selectImageVisualEffect = document.getElementById('selectImageVisualEffect');
     const sliderGlow = document.getElementById('sliderGlow');
     const sliderParticles = document.getElementById('sliderParticles');
-    const sliderMotion = document.getElementById('sliderMotion');
     const valGlow = document.getElementById('valGlow');
     const valParticles = document.getElementById('valParticles');
-    const valMotion = document.getElementById('valMotion');
     const chkAudioWave = document.getElementById('chkAudioWave');
     const btnResetEffects = document.getElementById('btnResetEffects');
     const customAudioInput = document.getElementById('customAudioInput');
@@ -1370,8 +1417,6 @@
     const selectMediaFitMode = document.getElementById('selectMediaFitMode');
     const sliderBgBrightness = document.getElementById('sliderBgBrightness');
     const valBgBrightness = document.getElementById('valBgBrightness');
-    const sliderMediaPan = document.getElementById('sliderMediaPan');
-    const valMediaPan = document.getElementById('valMediaPan');
     const videoCustomControlsPanel = document.getElementById('videoCustomControlsPanel');
     const btnToggleVideoPreview = document.getElementById('btnToggleVideoPreview');
     const videoTimingComparisonBar = document.getElementById('videoTimingComparisonBar');
@@ -1851,9 +1896,6 @@
         state.mediaFitMode = val;
         if (val === '16:9' || val === '9:16') {
           setAspectRatio(val, false);
-        } else if (val === 'fullscreen') {
-          canvasWrapper.style.maxWidth = '100%';
-          requestRenderOnce();
         } else {
           requestRenderOnce();
         }
@@ -1864,14 +1906,6 @@
       sliderBgBrightness.addEventListener('input', () => {
         state.bgBrightness = Number(sliderBgBrightness.value) / 100;
         if (valBgBrightness) valBgBrightness.textContent = `${sliderBgBrightness.value}%`;
-        requestRenderOnce();
-      });
-    }
-
-    if (sliderMediaPan) {
-      sliderMediaPan.addEventListener('input', () => {
-        state.mediaPan = Number(sliderMediaPan.value) / 100;
-        if (valMediaPan) valMediaPan.textContent = `${sliderMediaPan.value}%`;
         requestRenderOnce();
       });
     }
@@ -2471,10 +2505,7 @@
         const srcAspect = srcW / srcH;
         const canvasAspect = W / H;
         const fitMode = state.mediaFitMode || 'cover';
-        const userPan = isFinite(state.mediaPan) ? state.mediaPan : 0.50;
-        const motionFactor = (!isVideoModeActive && isActiveAudio) ? state.motionIntensity : 0;
-        const panX = motionFactor * 0.016 * Math.sin(tSec * 0.14);
-        const panY = motionFactor * 0.012 * Math.cos(tSec * 0.11);
+        const userPan = 0.50;
 
         // حساب معامل تنعيم التكرار للفيديو القصير (لمنع أي قطع مفاجئ أو مستفز عند إعادة الفيديو)
         let loopCrossfadeAlpha = 0;
@@ -2537,12 +2568,7 @@
 
         let drawW = W, drawH = H, offsetX = 0, offsetY = 0;
 
-        if (fitMode === 'fullscreen' || fitMode === 'stretch') {
-          drawW = W * loopZoomScale;
-          drawH = H * loopZoomScale;
-          offsetX = (W - drawW) * 0.5;
-          offsetY = (H - drawH) * 0.5;
-        } else if (fitMode === 'contain') {
+        if (fitMode === 'contain') {
           if (srcAspect > canvasAspect) {
             drawW = W * loopZoomScale;
             drawH = (W / srcAspect) * loopZoomScale;
@@ -2555,18 +2581,17 @@
             offsetX = (W - drawW) * userPan;
           }
         } else {
-          // وضع ملء الإطار بالكامل (cover) مع دعم تحريك الموضع (userPan)
-          const gentleZoom = (1.0 + motionFactor * (0.03 * (0.5 + 0.5 * Math.sin(tSec * 0.18)))) * loopZoomScale;
+          // وضع ملء الإطار بالكامل (cover) على أبعاد 16:9 أو 9:16
           if (srcAspect > canvasAspect) {
-            drawH = H * gentleZoom;
-            drawW = (H * srcAspect) * gentleZoom;
-            offsetX = (W - drawW) * Math.min(1, Math.max(0, userPan + panX * 0.25));
+            drawH = H * loopZoomScale;
+            drawW = (H * srcAspect) * loopZoomScale;
+            offsetX = (W - drawW) * 0.5;
             offsetY = (H - drawH) * 0.5;
           } else {
-            drawW = W * gentleZoom;
-            drawH = (W / srcAspect) * gentleZoom;
+            drawW = W * loopZoomScale;
+            drawH = (W / srcAspect) * loopZoomScale;
             offsetX = (W - drawW) * 0.5;
-            offsetY = (H - drawH) * Math.min(1, Math.max(0, userPan + panY * 0.25));
+            offsetY = (H - drawH) * 0.5;
           }
         }
 
@@ -2677,29 +2702,142 @@
         targetCtx.fillRect(0, 0, W, H);
       }
 
-      // LAYER 3: جزيئات النور الخفيفة (في واجهة الصور فقط — ملغية تماماً في واجهة الفيديو)
-      if (!isVideoModeActive && state.particlesIntensity > 0.02) {
-        const activeCount = Math.floor(NUM_PARTICLES * state.particlesIntensity);
+      // LAYER 3: التأثيرات البصرية المشهورة (في واجهة الصور فقط — ملغية تماماً في واجهة الفيديو)
+      const isVertical = state.aspectRatio === '9:16';
+      const imgEffect = state.imageVisualEffect || 'golden_dust';
+      if (!isVideoModeActive && state.particlesIntensity > 0.02 && imgEffect !== 'none') {
+        const effInt = state.particlesIntensity;
         targetCtx.save();
-        for (let i = 0; i < activeCount; i++) {
-          const p = particles[i];
-          const speedMult = isActiveAudio ? 16.0 : 0.0;
-          const curY = ((p.y + p.speedY * tSec * speedMult) % 1.0 + 1.0) % 1.0;
-          const curX = ((p.x + p.speedX * tSec * speedMult) % 1.0 + 1.0) % 1.0;
-          const px = curX * W;
-          const py = curY * H;
-          const finalAlpha = p.alpha * state.particlesIntensity;
 
-          targetCtx.fillStyle = `rgba(255, 251, 235, ${finalAlpha})`;
-          targetCtx.beginPath();
-          targetCtx.arc(px, py, p.radius * 1.8, 0, Math.PI * 2);
-          targetCtx.fill();
+        if (imgEffect === 'golden_dust') {
+          const activeCount = Math.floor(NUM_PARTICLES * effInt);
+          for (let i = 0; i < activeCount; i++) {
+            const p = particles[i];
+            const speedMult = isActiveAudio ? 16.0 : 2.5;
+            const curY = ((p.y + p.speedY * tSec * speedMult) % 1.0 + 1.0) % 1.0;
+            const curX = ((p.x + p.speedX * tSec * speedMult) % 1.0 + 1.0) % 1.0;
+            const px = curX * W;
+            const py = curY * H;
+            const finalAlpha = p.alpha * effInt;
+
+            targetCtx.fillStyle = `rgba(255, 248, 210, ${finalAlpha.toFixed(3)})`;
+            targetCtx.beginPath();
+            targetCtx.arc(px, py, p.radius * 1.8, 0, Math.PI * 2);
+            targetCtx.fill();
+          }
+        } else if (imgEffect === 'god_rays') {
+          targetCtx.globalCompositeOperation = 'screen';
+          const rayCount = 5;
+          for (let r = 0; r < rayCount; r++) {
+            const phase = tSec * (isActiveAudio ? 0.45 : 0.12) + r * 1.35;
+            const swing = Math.sin(phase) * (W * 0.045);
+            const topX = W * (0.18 + r * 0.16) + swing * 0.35;
+            const botX = topX + (r - 2) * (W * 0.08) + swing;
+            const rayWTop = W * 0.045;
+            const rayWBot = W * 0.16;
+            const rayAlpha = Math.min(0.32, effInt * (0.12 + 0.07 * Math.sin(phase * 1.4) + 0.06 * vocalPulse));
+
+            const rayGrad = targetCtx.createLinearGradient(topX, 0, botX, H * 0.92);
+            rayGrad.addColorStop(0, `rgba(254, 243, 199, ${(rayAlpha * 1.25).toFixed(3)})`);
+            rayGrad.addColorStop(0.45, `rgba(251, 191, 36, ${(rayAlpha * 0.65).toFixed(3)})`);
+            rayGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+
+            targetCtx.fillStyle = rayGrad;
+            targetCtx.beginPath();
+            targetCtx.moveTo(topX - rayWTop, 0);
+            targetCtx.lineTo(topX + rayWTop, 0);
+            targetCtx.lineTo(botX + rayWBot, H * 0.92);
+            targetCtx.lineTo(botX - rayWBot, H * 0.92);
+            targetCtx.closePath();
+            targetCtx.fill();
+          }
+        } else if (imgEffect === 'starry_night') {
+          const starCount = Math.floor(NUM_PARTICLES * effInt);
+          for (let i = 0; i < starCount; i++) {
+            const p = particles[i];
+            const px = p.x * W;
+            const py = p.y * H * 0.85;
+            const twinkle = 0.30 + 0.70 * Math.abs(Math.sin(tSec * (isActiveAudio ? 2.6 : 1.1) + i * 1.9));
+            const alpha = Math.min(0.95, p.alpha * effInt * twinkle * 1.35);
+            const rad = p.radius * (1.2 + 0.7 * twinkle);
+
+            targetCtx.fillStyle = `rgba(255, 253, 240, ${alpha.toFixed(3)})`;
+            targetCtx.beginPath();
+            targetCtx.arc(px, py, rad, 0, Math.PI * 2);
+            targetCtx.fill();
+
+            if (i % 4 === 0 && twinkle > 0.72) {
+              const arm = rad * 3.2;
+              targetCtx.strokeStyle = `rgba(253, 230, 138, ${(alpha * 0.65).toFixed(3)})`;
+              targetCtx.lineWidth = 1;
+              targetCtx.beginPath();
+              targetCtx.moveTo(px - arm, py);
+              targetCtx.lineTo(px + arm, py);
+              targetCtx.moveTo(px, py - arm);
+              targetCtx.lineTo(px, py + arm);
+              targetCtx.stroke();
+            }
+          }
+        } else if (imgEffect === 'light_rain') {
+          const dropCount = Math.floor(NUM_PARTICLES * effInt);
+          targetCtx.lineCap = 'round';
+          for (let i = 0; i < dropCount; i++) {
+            const p = particles[i];
+            const fallSpeed = isActiveAudio ? (0.42 + p.radius * 0.12) : 0.16;
+            const curY = ((p.y + tSec * fallSpeed) % 1.0 + 1.0) % 1.0;
+            const curX = ((p.x + curY * 0.08) % 1.0 + 1.0) % 1.0;
+            const px = curX * W;
+            const py = curY * H;
+            const len = 14 + p.radius * 8;
+            const alpha = Math.min(0.65, p.alpha * effInt * 0.85);
+
+            targetCtx.strokeStyle = `rgba(226, 232, 240, ${alpha.toFixed(3)})`;
+            targetCtx.lineWidth = 1.25;
+            targetCtx.beginPath();
+            targetCtx.moveTo(px, py);
+            targetCtx.lineTo(px + 2.5, py + len);
+            targetCtx.stroke();
+          }
+        } else if (imgEffect === 'golden_bokeh') {
+          targetCtx.globalCompositeOperation = 'screen';
+          const bokehCount = Math.max(6, Math.floor(18 * effInt));
+          for (let i = 0; i < bokehCount; i++) {
+            const p = particles[i % particles.length];
+            const driftSpeed = isActiveAudio ? 6.0 : 1.5;
+            const curY = ((p.y + p.speedY * tSec * driftSpeed) % 1.0 + 1.0) % 1.0;
+            const curX = ((p.x + p.speedX * tSec * driftSpeed) % 1.0 + 1.0) % 1.0;
+            const px = curX * W;
+            const py = curY * H;
+            const bokehR = (18 + (i % 5) * 11) * (isVertical ? 0.9 : 1.1);
+            const bAlpha = Math.min(0.28, (0.08 + 0.12 * (i % 3) * 0.5) * effInt * (0.8 + 0.25 * vocalPulse));
+
+            const bGrad = targetCtx.createRadialGradient(px, py, bokehR * 0.1, px, py, bokehR);
+            bGrad.addColorStop(0, `rgba(254, 240, 138, ${(bAlpha * 1.1).toFixed(3)})`);
+            bGrad.addColorStop(0.7, `rgba(245, 158, 11, ${(bAlpha * 0.55).toFixed(3)})`);
+            bGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+            targetCtx.fillStyle = bGrad;
+            targetCtx.beginPath();
+            targetCtx.arc(px, py, bokehR, 0, Math.PI * 2);
+            targetCtx.fill();
+          }
+        } else if (imgEffect === 'spiritual_pulse') {
+          targetCtx.globalCompositeOperation = 'screen';
+          const cx = W * 0.5;
+          const cy = H * 0.46;
+          const maxR = Math.max(W, H) * (0.42 + 0.12 * vocalPulse);
+          const auraAlpha = Math.min(0.42, effInt * (0.20 + 0.22 * vocalPulse));
+          const auraGrad = targetCtx.createRadialGradient(cx, cy, maxR * 0.08, cx, cy, maxR);
+          auraGrad.addColorStop(0, `rgba(254, 243, 199, ${auraAlpha.toFixed(3)})`);
+          auraGrad.addColorStop(0.45, `rgba(16, 185, 129, ${(auraAlpha * 0.45).toFixed(3)})`);
+          auraGrad.addColorStop(1, 'rgba(6, 78, 59, 0)');
+          targetCtx.fillStyle = auraGrad;
+          targetCtx.fillRect(0, 0, W, H);
         }
+
         targetCtx.restore();
       }
 
       // LAYER 4: شريط معلومات السورة والقارئ (يمكن إظهاره أو إلغاؤه في واجهتي الصور والفيديو)
-      const isVertical = state.aspectRatio === '9:16';
       const topBarW = isVertical ? W * 0.88 : Math.min(W * 0.74, 780);
       const topBarH = isVertical ? 52 : 44;
       const topBarX = (W - topBarW) / 2;
@@ -2749,14 +2887,14 @@
         targetCtx.restore();
       }
 
-      // حساب أبعاد توقيع (Refa3y)
-      const wmText = 'Refa3y';
+      // حساب أبعاد توقيع حفظ الحقوق (الافتراضي Refa3y أو الاسم المختار من المستخدم)
+      const wmText = (state.watermarkText && state.watermarkText.trim()) ? state.watermarkText.trim() : 'Refa3y';
       const wmFont = state.watermarkFont || 'Cinzel';
       const wmColor = state.watermarkColor || '#fde68a';
       const wmPosCurrent = state.watermarkPos || 'bottom-right';
       const wmFontSize = Math.max(11, Math.min(34, Number(state.watermarkSize) || 16));
       targetCtx.save();
-      targetCtx.font = `600 ${wmFontSize}px "${wmFont}", "Cairo", sans-serif`;
+      targetCtx.font = `600 ${wmFontSize}px "${wmFont}", "Cairo", "Amiri", sans-serif`;
       const wmTextWidth = targetCtx.measureText(wmText).width;
       targetCtx.restore();
 
@@ -2786,7 +2924,7 @@
         bottomSafeY = H - (isVertical ? 60 : 48) - wmPillH - 12;
       }
 
-      // LAYER 6: عرض النص القرآني (فقط إذا اختار الزائر آية ولم يختر "خلفيه فقط بدون نص قرآني")
+      // LAYER 6: عرض النص القرآني مع اختيار نوع الخط وستايل البرواز وشفافيته
       if (ayah && state.textMode !== 'none') {
         targetCtx.save();
 
@@ -2796,13 +2934,14 @@
           displayTranscript = ayah.ayahTextsList[idx];
         }
 
+        const chosenFont = state.ayahFontFamily || 'Amiri Quran';
         const padX = isVertical ? W * 0.05 : W * 0.065;
         const boxW = W - padX * 2;
         const innerPadX = Math.max(22, Math.round((Number(state.ayahFontSize) || 28) * 0.85));
         const maxLineWidth = Math.max(160, boxW - innerPadX * 2);
 
         let fontSize = Math.max(18, Math.min(46, Number(state.ayahFontSize) || 28));
-        targetCtx.font = `700 ${fontSize}px "Amiri Quran", "Amiri", serif`;
+        targetCtx.font = `700 ${fontSize}px "${chosenFont}", "Amiri Quran", "Amiri", serif`;
 
         const wordsCheck = displayTranscript.split(' ');
         let maxWordW = 0;
@@ -2812,7 +2951,7 @@
         }
         if (maxWordW > maxLineWidth && maxWordW > 0) {
           fontSize = Math.max(16, Math.floor(fontSize * (maxLineWidth / maxWordW)));
-          targetCtx.font = `700 ${fontSize}px "Amiri Quran", "Amiri", serif`;
+          targetCtx.font = `700 ${fontSize}px "${chosenFont}", "Amiri Quran", "Amiri", serif`;
         }
 
         targetCtx.textAlign = 'center';
@@ -2837,18 +2976,113 @@
           boxY = Math.max(topSafeY, bottomSafeY - boxH);
         }
 
-        targetCtx.fillStyle = 'rgba(7, 11, 22, 0.88)';
-        targetCtx.strokeStyle = 'rgba(251, 191, 36, 0.6)';
-        targetCtx.lineWidth = 1.5;
-        targetCtx.beginPath();
-        targetCtx.roundRect(padX, boxY, boxW, boxH, 18);
-        targetCtx.fill();
-        targetCtx.stroke();
+        const frameStyle = state.ayahFrameStyle || 'ornate_gold';
+        const frameOpacity = isFinite(state.ayahFrameOpacity) ? Math.max(0, Math.min(1, state.ayahFrameOpacity)) : 0.88;
 
-        drawOrnamentalCorner(targetCtx, padX + 8, boxY + 8, 18, false, false);
-        drawOrnamentalCorner(targetCtx, padX + boxW - 8, boxY + 8, 18, true, false);
-        drawOrnamentalCorner(targetCtx, padX + 8, boxY + boxH - 8, 18, false, true);
-        drawOrnamentalCorner(targetCtx, padX + boxW - 8, boxY + boxH - 8, 18, true, true);
+        if (frameStyle !== 'none' && frameOpacity > 0.01) {
+          targetCtx.save();
+          if (frameStyle === 'ornate_gold') {
+            targetCtx.fillStyle = `rgba(7, 11, 22, ${(0.95 * frameOpacity).toFixed(3)})`;
+            targetCtx.strokeStyle = `rgba(251, 191, 36, ${(0.68 * frameOpacity).toFixed(3)})`;
+            targetCtx.lineWidth = 1.5;
+            targetCtx.beginPath();
+            targetCtx.roundRect(padX, boxY, boxW, boxH, 18);
+            targetCtx.fill();
+            targetCtx.stroke();
+
+            targetCtx.globalAlpha = frameOpacity;
+            drawOrnamentalCorner(targetCtx, padX + 8, boxY + 8, 18, false, false);
+            drawOrnamentalCorner(targetCtx, padX + boxW - 8, boxY + 8, 18, true, false);
+            drawOrnamentalCorner(targetCtx, padX + 8, boxY + boxH - 8, 18, false, true);
+            drawOrnamentalCorner(targetCtx, padX + boxW - 8, boxY + boxH - 8, 18, true, true);
+          } else if (frameStyle === 'double_royal') {
+            targetCtx.fillStyle = `rgba(8, 12, 26, ${(0.96 * frameOpacity).toFixed(3)})`;
+            targetCtx.strokeStyle = `rgba(251, 191, 36, ${(0.82 * frameOpacity).toFixed(3)})`;
+            targetCtx.lineWidth = 2;
+            targetCtx.beginPath();
+            targetCtx.roundRect(padX, boxY, boxW, boxH, 16);
+            targetCtx.fill();
+            targetCtx.stroke();
+
+            targetCtx.strokeStyle = `rgba(253, 230, 138, ${(0.45 * frameOpacity).toFixed(3)})`;
+            targetCtx.lineWidth = 1;
+            targetCtx.beginPath();
+            targetCtx.roundRect(padX + 6, boxY + 6, boxW - 12, boxH - 12, 12);
+            targetCtx.stroke();
+
+            targetCtx.globalAlpha = frameOpacity;
+            drawOrnamentalCorner(targetCtx, padX + 10, boxY + 10, 16, false, false);
+            drawOrnamentalCorner(targetCtx, padX + boxW - 10, boxY + 10, 16, true, false);
+            drawOrnamentalCorner(targetCtx, padX + 10, boxY + boxH - 10, 16, false, true);
+            drawOrnamentalCorner(targetCtx, padX + boxW - 10, boxY + boxH - 10, 16, true, true);
+          } else if (frameStyle === 'mihrab_arch') {
+            targetCtx.fillStyle = `rgba(6, 13, 24, ${(0.95 * frameOpacity).toFixed(3)})`;
+            targetCtx.strokeStyle = `rgba(245, 158, 11, ${(0.75 * frameOpacity).toFixed(3)})`;
+            targetCtx.lineWidth = 1.8;
+            targetCtx.beginPath();
+            targetCtx.roundRect(padX, boxY, boxW, boxH, [28, 28, 14, 14]);
+            targetCtx.fill();
+            targetCtx.stroke();
+
+            // قوس محراب علوي وزخرفة وسطى
+            targetCtx.strokeStyle = `rgba(253, 224, 71, ${(0.50 * frameOpacity).toFixed(3)})`;
+            targetCtx.lineWidth = 1.2;
+            targetCtx.beginPath();
+            targetCtx.moveTo(padX + 16, boxY + boxH - 8);
+            targetCtx.lineTo(padX + 16, boxY + 18);
+            targetCtx.quadraticCurveTo(W * 0.5, boxY - 6, padX + boxW - 16, boxY + 18);
+            targetCtx.lineTo(padX + boxW - 16, boxY + boxH - 8);
+            targetCtx.stroke();
+          } else if (frameStyle === 'emerald_luxury') {
+            const emGrad = targetCtx.createLinearGradient(padX, boxY, padX + boxW, boxY + boxH);
+            emGrad.addColorStop(0, `rgba(2, 44, 34, ${(0.95 * frameOpacity).toFixed(3)})`);
+            emGrad.addColorStop(0.5, `rgba(6, 78, 59, ${(0.92 * frameOpacity).toFixed(3)})`);
+            emGrad.addColorStop(1, `rgba(2, 44, 34, ${(0.95 * frameOpacity).toFixed(3)})`);
+            targetCtx.fillStyle = emGrad;
+            targetCtx.strokeStyle = `rgba(251, 191, 36, ${(0.75 * frameOpacity).toFixed(3)})`;
+            targetCtx.lineWidth = 1.6;
+            targetCtx.beginPath();
+            targetCtx.roundRect(padX, boxY, boxW, boxH, 18);
+            targetCtx.fill();
+            targetCtx.stroke();
+
+            targetCtx.globalAlpha = frameOpacity;
+            drawOrnamentalCorner(targetCtx, padX + 8, boxY + 8, 18, false, false);
+            drawOrnamentalCorner(targetCtx, padX + boxW - 8, boxY + 8, 18, true, false);
+            drawOrnamentalCorner(targetCtx, padX + 8, boxY + boxH - 8, 18, false, true);
+            drawOrnamentalCorner(targetCtx, padX + boxW - 8, boxY + boxH - 8, 18, true, true);
+          } else if (frameStyle === 'minimal_soft') {
+            targetCtx.fillStyle = `rgba(10, 15, 28, ${(0.90 * frameOpacity).toFixed(3)})`;
+            targetCtx.strokeStyle = `rgba(226, 232, 240, ${(0.22 * frameOpacity).toFixed(3)})`;
+            targetCtx.lineWidth = 1;
+            targetCtx.beginPath();
+            targetCtx.roundRect(padX, boxY, boxW, boxH, 24);
+            targetCtx.fill();
+            targetCtx.stroke();
+          } else if (frameStyle === 'cinematic_band') {
+            const bandGrad = targetCtx.createLinearGradient(0, boxY, W, boxY);
+            bandGrad.addColorStop(0, 'rgba(5, 8, 17, 0)');
+            bandGrad.addColorStop(0.15, `rgba(5, 8, 17, ${(0.92 * frameOpacity).toFixed(3)})`);
+            bandGrad.addColorStop(0.85, `rgba(5, 8, 17, ${(0.92 * frameOpacity).toFixed(3)})`);
+            bandGrad.addColorStop(1, 'rgba(5, 8, 17, 0)');
+            targetCtx.fillStyle = bandGrad;
+            targetCtx.fillRect(0, boxY, W, boxH);
+
+            const lineGrad = targetCtx.createLinearGradient(padX, 0, padX + boxW, 0);
+            lineGrad.addColorStop(0, 'rgba(251, 191, 36, 0)');
+            lineGrad.addColorStop(0.5, `rgba(251, 191, 36, ${(0.65 * frameOpacity).toFixed(3)})`);
+            lineGrad.addColorStop(1, 'rgba(251, 191, 36, 0)');
+            targetCtx.strokeStyle = lineGrad;
+            targetCtx.lineWidth = 1.2;
+            targetCtx.beginPath();
+            targetCtx.moveTo(padX, boxY);
+            targetCtx.lineTo(padX + boxW, boxY);
+            targetCtx.moveTo(padX, boxY + boxH);
+            targetCtx.lineTo(padX + boxW, boxY + boxH);
+            targetCtx.stroke();
+          }
+          targetCtx.restore();
+        }
 
         const clipInsetY = Math.max(10, Math.round(padY * 0.5));
         const clipTop = boxY + clipInsetY;
@@ -2871,6 +3105,12 @@
           : clipTop + lineHeight * 0.5 - scrollOffsetY;
 
         targetCtx.fillStyle = '#fef08a';
+        // ظل نص واضح عند تقليل شفافية البرواز أو إزالته تماماً لضمان سهولة القراءة فوق أي صورة أو فيديو
+        targetCtx.shadowColor = 'rgba(0, 0, 0, 0.92)';
+        targetCtx.shadowBlur = (frameStyle === 'none' || frameOpacity < 0.45) ? 10 : 4;
+        targetCtx.shadowOffsetX = 0;
+        targetCtx.shadowOffsetY = 2;
+
         lines.forEach((line, idx) => {
           const ly = startY + idx * lineHeight;
           if (ly >= clipTop - lineHeight * 0.6 && ly <= clipTop + clipH + lineHeight * 0.6) {
@@ -2891,10 +3131,10 @@
         targetCtx.restore();
       }
 
-      // LAYER 7: توقيع حفظ الحقوق (Refa3y)
+      // LAYER 7: توقيع حفظ الحقوق (الافتراضي Refa3y أو الاسم المختار من المستخدم)
       {
         targetCtx.save();
-        targetCtx.font = `600 ${wmFontSize}px "${wmFont}", "Cairo", sans-serif`;
+        targetCtx.font = `600 ${wmFontSize}px "${wmFont}", "Cairo", "Amiri", sans-serif`;
         let wx = W - wmMarginX - wmPillW;
         let wy = H - wmMarginY - wmPillH;
 
@@ -2930,16 +3170,18 @@
         targetCtx.globalAlpha = 0.35;
         targetCtx.stroke();
 
+        const dotX = wx + wmPillW - wmPillPadX - wmDotRadius;
         targetCtx.globalAlpha = 0.95;
         targetCtx.fillStyle = wmColor;
         targetCtx.beginPath();
-        targetCtx.arc(wx + wmPillW - wmPillPadX - wmDotRadius, wy + wmPillH / 2, wmDotRadius, 0, Math.PI * 2);
+        targetCtx.arc(dotX, wy + wmPillH / 2, wmDotRadius, 0, Math.PI * 2);
         targetCtx.fill();
 
-        targetCtx.textAlign = 'left';
+        const textCenterAreaW = wmPillW - wmPillPadX * 2 - wmDotSpace;
+        const textCenterX = wx + wmPillPadX + textCenterAreaW * 0.5;
+        targetCtx.textAlign = 'center';
         targetCtx.textBaseline = 'middle';
-        targetCtx.direction = 'ltr';
-        targetCtx.fillText(wmText, wx + wmPillPadX, wy + wmPillH / 2 + 0.5);
+        targetCtx.fillText(wmText, textCenterX, wy + wmPillH / 2 + 0.5);
         targetCtx.restore();
       }
     }
@@ -3131,7 +3373,7 @@
         canvas.width = 720;
         canvas.height = 1280;
         canvasWrapper.style.aspectRatio = '9 / 16';
-        canvasWrapper.style.maxWidth = state.mediaFitMode === 'fullscreen' ? '100%' : '380px';
+        canvasWrapper.style.maxWidth = '380px';
         btnAspect916.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-amber-500 text-slate-950';
         btnAspect169.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60';
       }
@@ -3140,14 +3382,6 @@
 
     btnAspect169.addEventListener('click', () => setAspectRatio('16:9'));
     btnAspect916.addEventListener('click', () => setAspectRatio('9:16'));
-
-    btnFullscreen.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        stageContainer.requestFullscreen?.().catch(() => {});
-      } else {
-        document.exitFullscreen?.().catch(() => {});
-      }
-    });
 
     document.querySelectorAll('.reciter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -3227,6 +3461,38 @@
       btnAyahFontInc.addEventListener('click', () => setAyahFontSize((state.ayahFontSize || 28) + 2));
     }
 
+    if (selectAyahFontFamily) {
+      selectAyahFontFamily.addEventListener('change', () => {
+        state.ayahFontFamily = selectAyahFontFamily.value || 'Amiri Quran';
+        requestRenderOnce();
+      });
+    }
+
+    if (selectAyahFrameStyle) {
+      selectAyahFrameStyle.addEventListener('change', () => {
+        state.ayahFrameStyle = selectAyahFrameStyle.value || 'ornate_gold';
+        if (ayahFrameOpacityBox) {
+          ayahFrameOpacityBox.classList.toggle('opacity-40', state.ayahFrameStyle === 'none');
+        }
+        requestRenderOnce();
+      });
+    }
+
+    if (sliderAyahFrameOpacity) {
+      sliderAyahFrameOpacity.addEventListener('input', () => {
+        state.ayahFrameOpacity = Number(sliderAyahFrameOpacity.value) / 100;
+        if (valAyahFrameOpacity) valAyahFrameOpacity.textContent = `${sliderAyahFrameOpacity.value}%`;
+        requestRenderOnce();
+      });
+    }
+
+    if (selectImageVisualEffect) {
+      selectImageVisualEffect.addEventListener('change', () => {
+        state.imageVisualEffect = selectImageVisualEffect.value || 'golden_dust';
+        requestRenderOnce();
+      });
+    }
+
     sliderGlow.addEventListener('input', () => {
       state.glowIntensity = Number(sliderGlow.value) / 100;
       valGlow.textContent = `${sliderGlow.value}%`;
@@ -3236,12 +3502,6 @@
     sliderParticles.addEventListener('input', () => {
       state.particlesIntensity = Number(sliderParticles.value) / 100;
       valParticles.textContent = `${sliderParticles.value}%`;
-      requestRenderOnce();
-    });
-
-    sliderMotion.addEventListener('input', () => {
-      state.motionIntensity = Number(sliderMotion.value) / 100;
-      valMotion.textContent = `${sliderMotion.value}%`;
       requestRenderOnce();
     });
 
@@ -3258,45 +3518,8 @@
       requestRenderOnce();
     });
 
-    btnResetEffects.addEventListener('click', () => {
-      sliderGlow.value = 85;
-      sliderParticles.value = 60;
-      sliderMotion.value = 75;
-      selectTextMode.value = 'transcript';
-      if (chkShowHeaderInfo) chkShowHeaderInfo.checked = true;
-      chkAudioWave.checked = true;
-      state.glowIntensity = 0.85;
-      state.particlesIntensity = 0.60;
-      state.motionIntensity = 0.75;
-      state.textMode = 'transcript';
-      setAyahPosition('bottom');
-      setAyahFontSize(28);
-      state.showHeaderInfo = true;
-      state.showAudioWave = true;
-      valGlow.textContent = '85%';
-      valParticles.textContent = '60%';
-      valMotion.textContent = '75%';
-      state.visualFilter = 'none';
-      state.mediaFitMode = state.aspectRatio || '16:9';
-      state.bgBrightness = 1.0;
-      state.mediaPan = 0.50;
-      if (selectVisualFilter) selectVisualFilter.value = 'none';
-      if (selectMediaFitMode) selectMediaFitMode.value = state.aspectRatio || '16:9';
-      if (sliderBgBrightness) sliderBgBrightness.value = '100';
-      if (valBgBrightness) valBgBrightness.textContent = '100%';
-      if (sliderMediaPan) sliderMediaPan.value = '50';
-      if (valMediaPan) valMediaPan.textContent = '50%';
-      state.watermarkPos = 'bottom-right';
-      state.watermarkColor = '#fde68a';
-      state.watermarkFont = 'Cinzel';
-      setWatermarkSize(16);
-      if (selectWatermarkPos) selectWatermarkPos.value = 'bottom-right';
-      if (selectWatermarkFont) selectWatermarkFont.value = 'Cinzel';
-      if (inputWatermarkColor) inputWatermarkColor.value = '#fde68a';
-      if (watermarkColorHex) watermarkColorHex.textContent = '#FDE68A';
-      requestRenderOnce();
-    });
-
+    const inputWatermarkText = document.getElementById('inputWatermarkText');
+    const btnResetWatermarkText = document.getElementById('btnResetWatermarkText');
     const selectWatermarkPos = document.getElementById('selectWatermarkPos');
     const selectWatermarkFont = document.getElementById('selectWatermarkFont');
     const inputWatermarkColor = document.getElementById('inputWatermarkColor');
@@ -3305,6 +3528,68 @@
     const valWatermarkSize = document.getElementById('valWatermarkSize');
     const btnWatermarkSizeDec = document.getElementById('btnWatermarkSizeDec');
     const btnWatermarkSizeInc = document.getElementById('btnWatermarkSizeInc');
+
+    if (inputWatermarkText) {
+      inputWatermarkText.addEventListener('input', () => {
+        state.watermarkText = inputWatermarkText.value;
+        requestRenderOnce();
+      });
+    }
+
+    if (btnResetWatermarkText) {
+      btnResetWatermarkText.addEventListener('click', () => {
+        state.watermarkText = 'Refa3y';
+        if (inputWatermarkText) inputWatermarkText.value = 'Refa3y';
+        requestRenderOnce();
+      });
+    }
+
+    btnResetEffects.addEventListener('click', () => {
+      sliderGlow.value = 85;
+      sliderParticles.value = 60;
+      selectTextMode.value = 'transcript';
+      if (selectAyahFontFamily) selectAyahFontFamily.value = 'Amiri Quran';
+      if (selectAyahFrameStyle) selectAyahFrameStyle.value = 'ornate_gold';
+      if (sliderAyahFrameOpacity) sliderAyahFrameOpacity.value = '88';
+      if (valAyahFrameOpacity) valAyahFrameOpacity.textContent = '88%';
+      if (ayahFrameOpacityBox) ayahFrameOpacityBox.classList.remove('opacity-40');
+      if (selectImageVisualEffect) selectImageVisualEffect.value = 'golden_dust';
+      if (chkShowHeaderInfo) chkShowHeaderInfo.checked = true;
+      chkAudioWave.checked = true;
+      state.glowIntensity = 0.85;
+      state.particlesIntensity = 0.60;
+      state.imageVisualEffect = 'golden_dust';
+      state.motionIntensity = 0;
+      state.textMode = 'transcript';
+      state.ayahFontFamily = 'Amiri Quran';
+      state.ayahFrameStyle = 'ornate_gold';
+      state.ayahFrameOpacity = 0.88;
+      setAyahPosition('bottom');
+      setAyahFontSize(28);
+      state.showHeaderInfo = true;
+      state.showAudioWave = true;
+      valGlow.textContent = '85%';
+      valParticles.textContent = '60%';
+      state.visualFilter = 'none';
+      state.mediaFitMode = state.aspectRatio || '16:9';
+      state.bgBrightness = 1.0;
+      state.mediaPan = 0.50;
+      if (selectVisualFilter) selectVisualFilter.value = 'none';
+      if (selectMediaFitMode) selectMediaFitMode.value = state.aspectRatio || '16:9';
+      if (sliderBgBrightness) sliderBgBrightness.value = '100';
+      if (valBgBrightness) valBgBrightness.textContent = '100%';
+      state.watermarkText = 'Refa3y';
+      state.watermarkPos = 'bottom-right';
+      state.watermarkColor = '#fde68a';
+      state.watermarkFont = 'Cinzel';
+      setWatermarkSize(16);
+      if (inputWatermarkText) inputWatermarkText.value = 'Refa3y';
+      if (selectWatermarkPos) selectWatermarkPos.value = 'bottom-right';
+      if (selectWatermarkFont) selectWatermarkFont.value = 'Cinzel';
+      if (inputWatermarkColor) inputWatermarkColor.value = '#fde68a';
+      if (watermarkColorHex) watermarkColorHex.textContent = '#FDE68A';
+      requestRenderOnce();
+    });
 
     function setWatermarkSize(sizeVal) {
       const clamped = Math.max(11, Math.min(34, Math.round(Number(sizeVal) || 16)));

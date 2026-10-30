@@ -439,40 +439,89 @@
         <!-- القوائم الجانبية للتصميم (بدون اختيار افتراضي وبدون كلام مكرر) -->
         <div class="lg:col-span-4 space-y-3.5">
 
-          <!-- ١. اختيار القارئ (غير محدد افتراضياً) -->
+          <!-- ١. مصدر التلاوة والقارئ (المصاحف الكاملة + نوادر وحفلات خارجية) -->
           <div class="glass-panel rounded-2xl p-4 space-y-3">
-            <h2 class="text-sm sm:text-base font-bold text-amber-300">١. اختر القارئ</h2>
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <h2 class="text-sm sm:text-base font-bold text-amber-300">١. مصدر التلاوة والقارئ</h2>
+              <span id="activeReciterBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 truncate max-w-[160px]">غير محدد</span>
+            </div>
 
-            <div id="recitersList" class="space-y-1.5">
-              <button type="button" data-reciter="minshawi_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                <span class="font-bold text-xs sm:text-sm">الشيخ محمد صديق المنشاوي (مجود)</span>
-                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+            <!-- أزرار التبديل السريع بين المصاحف الكاملة والتلاوات النادرة -->
+            <div class="grid grid-cols-2 gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+              <button id="btnTabStandardReciters" type="button" class="py-2 px-2.5 rounded-lg transition bg-amber-500 text-slate-950 flex items-center justify-center gap-1.5 shadow-sm">
+                <span>📖 المصاحف الكاملة</span>
               </button>
-
-              <button type="button" data-reciter="abdulbasit_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                <span class="font-bold text-xs sm:text-sm">الشيخ عبد الباسط عبد الصمد (مجود)</span>
-                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
-              </button>
-
-              <button type="button" data-reciter="husary_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                <span class="font-bold text-xs sm:text-sm">الشيخ محمود خليل الحصري (مجود)</span>
-                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
-              </button>
-
-              <button type="button" data-reciter="banna_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                <span class="font-bold text-xs sm:text-sm">الشيخ محمود علي البنا</span>
-                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
-              </button>
-
-              <button type="button" data-reciter="minshawi_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                <span class="font-bold text-xs sm:text-sm">الشيخ محمد صديق المنشاوي (مرتل)</span>
-                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+              <button id="btnTabRareRecitations" type="button" class="py-2 px-2.5 rounded-lg transition text-slate-300 hover:text-amber-200 flex items-center justify-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                <span>✨ نوادر وحفلات خارجية</span>
               </button>
             </div>
 
-            <div class="pt-2 border-t border-slate-800">
-              <label for="customAudioInput" class="block text-xs text-slate-300 mb-1">أو ارفع ملفاً صوتياً من جهازك:</label>
-              <input id="customAudioInput" type="file" accept="audio/*" class="block w-full text-xs text-slate-300 file:ml-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500/20 file:text-amber-200 cursor-pointer bg-slate-900 rounded-xl p-1 border border-slate-700" />
+            <!-- لوحة المصاحف الكاملة (الافتراضية) -->
+            <div id="standardRecitersBox" class="space-y-2.5">
+              <div id="recitersList" class="space-y-1.5">
+                <button type="button" data-reciter="minshawi_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد صديق المنشاوي (مجود)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                </button>
+
+                <button type="button" data-reciter="abdulbasit_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ عبد الباسط عبد الصمد (مجود)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                </button>
+
+                <button type="button" data-reciter="husary_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود خليل الحصري (مجود)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                </button>
+
+                <button type="button" data-reciter="banna_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود علي البنا</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                </button>
+
+                <button type="button" data-reciter="minshawi_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد صديق المنشاوي (مرتل)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                </button>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800">
+                <label for="customAudioInput" class="block text-xs text-slate-300 mb-1">أو ارفع ملفاً صوتياً من جهازك:</label>
+                <input id="customAudioInput" type="file" accept="audio/*" class="block w-full text-xs text-slate-300 file:ml-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500/20 file:text-amber-200 cursor-pointer bg-slate-900 rounded-xl p-1 border border-slate-700" />
+              </div>
+            </div>
+
+            <!-- لوحة النوادر والحفلات الخارجية الأسطورية -->
+            <div id="rareRecitationsBox" class="hidden space-y-2.5">
+              <div class="space-y-2">
+                <!-- شريط بحث فوري في الحفلات والنوادر -->
+                <div class="relative">
+                  <input id="rareSearchInput" type="text" placeholder="ابحث باسم الشيخ، السورة، أو مكان الحفل (الأقصى، الحسين، ليبيا...)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-xs text-slate-100 pr-3 pl-7 py-2 focus:outline-none placeholder-slate-500" />
+                  <button id="btnClearRareSearch" type="button" title="مسح" class="hidden absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 text-xs font-bold px-1">✕</button>
+                </div>
+
+                <!-- أزرار تصفية سريعة بأسماء عمالقة التلاوة المتوفرة مقاطعهم بنسبة 100% -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] no-scrollbar">
+                  <button type="button" data-sheikh-filter="all" class="rare-filter-btn px-2.5 py-1 rounded-lg font-bold transition bg-amber-500 text-slate-950 whitespace-nowrap shrink-0">الكل (٢٤)</button>
+                  <button type="button" data-sheikh-filter="abdulbasit" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">عبد الباسط (٤)</button>
+                  <button type="button" data-sheikh-filter="minshawi" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">المنشاوي (٤)</button>
+                  <button type="button" data-sheikh-filter="mustafa" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">مصطفى إسماعيل (٣)</button>
+                  <button type="button" data-sheikh-filter="ghalwash" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">غلوش (٢)</button>
+                  <button type="button" data-sheikh-filter="shahat" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">الشحات أنور (٢)</button>
+                  <button type="button" data-sheikh-filter="shaisha" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">شعيشع (١)</button>
+                  <button type="button" data-sheikh-filter="bahtimi" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">البهتيمي (٢)</button>
+                  <button type="button" data-sheikh-filter="banna" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">البنا (٢)</button>
+                  <button type="button" data-sheikh-filter="tablawi" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">الطبلاوي (٢)</button>
+                  <button type="button" data-sheikh-filter="shashai" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">الشعشاعي (١)</button>
+                  <button type="button" data-sheikh-filter="husary" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">الحصري (١)</button>
+                </div>
+              </div>
+
+              <!-- قائمة الكروت المخصصة للنوادر والحفلات -->
+              <div id="rareRecitationsList" class="space-y-1.5 max-h-72 overflow-y-auto pl-1">
+                <!-- يتم بناؤها وتحديثها برمجياً عبر renderRareRecitationsList -->
+              </div>
             </div>
           </div>
 
@@ -964,6 +1013,348 @@
 
     const AYAHS_DATA = { nur_35: { id: 'nur_35', surahName: 'سورة النور', ayahNumber: '٣٥' } };
 
+    // =========================================================================
+    // 1.1 مكتبة التلاوات النادرة والحفلات الخارجية الأسطورية
+    // =========================================================================
+    const RARE_RECITATIONS_LIST = [
+      {
+        id: 'abdulbasit_aqsa_maryam',
+        sheikhKey: 'abdulbasit',
+        reciterKey: 'abdulbasit_mujawwad',
+        reciterName: 'الشيخ عبد الباسط عبد الصمد',
+        concertTitle: 'حفل المسجد الأقصى المبارك',
+        surahNum: 19,
+        surahName: 'سورة مريم',
+        startAyah: 16,
+        endAyah: 21,
+        tag: 'حفل الأقصى',
+        year: '١٩٦٤',
+        previewExcerpt: 'واذكر في الكتاب مريم إذ انتبذت من أهلها مكانا شرقيا...'
+      },
+      {
+        id: 'abdulbasit_damascus_hashr',
+        sheikhKey: 'abdulbasit',
+        reciterKey: 'abdulbasit_mujawwad',
+        reciterName: 'الشيخ عبد الباسط عبد الصمد',
+        concertTitle: 'حفل دمشق الأسطوري - سوريا',
+        surahNum: 59,
+        surahName: 'سورة الحشر',
+        startAyah: 21,
+        endAyah: 24,
+        tag: 'حفل دمشق',
+        year: '١٩٥٨',
+        previewExcerpt: 'لو أنزلنا هذا القرآن على جبل لرأيته خاشعا متصدعا...'
+      },
+      {
+        id: 'abdulbasit_hussain_yusuf',
+        sheikhKey: 'abdulbasit',
+        reciterKey: 'abdulbasit_mujawwad',
+        reciterName: 'الشيخ عبد الباسط عبد الصمد',
+        concertTitle: 'حفل مسجد الإمام الحسين بالقاهرة',
+        surahNum: 12,
+        surahName: 'سورة يوسف',
+        startAyah: 1,
+        endAyah: 4,
+        tag: 'مسجد الحسين',
+        year: '١٩٦٠',
+        previewExcerpt: 'نحن نقص عليك أحسن القصص بما أوحينا إليك هذا القرآن...'
+      },
+      {
+        id: 'abdulbasit_aqsa_qiyamah',
+        sheikhKey: 'abdulbasit',
+        reciterKey: 'abdulbasit_mujawwad',
+        reciterName: 'الشيخ عبد الباسط عبد الصمد',
+        concertTitle: 'حفل المسجد الأقصى (القيامة والقصار)',
+        surahNum: 75,
+        surahName: 'سورة القيامة',
+        startAyah: 1,
+        endAyah: 12,
+        tag: 'حفل الأقصى',
+        year: '١٩٦٤',
+        previewExcerpt: 'لا أقسم بيوم القيامة * ولا أقسم بالنفس اللوامة...'
+      },
+      {
+        id: 'minshawi_libya_fajr',
+        sheikhKey: 'minshawi',
+        reciterKey: 'minshawi_mujawwad',
+        reciterName: 'الشيخ محمد صديق المنشاوي',
+        concertTitle: 'حفل طرابلس الأسطوري - ليبيا',
+        surahNum: 89,
+        surahName: 'سورة الفجر والبلد',
+        startAyah: 1,
+        endAyah: 14,
+        tag: 'حفل ليبيا',
+        year: '١٩٦٨',
+        previewExcerpt: 'والفجر * وليال عشر * والشفع والوتر * والليل إذا يسر...'
+      },
+      {
+        id: 'minshawi_kuwait_room',
+        sheikhKey: 'minshawi',
+        reciterKey: 'minshawi_mujawwad',
+        reciterName: 'الشيخ محمد صديق المنشاوي',
+        concertTitle: 'حفل الكويت الخالد',
+        surahNum: 30,
+        surahName: 'سورة الروم',
+        startAyah: 17,
+        endAyah: 22,
+        tag: 'حفل الكويت',
+        year: '١٩٦٦',
+        previewExcerpt: 'فسبحان الله حين تمسون وحين تصبحون وله الحمد في السماوات...'
+      },
+      {
+        id: 'minshawi_aqsa_hashr',
+        sheikhKey: 'minshawi',
+        reciterKey: 'minshawi_mujawwad',
+        reciterName: 'الشيخ محمد صديق المنشاوي',
+        concertTitle: 'حفل المسجد الأقصى المبارك',
+        surahNum: 59,
+        surahName: 'سورة الحشر',
+        startAyah: 21,
+        endAyah: 24,
+        tag: 'حفل الأقصى',
+        year: '١٩٦٥',
+        previewExcerpt: 'هو الله الذي لا إله إلا هو عالم الغيب والشهادة هو الرحمن الرحيم...'
+      },
+      {
+        id: 'minshawi_shuara_radio',
+        sheikhKey: 'minshawi',
+        reciterKey: 'minshawi_mujawwad',
+        reciterName: 'الشيخ محمد صديق المنشاوي',
+        concertTitle: 'تلاوة إذاعية تاريخية نادرة',
+        surahNum: 26,
+        surahName: 'سورة الشعراء',
+        startAyah: 78,
+        endAyah: 85,
+        tag: 'تسجيل نادر',
+        year: 'إذاعي',
+        previewExcerpt: 'الذي خلقني فهو يهدين * والذي هو يطعمني ويسقين...'
+      },
+      {
+        id: 'mustafa_imran_mihrab',
+        sheikhKey: 'mustafa',
+        reciterKey: 'mustafa_ismail',
+        reciterName: 'الشيخ مصطفى إسماعيل',
+        concertTitle: 'حفل الإسكندرية الأسطوري الخالد',
+        surahNum: 3,
+        surahName: 'سورة آل عمران',
+        startAyah: 37,
+        endAyah: 39,
+        tag: 'حفل الإسكندرية',
+        year: '١٩٦٣',
+        previewExcerpt: 'فنادته الملائكة وهو قائم يصلي في المحراب أن الله يبشرك بيحيى...'
+      },
+      {
+        id: 'mustafa_hud_naziat',
+        sheikhKey: 'mustafa',
+        reciterKey: 'mustafa_ismail',
+        reciterName: 'الشيخ مصطفى إسماعيل',
+        concertTitle: 'حفل مسجد السيدة زينب بالقاهرة',
+        surahNum: 11,
+        surahName: 'سورة هود والنازعات',
+        startAyah: 41,
+        endAyah: 43,
+        tag: 'مسجد السيدة زينب',
+        year: '١٩٦٠',
+        previewExcerpt: 'وقال اركبوا فيها بسم الله مجراها ومرساها إن ربي لغفور رحيم...'
+      },
+      {
+        id: 'mustafa_hussain_yusuf',
+        sheikhKey: 'mustafa',
+        reciterKey: 'mustafa_ismail',
+        reciterName: 'الشيخ مصطفى إسماعيل',
+        concertTitle: 'حفل مسجد الإمام الحسين',
+        surahNum: 12,
+        surahName: 'سورة يوسف',
+        startAyah: 21,
+        endAyah: 22,
+        tag: 'مسجد الحسين',
+        year: '١٩٦٢',
+        previewExcerpt: 'وقال الذي اشتراه من مصر لامرأته أكرمي مثواه عسى أن ينفعنا...'
+      },
+      {
+        id: 'ghalwash_israa_balad',
+        sheikhKey: 'ghalwash',
+        reciterKey: 'ghalwash',
+        reciterName: 'الشيخ راغب مصطفى غلوش',
+        concertTitle: 'حفل نادر من سورة الإسراء والبلد',
+        surahNum: 17,
+        surahName: 'سورة الإسراء',
+        startAyah: 78,
+        endAyah: 82,
+        tag: 'حفل خارجي',
+        year: '١٩٧٥',
+        previewExcerpt: 'أقم الصلاة لدلوك الشمس إلى غسق الليل وقرآن الفجر...'
+      },
+      {
+        id: 'ghalwash_maryam_radio',
+        sheikhKey: 'ghalwash',
+        reciterKey: 'ghalwash',
+        reciterName: 'الشيخ راغب مصطفى غلوش',
+        concertTitle: 'تسجيل نادر من سورة مريم والرحمن',
+        surahNum: 19,
+        surahName: 'سورة مريم',
+        startAyah: 1,
+        endAyah: 6,
+        tag: 'تسجيل نادر',
+        year: 'إذاعي',
+        previewExcerpt: 'كهيعص * ذكر رحمت ربك عبده زكريا * إذ نادى ربه نداء خفيا...'
+      },
+      {
+        id: 'shahat_imran_radio',
+        sheikhKey: 'shahat',
+        reciterKey: 'shahat',
+        reciterName: 'الشيخ الشحات محمد أنور',
+        concertTitle: 'حفل سورة آل عمران وقصار السور',
+        surahNum: 3,
+        surahName: 'سورة آل عمران',
+        startAyah: 189,
+        endAyah: 192,
+        tag: 'حفل خارجي',
+        year: '١٩٨٢',
+        previewExcerpt: 'إن في خلق السماوات والأرض واختلاف الليل والنهار لآيات لأولي الألباب...'
+      },
+      {
+        id: 'shahat_nahl_radio',
+        sheikhKey: 'shahat',
+        reciterKey: 'shahat',
+        reciterName: 'الشيخ الشحات محمد أنور',
+        concertTitle: 'تلاوة نادرة من سورة النحل',
+        surahNum: 16,
+        surahName: 'سورة النحل',
+        startAyah: 125,
+        endAyah: 128,
+        tag: 'تسجيل نادر',
+        year: 'إذاعي',
+        previewExcerpt: 'ادع إلى سبيل ربك بالحكمة والموعظة الحسنة وجادلهم بالتي هي أحسن...'
+      },
+      {
+        id: 'shaisha_qasas_shams',
+        sheikhKey: 'shaisha',
+        reciterKey: 'shaisha',
+        reciterName: 'الشيخ أبو العينين شعيشع',
+        concertTitle: 'تسجيل خارجي نادر من سورة القصص والشمس',
+        surahNum: 28,
+        surahName: 'سورة القصص',
+        startAyah: 76,
+        endAyah: 77,
+        tag: 'حفل خارجي',
+        year: '١٩٦٧',
+        previewExcerpt: 'إن قارون كان من قوم موسى فبغى عليهم وآتيناه من الكنوز...'
+      },
+      {
+        id: 'bahtimi_hussain_qiyamah',
+        sheikhKey: 'bahtimi',
+        reciterKey: 'bahtimi',
+        reciterName: 'الشيخ كامل يوسف البهتيمي',
+        concertTitle: 'حفل مسجد الإمام الحسين الخالد',
+        surahNum: 75,
+        surahName: 'سورة القيامة والبلد',
+        startAyah: 1,
+        endAyah: 12,
+        tag: 'مسجد الحسين',
+        year: '١٩٦٥',
+        previewExcerpt: 'لا أقسم بيوم القيامة * ولا أقسم بالنفس اللوامة...'
+      },
+      {
+        id: 'bahtimi_taha_radio',
+        sheikhKey: 'bahtimi',
+        reciterKey: 'bahtimi',
+        reciterName: 'الشيخ كامل يوسف البهتيمي',
+        concertTitle: 'تلاوة نادرة من روائع سورة طه',
+        surahNum: 20,
+        surahName: 'سورة طه',
+        startAyah: 1,
+        endAyah: 8,
+        tag: 'تسجيل نادر',
+        year: 'إذاعي',
+        previewExcerpt: 'طه * ما أنزلنا عليك القرآن لتشقى * إلا تذكرة لمن يخشى...'
+      },
+      {
+        id: 'shashai_hussain_najm',
+        sheikhKey: 'shashai',
+        reciterKey: 'shashai',
+        reciterName: 'الشيخ عبد الفتاح الشعشاعي',
+        concertTitle: 'حفل مسجد الإمام الحسين ١٩٥٨ التاريخي',
+        surahNum: 53,
+        surahName: 'سورة النجم',
+        startAyah: 1,
+        endAyah: 11,
+        tag: 'حفل الحسين',
+        year: '١٩٥٨',
+        previewExcerpt: 'والنجم إذا هوى * ما ضل صاحبكم وما غوى * وما ينطق عن الهوى...'
+      },
+      {
+        id: 'banna_hussain_naziat',
+        sheikhKey: 'banna',
+        reciterKey: 'banna_murattal',
+        reciterName: 'الشيخ محمود علي البنا',
+        concertTitle: 'حفل مسجد الإمام الحسين',
+        surahNum: 79,
+        surahName: 'سورة النازعات والشمس',
+        startAyah: 1,
+        endAyah: 10,
+        tag: 'مسجد الحسين',
+        year: '١٩٦٨',
+        previewExcerpt: 'والنازعات غرقا * والناشطات نشطا * والسابحات سبحا...'
+      },
+      {
+        id: 'banna_maryam_alex',
+        sheikhKey: 'banna',
+        reciterKey: 'banna_murattal',
+        reciterName: 'الشيخ محمود علي البنا',
+        concertTitle: 'حفل الإسكندرية النادر',
+        surahNum: 19,
+        surahName: 'سورة مريم والبلد',
+        startAyah: 1,
+        endAyah: 6,
+        tag: 'حفل الإسكندرية',
+        year: '١٩٦٥',
+        previewExcerpt: 'كهيعص * ذكر رحمت ربك عبده زكريا * إذ نادى ربه نداء خفيا...'
+      },
+      {
+        id: 'tablawi_ahzab_radio',
+        sheikhKey: 'tablawi',
+        reciterKey: 'tablawi',
+        reciterName: 'الشيخ محمد محمود الطبلاوي',
+        concertTitle: 'تسجيل خارجي من سورة الأحزاب',
+        surahNum: 33,
+        surahName: 'سورة الأحزاب',
+        startAyah: 56,
+        endAyah: 57,
+        tag: 'تسجيل نادر',
+        year: 'إذاعي',
+        previewExcerpt: 'إن الله وملائكته يصلون على النبي يا أيها الذين آمنوا صلوا عليه...'
+      },
+      {
+        id: 'tablawi_qisar_radio',
+        sheikhKey: 'tablawi',
+        reciterKey: 'tablawi',
+        reciterName: 'الشيخ محمد محمود الطبلاوي',
+        concertTitle: 'حفل قصار السور النادر',
+        surahNum: 93,
+        surahName: 'سورة الضحى',
+        startAyah: 1,
+        endAyah: 11,
+        tag: 'حفل خارجي',
+        year: '١٩٧٤',
+        previewExcerpt: 'والضحى * والليل إذا سجى * ما ودعك ربك وما قلى...'
+      },
+      {
+        id: 'husary_hussain_qadr',
+        sheikhKey: 'husary',
+        reciterKey: 'husary_mujawwad',
+        reciterName: 'الشيخ محمود خليل الحصري',
+        concertTitle: 'حفل مسجد الإمام الحسين النادر',
+        surahNum: 97,
+        surahName: 'سورة القدر',
+        startAyah: 1,
+        endAyah: 5,
+        tag: 'مسجد الحسين',
+        year: '١٩٦٨',
+        previewExcerpt: 'إنا أنزلناه في ليلة القدر * وما أدراك ما ليلة القدر...'
+      }
+    ];
+
     const RECITERS_DATA = {
       minshawi_mujawwad: {
         id: 'minshawi_mujawwad',
@@ -979,39 +1370,117 @@
         id: 'abdulbasit_mujawwad',
         name: 'الشيخ عبد الباسط عبد الصمد (مجود)',
         getUrls: (ayah) => [
-          `https://cdn.islamic.network/quran/audio/192/ar.abdulbasitmujawwad/${ayah.globalAyah}.mp3`,
           `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
           `https://mirrors.quranicaudio.com/everyayah/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://cdn.islamic.network/quran/audio/192/ar.abdulbasitmujawwad/${ayah.globalAyah}.mp3`,
           `https://verses.quran.com/AbdulBaset/Mujawwad/mp3/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      mustafa_ismail: {
+        id: 'mustafa_ismail',
+        name: 'الشيخ مصطفى إسماعيل (مجود)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Mustafa_Ismail_48kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      ghalwash: {
+        id: 'ghalwash',
+        name: 'الشيخ راغب مصطفى غلوش',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      shahat: {
+        id: 'shahat',
+        name: 'الشيخ الشحات محمد أنور',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      shaisha: {
+        id: 'shaisha',
+        name: 'الشيخ أبو العينين شعيشع',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      bahtimi: {
+        id: 'bahtimi',
+        name: 'الشيخ كامل يوسف البهتيمي',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      shashai: {
+        id: 'shashai',
+        name: 'الشيخ عبد الفتاح الشعشاعي',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      tablawi: {
+        id: 'tablawi',
+        name: 'الشيخ محمد محمود الطبلاوي',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Mohammad_al_Tablaway_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Mohammad_al_Tablaway_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`
         ]
       },
       husary_mujawwad: {
         id: 'husary_mujawwad',
         name: 'الشيخ محمود خليل الحصري (مجود)',
         getUrls: (ayah) => [
-          `https://cdn.islamic.network/quran/audio/64/ar.husarymujawwad/${ayah.globalAyah}.mp3`,
           `https://everyayah.com/data/Husary_128kbps_Mujawwad/${ayah.everyAyahCode}.mp3`,
           `https://mirrors.quranicaudio.com/everyayah/Husary_128kbps_Mujawwad/${ayah.everyAyahCode}.mp3`,
-          `https://everyayah.com/data/Husary_Mujawwad_64kbps/${ayah.everyAyahCode}.mp3`
+          `https://cdn.islamic.network/quran/audio/64/ar.husarymujawwad/${ayah.globalAyah}.mp3`
         ]
       },
       banna_murattal: {
         id: 'banna_murattal',
         name: 'الشيخ محمود علي البنا',
         getUrls: (ayah) => [
-          `https://mirrors.quranicaudio.com/everyayah/mahmoud_ali_al_banna_32kbps/${ayah.everyAyahCode}.mp3`,
           `https://everyayah.com/data/mahmoud_ali_al_banna_32kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/mahmoud_ali_al_banna_32kbps/${ayah.everyAyahCode}.mp3`,
           `https://media.quranco.com/audio/albanna-32/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      ahmed_neana: {
+        id: 'ahmed_neana',
+        name: 'الشيخ أحمد نعينع (مجود)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Ahmed_Neana_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Ahmed_Neana_128kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      hajjaj_suesy: {
+        id: 'hajjaj_suesy',
+        name: 'الشيخ علي حجاج السويسي (مجود)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Ali_Hajjaj_AlSuesy_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Ali_Hajjaj_AlSuesy_128kbps/${ayah.everyAyahCode}.mp3`
         ]
       },
       minshawi_murattal: {
         id: 'minshawi_murattal',
         name: 'الشيخ محمد صديق المنشاوي (مرتل)',
         getUrls: (ayah) => [
-          `https://cdn.islamic.network/quran/audio/128/ar.minshawi/${ayah.globalAyah}.mp3`,
           `https://everyayah.com/data/Minshawy_Murattal_128kbps/${ayah.everyAyahCode}.mp3`,
           `https://mirrors.quranicaudio.com/everyayah/Minshawy_Murattal_128kbps/${ayah.everyAyahCode}.mp3`,
-          `https://verses.quran.com/Minshawi/Murattal/mp3/${ayah.everyAyahCode}.mp3`
+          `https://cdn.islamic.network/quran/audio/128/ar.minshawi/${ayah.globalAyah}.mp3`
         ]
       }
     };
@@ -1023,6 +1492,9 @@
       currentAyahKey: null,
       currentReciterKey: null,
       customAudioUrl: null,
+      reciterTabMode: 'standard', // 'standard' | 'rare'
+      currentRareRecitationId: null,
+      activeRareSheikhFilter: 'all',
       customAudioName: null,
       urlQueue: [],
       urlIndex: 0,
@@ -2859,7 +3331,7 @@
         targetCtx.textAlign = 'center';
         targetCtx.textBaseline = 'middle';
         const parts = [];
-        if (ayah) parts.push(`${ayah.surahName} — الآية ${ayah.ayahNumber}`);
+        if (ayah) parts.push(ayah.isRareConcert ? `${ayah.surahName} (${ayah.ayahNumber})` : `${ayah.surahName} — الآية ${ayah.ayahNumber}`);
         if (state.customAudioName) parts.push(state.customAudioName);
         else if (reciter) parts.push(reciter.name.replace(/[()]/g, ''));
         targetCtx.fillText(parts.join('  •  '), W / 2, topBarY + topBarH / 2);
@@ -3383,9 +3855,333 @@
     btnAspect169.addEventListener('click', () => setAspectRatio('16:9'));
     btnAspect916.addEventListener('click', () => setAspectRatio('9:16'));
 
+    // عناصر تبويب مصادر التلاوة (المصاحف الكاملة والنوادر)
+    const btnTabStandardReciters = document.getElementById('btnTabStandardReciters');
+    const btnTabRareRecitations = document.getElementById('btnTabRareRecitations');
+    const standardRecitersBox = document.getElementById('standardRecitersBox');
+    const rareRecitationsBox = document.getElementById('rareRecitationsBox');
+    const activeReciterBadge = document.getElementById('activeReciterBadge');
+    const rareSearchInput = document.getElementById('rareSearchInput');
+    const btnClearRareSearch = document.getElementById('btnClearRareSearch');
+    const rareRecitationsList = document.getElementById('rareRecitationsList');
+
+    function switchReciterTab(tabMode) {
+      state.reciterTabMode = tabMode;
+      if (tabMode === 'standard') {
+        btnTabStandardReciters.className = 'py-2 px-2.5 rounded-lg transition bg-amber-500 text-slate-950 flex items-center justify-center gap-1.5 shadow-sm';
+        btnTabRareRecitations.className = 'py-2 px-2.5 rounded-lg transition text-slate-300 hover:text-amber-200 flex items-center justify-center gap-1.5';
+        standardRecitersBox.classList.remove('hidden');
+        rareRecitationsBox.classList.add('hidden');
+      } else {
+        btnTabRareRecitations.className = 'py-2 px-2.5 rounded-lg transition bg-amber-500 text-slate-950 flex items-center justify-center gap-1.5 shadow-sm';
+        btnTabStandardReciters.className = 'py-2 px-2.5 rounded-lg transition text-slate-300 hover:text-amber-200 flex items-center justify-center gap-1.5';
+        rareRecitationsBox.classList.remove('hidden');
+        standardRecitersBox.classList.add('hidden');
+        renderRareRecitationsList(state.activeRareSheikhFilter || 'all', rareSearchInput?.value || '');
+      }
+    }
+
+    if (btnTabStandardReciters) {
+      btnTabStandardReciters.addEventListener('click', () => switchReciterTab('standard'));
+    }
+    if (btnTabRareRecitations) {
+      btnTabRareRecitations.addEventListener('click', () => switchReciterTab('rare'));
+    }
+
+    function renderRareRecitationsList(filterSheikh = 'all', searchQuery = '') {
+      if (!rareRecitationsList) return;
+      const q = normalizeArabicForSearch(searchQuery);
+
+      const filtered = RARE_RECITATIONS_LIST.filter(item => {
+        if (filterSheikh !== 'all' && item.sheikhKey !== filterSheikh) {
+          return false;
+        }
+        if (q) {
+          const haystack = normalizeArabicForSearch(`${item.reciterName} ${item.concertTitle} ${item.surahName} ${item.tag} ${item.previewExcerpt}`);
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        rareRecitationsList.innerHTML = `
+          <div class="text-center py-6 text-xs text-slate-400 bg-slate-900/60 rounded-xl border border-slate-800 p-4">
+            لم يتم العثور على تلاوة نادرة مطابقة لكلمات البحث
+          </div>
+        `;
+        return;
+      }
+
+      rareRecitationsList.innerHTML = filtered.map(item => {
+        const isSelected = state.currentRareRecitationId === item.id;
+        const borderCls = isSelected
+          ? 'border-amber-400 bg-amber-500/20 text-amber-100 shadow-md ring-1 ring-amber-400/40'
+          : 'border-slate-800/90 bg-slate-900/90 hover:border-amber-500/40 text-slate-200';
+
+        return `
+          <button type="button" data-rare-id="${item.id}" class="rare-recitation-card w-full text-right p-3 rounded-xl border transition flex flex-col gap-1.5 ${borderCls}">
+            <div class="flex items-center justify-between gap-1.5 w-full">
+              <span class="font-bold text-xs sm:text-sm text-amber-200 truncate">${item.reciterName}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800/90 border border-slate-700/80 text-amber-300 font-semibold shrink-0">${item.tag}</span>
+            </div>
+            <div class="flex items-center justify-between text-xs text-slate-300 w-full">
+              <span class="font-medium">${item.concertTitle}</span>
+              <span class="text-[11px] text-amber-300/90 font-mono">${item.surahName} (${item.ayahRange})</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-normal line-clamp-1 italic">${item.previewExcerpt}</p>
+          </button>
+        `;
+      }).join('');
+
+      rareRecitationsList.querySelectorAll('.rare-recitation-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const rareId = card.getAttribute('data-rare-id');
+          if (!rareId) return;
+          selectRareRecitationById(rareId, true);
+        });
+      });
+    }
+
+    async function applyRareRecitationRange(rareItem, fromAyah, toAyah, autoPlay = true, isFullClip = true) {
+      if (!rareItem) return;
+
+      const startA = Math.max(rareItem.startAyah, Math.min(rareItem.endAyah, Math.min(fromAyah, toAyah)));
+      const endA = Math.max(startA, Math.min(rareItem.endAyah, Math.max(fromAyah, toAyah)));
+
+      state.currentRareRecitationId = rareItem.id;
+      state.rareSelectedFromAyah = startA;
+      state.rareSelectedToAyah = endA;
+      state.rareTakeFullClip = isFullClip;
+      state.currentReciterKey = rareItem.reciterKey;
+      state.customAudioUrl = null;
+
+      if (activeReciterBadge) {
+        activeReciterBadge.textContent = rareItem.reciterName.replace('الشيخ ', '');
+        activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[160px] font-bold';
+      }
+
+      setStatus(`جاري تحميل نص ${rareItem.surahName}...`, 'amber');
+      const versesMap = await fetchSurahVerses(rareItem.surahNum);
+
+      const meta = SURAHS_META[rareItem.surahNum - 1];
+      const startGlobal = meta ? meta[3] : 1;
+
+      const queue = [];
+      const cleanedAyahsList = [];
+
+      for (let a = startA; a <= endA; a++) {
+        const gAyah = startGlobal + (a - 1);
+        const code = String(rareItem.surahNum).padStart(3, '0') + String(a).padStart(3, '0');
+        const rawText = (versesMap && versesMap[a]) ? versesMap[a] : `الآية ${toArabicDigits(a)}`;
+        const cleanText = cleanAyahText(rawText, rareItem.surahNum, a);
+        cleanedAyahsList.push(cleanText);
+        queue.push({
+          surahNum: rareItem.surahNum,
+          ayahNum: a,
+          globalAyah: gAyah,
+          everyAyahCode: code,
+          text: cleanText
+        });
+      }
+
+      state.multiAyahQueue = queue;
+      const isMulti = queue.length > 1;
+      const rangeLabel = startA === endA
+        ? `الآية ${toArabicDigits(startA)}`
+        : `الآيات ${toArabicDigits(startA)}–${toArabicDigits(endA)}`;
+
+      const ayahKey = `rare_${rareItem.id}_${startA}_${endA}`;
+      state.currentAyahKey = ayahKey;
+
+      AYAHS_DATA[ayahKey] = {
+        id: ayahKey,
+        surahName: rareItem.surahName,
+        ayahNumber: rangeLabel,
+        transcriptText: cleanedAyahsList.join(AYAH_SEPARATOR),
+        ayahTextsList: cleanedAyahsList,
+        globalAyah: queue[0].globalAyah,
+        everyAyahCode: queue[0].everyAyahCode,
+        isMultiAyah: isMulti,
+        multiQueue: queue,
+        isRareConcert: true,
+        concertTitle: rareItem.concertTitle,
+        reciterName: rareItem.reciterName
+      };
+
+      state.customAudioName = `${rareItem.reciterName} — ${rareItem.concertTitle}`;
+
+      // تحديث ملخص القسم الثاني مع أزرار التحكم بالمقطع (المقطع كامل أو آيات معينة)
+      renderRareRecitationSelectionControls(rareItem, startA, endA, isFullClip);
+
+      if (!state.currentBgId && state.studioSubMode !== 'video') {
+        const firstImgBg = BACKGROUNDS_LIST.find(b => !b.isVideo);
+        if (firstImgBg) selectBackgroundById(firstImgBg.id);
+      }
+
+      renderRareRecitationsList(state.activeRareSheikhFilter || 'all', rareSearchInput?.value || '');
+
+      document.querySelectorAll('.reciter-btn').forEach(b => {
+        b.className = 'reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200';
+      });
+
+      refreshBigPlayOverlayVisibility();
+
+      const reciter = RECITERS_DATA[rareItem.reciterKey] || RECITERS_DATA.minshawi_mujawwad;
+      if (isMulti) {
+        loadAndMergeMultiAyahs(AYAHS_DATA[ayahKey], reciter, autoPlay);
+      } else {
+        state.isMergedMultiAudio = false;
+        state.isSequentialFallback = false;
+        state.urlQueue = reciter.getUrls(queue[0]);
+        state.urlIndex = 0;
+        tryLoadAudioUrl(autoPlay);
+      }
+
+      requestRenderOnce();
+
+      if (chkAutoDownloadOnSelect?.checked) {
+        exportAndDownloadDirectly();
+      }
+    }
+
+    function renderRareRecitationSelectionControls(rareItem, startA, endA, isFullClip) {
+      const surahSummaryEl = document.getElementById('surahSelectionSummary');
+      if (!surahSummaryEl) return;
+
+      const fullStart = rareItem.startAyah;
+      const fullEnd = rareItem.endAyah;
+      const totalClipAyahs = fullEnd - fullStart + 1;
+
+      // بناء خيارات من الآية وإلى الآية
+      let fromOptions = '';
+      let toOptions = '';
+      for (let a = fullStart; a <= fullEnd; a++) {
+        fromOptions += `<option value="${a}" ${a === startA ? 'selected' : ''}>الآية ${toArabicDigits(a)}</option>`;
+        toOptions += `<option value="${a}" ${a === endA ? 'selected' : ''}>الآية ${toArabicDigits(a)}</option>`;
+      }
+
+      surahSummaryEl.innerHTML = `
+        <div class="space-y-2.5 bg-slate-900/90 rounded-xl p-3 border border-amber-500/30">
+          <div class="flex items-center justify-between text-xs font-bold text-amber-200 flex-wrap gap-1">
+            <span>✨ ${rareItem.reciterName}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/25 border border-amber-400/40 text-amber-100 font-semibold">${rareItem.tag} (${rareItem.year})</span>
+          </div>
+
+          <div class="text-[11px] text-slate-200 font-semibold flex items-center justify-between">
+            <span>${rareItem.concertTitle}</span>
+            <span class="text-amber-300 font-mono">${rareItem.surahName}</span>
+          </div>
+
+          <!-- خياري المقطع كاملاً أو آيات معينة -->
+          <div class="pt-2 border-t border-slate-800 space-y-2">
+            <div class="flex items-center justify-between text-xs text-slate-300">
+              <span class="font-bold">نطاق التلاوة المختارة:</span>
+              <span class="text-amber-300 font-mono text-[11px]">المحدد: ${startA === endA ? `آية واحدة (${toArabicDigits(startA)})` : `${toArabicDigits(endA - startA + 1)} آيات`}</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+              <button id="btnRareFullClip" type="button" class="py-1.5 px-2 rounded-lg transition ${isFullClip ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-300 hover:text-amber-200'}">
+                <span>المقطع كاملاً (${toArabicDigits(fullStart)}–${toArabicDigits(fullEnd)})</span>
+              </button>
+              <button id="btnRareCustomRange" type="button" class="py-1.5 px-2 rounded-lg transition ${!isFullClip ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-300 hover:text-amber-200'}">
+                <span>تحديد آيات معينة</span>
+              </button>
+            </div>
+
+            <!-- منسدلات تحديد الآيات الخاصة بالمقطع (تظهر عند الرغبة في جزء من المقطع) -->
+            <div id="rareRangeDropdownsBox" class="${isFullClip ? 'hidden' : ''} grid grid-cols-2 gap-2 bg-slate-950/80 p-2 rounded-xl border border-slate-800 pt-1.5">
+              <div>
+                <label for="selectRareFromAyah" class="block text-[10px] text-slate-400 mb-1 font-semibold">من الآية:</label>
+                <select id="selectRareFromAyah" class="w-full rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-100 p-1.5 focus:outline-none focus:border-amber-400">
+                  ${fromOptions}
+                </select>
+              </div>
+              <div>
+                <label for="selectRareToAyah" class="block text-[10px] text-slate-400 mb-1 font-semibold">إلى الآية:</label>
+                <select id="selectRareToAyah" class="w-full rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-100 p-1.5 focus:outline-none focus:border-amber-400">
+                  ${toOptions}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const btnRareFull = document.getElementById('btnRareFullClip');
+      const btnRareCustom = document.getElementById('btnRareCustomRange');
+      const rangeBox = document.getElementById('rareRangeDropdownsBox');
+      const selFrom = document.getElementById('selectRareFromAyah');
+      const selTo = document.getElementById('selectRareToAyah');
+
+      if (btnRareFull) {
+        btnRareFull.addEventListener('click', () => {
+          applyRareRecitationRange(rareItem, rareItem.startAyah, rareItem.endAyah, true, true);
+        });
+      }
+
+      if (btnRareCustom) {
+        btnRareCustom.addEventListener('click', () => {
+          if (rangeBox) rangeBox.classList.remove('hidden');
+          btnRareCustom.className = 'py-1.5 px-2 rounded-lg transition bg-amber-500 text-slate-950 shadow-sm';
+          if (btnRareFull) btnRareFull.className = 'py-1.5 px-2 rounded-lg transition text-slate-300 hover:text-amber-200';
+        });
+      }
+
+      const onRangeChange = () => {
+        if (!selFrom || !selTo) return;
+        const fVal = parseInt(selFrom.value, 10) || fullStart;
+        const tVal = parseInt(selTo.value, 10) || fullEnd;
+        const actualFrom = Math.min(fVal, tVal);
+        const actualTo = Math.max(fVal, tVal);
+        selFrom.value = String(actualFrom);
+        selTo.value = String(actualTo);
+        applyRareRecitationRange(rareItem, actualFrom, actualTo, true, false);
+      };
+
+      if (selFrom) selFrom.addEventListener('change', onRangeChange);
+      if (selTo) selTo.addEventListener('change', onRangeChange);
+    }
+
+    function selectRareRecitationById(rareId, autoPlay = true) {
+      const rareItem = RARE_RECITATIONS_LIST.find(r => r.id === rareId);
+      if (!rareItem) return;
+      applyRareRecitationRange(rareItem, rareItem.startAyah, rareItem.endAyah, autoPlay, true);
+    }
+
+    if (rareSearchInput) {
+      rareSearchInput.addEventListener('input', () => {
+        const hasText = Boolean(rareSearchInput.value.trim());
+        if (btnClearRareSearch) btnClearRareSearch.classList.toggle('hidden', !hasText);
+        renderRareRecitationsList(state.activeRareSheikhFilter || 'all', rareSearchInput.value);
+      });
+    }
+
+    if (btnClearRareSearch) {
+      btnClearRareSearch.addEventListener('click', () => {
+        rareSearchInput.value = '';
+        btnClearRareSearch.classList.add('hidden');
+        renderRareRecitationsList(state.activeRareSheikhFilter || 'all', '');
+      });
+    }
+
+    document.querySelectorAll('.rare-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filterKey = btn.getAttribute('data-sheikh-filter') || 'all';
+        state.activeRareSheikhFilter = filterKey;
+
+        document.querySelectorAll('.rare-filter-btn').forEach(b => {
+          b.className = 'rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0';
+        });
+        btn.className = 'rare-filter-btn px-2.5 py-1 rounded-lg font-bold transition bg-amber-500 text-slate-950 whitespace-nowrap shrink-0';
+
+        renderRareRecitationsList(filterKey, rareSearchInput?.value || '');
+      });
+    });
+
     document.querySelectorAll('.reciter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         state.currentReciterKey = btn.getAttribute('data-reciter');
+        state.currentRareRecitationId = null; // إلغاء التلاوة النادرة
         state.customAudioUrl = null;
         state.customAudioName = null;
 
@@ -3393,6 +4189,12 @@
           b.className = 'reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200';
         });
         btn.className = 'reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-amber-500/20 border-amber-400 text-amber-100';
+
+        const reciterObj = RECITERS_DATA[state.currentReciterKey];
+        if (activeReciterBadge && reciterObj) {
+          activeReciterBadge.textContent = reciterObj.name.replace(/[()]/g, '').replace('الشيخ ', '');
+          activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[160px] font-bold';
+        }
 
         loadCurrentSelection(false);
         if (chkAutoDownloadOnSelect?.checked && state.currentAyahKey) {
@@ -5240,6 +6042,7 @@
     // 11. التشغيل الخفيف عند فتح الصفحة
     // =========================================================================
     window.addEventListener('load', () => {
+      renderRareRecitationsList('all', '');
       populateLiveServerSelect();
       syncLiveStationLinks();
       setTimeout(() => initRefa3yPwaSetup(), 200);

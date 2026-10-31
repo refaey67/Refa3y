@@ -101,8 +101,11 @@
           </button>
         </div>
 
-        <button id="btnInstallApp" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950">
-          <span>تثبيت كتطبيق (Refa3y)</span>
+        <button id="btnInstallApp" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+          </svg>
+          <span>تثبيت التطبيق (APK)</span>
         </button>
       </div>
     </header>
@@ -174,6 +177,36 @@
               <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 group-hover:bg-sky-500 group-hover:text-slate-950 transition">دخول ←</span>
             </div>
           </button>
+        </div>
+
+        <!-- شريط تحميل وتثبيت تطبيق الأندرويد المباشر (APK) -->
+        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-amber-400/40 bg-slate-900/90 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5 text-right w-full sm:w-auto">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/>
+              </svg>
+            </div>
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="text-sm sm:text-base font-bold text-amber-200">تطبيق Refa3y للأندرويد والهواتف</h3>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">يدعم التشغيل في الخلفية</span>
+              </div>
+              <p class="text-xs text-slate-300">حمّل ملف التطبيق المباشر (APK) للأندرويد أو ثبّته فوراً على الشاشة الرئيسية</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
+            <a id="linkDirectApkHome" href="https://refaey67.github.io/Refa3y/Refa3y.apk" download="Refa3y.apk" class="flex-1 sm:flex-initial py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition flex items-center justify-center gap-1.5 shadow-md">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+              </svg>
+              <span>تحميل تطبيق الأندرويد (APK)</span>
+            </a>
+            <button id="btnOpenInstallModalHome" type="button" class="py-2.5 px-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-amber-200 font-bold text-xs transition shrink-0">
+              خيارات التثبيت
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -923,36 +956,56 @@
 
   </div>
 
-  <!-- نافذة إضافة التطبيق إلى الهاتف -->
+  <!-- نافذة تحميل وتثبيت التطبيق على الهاتف -->
   <div id="installAppModal" class="hidden fixed inset-0 z-50 bg-slate-950/85 flex items-center justify-center p-4">
     <div class="glass-panel rounded-2xl max-w-md w-full p-5 border border-amber-400/40 space-y-4 text-right relative">
       <button id="btnCloseInstallModal" type="button" class="absolute top-4 left-4 w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-sm">✕</button>
 
       <div class="flex items-center gap-3">
         <img id="modalAppIconPreview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='6'/><text x='64' y='74' font-family='serif' font-size='28' font-weight='bold' fill='%23fde68a' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-12 h-12 rounded-xl border border-amber-400 shrink-0" />
-        <h3 class="text-base font-bold text-amber-300">إضافة التطبيق إلى الهاتف</h3>
+        <div>
+          <h3 class="text-base font-bold text-amber-300">تحميل وتثبيت تطبيق Refa3y</h3>
+          <p class="text-xs text-slate-400">اختر طريقة التثبيت المناسبة لجهازك</p>
+        </div>
       </div>
 
-      <div id="nativeInstallPromptBox" class="hidden bg-emerald-500/15 border border-emerald-400/40 rounded-xl p-3">
-        <button id="btnTriggerNativeInstall" type="button" class="w-full py-2 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition">
-          تثبيت التطبيق على الهاتف الآن
+      <!-- ١. تحميل ملف APK المباشر للأندرويد -->
+      <div class="bg-emerald-500/10 border border-emerald-400/40 rounded-xl p-3.5 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-emerald-300">١. نسخة تطبيق الأندرويد الكاملة (APK)</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-200 font-semibold">يعمل في الخلفية</span>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">حزمة تثبيت أندرويد مباشرة تعمل كتطبيق مستقل وتدعم استمرار صوت الإذاعة والتلاوة في الخلفية.</p>
+        <a id="btnDownloadApkModal" href="https://refaey67.github.io/Refa3y/Refa3y.apk" download="Refa3y.apk" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-md">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+          </svg>
+          <span>تحميل ملف التطبيق الآن (Refa3y.apk)</span>
+        </a>
+      </div>
+
+      <!-- ٢. التثبيت الفوري عبر المتصفح (PWA) -->
+      <div id="nativeInstallPromptBox" class="hidden bg-amber-500/15 border border-amber-400/40 rounded-xl p-3 space-y-2">
+        <span class="block text-xs font-bold text-amber-200">٢. تثبيت فوري سريع بدون تنزيل ملف:</span>
+        <button id="btnTriggerNativeInstall" type="button" class="w-full py-2 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm transition">
+          تثبيت مباشر على الشاشة الرئيسية
         </button>
       </div>
 
-      <div class="space-y-3 text-xs sm:text-sm text-slate-200 bg-slate-900 p-3.5 rounded-xl border border-slate-800 leading-relaxed">
+      <div class="space-y-2.5 text-xs text-slate-200 bg-slate-900 p-3.5 rounded-xl border border-slate-800 leading-relaxed">
         <div class="flex items-start gap-2">
-          <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold text-xs shrink-0">أندرويد</span>
-          <p>من قائمة المتصفح <strong class="text-amber-200">(⋮)</strong> اختر <strong class="text-amber-200">«الإضافة إلى الشاشة الرئيسية»</strong> أو <strong class="text-amber-200">«تثبيت التطبيق»</strong>.</p>
+          <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold text-[11px] shrink-0">أندرويد</span>
+          <p>اضغط على زر <strong class="text-emerald-300">«تحميل ملف التطبيق (Refa3y.apk)»</strong> بالأعلى ثم افتح الملف لتثبيته، أو من قائمة المتصفح <strong class="text-amber-200">(⋮)</strong> اختر <strong class="text-amber-200">«تثبيت التطبيق»</strong>.</p>
         </div>
         <div class="flex items-start gap-2 pt-2 border-t border-slate-800">
-          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold text-xs shrink-0">آيفون</span>
-          <p>من زر المشاركة <strong class="text-amber-200">(Share)</strong> اختر <strong class="text-amber-200">«إضافة إلى الصفحة الرئيسية»</strong>.</p>
+          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold text-[11px] shrink-0">آيفون</span>
+          <p>من زر المشاركة <strong class="text-amber-200">(Share)</strong> في سفاري اختر <strong class="text-amber-200">«إضافة إلى الصفحة الرئيسية»</strong>.</p>
         </div>
       </div>
 
       <div class="flex justify-end">
-        <button id="btnDoneInstallModal" type="button" class="w-full sm:w-auto py-2 px-6 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm transition">
-          حسناً
+        <button id="btnDoneInstallModal" type="button" class="w-full sm:w-auto py-2 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm transition">
+          إغلاق
         </button>
       </div>
     </div>
@@ -5344,17 +5397,15 @@
       if (nativeInstallPromptBox) nativeInstallPromptBox.classList.remove('hidden');
     });
 
+    const btnOpenInstallModalHome = document.getElementById('btnOpenInstallModalHome');
+
     if (btnInstallApp) {
-      btnInstallApp.addEventListener('click', async () => {
-        if (deferredInstallPrompt) {
-          try {
-            deferredInstallPrompt.prompt();
-            await deferredInstallPrompt.userChoice;
-            deferredInstallPrompt = null;
-            if (nativeInstallPromptBox) nativeInstallPromptBox.classList.add('hidden');
-            return;
-          } catch (err) {}
-        }
+      btnInstallApp.addEventListener('click', () => {
+        if (installAppModal) installAppModal.classList.remove('hidden');
+      });
+    }
+    if (btnOpenInstallModalHome) {
+      btnOpenInstallModalHome.addEventListener('click', () => {
         if (installAppModal) installAppModal.classList.remove('hidden');
       });
     }

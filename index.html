@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <!-- Google tag (gtag.js) - إحصائيات زوار استوديو إذاعة القرآن الكريم (Refa3y) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J2XKPNY7WX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-J2XKPNY7WX", {
+      page_title: "Refa3y — استوديو إذاعة القرآن الكريم",
+      send_page_view: true
+    });
+    window.trackRefa3yEvent = function(eventName, params) {
+      try {
+        if (typeof gtag === "function") {
+          gtag("event", eventName, params || {});
+        }
+      } catch (e) {}
+    };
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Refa3y — استوديو إذاعة القرآن الكريم</title>
@@ -4886,6 +4904,14 @@
         const filename = `quran_${state.currentAyahKey || 'custom'}_${state.currentReciterKey || 'audio'}.${fileExt}`;
         triggerInstantFileDownload(exportedBlob, filename);
         setStatus(`تم تحميل الفيديو (${filename})`, 'emerald');
+        if (window.trackRefa3yEvent) {
+          window.trackRefa3yEvent("video_export_complete", {
+            ayah_key: state.currentAyahKey || "custom",
+            reciter_key: state.currentReciterKey || "custom",
+            studio_mode: state.studioSubMode || "images",
+            aspect_ratio: state.aspectRatio || "16:9"
+          });
+        }
       } catch (err) {
         if (err?.message === 'CANCELLED') {
           setStatus('تم إلغاء التصدير', 'amber');
@@ -5398,6 +5424,17 @@
     });
 
     const btnOpenInstallModalHome = document.getElementById('btnOpenInstallModalHome');
+    const linkDirectApkHome = document.getElementById('linkDirectApkHome');
+    const btnDownloadApkModal = document.getElementById('btnDownloadApkModal');
+    [linkDirectApkHome, btnDownloadApkModal].forEach(el => {
+      if (el) {
+        el.addEventListener('click', () => {
+          if (window.trackRefa3yEvent) {
+            window.trackRefa3yEvent("apk_download_click", { button_id: el.id });
+          }
+        });
+      }
+    });
 
     if (btnInstallApp) {
       btnInstallApp.addEventListener('click', () => {
@@ -5835,6 +5872,9 @@
         const st = LIVE_RADIO_STATIONS[state.currentLiveStationId] || LIVE_RADIO_STATIONS.cairo_official;
         const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
         setLiveRadioStatusUI('playing', `يبث الآن مباشرة • ${srvLabel}`);
+        if (window.trackRefa3yEvent) {
+          window.trackRefa3yEvent("live_radio_play", { station_id: state.currentLiveStationId, station_name: st.name });
+        }
       });
 
       // تحديث وقت التقدم عند أي نشاط تحميل (progress / canplay / timeupdate) لمنع التبديل أثناء التحميل الطبيعي
@@ -6031,6 +6071,9 @@
 
     function switchAppSection(targetSection) {
       state.activeAppSection = targetSection;
+      if (window.trackRefa3yEvent) {
+        window.trackRefa3yEvent("section_view", { section_name: targetSection });
+      }
 
       if (homeModeSelector) homeModeSelector.classList.toggle('hidden', targetSection !== 'home');
       if (liveRadioViewWrapper) liveRadioViewWrapper.classList.toggle('hidden', targetSection !== 'radio');

@@ -3977,7 +3977,7 @@
             </div>
             <div class="flex items-center justify-between text-xs text-slate-300 w-full">
               <span class="font-medium">${item.concertTitle}</span>
-              <span class="text-[11px] text-amber-300/90 font-mono">${item.surahName} (${item.ayahRange})</span>
+              <span class="text-[11px] text-amber-300/90 font-mono">${item.surahName} (${toArabicDigits(item.startAyah)}–${toArabicDigits(item.endAyah)})</span>
             </div>
             <p class="text-[11px] text-slate-400 font-normal line-clamp-1 italic">${item.previewExcerpt}</p>
           </button>
@@ -5418,27 +5418,21 @@
       if (nativeInstallPromptBox) nativeInstallPromptBox.classList.remove('hidden');
     });
 
-    const btnOpenInstallModalHome = document.getElementById('btnOpenInstallModalHome');
-    const linkDirectApkHome = document.getElementById('linkDirectApkHome');
     const btnDownloadApkModal = document.getElementById('btnDownloadApkModal');
-    [linkDirectApkHome, btnDownloadApkModal].forEach(el => {
-      if (el) {
-        el.addEventListener('click', () => {
-          if (window.trackRefa3yEvent) {
-            window.trackRefa3yEvent("apk_download_click", { button_id: el.id });
-          }
-        });
-      }
-    });
+    if (btnDownloadApkModal) {
+      btnDownloadApkModal.addEventListener('click', () => {
+        if (window.trackRefa3yEvent) {
+          window.trackRefa3yEvent("apk_download_click", { button_id: btnDownloadApkModal.id });
+        }
+      });
+    }
 
     if (btnInstallApp) {
       btnInstallApp.addEventListener('click', () => {
         if (installAppModal) installAppModal.classList.remove('hidden');
-      });
-    }
-    if (btnOpenInstallModalHome) {
-      btnOpenInstallModalHome.addEventListener('click', () => {
-        if (installAppModal) installAppModal.classList.remove('hidden');
+        if (window.trackRefa3yEvent) {
+          window.trackRefa3yEvent("install_modal_open", { button_id: "btnInstallApp" });
+        }
       });
     }
 

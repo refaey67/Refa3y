@@ -8,7 +8,7 @@
     function gtag(){dataLayer.push(arguments);}
     gtag("js", new Date());
     gtag("config", "G-J2XKPNY7WX", {
-      page_title: "Refa3y — استوديو إذاعة القرآن الكريم",
+      page_title: "إذاعة القرآن الكريم واستوديو التصميم | بواسطة رفاعي",
       send_page_view: true
     });
     window.trackRefa3yEvent = function(eventName, params) {
@@ -21,16 +21,16 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Refa3y — استوديو إذاعة القرآن الكريم</title>
-  <meta name="application-name" content="Refa3y" />
+  <title>إذاعة القرآن الكريم واستوديو التصميم | بواسطة رفاعي</title>
+  <meta name="application-name" content="إذاعة القرآن - رفاعي" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Refa3y" />
+  <meta name="apple-mobile-web-app-title" content="إذاعة القرآن - رفاعي" />
   <meta name="theme-color" content="#070b14" />
   <link id="appFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%23070b14' stroke='%23f59e0b' stroke-width='6'/><text x='64' y='74' font-family='serif' font-size='28' font-weight='bold' fill='%23fde68a' text-anchor='middle'>Refa3y</text></svg>" />
   <link id="appleTouchIcon" rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%23070b14' stroke='%23f59e0b' stroke-width='6'/><text x='64' y='74' font-family='serif' font-size='28' font-weight='bold' fill='%23fde68a' text-anchor='middle'>Refa3y</text></svg>" />
-  <link id="pwaManifestLink" rel="manifest" href="data:application/manifest+json;utf8,%7B%22name%22%3A%22Refa3y%22%2C%22short_name%22%3A%22Refa3y%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23070b14%22%2C%22theme_color%22%3A%22%23070b14%22%7D" />
+  <link id="pwaManifestLink" rel="manifest" href="data:application/manifest+json;utf8,%7B%22name%22%3A%22%D8%A5%D8%B0%D8%A7%D8%B9%D8%A9%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86%20-%20%D8%B1%D9%81%D8%A7%D8%B9%D9%8A%22%2C%22short_name%22%3A%22%D8%A5%D8%B0%D8%A7%D8%B9%D8%A9%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23070b14%22%2C%22theme_color%22%3A%22%23070b14%22%7D" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/webm-muxer@5.0.2/build/webm-muxer.min.js" defer></script>
@@ -47,6 +47,12 @@
     }
     * {
       box-sizing: border-box;
+    }
+    input, textarea, select, [contenteditable="true"] {
+      -webkit-user-select: text !important;
+      user-select: text !important;
+      pointer-events: auto !important;
+      cursor: text !important;
     }
     body {
       font-family: 'Cairo', sans-serif;
@@ -93,11 +99,14 @@
     <header class="glass-panel rounded-2xl p-3.5 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-3">
       <div class="flex items-center gap-3">
         <img id="headerAppIcon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='6'/><text x='64' y='74' font-family='serif' font-size='28' font-weight='bold' fill='%23fde68a' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-11 h-11 rounded-xl border border-amber-400/60 shrink-0 object-cover" />
-        <h1 class="text-lg sm:text-xl font-bold gold-gradient-text">Refa3y — استوديو إذاعة القرآن الكريم</h1>
+        <div class="flex flex-col text-right">
+          <h1 class="text-base sm:text-xl font-bold gold-gradient-text leading-tight">استوديو إذاعة القرآن الكريم</h1>
+          <span class="text-[11px] sm:text-xs font-medium text-amber-200/80 tracking-wide">بواسطة رفاعي | By Refa3y</span>
+        </div>
       </div>
 
       <div class="flex items-center gap-2 flex-wrap justify-center">
-        <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-700/80">
+        <div id="headerNavPills" class="hidden items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-700/80">
           <button id="btnNavHome" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950">
             الرئيسية
           </button>
@@ -195,36 +204,6 @@
               <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 group-hover:bg-sky-500 group-hover:text-slate-950 transition">دخول ←</span>
             </div>
           </button>
-        </div>
-
-        <!-- شريط تحميل وتثبيت تطبيق الأندرويد المباشر (APK) -->
-        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-amber-400/40 bg-slate-900/90 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-3.5 text-right w-full sm:w-auto">
-            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center shrink-0">
-              <svg class="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/>
-              </svg>
-            </div>
-            <div class="space-y-0.5">
-              <div class="flex items-center gap-2 flex-wrap">
-                <h3 class="text-sm sm:text-base font-bold text-amber-200">تطبيق Refa3y للأندرويد والهواتف</h3>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">يدعم التشغيل في الخلفية</span>
-              </div>
-              <p class="text-xs text-slate-300">حمّل ملف التطبيق المباشر (APK) للأندرويد أو ثبّته فوراً على الشاشة الرئيسية</p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
-            <a id="linkDirectApkHome" href="https://refaey67.github.io/Refa3y/Refa3y.apk" download="Refa3y.apk" class="flex-1 sm:flex-initial py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition flex items-center justify-center gap-1.5 shadow-md">
-              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
-              </svg>
-              <span>تحميل تطبيق الأندرويد (APK)</span>
-            </a>
-            <button id="btnOpenInstallModalHome" type="button" class="py-2.5 px-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-amber-200 font-bold text-xs transition shrink-0">
-              خيارات التثبيت
-            </button>
-          </div>
         </div>
       </div>
     </section>
@@ -4540,19 +4519,29 @@
     }
 
     function triggerInstantFileDownload(blob, filename) {
+      const now = Date.now();
+      if (window._lastDownloadTime && (now - window._lastDownloadTime < 2500) && window._lastDownloadFilename === filename) {
+        return;
+      }
+      window._lastDownloadTime = now;
+      window._lastDownloadFilename = filename;
+
       const videoUrl = URL.createObjectURL(blob);
       downloadVideoLink.href = videoUrl;
       downloadVideoLink.download = filename;
       downloadVideoLink.classList.remove('hidden');
       downloadVideoLink.classList.add('inline-flex');
 
+      // تفادي التكرار إذا كان التطبيق يعمل داخل بيئة الأندرويد أو المتصفح
       const tempAnchor = document.createElement('a');
       tempAnchor.style.display = 'none';
       tempAnchor.href = videoUrl;
       tempAnchor.download = filename;
       document.body.appendChild(tempAnchor);
       tempAnchor.click();
-      setTimeout(() => tempAnchor.remove(), 1500);
+      setTimeout(() => {
+        try { tempAnchor.remove(); } catch (e) {}
+      }, 1500);
     }
 
     async function fetchAndDecodeSingleItem(segmentItem, targetSampleRate = null) {
@@ -6047,6 +6036,7 @@
     const liveRadioViewWrapper = document.getElementById('liveRadioViewWrapper');
     const videoStudioGrid = document.getElementById('videoStudioGrid');
     const headerVideoTools = document.getElementById('headerVideoTools');
+    const headerNavPills = document.getElementById('headerNavPills');
 
     const btnNavHome = document.getElementById('btnNavHome');
     const btnNavLiveRadio = document.getElementById('btnNavLiveRadio');
@@ -6078,6 +6068,17 @@
       if (homeModeSelector) homeModeSelector.classList.toggle('hidden', targetSection !== 'home');
       if (liveRadioViewWrapper) liveRadioViewWrapper.classList.toggle('hidden', targetSection !== 'radio');
       if (videoStudioGrid) videoStudioGrid.classList.toggle('hidden', targetSection !== 'studio');
+
+      // إظهار شريط التنقل في الأقسام الفرعية فقط وإخفاؤه من الرئيسية كما طلب المستخدم
+      if (headerNavPills) {
+        if (targetSection === 'home') {
+          headerNavPills.classList.add('hidden');
+          headerNavPills.classList.remove('flex');
+        } else {
+          headerNavPills.classList.remove('hidden');
+          headerNavPills.classList.add('flex');
+        }
+      }
 
       if (headerVideoTools) {
         if (targetSection === 'studio') {

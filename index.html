@@ -2290,6 +2290,16 @@
       const targetSub = subMode === 'video' ? 'video' : 'images';
       state.studioSubMode = targetSub;
 
+      try {
+        localStorage.setItem('refa3y_studio_submode', targetSub);
+        if (state.activeAppSection === 'studio') {
+          const hash = targetSub === 'video' ? '#studio-video' : '#studio';
+          if (window.location.hash !== hash) {
+            history.replaceState(null, '', hash);
+          }
+        }
+      } catch (e) {}
+
       if (imageWorkspaceSection) imageWorkspaceSection.classList.toggle('hidden', targetSub !== 'images');
       if (videoWorkspaceSection) videoWorkspaceSection.classList.toggle('hidden', targetSub !== 'video');
       if (imageOnlyEffectsBox) imageOnlyEffectsBox.classList.toggle('hidden', targetSub === 'video');
@@ -6116,8 +6126,31 @@
       requestRenderOnce();
     }
 
-    function switchAppSection(targetSection) {
+    function updateLocationUrl(section, subMode = state.studioSubMode) {
+      let hash = '';
+      if (section === 'radio') {
+        hash = '#radio';
+      } else if (section === 'studio') {
+        hash = subMode === 'video' ? '#studio-video' : '#studio';
+      } else {
+        hash = '#home';
+      }
+      try {
+        localStorage.setItem('refa3y_last_section', section);
+        if (section === 'studio') {
+          localStorage.setItem('refa3y_studio_submode', subMode || 'images');
+        }
+        if (window.location.hash !== hash) {
+          history.replaceState(null, '', hash);
+        }
+      } catch (e) {}
+    }
+
+    function switchAppSection(targetSection, updateUrl = true) {
       state.activeAppSection = targetSection;
+      if (updateUrl) {
+        updateLocationUrl(targetSection);
+      }
       if (window.trackRefa3yEvent) {
         window.trackRefa3yEvent("section_view", { section_name: targetSection });
       }
@@ -6169,6 +6202,42 @@
       window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
+    function restoreLastSectionOrHash() {
+      try {
+        const rawHash = (window.location.hash || '').replace(/^#\/?/, '').trim().toLowerCase();
+        const savedSection = localStorage.getItem('refa3y_last_section');
+        const savedSubMode = localStorage.getItem('refa3y_studio_submode');
+
+        let targetSection = 'home';
+        let targetSubMode = (savedSubMode === 'video') ? 'video' : 'images';
+
+        if (rawHash === 'radio') {
+          targetSection = 'radio';
+        } else if (rawHash === 'studio' || rawHash === 'studio-images') {
+          targetSection = 'studio';
+          targetSubMode = 'images';
+        } else if (rawHash === 'studio-video') {
+          targetSection = 'studio';
+          targetSubMode = 'video';
+        } else if (rawHash === 'home') {
+          targetSection = 'home';
+        } else if (savedSection && (savedSection === 'radio' || savedSection === 'studio')) {
+          targetSection = savedSection;
+          targetSubMode = (savedSubMode === 'video') ? 'video' : 'images';
+        }
+
+        if (targetSection !== 'home') {
+          switchAppSection(targetSection, false);
+          if (targetSection === 'studio') {
+            switchStudioSubMode(targetSubMode);
+            if (targetSubMode === 'images') {
+              setAspectRatio('9:16');
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
     if (cardSelectLiveRadio) cardSelectLiveRadio.addEventListener('click', () => switchAppSection('radio'));
     if (cardSelectVideoStudio) {
       cardSelectVideoStudio.addEventListener('click', () => {
@@ -6199,6 +6268,10 @@
     if (btnBackFromStudioToHome) btnBackFromStudioToHome.addEventListener('click', () => switchAppSection('home'));
     if (btnSwitchStudioToRadio) btnSwitchStudioToRadio.addEventListener('click', () => switchAppSection('radio'));
 
+    // استعادة الواجهة المحفوظة فوراً لمنع أي وميض
+    restoreLastSectionOrHash();
+    window.addEventListener('hashchange', restoreLastSectionOrHash);
+
     // =========================================================================
     // 11. التشغيل الخفيف عند فتح الصفحة
     // =========================================================================
@@ -6207,6 +6280,7 @@
       populateLiveServerSelect();
       syncLiveStationLinks();
       setTimeout(() => initRefa3yPwaSetup(), 200);
+      restoreLastSectionOrHash();
     });
   </script>
 </body>

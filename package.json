@@ -1,1 +1,7 @@
-{}
+{
+  "name": "refa3y-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "echo 'Static HTML project'"
+  }
+}

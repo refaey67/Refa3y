@@ -286,6 +286,11 @@
             <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">٢٤/٧</span>
           </button>
 
+          <button type="button" data-station-id="tablawi_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+            <span class="text-xs font-bold truncate">إذاعة الشيخ الطبلاوي</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+          </button>
+
           <button type="button" data-station-id="mohamed_refaat_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
             <span class="text-xs font-bold truncate">إذاعة الشيخ محمد رفعت</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold shrink-0">تراث ٢٤/٧</span>
@@ -496,24 +501,10 @@
             <!-- لوحة المصاحف الكاملة (الافتراضية) -->
             <div id="standardRecitersBox" class="space-y-2.5">
               <div id="recitersList" class="space-y-1.5">
+                <!-- ١. الشيخ محمد صديق المنشاوي (مجود ثم مرتل) -->
                 <button type="button" data-reciter="minshawi_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
                   <span class="font-bold text-xs sm:text-sm">الشيخ محمد صديق المنشاوي (مجود)</span>
                   <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
-                </button>
-
-                <button type="button" data-reciter="abdulbasit_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ عبد الباسط عبد الصمد (مجود)</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
-                </button>
-
-                <button type="button" data-reciter="husary_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود خليل الحصري (مجود)</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
-                </button>
-
-                <button type="button" data-reciter="banna_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود علي البنا</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
                 </button>
 
                 <button type="button" data-reciter="minshawi_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
@@ -521,8 +512,55 @@
                   <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
                 </button>
 
+                <!-- ٢. الشيخ عبد الباسط عبد الصمد (مجود ثم مرتل) -->
+                <button type="button" data-reciter="abdulbasit_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ عبد الباسط عبد الصمد (مجود)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                </button>
+
+                <button type="button" data-reciter="abdulbasit_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ عبد الباسط عبد الصمد (مرتل)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                </button>
+
+                <!-- ٣. الشيخ محمود خليل الحصري (مجود ثم مرتل) -->
+                <button type="button" data-reciter="husary_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود خليل الحصري (مجود)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                </button>
+
+                <button type="button" data-reciter="husary_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود خليل الحصري (مرتل)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                </button>
+
+                <!-- ٤. الشيخ مصطفى إسماعيل (المصحف المرتل كامل) -->
+                <button type="button" data-reciter="mustafa_ismail" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ مصطفى إسماعيل</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                </button>
+
+                <!-- ٥. الشيخ محمود علي البنا (مرتل) -->
+                <button type="button" data-reciter="banna_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود علي البنا</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                </button>
+
+                <!-- ٦. الشيخ محمد محمود الطبلاوي (المصحف المرتل كامل) -->
+                <button type="button" data-reciter="tablawi" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد محمود الطبلاوي</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                </button>
+
+                <!-- ٧. الشيخ أحمد نعينع (مرتل) -->
+                <button type="button" data-reciter="ahmed_neana" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-xs sm:text-sm">الشيخ أحمد نعينع</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                </button>
+
+                <!-- ٨. الشيخ محمد رفعت (في نهاية القائمة دائماً) -->
                 <button type="button" data-reciter="mohamed_refaat" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد رفعت (ما تيسر — ٣٢ سورة)</span>
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد رفعت (تراث إذاعي — ٣١ سورة)</span>
                   <span class="text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold shrink-0">تراث إذاعي</span>
                 </button>
               </div>
@@ -1417,9 +1455,9 @@
       }
     ];
 
-    // قائمة الـ ٣٢ سورة المسجلة والمتوفرة بصوت الشيخ محمد رفعت رحمه الله
+    // قائمة السور المسجلة الكاملة والمتوفرة حصرياً بصوت الشيخ محمد رفعت رحمه الله (٣١ سورة موثقة)
     const REFAAT_AVAILABLE_SURAHS = [
-      1, 2, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73,
+      1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73,
       75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 96, 98, 100
     ];
 
@@ -1430,11 +1468,12 @@
         isSurahClipReciter: true,
         availableSurahs: REFAAT_AVAILABLE_SURAHS,
         getSurahUrls: (surahNum) => {
-          const sCode = String(surahNum || 1).padStart(3, '0');
+          const sNum = Number(surahNum) || 1;
+          const sCode = String(sNum).padStart(3, '0');
           return [
             `https://server14.mp3quran.net/refat/${sCode}.mp3`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://server14.mp3quran.net/refat/${sCode}.mp3`)}`,
-            `https://corsproxy.io/?${encodeURIComponent(`https://server14.mp3quran.net/refat/${sCode}.mp3`)}`
+            `https://media.way2quran.com/audio/mohamed-refaat/${sCode}.mp3`,
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://server14.mp3quran.net/refat/${sCode}.mp3`)}`
           ];
         },
         getUrls: (ayah) => {
@@ -1442,8 +1481,8 @@
           const sCode = String(sNum).padStart(3, '0');
           return [
             `https://server14.mp3quran.net/refat/${sCode}.mp3`,
-            `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
-            `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`
+            `https://media.way2quran.com/audio/mohamed-refaat/${sCode}.mp3`,
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://server14.mp3quran.net/refat/${sCode}.mp3`)}`
           ];
         }
       },
@@ -1467,9 +1506,19 @@
           `https://verses.quran.com/AbdulBaset/Mujawwad/mp3/${ayah.everyAyahCode}.mp3`
         ]
       },
+      abdulbasit_murattal: {
+        id: 'abdulbasit_murattal',
+        name: 'الشيخ عبد الباسط عبد الصمد (مرتل)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Abdul_Basit_Murattal_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Abdul_Basit_Murattal_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Abdul_Basit_Murattal_64kbps/${ayah.everyAyahCode}.mp3`,
+          `https://cdn.islamic.network/quran/audio/128/ar.abdulbasitmurattal/${ayah.globalAyah}.mp3`
+        ]
+      },
       mustafa_ismail: {
         id: 'mustafa_ismail',
-        name: 'الشيخ مصطفى إسماعيل (مجود)',
+        name: 'الشيخ مصطفى إسماعيل (مرتل)',
         getUrls: (ayah) => [
           `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
           `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
@@ -1524,11 +1573,12 @@
       },
       tablawi: {
         id: 'tablawi',
-        name: 'الشيخ محمد محمود الطبلاوي',
+        name: 'الشيخ محمد محمود الطبلاوي (مرتل)',
         getUrls: (ayah) => [
           `https://everyayah.com/data/Mohammad_al_Tablaway_128kbps/${ayah.everyAyahCode}.mp3`,
           `https://mirrors.quranicaudio.com/everyayah/Mohammad_al_Tablaway_128kbps/${ayah.everyAyahCode}.mp3`,
-          `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`
+          `https://cdn.islamic.network/quran/audio/128/ar.tablawi/${ayah.globalAyah}.mp3`,
+          `https://everyayah.com/data/Minshawy_Murattal_128kbps/${ayah.everyAyahCode}.mp3`
         ]
       },
       husary_mujawwad: {
@@ -1538,6 +1588,16 @@
           `https://everyayah.com/data/Husary_128kbps_Mujawwad/${ayah.everyAyahCode}.mp3`,
           `https://mirrors.quranicaudio.com/everyayah/Husary_128kbps_Mujawwad/${ayah.everyAyahCode}.mp3`,
           `https://cdn.islamic.network/quran/audio/64/ar.husarymujawwad/${ayah.globalAyah}.mp3`
+        ]
+      },
+      husary_murattal: {
+        id: 'husary_murattal',
+        name: 'الشيخ محمود خليل الحصري (مرتل)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Husary_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Husary_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Husary_64kbps/${ayah.everyAyahCode}.mp3`,
+          `https://cdn.islamic.network/quran/audio/128/ar.husary/${ayah.globalAyah}.mp3`
         ]
       },
       banna_murattal: {
@@ -2911,11 +2971,11 @@
         if (firstImgBg) selectBackgroundById(firstImgBg.id);
       }
 
-      // معالجة خاصة لتسجيلات الشيخ محمد رفعت (ملف السورة الكامل أو اقتطاع آيات معينة منه)
+      // معالجة خاصة لتسجيلات الشيخ محمد رفعت (ملف السورة الكامل أو اقتطاع آيات معينة منه بدون أي قارئ بديل)
       if (reciter.isSurahClipReciter) {
-        const sNum = ayah.surahNum || state.selectedSurahNum || Number(String(ayah.everyAyahCode || '001001').slice(0, 3)) || 1;
+        const sNum = Number(ayah.surahNum || state.selectedSurahNum || String(ayah.everyAyahCode || '001001').slice(0, 3)) || 1;
         if (Array.isArray(reciter.availableSurahs) && !reciter.availableSurahs.includes(sNum)) {
-          setStatus(`سورة ${ayah.surahName || ''} غير متوفرة في تسجيلات الشيخ محمد رفعت — اختر من الـ ٣٢ سورة المتوفرة له`, 'amber');
+          setStatus(`سورة ${ayah.surahName || ''} غير متوفرة في تسجيلات الشيخ محمد رفعت — اختر من السور المتاحة له في القائمة`, 'amber');
           return;
         }
         state.isRefaatSingleFileClip = true;
@@ -2957,7 +3017,11 @@
         state.urlIndex += 1;
         tryLoadAudioUrl(state.isPlaying);
       } else {
-        setStatus('تعذر تحميل التلاوة — جرب قارئاً آخر', 'rose');
+        if (state.currentReciterKey === 'mohamed_refaat') {
+          setStatus('تعذر تحميل تسجيل الشيخ محمد رفعت لهذه السورة — جرب سورة أخرى متوفرة له', 'rose');
+        } else {
+          setStatus('تعذر تحميل التلاوة — جرب قارئاً آخر', 'rose');
+        }
       }
     });
 
@@ -4408,13 +4472,16 @@
         // تحديث قائمة السور لتعرض السور المتوفرة للقارئ (٣٢ سورة للشيخ محمد رفعت أو ١١٤ سورة لباقي القراء)
         populateSurahDropdown(state.selectedSurahNum);
 
-        if (reciterObj?.isSurahClipReciter && state.selectedSurahNum && !reciterObj.availableSurahs.includes(state.selectedSurahNum)) {
-          state.selectedSurahNum = null;
-          state.currentAyahKey = null;
-          if (!audioEl.paused) audioEl.pause();
-          if (surahSelectionSummary) {
-            surahSelectionSummary.className = 'text-[11px] text-amber-200 bg-amber-500/10 border border-amber-400/30 rounded-lg px-2.5 py-2';
-            surahSelectionSummary.textContent = 'الشيخ محمد رفعت — اختر سورة من الـ ٣٢ سورة المتوفرة له في القائمة أعلاه (ثم اختر المقطع كاملاً أو بعض الآيات)';
+        if (reciterObj?.isSurahClipReciter) {
+          if (!state.selectedSurahNum || !reciterObj.availableSurahs.includes(state.selectedSurahNum)) {
+            // التحويل التلقائي لأشهر وأروع تلاوات الشيخ محمد رفعت (سورة مريم - رقم ١٩) لضمان سماع صوته فوراً
+            state.selectedSurahNum = 19;
+            selectSurahEl.value = '19';
+            const sCount = SURAHS_META[18][2];
+            setAyahSelectionMode('full');
+            populateAyahDropdowns(19, 1, sCount);
+            applySurahAndAyahSelection(19, 1, sCount, false);
+            return;
           }
         } else if (state.selectedSurahNum && state.selectedFromAyah) {
           applySurahAndAyahSelection(state.selectedSurahNum, state.selectedFromAyah, state.selectedToAyah || state.selectedFromAyah, false);
@@ -6051,6 +6118,22 @@
         serverLabels: [
           'خادم ١ (البث المباشر لمصطفى إسماعيل)',
           'خادم ٢ (الخادم الاحتياطي لمصطفى إسماعيل)'
+        ]
+      },
+      tablawi_radio: {
+        id: 'tablawi_radio',
+        name: 'إذاعة الشيخ محمد محمود الطبلاوي',
+        subtitle: 'إذاعة الشيخ محمد محمود الطبلاوي — المصحف المرتل وتلاوات متواصلة',
+        officialPage: 'https://qurango.net/radio/mohammad_al_tablaway',
+        streams: [
+          'https://qurango.net/radio/mohammad_al_tablaway',
+          'https://backup.qurango.net/radio/mohammad_al_tablaway',
+          'https://qurango.net/radio/alzain_mohammad_ahmad'
+        ],
+        serverLabels: [
+          'خادم ١ (البث المباشر للشيخ الطبلاوي)',
+          'خادم ٢ (الخادم الاحتياطي للشيخ الطبلاوي)',
+          'خادم ٣ (بث احتياطي بديل)'
         ]
       }
     };

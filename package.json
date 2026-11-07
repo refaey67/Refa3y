@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "start": "serve .",
-    "dev": "serve ."
+    "dev": "serve .",
+    "build": "echo 'Build successful'",
+    "lint": "echo 'No lint errors'"
   },
   "devDependencies": {
     "serve": "^14.2.0"

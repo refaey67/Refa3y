@@ -276,34 +276,76 @@
 
         <!-- أزرار اختيار المحطة الإذاعية المباشرة بدون كلام مكرر -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" id="liveStationsGrid">
+          <!-- محطة إذاعة القرآن الكريم من القاهرة 98.2 FM -->
           <button type="button" data-station-id="cairo_official" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-amber-500/20 border-amber-400 text-amber-100">
             <span class="text-xs font-bold truncate">إذاعة القرآن الكريم — القاهرة</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-amber-400/25 text-amber-200 font-bold shrink-0">98.2 FM</span>
           </button>
 
+          <!-- 1. الشيخ محمد صديق المنشاوي (مجود) -->
           <button type="button" data-station-id="minshawi_mujawwad_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">إذاعة الشيخ المنشاوي</span>
+            <span class="text-xs font-bold truncate">الشيخ المنشاوي (مجود)</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
           </button>
 
+          <!-- 2. الشيخ محمد صديق المنشاوي (مرتل) -->
+          <button type="button" data-station-id="minshawi_murattal_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+            <span class="text-xs font-bold truncate">الشيخ المنشاوي (مرتل)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+          </button>
+
+          <!-- 3. الشيخ عبد الباسط عبد الصمد (مجود) -->
           <button type="button" data-station-id="abdulbasit_mujawwad_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">إذاعة الشيخ عبد الباسط</span>
+            <span class="text-xs font-bold truncate">الشيخ عبد الباسط (مجود)</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
           </button>
 
+          <!-- 4. الشيخ عبد الباسط عبد الصمد (مرتل) -->
+          <button type="button" data-station-id="abdulbasit_murattal_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+            <span class="text-xs font-bold truncate">الشيخ عبد الباسط (مرتل)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+          </button>
+
+          <!-- 5. الشيخ محمود خليل الحصري (مجود) -->
           <button type="button" data-station-id="husary_mujawwad_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">إذاعة الشيخ الحصري</span>
+            <span class="text-xs font-bold truncate">الشيخ الحصري (مجود)</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
           </button>
 
-          <button type="button" data-station-id="banna_mujawwad_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">إذاعة الشيخ محمود علي البنا</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">٢٤/٧</span>
+          <!-- 6. الشيخ محمود خليل الحصري (مرتل) -->
+          <button type="button" data-station-id="husary_murattal_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+            <span class="text-xs font-bold truncate">الشيخ الحصري (مرتل)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
           </button>
 
+          <!-- 7. الشيخ مصطفى إسماعيل (مرتل) -->
           <button type="button" data-station-id="mustafa_ismail_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">إذاعة الشيخ مصطفى إسماعيل</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">٢٤/٧</span>
+            <span class="text-xs font-bold truncate">الشيخ مصطفى إسماعيل</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+          </button>
+
+          <!-- 8. الشيخ محمود علي البنا (مرتل) -->
+          <button type="button" data-station-id="banna_murattal_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+            <span class="text-xs font-bold truncate">الشيخ محمود علي البنا</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+          </button>
+
+          <!-- 9. الشيخ محمد محمود الطبلاوي (مرتل) -->
+          <button type="button" data-station-id="tablawi_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+            <span class="text-xs font-bold truncate">الشيخ محمد محمود الطبلاوي</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+          </button>
+
+          <!-- 10. الشيخ أحمد نعينع (مرتل) -->
+          <button type="button" data-station-id="ahmed_neana_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+            <span class="text-xs font-bold truncate">الشيخ أحمد نعينع</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+          </button>
+
+          <!-- 11. الشيخ محمد رفعت (تراث إذاعي متواصل) -->
+          <button type="button" data-station-id="muhammad_rifat_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+            <span class="text-xs font-bold truncate">إذاعة الشيخ محمد رفعت</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold shrink-0 border border-amber-500/30">نوادر ٣٢ سورة</span>
           </button>
         </div>
 
@@ -586,10 +628,10 @@
                   <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
                 </button>
 
-                <!-- 11. الشيخ محمد رفعت (ما تيسر — ٣١ سورة) (في نهاية القائمة) -->
+                <!-- 11. الشيخ محمد رفعت (تراث إذاعي - ٣٢ سورة) (في نهاية القائمة) -->
                 <button type="button" data-reciter="muhammad_rifat" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد رفعت (ما تيسر — ٣١ سورة)</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold shrink-0 border border-amber-500/30">٣١ سورة</span>
+                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد رفعت (تراث إذاعي - ٣٢ سورة)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold shrink-0 border border-amber-500/30">٣٢ سورة</span>
                 </button>
               </div>
 
@@ -653,19 +695,24 @@
             <div class="space-y-2.5 bg-slate-900 p-2.5 rounded-xl border border-slate-800">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
-                  <label for="selectSurah" class="block text-xs text-slate-300 mb-1">السورة:</label>
+                  <div class="flex items-center justify-between mb-1">
+                    <label for="selectSurah" class="block text-xs text-slate-300">السورة:</label>
+                    <span id="rifatFilterBadge" class="hidden text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">٣٢ سورة متوفرة</span>
+                  </div>
                   <select id="selectSurah" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-xs text-amber-100 p-2 focus:outline-none"></select>
                 </div>
                 <div>
-                  <label class="block text-xs text-slate-300 mb-1">نطاق الآيات:</label>
-                  <div class="grid grid-cols-2 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
-                    <button id="btnModeSingleAyah" type="button" class="py-1 px-2 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950">آية واحدة</button>
-                    <button id="btnModeMultiAyah" type="button" class="py-1 px-2 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200">عدة آيات</button>
+                  <label class="block text-xs text-slate-300 mb-1">نطاق التلاوة:</label>
+                  <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                    <button id="btnModeSingleAyah" type="button" class="py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-amber-500 text-slate-950 text-center">آية واحدة</button>
+                    <button id="btnModeMultiAyah" type="button" class="py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-300 hover:text-amber-200 text-center">عدة آيات</button>
+                    <button id="btnModeFullSurah" type="button" class="py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-300 hover:text-amber-200 text-center">المقطع كاملاً</button>
                   </div>
                 </div>
               </div>
 
-              <div class="grid grid-cols-2 gap-2 items-end">
+              <!-- نمط آية واحدة أو عدة آيات -->
+              <div id="ayahPickersRow" class="grid grid-cols-2 gap-2 items-end">
                 <div>
                   <label id="lblFromAyah" for="selectFromAyah" class="block text-xs text-slate-300 mb-1">الآية:</label>
                   <select id="selectFromAyah" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-xs text-amber-100 p-2 focus:outline-none">
@@ -691,8 +738,56 @@
                 </button>
               </div>
 
+              <!-- نمط المقطع كاملاً -->
+              <div id="fullSurahApplyWrapper" class="hidden pt-1">
+                <button id="btnLoadFullSurah" type="button" class="w-full py-2 px-3 rounded-xl bg-amber-500/25 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 text-xs font-bold transition flex items-center justify-center gap-1.5">
+                  <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
+                  <span>اعتماد وتشغيل المقطع كاملاً (كامل تلاوة السورة)</span>
+                </button>
+              </div>
+
               <div id="surahSelectionSummary" class="text-[11px] text-slate-400 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5">
                 لم يتم اختيار سورة أو آية بعد
+              </div>
+
+              <!-- لوحة تحديد واقتصاص جزء صوتي من التلاوة لتصميم الفيديو عليه -->
+              <div id="audioTrimBox" class="mt-2 p-2.5 rounded-xl bg-slate-950/90 border border-slate-800 space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z"/></svg>
+                    <span class="text-xs font-bold text-slate-200">تحديد جزء صوتي من التلاوة (قص الفيديو)</span>
+                  </div>
+                  <span id="audioTrimBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 font-mono">كامل المقطع</span>
+                </div>
+                <p class="text-[11px] text-slate-400">حدد البداية والنهاية إذا أردت تصميم ريلز/فيديو على مقطع محدد من التلاوة (مثلاً ٣٠ ثانية):</p>
+                
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="bg-slate-900/90 p-2 rounded-lg border border-slate-800">
+                    <div class="flex items-center justify-between mb-1">
+                      <label for="trimStartTimeInput" class="text-[11px] text-slate-300">وقت البداية:</label>
+                      <button id="btnSetTrimStartFromCurrent" type="button" class="text-[10px] text-amber-300 hover:text-amber-200 underline">من موضع التشغيل</button>
+                    </div>
+                    <input id="trimStartTimeInput" type="text" placeholder="00:00" value="00:00" class="w-full text-center font-mono text-xs bg-slate-950 border border-slate-700 rounded p-1 text-amber-200 focus:outline-none focus:border-amber-400" />
+                  </div>
+
+                  <div class="bg-slate-900/90 p-2 rounded-lg border border-slate-800">
+                    <div class="flex items-center justify-between mb-1">
+                      <label for="trimEndTimeInput" class="text-[11px] text-slate-300">وقت النهاية:</label>
+                      <button id="btnSetTrimEndFromCurrent" type="button" class="text-[10px] text-amber-300 hover:text-amber-200 underline">من موضع التشغيل</button>
+                    </div>
+                    <input id="trimEndTimeInput" type="text" placeholder="كامل المقطع" value="" class="w-full text-center font-mono text-xs bg-slate-950 border border-slate-700 rounded p-1 text-amber-200 focus:outline-none focus:border-amber-400" />
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-2 pt-1">
+                  <button id="btnPreviewTrimmedAudio" type="button" class="flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 flex items-center justify-center gap-1 transition">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
+                    <span>معاينة الجزء المحدد</span>
+                  </button>
+                  <button id="btnResetTrimAudio" type="button" class="py-1.5 px-2.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition">
+                    إعادة ضبط (الكل)
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1586,11 +1681,11 @@
           `https://mirrors.quranicaudio.com/everyayah/Ahmed_Neana_128kbps/${ayah.everyAyahCode}.mp3`
         ]
       },
-      // 11. الشيخ محمد رفعت (ما تيسر — ٣١ سورة) (في نهاية القائمة)
+      // 11. الشيخ محمد رفعت (تراث إذاعي - ٣٢ سورة) (في نهاية القائمة)
       muhammad_rifat: {
         id: 'muhammad_rifat',
-        name: 'الشيخ محمد رفعت (ما تيسر — ٣١ سورة)',
-        availableSurahs: [1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 96, 98, 100],
+        name: 'الشيخ محمد رفعت (تراث إذاعي - ٣٢ سورة)',
+        availableSurahs: [1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 93, 96, 98, 100],
         getUrls: (ayah) => {
           const sNum = ayah.surahNum || parseInt((ayah.everyAyahCode || '001001').slice(0, 3), 10);
           const sCode = String(sNum).padStart(3, '0');
@@ -2985,10 +3080,17 @@
 
       if (state.currentReciterKey === 'muhammad_rifat' && ayah) {
         const sNum = ayah.surahNum || parseInt((ayah.everyAyahCode || '').slice(0, 3), 10);
-        const rifatSurahs = [1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 96, 98, 100];
+        const rifatSurahs = [1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 93, 96, 98, 100];
         if (sNum && !rifatSurahs.includes(sNum)) {
-          setStatus('الشيخ محمد رفعت: التلاوات المسجلة تاريخياً تقتصر على ٣١ سورة محددة (تم تشغيل بديل خاشع تلقائياً)', 'amber');
+          setStatus('الشيخ محمد رفعت: التلاوات المسجلة تقتصر على ٣٢ سورة محددة (تم اختيار بديل خاشع)', 'amber');
         }
+        // تلاوات الشيخ محمد رفعت التاريخية مسجلة كسور كاملة — يتم تشغيل التسجيل الصوتي للسورة مباشرة
+        state.isMergedMultiAudio = false;
+        state.isSequentialFallback = false;
+        state.urlQueue = reciter.getUrls(ayah);
+        state.urlIndex = 0;
+        tryLoadAudioUrl(autoPlay);
+        return;
       }
 
       if (ayah.isMultiAyah && Array.isArray(ayah.multiQueue) && ayah.multiQueue.length > 1) {
@@ -5201,23 +5303,38 @@
     }
 
     state.isMultiAyahMode = false;
+    state.isFullSurahMode = false;
+    state.surahScopeMode = 'single';
     state.selectedSurahNum = null;
     state.selectedFromAyah = null;
     state.selectedToAyah = null;
     state.multiAyahQueue = [];
     state.multiAyahCurrentIdx = 0;
 
+    // إعدادات واقتصاص المقطع الصوتي
+    state.audioTrimStartSec = 0;
+    state.audioTrimEndSec = null;
+    state.isPreviewingTrim = false;
+
+    // قائمة السور الـ ٣٢ المتوفرة تاريخياً بصوت الشيخ محمد رفعت على MP3Quran
+    const RIFAT_AVAILABLE_SURAHS = [1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 93, 96, 98, 100];
+
     const selectSurahEl = document.getElementById('selectSurah');
     const selectFromAyahEl = document.getElementById('selectFromAyah');
     const selectToAyahEl = document.getElementById('selectToAyah');
     const btnModeSingleAyah = document.getElementById('btnModeSingleAyah');
     const btnModeMultiAyah = document.getElementById('btnModeMultiAyah');
+    const btnModeFullSurah = document.getElementById('btnModeFullSurah');
     const toAyahWrapper = document.getElementById('toAyahWrapper');
+    const ayahPickersRow = document.getElementById('ayahPickersRow');
     const lblFromAyah = document.getElementById('lblFromAyah');
     const singleAyahApplyWrapper = document.getElementById('singleAyahApplyWrapper');
     const multiAyahApplyWrapper = document.getElementById('multiAyahApplyWrapper');
+    const fullSurahApplyWrapper = document.getElementById('fullSurahApplyWrapper');
     const btnLoadSelectedAyahs = document.getElementById('btnLoadSelectedAyahs');
     const btnLoadMultiAyahs = document.getElementById('btnLoadMultiAyahs');
+    const btnLoadFullSurah = document.getElementById('btnLoadFullSurah');
+    const rifatFilterBadge = document.getElementById('rifatFilterBadge');
     const surahSelectionSummary = document.getElementById('surahSelectionSummary');
     const searchAyahInput = document.getElementById('searchAyahInput');
     const btnSearchAyah = document.getElementById('btnSearchAyah');
@@ -5225,15 +5342,72 @@
     const searchStatusText = document.getElementById('searchStatusText');
     const searchResultsList = document.getElementById('searchResultsList');
 
-    function populateSurahDropdown() {
+    // عناصر لوحة اقتصاص الصوت
+    const audioTrimBox = document.getElementById('audioTrimBox');
+    const audioTrimBadge = document.getElementById('audioTrimBadge');
+    const trimStartTimeInput = document.getElementById('trimStartTimeInput');
+    const trimEndTimeInput = document.getElementById('trimEndTimeInput');
+    const btnSetTrimStartFromCurrent = document.getElementById('btnSetTrimStartFromCurrent');
+    const btnSetTrimEndFromCurrent = document.getElementById('btnSetTrimEndFromCurrent');
+    const btnPreviewTrimmedAudio = document.getElementById('btnPreviewTrimmedAudio');
+    const btnResetTrimAudio = document.getElementById('btnResetTrimAudio');
+
+    function parseTimeStringToSeconds(str) {
+      if (!str || typeof str !== 'string') return null;
+      const clean = str.trim();
+      if (!clean) return null;
+      if (clean.includes(':')) {
+        const parts = clean.split(':').map(p => parseFloat(p));
+        if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+          return Math.max(0, parts[0] * 60 + parts[1]);
+        }
+        if (parts.length === 3 && !isNaN(parts[0]) && !isNaN(parts[1]) && !isNaN(parts[2])) {
+          return Math.max(0, parts[0] * 3600 + parts[1] * 60 + parts[2]);
+        }
+      }
+      const val = parseFloat(clean);
+      return !isNaN(val) && val >= 0 ? val : null;
+    }
+
+    function updateAudioTrimBadgeUI() {
+      if (!audioTrimBadge) return;
+      const start = state.audioTrimStartSec || 0;
+      const end = state.audioTrimEndSec;
+      if (start > 0 || (end !== null && end > start)) {
+        const endStr = end !== null ? formatTime(end) : 'النهاية';
+        const durStr = end !== null ? `(${formatTime(Math.max(0, end - start))})` : '';
+        audioTrimBadge.textContent = `${formatTime(start)} إلى ${endStr} ${durStr}`.trim();
+        audioTrimBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono font-bold';
+      } else {
+        audioTrimBadge.textContent = 'كامل المقطع';
+        audioTrimBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 font-mono';
+      }
+    }
+
+    function populateSurahDropdown(filterRifat = false) {
       if (!selectSurahEl) return;
+      const prevVal = parseInt(selectSurahEl.value, 10);
       selectSurahEl.innerHTML = '<option value="" selected disabled>— اختر السورة —</option>';
-      SURAHS_META.forEach(([num, name, count]) => {
+      const list = filterRifat ? SURAHS_META.filter(([num]) => RIFAT_AVAILABLE_SURAHS.includes(num)) : SURAHS_META;
+      list.forEach(([num, name, count]) => {
         const opt = document.createElement('option');
         opt.value = String(num);
         opt.textContent = `${toArabicDigits(num)}. سورة ${name} (${toArabicDigits(count)})`;
         selectSurahEl.appendChild(opt);
       });
+
+      if (rifatFilterBadge) {
+        rifatFilterBadge.classList.toggle('hidden', !filterRifat);
+      }
+
+      if (prevVal && list.some(([num]) => num === prevVal)) {
+        selectSurahEl.value = String(prevVal);
+      } else if (filterRifat && list.length > 0) {
+        // إذا لم تكن السورة السابقة ضمن سور الشيخ محمد رفعت، نحدد أول سورة متوفرة (سورة الفاتحة)
+        selectSurahEl.value = String(list[0][0]);
+        state.selectedSurahNum = list[0][0];
+        populateAyahDropdowns(list[0][0]);
+      }
     }
 
     function populateAyahDropdowns(surahNum, selectedFrom = null, selectedTo = null) {
@@ -5257,22 +5431,44 @@
       }
     }
 
-    function setAyahSelectionMode(isMulti) {
-      state.isMultiAyahMode = isMulti;
-      if (isMulti) {
-        btnModeMultiAyah.className = 'py-1 px-2 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950';
-        btnModeSingleAyah.className = 'py-1 px-2 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200';
-        toAyahWrapper.classList.remove('hidden');
-        singleAyahApplyWrapper.classList.add('hidden');
-        multiAyahApplyWrapper.classList.remove('hidden');
-        lblFromAyah.textContent = 'من الآية:';
+    function setAyahSelectionMode(mode) {
+      // mode: 'single' | 'multi' | 'full'
+      state.surahScopeMode = mode;
+      state.isMultiAyahMode = (mode === 'multi');
+      state.isFullSurahMode = (mode === 'full');
+
+      const activeClass = 'py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-amber-500 text-slate-950 text-center';
+      const inactiveClass = 'py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-300 hover:text-amber-200 text-center';
+
+      if (btnModeSingleAyah) btnModeSingleAyah.className = (mode === 'single') ? activeClass : inactiveClass;
+      if (btnModeMultiAyah) btnModeMultiAyah.className = (mode === 'multi') ? activeClass : inactiveClass;
+      if (btnModeFullSurah) btnModeFullSurah.className = (mode === 'full') ? activeClass : inactiveClass;
+
+      if (mode === 'full') {
+        if (ayahPickersRow) ayahPickersRow.classList.add('hidden');
+        if (singleAyahApplyWrapper) singleAyahApplyWrapper.classList.add('hidden');
+        if (multiAyahApplyWrapper) multiAyahApplyWrapper.classList.add('hidden');
+        if (fullSurahApplyWrapper) fullSurahApplyWrapper.classList.remove('hidden');
+        if (surahSelectionSummary && state.selectedSurahNum) {
+          const sMeta = SURAHS_META[state.selectedSurahNum - 1];
+          if (sMeta) {
+            surahSelectionSummary.textContent = `سورة ${sMeta[1]} — المقطع كاملاً (${toArabicDigits(sMeta[2])} آية)`;
+          }
+        }
+      } else if (mode === 'multi') {
+        if (ayahPickersRow) ayahPickersRow.classList.remove('hidden');
+        if (toAyahWrapper) toAyahWrapper.classList.remove('hidden');
+        if (singleAyahApplyWrapper) singleAyahApplyWrapper.classList.add('hidden');
+        if (multiAyahApplyWrapper) multiAyahApplyWrapper.classList.remove('hidden');
+        if (fullSurahApplyWrapper) fullSurahApplyWrapper.classList.add('hidden');
+        if (lblFromAyah) lblFromAyah.textContent = 'من الآية:';
       } else {
-        btnModeSingleAyah.className = 'py-1 px-2 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950';
-        btnModeMultiAyah.className = 'py-1 px-2 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200';
-        toAyahWrapper.classList.add('hidden');
-        singleAyahApplyWrapper.classList.remove('hidden');
-        multiAyahApplyWrapper.classList.add('hidden');
-        lblFromAyah.textContent = 'الآية:';
+        if (ayahPickersRow) ayahPickersRow.classList.remove('hidden');
+        if (toAyahWrapper) toAyahWrapper.classList.add('hidden');
+        if (singleAyahApplyWrapper) singleAyahApplyWrapper.classList.remove('hidden');
+        if (multiAyahApplyWrapper) multiAyahApplyWrapper.classList.add('hidden');
+        if (fullSurahApplyWrapper) fullSurahApplyWrapper.classList.add('hidden');
+        if (lblFromAyah) lblFromAyah.textContent = 'الآية:';
       }
     }
 
@@ -5449,7 +5645,12 @@
         if (!sNum) return;
         state.selectedSurahNum = sNum;
         populateAyahDropdowns(sNum, null, null);
-        if (surahSelectionSummary) {
+        if (state.surahScopeMode === 'full') {
+          const meta = SURAHS_META[sNum - 1];
+          if (meta) {
+            applySurahAndAyahSelection(sNum, 1, meta[2], Boolean(state.currentReciterKey));
+          }
+        } else if (surahSelectionSummary) {
           surahSelectionSummary.textContent = `سورة ${SURAHS_META[sNum - 1][1]} — اختر رقم الآية الآن`;
         }
       });
@@ -5462,7 +5663,7 @@
         if (!curTo || curTo < fromA) {
           selectToAyahEl.value = String(fromA);
         }
-        if (!state.isMultiAyahMode) {
+        if (state.surahScopeMode === 'single') {
           applySurahAndAyahSelection(sNum, fromA, fromA, false);
         }
       });
@@ -5473,29 +5674,131 @@
         if (toA < fromA) selectFromAyahEl.value = String(toA);
       });
 
-      btnModeSingleAyah.addEventListener('click', () => setAyahSelectionMode(false));
-      btnModeMultiAyah.addEventListener('click', () => setAyahSelectionMode(true));
+      if (btnModeSingleAyah) btnModeSingleAyah.addEventListener('click', () => setAyahSelectionMode('single'));
+      if (btnModeMultiAyah) btnModeMultiAyah.addEventListener('click', () => setAyahSelectionMode('multi'));
+      if (btnModeFullSurah) {
+        btnModeFullSurah.addEventListener('click', () => {
+          setAyahSelectionMode('full');
+          const sNum = parseInt(selectSurahEl.value, 10);
+          if (sNum) {
+            const meta = SURAHS_META[sNum - 1];
+            if (meta) {
+              applySurahAndAyahSelection(sNum, 1, meta[2], Boolean(state.currentReciterKey));
+            }
+          }
+        });
+      }
 
-      btnLoadSelectedAyahs.addEventListener('click', () => {
-        const sNum = parseInt(selectSurahEl.value, 10);
-        const fromA = parseInt(selectFromAyahEl.value, 10);
-        if (!sNum || !fromA) {
-          setStatus('يرجى اختيار السورة ورقم الآية أولاً', 'amber');
-          return;
-        }
-        applySurahAndAyahSelection(sNum, fromA, fromA, Boolean(state.currentReciterKey));
-      });
+      if (btnLoadSelectedAyahs) {
+        btnLoadSelectedAyahs.addEventListener('click', () => {
+          const sNum = parseInt(selectSurahEl.value, 10);
+          const fromA = parseInt(selectFromAyahEl.value, 10);
+          if (!sNum || !fromA) {
+            setStatus('يرجى اختيار السورة ورقم الآية أولاً', 'amber');
+            return;
+          }
+          applySurahAndAyahSelection(sNum, fromA, fromA, Boolean(state.currentReciterKey));
+        });
+      }
 
-      btnLoadMultiAyahs.addEventListener('click', () => {
-        const sNum = parseInt(selectSurahEl.value, 10);
-        const fromA = parseInt(selectFromAyahEl.value, 10);
-        const toA = parseInt(selectToAyahEl.value, 10) || fromA;
-        if (!sNum || !fromA) {
-          setStatus('يرجى اختيار السورة ونطاق الآيات أولاً', 'amber');
-          return;
-        }
-        applySurahAndAyahSelection(sNum, fromA, toA, Boolean(state.currentReciterKey));
-      });
+      if (btnLoadMultiAyahs) {
+        btnLoadMultiAyahs.addEventListener('click', () => {
+          const sNum = parseInt(selectSurahEl.value, 10);
+          const fromA = parseInt(selectFromAyahEl.value, 10);
+          const toA = parseInt(selectToAyahEl.value, 10) || fromA;
+          if (!sNum || !fromA) {
+            setStatus('يرجى اختيار السورة ونطاق الآيات أولاً', 'amber');
+            return;
+          }
+          applySurahAndAyahSelection(sNum, fromA, toA, Boolean(state.currentReciterKey));
+        });
+      }
+
+      if (btnLoadFullSurah) {
+        btnLoadFullSurah.addEventListener('click', () => {
+          const sNum = parseInt(selectSurahEl.value, 10);
+          if (!sNum) {
+            setStatus('يرجى اختيار السورة أولاً', 'amber');
+            return;
+          }
+          const meta = SURAHS_META[sNum - 1];
+          if (!meta) return;
+          applySurahAndAyahSelection(sNum, 1, meta[2], Boolean(state.currentReciterKey));
+        });
+      }
+
+      // أحداث لوحة اقتصاص وتحديد جزء صوتي من التلاوة
+      if (trimStartTimeInput) {
+        trimStartTimeInput.addEventListener('change', () => {
+          const parsed = parseTimeStringToSeconds(trimStartTimeInput.value);
+          state.audioTrimStartSec = parsed || 0;
+          trimStartTimeInput.value = formatTime(state.audioTrimStartSec);
+          updateAudioTrimBadgeUI();
+        });
+      }
+
+      if (trimEndTimeInput) {
+        trimEndTimeInput.addEventListener('change', () => {
+          const parsed = parseTimeStringToSeconds(trimEndTimeInput.value);
+          state.audioTrimEndSec = parsed;
+          if (parsed !== null) {
+            trimEndTimeInput.value = formatTime(parsed);
+          } else {
+            trimEndTimeInput.value = '';
+          }
+          updateAudioTrimBadgeUI();
+        });
+      }
+
+      if (btnSetTrimStartFromCurrent) {
+        btnSetTrimStartFromCurrent.addEventListener('click', () => {
+          const cur = Math.floor(getUnifiedCurrentTime() || (audioEl.currentTime || 0));
+          state.audioTrimStartSec = cur;
+          if (trimStartTimeInput) trimStartTimeInput.value = formatTime(cur);
+          updateAudioTrimBadgeUI();
+          setStatus(`تم ضبط بداية القص عند ${formatTime(cur)}`, 'emerald');
+        });
+      }
+
+      if (btnSetTrimEndFromCurrent) {
+        btnSetTrimEndFromCurrent.addEventListener('click', () => {
+          const cur = Math.ceil(getUnifiedCurrentTime() || (audioEl.currentTime || 0));
+          state.audioTrimEndSec = cur;
+          if (trimEndTimeInput) trimEndTimeInput.value = formatTime(cur);
+          updateAudioTrimBadgeUI();
+          setStatus(`تم ضبط نهاية القص عند ${formatTime(cur)}`, 'emerald');
+        });
+      }
+
+      if (btnResetTrimAudio) {
+        btnResetTrimAudio.addEventListener('click', () => {
+          state.audioTrimStartSec = 0;
+          state.audioTrimEndSec = null;
+          state.isPreviewingTrim = false;
+          if (trimStartTimeInput) trimStartTimeInput.value = '00:00';
+          if (trimEndTimeInput) trimEndTimeInput.value = '';
+          updateAudioTrimBadgeUI();
+          setStatus('تمت إعادة ضبط المقطع لكامل التلاوة', 'emerald');
+        });
+      }
+
+      if (btnPreviewTrimmedAudio) {
+        btnPreviewTrimmedAudio.addEventListener('click', () => {
+          if (!audioEl.src && !state.customAudioUrl) {
+            setStatus('يرجى اختيار القارئ والآية أولاً للاستماع', 'amber');
+            return;
+          }
+          const start = state.audioTrimStartSec || 0;
+          state.isPreviewingTrim = true;
+          try {
+            audioEl.currentTime = start;
+            audioEl.play().then(() => {
+              updatePlayUI(true);
+              setStatus(`معاينة المقطع الصوتي من ${formatTime(start)}...`, 'amber');
+            }).catch(() => {});
+          } catch (e) {}
+        });
+      }
     }
 
     if (btnSearchAyah && searchAyahInput) {
@@ -5661,9 +5964,10 @@
           'خادم ٥ (بث القاهرة الاحتياطي المباشر)'
         ]
       },
+      // 1. الشيخ محمد صديق المنشاوي (مجود)
       minshawi_mujawwad_radio: {
         id: 'minshawi_mujawwad_radio',
-        name: 'إذاعة الشيخ محمد صديق المنشاوي',
+        name: 'إذاعة الشيخ محمد صديق المنشاوي (مجود)',
         subtitle: 'إذاعة الشيخ محمد صديق المنشاوي — المصحف المجود',
         officialPage: 'https://qurango.net/radio/mohammed_siddiq_alminshawi_mojawwad',
         streams: [
@@ -5677,9 +5981,27 @@
           'خادم ٣ (إذاعة المنشاوي مرتل)'
         ]
       },
+      // 2. الشيخ محمد صديق المنشاوي (مرتل)
+      minshawi_murattal_radio: {
+        id: 'minshawi_murattal_radio',
+        name: 'إذاعة الشيخ محمد صديق المنشاوي (مرتل)',
+        subtitle: 'إذاعة الشيخ محمد صديق المنشاوي — المصحف المرتل',
+        officialPage: 'https://qurango.net/radio/mohammed_siddiq_alminshawi',
+        streams: [
+          'https://qurango.net/radio/mohammed_siddiq_alminshawi',
+          'https://backup.qurango.net/radio/mohammed_siddiq_alminshawi',
+          'https://qurango.net/radio/mohammed_siddiq_alminshawi_mojawwad'
+        ],
+        serverLabels: [
+          'خادم ١ (البث المباشر للمنشاوي مرتل)',
+          'خادم ٢ (الخادم الاحتياطي للمنشاوي مرتل)',
+          'خادم ٣ (إذاعة المنشاوي مجود)'
+        ]
+      },
+      // 3. الشيخ عبد الباسط عبد الصمد (مجود)
       abdulbasit_mujawwad_radio: {
         id: 'abdulbasit_mujawwad_radio',
-        name: 'إذاعة الشيخ عبد الباسط عبد الصمد',
+        name: 'إذاعة الشيخ عبد الباسط عبد الصمد (مجود)',
         subtitle: 'إذاعة الشيخ عبد الباسط عبد الصمد — المصحف المجود',
         officialPage: 'https://qurango.net/radio/abdulbasit_abdulsamad_mojawwad',
         streams: [
@@ -5693,9 +6015,27 @@
           'خادم ٣ (إذاعة عبد الباسط مرتل)'
         ]
       },
+      // 4. الشيخ عبد الباسط عبد الصمد (مرتل)
+      abdulbasit_murattal_radio: {
+        id: 'abdulbasit_murattal_radio',
+        name: 'إذاعة الشيخ عبد الباسط عبد الصمد (مرتل)',
+        subtitle: 'إذاعة الشيخ عبد الباسط عبد الصمد — المصحف المرتل',
+        officialPage: 'https://qurango.net/radio/abdulbasit_abdulsamad',
+        streams: [
+          'https://qurango.net/radio/abdulbasit_abdulsamad',
+          'https://backup.qurango.net/radio/abdulbasit_abdulsamad',
+          'https://qurango.net/radio/abdulbasit_abdulsamad_mojawwad'
+        ],
+        serverLabels: [
+          'خادم ١ (البث المباشر لعبد الباسط مرتل)',
+          'خادم ٢ (الخادم الاحتياطي لعبد الباسط مرتل)',
+          'خادم ٣ (إذاعة عبد الباسط مجود)'
+        ]
+      },
+      // 5. الشيخ محمود خليل الحصري (مجود)
       husary_mujawwad_radio: {
         id: 'husary_mujawwad_radio',
-        name: 'إذاعة الشيخ محمود خليل الحصري',
+        name: 'إذاعة الشيخ محمود خليل الحصري (مجود)',
         subtitle: 'إذاعة الشيخ محمود خليل الحصري — المصحف المجود',
         officialPage: 'https://qurango.net/radio/mahmoud_khalil_alhussary_mojawwad',
         streams: [
@@ -5709,26 +6049,28 @@
           'خادم ٣ (إذاعة الحصري مرتل)'
         ]
       },
-      banna_mujawwad_radio: {
-        id: 'banna_mujawwad_radio',
-        name: 'إذاعة الشيخ محمود علي البنا',
-        subtitle: 'إذاعة الشيخ محمود علي البنا — تلاوات متواصلة',
-        officialPage: 'https://qurango.net/radio/mahmoud_ali__albanna_mojawwad',
+      // 6. الشيخ محمود خليل الحصري (مرتل)
+      husary_murattal_radio: {
+        id: 'husary_murattal_radio',
+        name: 'إذاعة الشيخ محمود خليل الحصري (مرتل)',
+        subtitle: 'إذاعة الشيخ محمود خليل الحصري — المصحف المرتل',
+        officialPage: 'https://qurango.net/radio/mahmoud_khalil_alhussary',
         streams: [
-          'https://qurango.net/radio/mahmoud_ali__albanna_mojawwad',
-          'https://backup.qurango.net/radio/mahmoud_ali__albanna_mojawwad',
-          'https://qurango.net/radio/mahmoud_ali__albanna'
+          'https://qurango.net/radio/mahmoud_khalil_alhussary',
+          'https://backup.qurango.net/radio/mahmoud_khalil_alhussary',
+          'https://qurango.net/radio/mahmoud_khalil_alhussary_mojawwad'
         ],
         serverLabels: [
-          'خادم ١ (البث المباشر للبنا مجود)',
-          'خادم ٢ (الخادم الاحتياطي للبنا مجود)',
-          'خادم ٣ (إذاعة البنا مرتل)'
+          'خادم ١ (البث المباشر للحصري مرتل)',
+          'خادم ٢ (الخادم الاحتياطي للحصري مرتل)',
+          'خادم ٣ (إذاعة الحصري مجود)'
         ]
       },
+      // 7. الشيخ مصطفى إسماعيل (مرتل)
       mustafa_ismail_radio: {
         id: 'mustafa_ismail_radio',
         name: 'إذاعة الشيخ مصطفى إسماعيل',
-        subtitle: 'إذاعة الشيخ مصطفى إسماعيل — تلاوات متواصلة',
+        subtitle: 'إذاعة الشيخ مصطفى إسماعيل — تلاوات متواصلة ٢٤/٧',
         officialPage: 'https://qurango.net/radio/mustafa_ismail',
         streams: [
           'https://qurango.net/radio/mustafa_ismail',
@@ -5737,6 +6079,76 @@
         serverLabels: [
           'خادم ١ (البث المباشر لمصطفى إسماعيل)',
           'خادم ٢ (الخادم الاحتياطي لمصطفى إسماعيل)'
+        ]
+      },
+      // 8. الشيخ محمود علي البنا (مرتل)
+      banna_murattal_radio: {
+        id: 'banna_murattal_radio',
+        name: 'إذاعة الشيخ محمود علي البنا',
+        subtitle: 'إذاعة الشيخ محمود علي البنا — تلاوات متواصلة',
+        officialPage: 'https://qurango.net/radio/mahmoud_ali__albanna',
+        streams: [
+          'https://qurango.net/radio/mahmoud_ali__albanna',
+          'https://backup.qurango.net/radio/mahmoud_ali__albanna',
+          'https://qurango.net/radio/mahmoud_ali__albanna_mojawwad'
+        ],
+        serverLabels: [
+          'خادم ١ (البث المباشر للبنا مرتل)',
+          'خادم ٢ (الخادم الاحتياطي للبنا مرتل)',
+          'خادم ٣ (إذاعة البنا مجود)'
+        ]
+      },
+      // 9. الشيخ محمد محمود الطبلاوي (مرتل)
+      tablawi_radio: {
+        id: 'tablawi_radio',
+        name: 'إذاعة الشيخ محمد محمود الطبلاوي',
+        subtitle: 'إذاعة الشيخ محمد محمود الطبلاوي — تلاوات متواصلة',
+        officialPage: 'https://qurango.net/radio/mohammad_altablaway',
+        streams: [
+          'https://backup.qurango.net/radio/mohammad_altablaway',
+          'https://qurango.net/radio/mohammad_altablaway'
+        ],
+        serverLabels: [
+          'خادم ١ (البث المباشر للطبلاوي مرتل)',
+          'خادم ٢ (الخادم الاحتياطي للطبلاوي)'
+        ]
+      },
+      // 10. الشيخ أحمد نعينع (مرتل)
+      ahmed_neana_radio: {
+        id: 'ahmed_neana_radio',
+        name: 'إذاعة الشيخ أحمد نعينع',
+        subtitle: 'إذاعة الشيخ أحمد نعينع — تلاوات متواصلة',
+        officialPage: 'https://qurango.net/radio/ahmad_nauina',
+        streams: [
+          'https://qurango.net/radio/ahmad_nauina',
+          'https://backup.qurango.net/radio/ahmad_nauina'
+        ],
+        serverLabels: [
+          'خادم ١ (البث المباشر لأحمد نعينع)',
+          'خادم ٢ (الخادم الاحتياطي لأحمد نعينع)'
+        ]
+      },
+      // 11. إذاعة الشيخ محمد رفعت (تراث إذاعي متواصل)
+      muhammad_rifat_radio: {
+        id: 'muhammad_rifat_radio',
+        name: 'إذاعة الشيخ محمد رفعت',
+        subtitle: 'إذاعة الشيخ محمد رفعت (قيثارة السماء) — بث تلاوات نادرة متواصلة ٢٤/٧',
+        officialPage: 'https://mp3quran.net/ar/refat',
+        streams: [
+          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/019.mp3',
+          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/089.mp3',
+          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/012.mp3',
+          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/018.mp3',
+          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/055.mp3',
+          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/001.mp3'
+        ],
+        serverLabels: [
+          'خادم ١ (سورة مريم الخالدة)',
+          'خادم ٢ (سورة الفجر والبلد)',
+          'خادم ٣ (سورة يوسف وطه)',
+          'خادم ٤ (سورة الكهف)',
+          'خادم ٥ (سورة الرحمن)',
+          'خادم ٦ (سورة الفاتحة وقصار السور)'
         ]
       }
     };

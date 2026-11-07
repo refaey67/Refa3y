@@ -1,13 +1,17 @@
 {
   "name": "refa3y-app",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "start": "serve .",
-    "dev": "serve .",
+    "start": "node server.js",
+    "dev": "node server.js",
     "build": "echo 'Build successful'",
     "lint": "echo 'No lint errors'"
   },
   "devDependencies": {
     "serve": "^14.2.0"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
   }
 }

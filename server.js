@@ -18,8 +18,17 @@ app.use(express.static(__dirname, {
   maxAge: '1d'
 }));
 
-// Fallback to index.html for SPA routing (Express 5 compatible)
+// Explicitly serve backgrounds directory with proper caching
+app.use('/backgrounds', express.static(path.join(__dirname, 'backgrounds'), {
+  etag: true,
+  maxAge: '1d'
+}));
+
+// Fallback to index.html for SPA routing (Express 5 compatible) - never return HTML for media assets
 app.use((req, res) => {
+  if (req.path.match(/\.(jpg|jpeg|png|webp|svg|gif|mp3|mp4|m4a|wav|json|css|js)$/i)) {
+    return res.status(404).send('Asset not found');
+  }
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 

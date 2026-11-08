@@ -198,7 +198,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Z"/>
                 </svg>
               </div>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 border border-amber-400/40 text-amber-200">١١٤ سورة • ٢٠ خلفية</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 border border-amber-400/40 text-amber-200">١١٤ سورة • ٤٠ خلفية سينمائية وطبيعية</span>
             </div>
             <div class="space-y-1 w-full">
               <h3 class="text-base sm:text-lg font-bold text-amber-200">٢. تصميم الفيديوهات (واجهة الصور)</h3>
@@ -703,7 +703,7 @@
 
             <!-- (أ) واجهة الصور المستقلة تماماً عن الفيديو -->
             <div id="imageWorkspaceSection" class="space-y-2.5">
-              <div id="bgGalleryGrid" class="grid grid-cols-2 gap-1.5 max-h-44 overflow-y-auto pl-1"></div>
+              <div id="bgGalleryGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto p-1"></div>
 
               <div class="pt-2 border-t border-slate-800">
                 <label for="customBgInput" class="block text-xs text-slate-300 mb-1">ارفع صورة خلفية من جهازك:</label>
@@ -1786,274 +1786,330 @@
     }
 
     // =========================================================================
-    // 4. معرض الـ ٢٠ خلفية (توليد كسول عند اختيار الخلفية فقط لمنع أي تهنيج)
+    // 4. معرض الـ ٤٠ خلفية الطبيعية والسينمائية المميزة
     // =========================================================================
     const BACKGROUNDS_LIST = [
-      { id: 'bg_mishkat', name: '١. غروب البحر ومآذن الشاطئ', color: '#f59e0b', focalX: 0.50, focalY: 0.42, src: null },
-      { id: 'bg_mountains_dawn', name: '٢. فجر الجبال الشامخة والنور', color: '#10b981', focalX: 0.50, focalY: 0.36, src: null },
-      { id: 'bg_kaaba', name: '٣. الكعبة المشرفة وجبال مكة', color: '#fbbf24', focalX: 0.50, focalY: 0.42, src: null },
-      { id: 'bg_nabawi', name: '٤. المسجد النبوي وجبل أحد', color: '#059669', focalX: 0.50, focalY: 0.38, src: null },
-      { id: 'bg_aqsa', name: '٥. قبة الصخرة وتلال الزيتون', color: '#eab308', focalX: 0.50, focalY: 0.42, src: null },
-      { id: 'bg_azhar_courtyard', name: '٦. بحر السكينة وانعكاس الهلال', color: '#3b82f6', focalX: 0.58, focalY: 0.30, src: null },
-      { id: 'bg_islamic_arches', name: '٧. قمم الجبال الضبابية بالسحر', color: '#6366f1', focalX: 0.50, focalY: 0.35, src: null },
-      { id: 'bg_cairo_mosques', name: '٨. ضفاف النيل ومآذن الغروب', color: '#d97706', focalX: 0.60, focalY: 0.36, src: null },
-      { id: 'bg_emerald_waterfall', name: '٩. شلالات الجبال والوادي الأخضر', color: '#14b8a6', focalX: 0.50, focalY: 0.42, src: null },
-      { id: 'bg_desert_crescent', name: '١٠. كثبان الصحراء وهلال الليل', color: '#b45309', focalX: 0.65, focalY: 0.26, src: null },
-      { id: 'bg_quran_rehal', name: '١١. بحيرة الجبل الصافية فجراً', color: '#0ea5e9', focalX: 0.50, focalY: 0.40, src: null },
-      { id: 'bg_mihrab', name: '١٢. شرفة المحراب المطلة على البحر', color: '#f59e0b', focalX: 0.50, focalY: 0.46, src: null },
-      { id: 'bg_hira_mountain', name: '١٣. جبل النور وآفاق السماء', color: '#d97706', focalX: 0.50, focalY: 0.36, src: null },
-      { id: 'bg_golden_sea', name: '١٤. أمواج البحر الذهبية شروقاً', color: '#facc15', focalX: 0.50, focalY: 0.38, src: null },
-      { id: 'bg_oasis_river', name: '١٥. واحة النخيل ونهر الوادي', color: '#0d9488', focalX: 0.50, focalY: 0.36, src: null },
-      { id: 'bg_laylat_alqadr', name: '١٦. الجبال الثلجية ومجرة السماء', color: '#94a3b8', focalX: 0.50, focalY: 0.34, src: null },
-      { id: 'bg_olive_blessed', name: '١٧. شجرة الزيتون المباركة والخليج', color: '#10b981', focalX: 0.50, focalY: 0.42, src: null },
-      { id: 'bg_galaxy_tasbih', name: '١٨. مشكاة النور فوق ساحل البحر', color: '#fbbf24', focalX: 0.50, focalY: 0.46, src: null },
-      { id: 'bg_aurora_sky', name: '١٩. أنوار الشفق فوق البحر والجبال', color: '#34d399', focalX: 0.50, focalY: 0.35, src: null },
-      { id: 'bg_rain_window', name: '٢٠. غيث السماء فوق التلال والبحر', color: '#38bdf8', focalX: 0.50, focalY: 0.38, src: null }
-    ];
-
-    function generateScenicDataUrl(type) {
-      const c = document.createElement('canvas');
-      c.width = 1280;
-      c.height = 720;
-      const g = c.getContext('2d');
-      const W = 1280, H = 720;
-
-      const drawSky = (stops) => {
-        const sky = g.createLinearGradient(0, 0, 0, H);
-        stops.forEach(([pos, col]) => sky.addColorStop(pos, col));
-        g.fillStyle = sky;
-        g.fillRect(0, 0, W, H);
-      };
-
-      const drawStars = (count, maxY, alphaMul = 1, seed = 1) => {
-        for (let i = 0; i < count; i++) {
-          const x = ((i * 9781 + seed * 313) % W);
-          const y = ((i * 6173 + seed * 149) % Math.floor(maxY));
-          const r = (i % 5 === 0) ? 1.8 : 1.1;
-          g.fillStyle = `rgba(255, 252, 230, ${(0.25 + (i % 6) * 0.1) * alphaMul})`;
-          g.fillRect(x, y, r, r);
-        }
-      };
-
-      const drawSunOrMoonGlow = (cx, cy, rad, coreCol, midCol) => {
-        g.save();
-        const halo = g.createRadialGradient(cx, cy, rad * 0.1, cx, cy, rad * 4.0);
-        halo.addColorStop(0, coreCol);
-        halo.addColorStop(0.35, midCol);
-        halo.addColorStop(1, 'rgba(0,0,0,0)');
-        g.fillStyle = halo;
-        g.fillRect(0, 0, W, H);
-        g.fillStyle = coreCol;
-        g.beginPath();
-        g.arc(cx, cy, rad, 0, Math.PI * 2);
-        g.fill();
-        g.restore();
-      };
-
-      const drawCrescent = (cx, cy, rad, color = '#fef08a') => {
-        g.save();
-        const off = document.createElement('canvas');
-        off.width = rad * 3;
-        off.height = rad * 3;
-        const og = off.getContext('2d');
-        const ox = rad * 1.5, oy = rad * 1.5;
-        og.fillStyle = color;
-        og.beginPath();
-        og.arc(ox, oy, rad, 0, Math.PI * 2);
-        og.fill();
-        og.globalCompositeOperation = 'destination-out';
-        og.beginPath();
-        og.arc(ox - rad * 0.36, oy - rad * 0.16, rad * 0.86, 0, Math.PI * 2);
-        og.fill();
-        g.drawImage(off, cx - ox, cy - oy);
-        g.restore();
-      };
-
-      const drawMountainRange = (baseY, amp, freq, phase, topColor, botColor) => {
-        g.save();
-        const grad = g.createLinearGradient(0, baseY - amp, 0, H);
-        grad.addColorStop(0, topColor);
-        grad.addColorStop(1, botColor);
-        g.fillStyle = grad;
-        g.beginPath();
-        g.moveTo(0, H);
-        for (let x = 0; x <= W; x += 24) {
-          const y = baseY
-            - Math.sin(x * freq + phase) * amp * 0.55
-            - Math.cos(x * freq * 2.3 - phase * 0.7) * amp * 0.28;
-          g.lineTo(x, y);
-        }
-        g.lineTo(W, H);
-        g.closePath();
-        g.fill();
-        g.restore();
-      };
-
-      const drawSeaWater = (horizonY, topCol, botCol, reflectX, reflectCol) => {
-        g.save();
-        const seaGrad = g.createLinearGradient(0, horizonY, 0, H);
-        seaGrad.addColorStop(0, topCol);
-        seaGrad.addColorStop(1, botCol);
-        g.fillStyle = seaGrad;
-        g.fillRect(0, horizonY, W, H - horizonY);
-
-        for (let i = 0; i < 40; i++) {
-          const p = i / 40;
-          const wy = horizonY + Math.pow(p, 1.45) * (H - horizonY - 12);
-          const ww = (28 + p * 200) * (0.65 + 0.35 * Math.sin(i * 3.7));
-          const wx = reflectX + Math.sin(i * 7.3) * (35 + p * 140) - ww / 2;
-          g.fillStyle = reflectCol;
-          g.globalAlpha = (1 - p * 0.65) * 0.5;
-          g.fillRect(wx, wy, ww, 2);
-        }
-        g.restore();
-      };
-
-      const drawMosqueSilhouette = (cx, baseY, scale, col = '#060a14', domeGold = null) => {
-        g.save();
-        g.translate(cx, baseY);
-        g.scale(scale, scale);
-        g.fillStyle = col;
-        g.fillRect(-160, -70, 320, 75);
-        g.beginPath();
-        g.arc(0, -70, 62, Math.PI, 0);
-        g.fillStyle = domeGold || col;
-        g.fill();
-        g.fillStyle = col;
-        g.fillRect(-155, -210, 20, 210);
-        g.fillRect(135, -210, 20, 210);
-        g.restore();
-      };
-
-      switch (type) {
-        case 'bg_mishkat':
-          drawSky([[0, '#0f172a'], [0.4, '#4c1d95'], [0.65, '#b45309'], [0.8, '#fbbf24'], [1, '#0f172a']]);
-          drawSunOrMoonGlow(W * 0.5, H * 0.54, 52, '#fef08a', 'rgba(245, 158, 11, 0.45)');
-          drawMountainRange(H * 0.55, 75, 0.004, 1.2, '#311042', '#130924');
-          drawSeaWater(H * 0.56, '#1e1b4b', '#04070f', W * 0.5, 'rgba(253, 224, 71, 0.55)');
-          drawMosqueSilhouette(W * 0.22, H * 0.56, 0.78, '#090d18');
-          break;
-        case 'bg_mountains_dawn':
-          drawSky([[0, '#060b19'], [0.4, '#1e293b'], [0.7, '#065f46'], [0.85, '#d97706'], [1, '#090d16']]);
-          drawSunOrMoonGlow(W * 0.5, H * 0.45, 42, '#fef3c7', 'rgba(251, 191, 36, 0.35)');
-          drawMountainRange(H * 0.52, 140, 0.0035, 0.5, '#1e293b', '#0f172a');
-          drawMountainRange(H * 0.68, 100, 0.005, 2.1, '#0f172a', '#050811');
-          break;
-        case 'bg_kaaba':
-          drawSky([[0, '#030712'], [0.5, '#0f172a'], [1, '#1e1b4b']]);
-          drawStars(80, H * 0.55, 0.9, 3);
-          drawMountainRange(H * 0.58, 95, 0.004, 1.8, '#111827', '#060913');
-          drawSunOrMoonGlow(W * 0.5, H * 0.46, 30, 'rgba(253,224,71,0.35)', 'rgba(217,119,6,0.22)');
-          g.fillStyle = '#05070c';
-          g.fillRect((W - 220) / 2, H * 0.36, 220, 210);
-          g.fillStyle = '#fde047';
-          g.fillRect((W - 220) / 2, H * 0.36 + 46, 220, 22);
-          break;
-        case 'bg_nabawi':
-          drawSky([[0, '#042f2e'], [0.45, '#065f46'], [0.75, '#d97706'], [1, '#090d16']]);
-          drawSunOrMoonGlow(W * 0.5, H * 0.42, 46, '#fef08a', 'rgba(16, 185, 129, 0.32)');
-          drawMountainRange(H * 0.56, 110, 0.0038, 2.5, '#134e4a', '#042f2e');
-          drawMosqueSilhouette(W * 0.5, H * 0.62, 1.2, '#06121c', '#059669');
-          drawSeaWater(H * 0.62, '#062825', '#02080d', W * 0.5, 'rgba(110, 231, 183, 0.35)');
-          break;
-        case 'bg_aqsa':
-          drawSky([[0, '#090d16'], [0.42, '#1e1b4b'], [0.72, '#78350f'], [1, '#090d16']]);
-          drawCrescent(W * 0.72, H * 0.22, 34, '#fde68a');
-          drawMountainRange(H * 0.58, 90, 0.0045, 0.9, '#1e293b', '#090d16');
-          drawMosqueSilhouette(W * 0.5, H * 0.58, 1.15, '#0f172a', '#fbbf24');
-          break;
-        case 'bg_azhar_courtyard':
-          drawSky([[0, '#020617'], [0.45, '#0f172a'], [0.7, '#1e3a8a'], [1, '#090d16']]);
-          drawStars(90, H * 0.52, 0.9, 6);
-          drawCrescent(W * 0.58, H * 0.26, 42, '#fef08a');
-          drawMountainRange(H * 0.54, 70, 0.0035, 1.1, '#0f172a', '#020617');
-          drawSeaWater(H * 0.54, '#0c1e3e', '#020617', W * 0.58, 'rgba(253, 224, 71, 0.48)');
-          break;
-        case 'bg_islamic_arches':
-          drawSky([[0, '#090d16'], [0.4, '#1e1b4b'], [0.75, '#312e81'], [1, '#0f172a']]);
-          drawStars(80, H * 0.45, 0.9, 7);
-          drawMountainRange(H * 0.48, 130, 0.0032, 0.4, '#312e81', '#1e1b4b');
-          drawMountainRange(H * 0.65, 110, 0.0044, 1.9, '#1e1b4b', '#030712');
-          break;
-        case 'bg_cairo_mosques':
-          drawSky([[0, '#1e1b4b'], [0.42, '#7c2d12'], [0.7, '#f59e0b'], [1, '#0f172a']]);
-          drawSunOrMoonGlow(W * 0.62, H * 0.44, 52, '#fef3c7', 'rgba(245, 158, 11, 0.5)');
-          drawMountainRange(H * 0.54, 55, 0.004, 2.0, '#451a03', '#1c0a00');
-          drawMosqueSilhouette(W * 0.32, H * 0.54, 0.95, '#120804');
-          drawSeaWater(H * 0.54, '#451a03', '#090502', W * 0.62, 'rgba(254, 240, 138, 0.55)');
-          break;
-        case 'bg_emerald_waterfall':
-          drawSky([[0, '#022c22'], [0.45, '#064e3b'], [0.8, '#0f766e'], [1, '#042f2e']]);
-          drawMountainRange(H * 0.48, 135, 0.004, 0.8, '#065f46', '#022c22');
-          drawSeaWater(H * 0.58, '#065f46', '#022c22', W * 0.5, 'rgba(167, 243, 208, 0.50)');
-          break;
-        case 'bg_desert_crescent':
-          drawSky([[0, '#030712'], [0.48, '#1e1b4b'], [0.78, '#78350f'], [1, '#451a03']]);
-          drawStars(85, H * 0.55, 0.9, 10);
-          drawCrescent(W * 0.66, H * 0.24, 40, '#fde68a');
-          drawMountainRange(H * 0.60, 75, 0.0028, 1.0, '#92400e', '#451a03');
-          break;
-        case 'bg_quran_rehal':
-          drawSky([[0, '#090d16'], [0.35, '#1e3a8a'], [0.62, '#0284c7'], [0.8, '#fde68a'], [1, '#0c4a6e']]);
-          drawSunOrMoonGlow(W * 0.5, H * 0.48, 44, '#fef9c3', 'rgba(56, 189, 248, 0.38)');
-          drawMountainRange(H * 0.52, 140, 0.0038, 1.5, '#1e293b', '#090d16');
-          drawSeaWater(H * 0.53, '#0369a1', '#082f49', W * 0.5, 'rgba(254, 240, 138, 0.52)');
-          break;
-        case 'bg_mihrab':
-          drawSky([[0, '#0f172a'], [0.42, '#7c2d12'], [0.68, '#f59e0b'], [1, '#090d16']]);
-          drawSunOrMoonGlow(W * 0.5, H * 0.48, 48, '#fef08a', 'rgba(245, 158, 11, 0.45)');
-          drawSeaWater(H * 0.54, '#1e1b4b', '#050811', W * 0.5, 'rgba(253, 224, 71, 0.55)');
-          break;
-        case 'bg_hira_mountain':
-          drawSky([[0, '#030712'], [0.45, '#1e1b4b'], [0.78, '#b45309'], [1, '#090d16']]);
-          drawCrescent(W * 0.5, H * 0.20, 38, '#fef08a');
-          drawMountainRange(H * 0.58, 140, 0.0045, 2.2, '#090d16', '#020408');
-          break;
-        case 'bg_golden_sea':
-          drawSky([[0, '#1e1b4b'], [0.35, '#9a3412'], [0.58, '#f59e0b'], [0.75, '#fef08a'], [1, '#451a03']]);
-          drawSunOrMoonGlow(W * 0.5, H * 0.46, 58, '#fffbeb', 'rgba(251, 191, 36, 0.6)');
-          drawSeaWater(H * 0.52, '#78350f', '#1c0a00', W * 0.5, 'rgba(254, 243, 199, 0.65)');
-          break;
-        case 'bg_oasis_river':
-          drawSky([[0, '#062019'], [0.45, '#0f766e'], [0.75, '#f59e0b'], [1, '#042f2e']]);
-          drawSunOrMoonGlow(W * 0.5, H * 0.42, 46, '#fef08a', 'rgba(20, 184, 166, 0.4)');
-          drawMountainRange(H * 0.52, 85, 0.004, 1.4, '#115e59', '#042f2e');
-          drawSeaWater(H * 0.53, '#0d9488', '#022c22', W * 0.5, 'rgba(253, 224, 71, 0.48)');
-          break;
-        case 'bg_laylat_alqadr':
-          drawSky([[0, '#020617'], [0.5, '#0f172a'], [0.85, '#1e293b'], [1, '#090d16']]);
-          drawStars(110, H * 0.60, 1.0, 16);
-          drawMountainRange(H * 0.52, 150, 0.0036, 0.9, '#64748b', '#0f172a');
-          drawSeaWater(H * 0.64, '#0f172a', '#020617', W * 0.5, 'rgba(226, 232, 240, 0.35)');
-          break;
-        case 'bg_olive_blessed':
-          drawSky([[0, '#062019'], [0.45, '#115e59'], [0.72, '#d97706'], [1, '#022c22']]);
-          drawSunOrMoonGlow(W * 0.5, H * 0.44, 50, '#fef08a', 'rgba(245, 158, 11, 0.45)');
-          drawMountainRange(H * 0.54, 80, 0.004, 1.7, '#064e3b', '#022c22');
-          drawSeaWater(H * 0.55, '#065f46', '#022c22', W * 0.5, 'rgba(253, 224, 71, 0.48)');
-          break;
-        case 'bg_galaxy_tasbih':
-          drawSky([[0, '#030712'], [0.45, '#1e1b4b'], [0.75, '#78350f'], [1, '#090d16']]);
-          drawStars(90, H * 0.48, 0.88, 18);
-          drawMountainRange(H * 0.55, 80, 0.0042, 0.6, '#1e1b4b', '#090d16');
-          drawSeaWater(H * 0.56, '#0f172a', '#030712', W * 0.5, 'rgba(253, 224, 71, 0.55)');
-          break;
-        case 'bg_aurora_sky':
-          drawSky([[0, '#020617'], [0.35, '#064e3b'], [0.65, '#10b981'], [1, '#022c22']]);
-          drawStars(90, H * 0.50, 0.9, 19);
-          drawMountainRange(H * 0.53, 130, 0.0038, 2.0, '#064e3b', '#020617');
-          drawSeaWater(H * 0.54, '#065f46', '#020617', W * 0.5, 'rgba(52, 211, 153, 0.52)');
-          break;
-        case 'bg_rain_window':
-        default:
-          drawSky([[0, '#0f172a'], [0.45, '#1e3a8a'], [0.75, '#0d9488'], [1, '#064e3b']]);
-          drawMountainRange(H * 0.52, 110, 0.0035, 1.2, '#115e59', '#042f2e');
-          drawSeaWater(H * 0.62, '#0f766e', '#042f2e', W * 0.5, 'rgba(253, 224, 71, 0.42)');
-          break;
-      }
-
-      return c.toDataURL('image/jpeg', 0.85);
-    }
+  {
+    "id": "bg_01_mountain_sunrise",
+    "name": "١. شروق الجبال والسحاب",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/01_%D8%B4%D8%B1%D9%88%D9%82_%D8%A7%D9%84%D8%AC%D8%A8%D8%A7%D9%84_%D9%88%D8%A7%D9%84%D8%B3%D8%AD%D8%A7%D8%A8_Mountain_Sunrise.jpg"
+  },
+  {
+    "id": "bg_02_ocean_sunset",
+    "name": "٢. غروب البحر الهادئ",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/02_%D8%BA%D8%B1%D9%88%D8%A8_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D9%87%D8%A7%D8%AF%D8%A6_Ocean_Sunset.jpg"
+  },
+  {
+    "id": "bg_03_sky_sunbeams",
+    "name": "٣. سحب مهيبة واشعة نور",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.42,
+    "src": "/backgrounds/03_%D8%B3%D8%AD%D8%A8_%D9%85%D9%87%D9%8A%D8%A8%D8%A9_%D9%88%D8%A7%D8%B4%D8%B9%D8%A9_%D9%86%D9%88%D8%B1_Sky_Sunbeams.jpg"
+  },
+  {
+    "id": "bg_04_green_valley_river",
+    "name": "٤. نهر ووادي اخضر",
+    "color": "#10b981",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/04_%D9%86%D9%87%D8%B1_%D9%88%D9%88%D8%A7%D8%AF%D9%8A_%D8%A7%D8%AE%D8%B6%D8%B1_Green_Valley_River.jpg"
+  },
+  {
+    "id": "bg_05_desert_night_crescent",
+    "name": "٥. صحراء وهلال منير",
+    "color": "#6366f1",
+    "focalX": 0.5,
+    "focalY": 0.35,
+    "src": "/backgrounds/05_%D8%B5%D8%AD%D8%B1%D8%A7%D8%A1_%D9%88%D9%87%D9%84%D8%A7%D9%84_%D9%85%D9%86%D9%8A%D8%B1_Desert_Night_Crescent.jpg"
+  },
+  {
+    "id": "bg_06_forest_waterfall",
+    "name": "٦. شلال وسط الغابات",
+    "color": "#10b981",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/06_%D8%B4%D9%84%D8%A7%D9%84_%D9%88%D8%B3%D8%B7_%D8%A7%D9%84%D8%BA%D8%A7%D8%A8%D8%A7%D8%AA_Forest_Waterfall.jpg"
+  },
+  {
+    "id": "bg_07_cosmic_nebula_arch",
+    "name": "٧. سماء كونية وسدم",
+    "color": "#6366f1",
+    "focalX": 0.5,
+    "focalY": 0.35,
+    "src": "/backgrounds/07_%D8%B3%D9%85%D8%A7%D8%A1_%D9%83%D9%88%D9%86%D9%8A%D8%A9_%D9%88%D8%B3%D8%AF%D9%85_Cosmic_Nebula_Arch.jpg"
+  },
+  {
+    "id": "bg_08_northern_lights_aurora",
+    "name": "٨. شفق قطبي وبحيرة",
+    "color": "#34d399",
+    "focalX": 0.5,
+    "focalY": 0.35,
+    "src": "/backgrounds/08_%D8%B4%D9%81%D9%82_%D9%82%D8%B7%D8%A8%D9%8A_%D9%88%D8%A8%D8%AD%D9%8A%D8%B1%D8%A9_Northern_Lights_Aurora.jpg"
+  },
+  {
+    "id": "bg_09_autumn_lake_mist",
+    "name": "٩. بحيرة خريفية وضباب",
+    "color": "#0284c7",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/09_%D8%A8%D8%AD%D9%8A%D8%B1%D8%A9_%D8%AE%D8%B1%D9%8A%D9%81%D9%8A%D8%A9_%D9%88%D8%B6%D8%A8%D8%A7%D8%A8_Autumn_Lake_Mist.jpg"
+  },
+  {
+    "id": "bg_10_desert_dunes_sunset",
+    "name": "١٠. كثبان وشفق الغروب",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/10_%D9%83%D8%AB%D8%A8%D8%A7%D9%86_%D9%88%D8%B4%D9%81%D9%82_%D8%A7%D9%84%D8%BA%D8%B1%D9%88%D8%A8_Desert_Dunes_Sunset.jpg"
+  },
+  {
+    "id": "bg_11_rain_clouds_ocean",
+    "name": "١١. غيوم ممطرة فوق البحر",
+    "color": "#0284c7",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/11_%D8%BA%D9%8A%D9%88%D9%85_%D9%85%D9%85%D8%B7%D8%B1%D8%A9_%D9%81%D9%88%D9%82_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_Rain_Clouds_Ocean.jpg"
+  },
+  {
+    "id": "bg_12_lavender_fields",
+    "name": "١٢. حقول اللافندر البنفسجية",
+    "color": "#a855f7",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/12_%D8%AD%D9%82%D9%88%D9%84_%D8%A7%D9%84%D9%84%D8%A7%D9%81%D9%86%D8%AF%D8%B1_%D8%A7%D9%84%D8%A8%D9%86%D9%81%D8%B3%D8%AC%D9%8A%D8%A9_Lavender_Fields.jpg"
+  },
+  {
+    "id": "bg_13_alpine_lake_reflection",
+    "name": "١٣. انعكاس قمم الثلوج",
+    "color": "#0284c7",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/13_%D8%A7%D9%86%D8%B9%D9%83%D8%A7%D8%B3_%D9%82%D9%85%D9%85_%D8%A7%D9%84%D8%AB%D9%84%D9%88%D8%AC_Alpine_Lake_Reflection.jpg"
+  },
+  {
+    "id": "bg_14_desert_oasis_palms",
+    "name": "١٤. واحة النخيل",
+    "color": "#d97706",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/14_%D9%88%D8%A7%D8%AD%D8%A9_%D8%A7%D9%84%D9%86%D8%AE%D9%8A%D9%84_Desert_Oasis_Palms.jpg"
+  },
+  {
+    "id": "bg_15_grand_canyon_sunrise",
+    "name": "١٥. وادي الجرانيت العظيم",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/15_%D9%88%D8%A7%D8%AF%D9%8A_%D8%A7%D9%84%D8%AC%D8%B1%D8%A7%D9%86%D9%8A%D8%AA_%D8%A7%D9%84%D8%B9%D8%B8%D9%8A%D9%85_Grand_Canyon_Sunrise.jpg"
+  },
+  {
+    "id": "bg_16_blooming_spring_brook",
+    "name": "١٦. اشجار مبهرة وجداول",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.42,
+    "src": "/backgrounds/16_%D8%A7%D8%B4%D8%AC%D8%A7%D8%B1_%D9%85%D8%A8%D9%87%D8%B1%D8%A9_%D9%88%D8%AC%D8%AF%D8%A7%D9%88%D9%84_Blooming_Spring_Brook.jpg"
+  },
+  {
+    "id": "bg_17_tropical_turquoise_shore",
+    "name": "١٧. شاطئ استوائي",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.42,
+    "src": "/backgrounds/17_%D8%B4%D8%A7%D8%B7%D8%A6_%D8%A7%D8%B3%D8%AA%D9%88%D8%A7%D8%A6%D9%8A_Tropical_Turquoise_Shore.jpg"
+  },
+  {
+    "id": "bg_18_snowy_pine_forest",
+    "name": "١٨. غابة صنوبر مثلجة",
+    "color": "#10b981",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/18_%D8%BA%D8%A7%D8%A8%D8%A9_%D8%B5%D9%86%D9%88%D8%A8%D8%B1_%D9%85%D8%AB%D9%84%D8%AC%D8%A9_Snowy_Pine_Forest.jpg"
+  },
+  {
+    "id": "bg_19_golden_wheat_field",
+    "name": "١٩. حقول القمح الذهبية",
+    "color": "#d97706",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/19_%D8%AD%D9%82%D9%88%D9%84_%D8%A7%D9%84%D9%82%D9%85%D8%AD_%D8%A7%D9%84%D8%B0%D9%87%D8%A8%D9%8A%D8%A9_Golden_Wheat_Field.jpg"
+  },
+  {
+    "id": "bg_20_underwater_sunrays",
+    "name": "٢٠. اشعة شمس تحت الماء",
+    "color": "#0284c7",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/20_%D8%A7%D8%B4%D8%B9%D8%A9_%D8%B4%D9%85%D8%B3_%D8%AA%D8%AD%D8%AA_%D8%A7%D9%84%D9%85%D8%A7%D8%A1_Underwater_Sunrays.jpg"
+  },
+  {
+    "id": "bg_21_bamboo_forest_mist",
+    "name": "٢١. غابة الخيزران الضبابية",
+    "color": "#10b981",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/21_%D8%BA%D8%A7%D8%A8%D8%A9_%D8%A7%D9%84%D8%AE%D9%8A%D8%B2%D8%B1%D8%A7%D9%86_%D8%A7%D9%84%D8%B6%D8%A8%D8%A7%D8%A8%D9%8A%D8%A9_Bamboo_Forest_Mist.jpg"
+  },
+  {
+    "id": "bg_22_mountain_above_clouds",
+    "name": "٢٢. قمة الجبل فوق السحاب",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.42,
+    "src": "/backgrounds/22_%D9%82%D9%85%D8%A9_%D8%A7%D9%84%D8%AC%D8%A8%D9%84_%D9%81%D9%88%D9%82_%D8%A7%D9%84%D8%B3%D8%AD%D8%A7%D8%A8_Mountain_Above_Clouds.jpg"
+  },
+  {
+    "id": "bg_23_coastal_cliff_sunrise",
+    "name": "٢٣. جرف صخري وامواج البحر",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/23_%D8%AC%D8%B1%D9%81_%D8%B5%D8%AE%D8%B1%D9%8A_%D9%88%D8%A7%D9%85%D9%88%D8%A7%D8%AC_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_Coastal_Cliff_Sunrise.jpg"
+  },
+  {
+    "id": "bg_24_misty_pines_sunbeams",
+    "name": "٢٤. غابة الصنوبر الصباحية",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.42,
+    "src": "/backgrounds/24_%D8%BA%D8%A7%D8%A8%D8%A9_%D8%A7%D9%84%D8%B5%D9%86%D9%88%D8%A8%D8%B1_%D8%A7%D9%84%D8%B5%D8%A8%D8%A7%D8%AD%D9%8A%D8%A9_Misty_Pines_Sunbeams.jpg"
+  },
+  {
+    "id": "bg_25_desert_milky_way",
+    "name": "٢٥. مجرة درب التبانة",
+    "color": "#6366f1",
+    "focalX": 0.5,
+    "focalY": 0.35,
+    "src": "/backgrounds/25_%D9%85%D8%AC%D8%B1%D8%A9_%D8%AF%D8%B1%D8%A8_%D8%A7%D9%84%D8%AA%D8%A8%D8%A7%D9%86%D8%A9_Desert_Milky_Way.jpg"
+  },
+  {
+    "id": "bg_26_starry_night_river",
+    "name": "٢٦. نهر هادئ وسماء ليلية",
+    "color": "#6366f1",
+    "focalX": 0.5,
+    "focalY": 0.35,
+    "src": "/backgrounds/26_%D9%86%D9%87%D8%B1_%D9%87%D8%A7%D8%AF%D8%A6_%D9%88%D8%B3%D9%85%D8%A7%D8%A1_%D9%84%D9%8A%D9%84%D9%8A%D8%A9_Starry_Night_River.jpg"
+  },
+  {
+    "id": "bg_27_wildflower_alpine_meadow",
+    "name": "٢٧. مرج زهور الجبال",
+    "color": "#10b981",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/27_%D9%85%D8%B1%D8%AC_%D8%B2%D9%87%D9%88%D8%B1_%D8%A7%D9%84%D8%AC%D8%A8%D8%A7%D9%84_Wildflower_Alpine_Meadow.jpg"
+  },
+  {
+    "id": "bg_28_god_rays_ocean",
+    "name": "٢٨. اشعة سماوية فوق البحر",
+    "color": "#0284c7",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/28_%D8%A7%D8%B4%D8%B9%D8%A9_%D8%B3%D9%85%D8%A7%D9%88%D9%8A%D8%A9_%D9%81%D9%88%D9%82_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_God_Rays_Ocean.jpg"
+  },
+  {
+    "id": "bg_29_tropical_sunset_lagoon",
+    "name": "٢٩. غروب استوائي ونخيل",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/29_%D8%BA%D8%B1%D9%88%D8%A8_%D8%A7%D8%B3%D8%AA%D9%88%D8%A7%D8%A6%D9%8A_%D9%88%D9%86%D8%AE%D9%8A%D9%84_Tropical_Sunset_Lagoon.jpg"
+  },
+  {
+    "id": "bg_30_emerald_waterfall_pool",
+    "name": "٣٠. شلال وبركة زمردية",
+    "color": "#10b981",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/30_%D8%B4%D9%84%D8%A7%D9%84_%D9%88%D8%A8%D8%B1%D9%83%D8%A9_%D8%B2%D9%85%D8%B1%D8%AF%D9%8A%D8%A9_Emerald_Waterfall_Pool.jpg"
+  },
+  {
+    "id": "bg_31_desert_acacia_moon",
+    "name": "٣١. شجرة الصحراء والهلال",
+    "color": "#6366f1",
+    "focalX": 0.5,
+    "focalY": 0.35,
+    "src": "/backgrounds/31_%D8%B4%D8%AC%D8%B1%D8%A9_%D8%A7%D9%84%D8%B5%D8%AD%D8%B1%D8%A7%D8%A1_%D9%88%D8%A7%D9%84%D9%87%D9%84%D8%A7%D9%84_Desert_Acacia_Moon.jpg"
+  },
+  {
+    "id": "bg_32_endless_sea_of_clouds",
+    "name": "٣٢. محيط من السحب",
+    "color": "#0284c7",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/32_%D9%85%D8%AD%D9%8A%D8%B7_%D9%85%D9%86_%D8%A7%D9%84%D8%B3%D8%AD%D8%A8_Endless_Sea_of_Clouds.jpg"
+  },
+  {
+    "id": "bg_33_autumn_forest_creek",
+    "name": "٣٣. نهر الغابة الخريفية",
+    "color": "#10b981",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/33_%D9%86%D9%87%D8%B1_%D8%A7%D9%84%D8%BA%D8%A7%D8%A8%D8%A9_%D8%A7%D9%84%D8%AE%D8%B1%D9%8A%D9%81%D9%8A%D8%A9_Autumn_Forest_Creek.jpg"
+  },
+  {
+    "id": "bg_34_glassy_lake_sunrise",
+    "name": "٣٤. بحيرة الصباح الهادئة",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/34_%D8%A8%D8%AD%D9%8A%D8%B1%D8%A9_%D8%A7%D9%84%D8%B5%D8%A8%D8%A7%D8%AD_%D8%A7%D9%84%D9%87%D8%A7%D8%AF%D8%A6%D8%A9_Glassy_Lake_Sunrise.jpg"
+  },
+  {
+    "id": "bg_35_lightning_storm_ocean",
+    "name": "٣٥. برق وسحب عاصفة",
+    "color": "#0284c7",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/35_%D8%A8%D8%B1%D9%82_%D9%88%D8%B3%D8%AD%D8%A8_%D8%B9%D8%A7%D8%B5%D9%81%D8%A9_Lightning_Storm_Ocean.jpg"
+  },
+  {
+    "id": "bg_36_mossy_forest_stream",
+    "name": "٣٦. جدول مائي وغابة خضراء",
+    "color": "#10b981",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/36_%D8%AC%D8%AF%D9%88%D9%84_%D9%85%D8%A7%D8%A6%D9%8A_%D9%88%D8%BA%D8%A7%D8%A8%D8%A9_%D8%AE%D8%B6%D8%B1%D8%A7%D8%A1_Mossy_Forest_Stream.jpg"
+  },
+  {
+    "id": "bg_37_snowy_peaks_alpenglow",
+    "name": "٣٧. قمم الثلوج والوهج الوردي",
+    "color": "#38bdf8",
+    "focalX": 0.5,
+    "focalY": 0.4,
+    "src": "/backgrounds/37_%D9%82%D9%85%D9%85_%D8%A7%D9%84%D8%AB%D9%84%D9%88%D8%AC_%D9%88%D8%A7%D9%84%D9%88%D9%87%D8%AC_%D8%A7%D9%84%D9%88%D8%B1%D8%AF%D9%8A_Snowy_Peaks_Alpenglow.jpg"
+  },
+  {
+    "id": "bg_38_andalusian_courtyard_pool",
+    "name": "٣٨. فناء اندلسي وبركة",
+    "color": "#f59e0b",
+    "focalX": 0.5,
+    "focalY": 0.42,
+    "src": "/backgrounds/38_%D9%81%D9%86%D8%A7%D8%A1_%D8%A7%D9%86%D8%AF%D9%84%D8%B3%D9%8A_%D9%88%D8%A8%D8%B1%D9%83%D8%A9_Andalusian_Courtyard_Pool.jpg"
+  },
+  {
+    "id": "bg_39_full_moon_over_sea",
+    "name": "٣٩. بدر كامل فوق البحر",
+    "color": "#6366f1",
+    "focalX": 0.5,
+    "focalY": 0.35,
+    "src": "/backgrounds/39_%D8%A8%D8%AF%D8%B1_%D9%83%D8%A7%D9%85%D9%84_%D9%81%D9%88%D9%82_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_Full_Moon_Over_Sea.jpg"
+  },
+  {
+    "id": "bg_40_rolling_green_hills",
+    "name": "٤٠. تلال خضراء وضباب",
+    "color": "#10b981",
+    "focalX": 0.5,
+    "focalY": 0.45,
+    "src": "/backgrounds/40_%D8%AA%D9%84%D8%A7%D9%84_%D8%AE%D8%B6%D8%B1%D8%A7%D8%A1_%D9%88%D8%B6%D8%A8%D8%A7%D8%A8_Rolling_Green_Hills.jpg"
+  }
+];
 
     const bgGalleryGrid = document.getElementById('bgGalleryGrid');
     const activeBgBadge = document.getElementById('activeBgBadge');
@@ -2352,10 +2408,9 @@
         state.bgType = 'image';
         state.lastImageBgId = found.id;
         stopVideoPreviewLoop();
-        if (!found.src) {
-          found.src = generateScenicDataUrl(found.id);
+        if (found.src) {
+          sourceArtwork.src = found.src;
         }
-        sourceArtwork.src = found.src;
       }
 
       if (activeBgBadge) activeBgBadge.textContent = found.name;
@@ -2432,15 +2487,21 @@
         const isSelected = bg.id === state.currentBgId;
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = `rounded-xl border text-right transition flex items-center gap-2 p-2 ${
+        btn.className = 'group text-right rounded-xl border p-1.5 transition flex items-center gap-2.5 overflow-hidden ' + (
           isSelected
-            ? 'bg-amber-500/20 border-amber-400 text-amber-100'
-            : 'bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200'
-        }`;
-        btn.innerHTML = `
-          <span class="w-3.5 h-3.5 rounded-full shrink-0 border border-white/30" style="background:${bg.color || '#f59e0b'}"></span>
-          <span class="text-xs font-bold truncate">${bg.name}</span>
-        `;
+            ? 'bg-amber-500/20 border-amber-400 text-amber-100 ring-1 ring-amber-400/80 shadow-md'
+            : 'bg-slate-900/90 border-slate-700/80 hover:border-amber-400/50 hover:bg-slate-800 text-slate-200'
+        );
+        const thumb = bg.src
+          ? '<img src="' + bg.src + '" alt="' + bg.name + '" loading="lazy" class="w-11 h-11 rounded-lg object-cover shrink-0 border border-slate-700/70 group-hover:scale-105 transition-transform" />'
+          : '<span class="w-11 h-11 rounded-lg shrink-0 border border-white/20 flex items-center justify-center font-bold text-xs" style="background:' + (bg.color || '#f59e0b') + '">🖼️</span>';
+        btn.innerHTML = thumb +
+          '<div class="flex flex-col min-w-0 flex-1">' +
+            '<span class="text-xs font-bold truncate leading-snug">' + bg.name + '</span>' +
+            '<span class="text-[10px] ' + (isSelected ? 'text-amber-300 font-semibold' : 'text-slate-400') + ' truncate">' +
+              (isSelected ? '✓ الخلفية النشطة' : 'خلفية سينمائية') +
+            '</span>' +
+          '</div>';
         btn.addEventListener('click', () => selectBackgroundById(bg.id));
         bgGalleryGrid.appendChild(btn);
       });
@@ -6653,6 +6714,10 @@
       if (!state.studioInitialized) {
         state.studioInitialized = true;
         initBackgroundsGallery();
+        if (!state.currentBgId && state.studioSubMode !== 'video') {
+          const firstImgBg = BACKGROUNDS_LIST.find(b => !b.isVideo);
+          if (firstImgBg) selectBackgroundById(firstImgBg.id);
+        }
       }
       refreshBigPlayOverlayVisibility();
       requestRenderOnce();

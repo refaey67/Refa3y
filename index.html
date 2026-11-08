@@ -6672,17 +6672,17 @@
       g.stroke();
 
       // في الأعلى بخط عربي ذهبي بارز: «استوديو إذاعة القرآن الكريم»
-      g.font = `700 ${Math.round(size * 0.092)}px "Cairo", sans-serif`;
+      g.font = `700 ${Math.round(size * 0.088)}px "Cairo", sans-serif`;
       g.fillStyle = '#fde68a';
       g.textAlign = 'center';
       g.textBaseline = 'middle';
-      g.fillText('استوديو إذاعة', cx, size * 0.36);
-      g.fillText('القرآن الكريم', cx, size * 0.50);
+      g.fillText('استوديو إذاعة', cx, size * 0.40);
+      g.fillText('القرآن الكريم', cx, size * 0.54);
 
       // في الأسفل بخط أصغر وأنيق: Refa3y
-      g.font = `700 ${Math.round(size * 0.12)}px "Cinzel", serif`;
+      g.font = `700 ${Math.round(size * 0.11)}px "Cinzel", serif`;
       g.fillStyle = '#fbbf24';
-      g.fillText('Refa3y', cx, size * 0.74);
+      g.fillText('Refa3y', cx, size * 0.72);
 
       return c.toDataURL('image/png');
     }

@@ -2806,8 +2806,9 @@
     const btnStudioSubImages = document.getElementById('btnStudioSubImages');
     const btnStudioSubVideo = document.getElementById('btnStudioSubVideo');
 
-    function switchStudioSubMode(subMode) {
+    function switchStudioSubMode(subMode, pushHistory = true) {
       const targetSub = subMode === 'video' ? 'video' : 'images';
+      const prevSub = state.studioSubMode;
       state.studioSubMode = targetSub;
 
       if (imageWorkspaceSection) imageWorkspaceSection.classList.toggle('hidden', targetSub !== 'images');
@@ -2848,13 +2849,20 @@
           requestRenderOnce();
         }
       }
+
+      if (pushHistory && state.activeAppSection === 'studio' && prevSub !== targetSub) {
+        try {
+          const hash = targetSub === 'video' ? '#studio-video' : '#studio';
+          window.history.pushState({ section: 'studio', subMode: targetSub }, '', hash);
+        } catch (e) {}
+      }
     }
 
     if (btnStudioSubImages) {
-      btnStudioSubImages.addEventListener('click', () => switchStudioSubMode('images'));
+      btnStudioSubImages.addEventListener('click', () => switchStudioSubMode('images', true));
     }
     if (btnStudioSubVideo) {
-      btnStudioSubVideo.addEventListener('click', () => switchStudioSubMode('video'));
+      btnStudioSubVideo.addEventListener('click', () => switchStudioSubMode('video', true));
     }
 
     function renderBgGallery() {
@@ -6432,9 +6440,26 @@
       });
     }
 
+    function closeInstallModalClean() {
+      if (!installAppModal || installAppModal.classList.contains('hidden')) return;
+      installAppModal.classList.add('hidden');
+      if (window.history.state && window.history.state.modal === 'install') {
+        try { window.history.back(); } catch (e) {}
+      }
+    }
+
     if (btnInstallApp) {
       btnInstallApp.addEventListener('click', () => {
-        if (installAppModal) installAppModal.classList.remove('hidden');
+        if (installAppModal) {
+          installAppModal.classList.remove('hidden');
+          try {
+            window.history.pushState({
+              section: state.activeAppSection,
+              subMode: state.studioSubMode,
+              modal: 'install'
+            }, '', window.location.hash || '#install');
+          } catch (e) {}
+        }
         if (window.trackRefa3yEvent) {
           window.trackRefa3yEvent("install_modal_open", { button_id: "btnInstallApp" });
         }
@@ -6449,20 +6474,20 @@
           await deferredInstallPrompt.userChoice;
           deferredInstallPrompt = null;
           if (nativeInstallPromptBox) nativeInstallPromptBox.classList.add('hidden');
-          if (installAppModal) installAppModal.classList.add('hidden');
+          closeInstallModalClean();
         } catch (err) {}
       });
     }
 
     if (btnCloseInstallModal) {
-      btnCloseInstallModal.addEventListener('click', () => installAppModal?.classList.add('hidden'));
+      btnCloseInstallModal.addEventListener('click', closeInstallModalClean);
     }
     if (btnDoneInstallModal) {
-      btnDoneInstallModal.addEventListener('click', () => installAppModal?.classList.add('hidden'));
+      btnDoneInstallModal.addEventListener('click', closeInstallModalClean);
     }
     if (installAppModal) {
       installAppModal.addEventListener('click', (e) => {
-        if (e.target === installAppModal) installAppModal.classList.add('hidden');
+        if (e.target === installAppModal) closeInstallModalClean();
       });
     }
 
@@ -7161,8 +7186,14 @@
       requestRenderOnce();
     }
 
-    function switchAppSection(targetSection) {
+    function switchAppSection(targetSection, pushHistory = true, customSubMode = null) {
+      const prevSection = state.activeAppSection;
       state.activeAppSection = targetSection;
+
+      if (customSubMode && targetSection === 'studio') {
+        switchStudioSubMode(customSubMode, false);
+      }
+
       if (window.trackRefa3yEvent) {
         window.trackRefa3yEvent("section_view", { section_name: targetSection });
       }
@@ -7214,29 +7245,84 @@
         }
       }
 
+      if (pushHistory && (prevSection !== targetSection || customSubMode)) {
+        try {
+          let hash = '#home';
+          if (targetSection === 'radio') hash = '#radio';
+          else if (targetSection === 'studio') {
+            hash = state.studioSubMode === 'video' ? '#studio-video' : '#studio';
+          }
+          window.history.pushState(
+            { section: targetSection, subMode: state.studioSubMode },
+            '',
+            targetSection === 'home' ? (window.location.pathname + window.location.search) : hash
+          );
+        } catch (e) {}
+      }
+
       window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
-    if (cardSelectLiveRadio) cardSelectLiveRadio.addEventListener('click', () => switchAppSection('radio'));
+    // تهيئة سجل تصفح الهاتف والمتصفح لمنع الخروج المفاجئ عند الضغط على زر الرجوع (Back)
+    try {
+      const initialHash = window.location.hash;
+      if (initialHash === '#radio') {
+        window.history.replaceState({ section: 'home', subMode: 'images' }, '', window.location.pathname + window.location.search);
+        switchAppSection('radio', true);
+      } else if (initialHash === '#studio' || initialHash === '#studio-video') {
+        const initSub = initialHash === '#studio-video' ? 'video' : 'images';
+        window.history.replaceState({ section: 'home', subMode: 'images' }, '', window.location.pathname + window.location.search);
+        switchAppSection('studio', true, initSub);
+      } else {
+        window.history.replaceState({ section: 'home', subMode: 'images' }, '', window.location.pathname + window.location.search);
+      }
+    } catch (e) {}
+
+    window.addEventListener('popstate', (event) => {
+      // إغلاق نافذة التثبيت المنبثقة أولاً إذا كانت مفتوحة
+      if (installAppModal && !installAppModal.classList.contains('hidden')) {
+        installAppModal.classList.add('hidden');
+        return;
+      }
+
+      const st = event.state;
+      if (st && st.section) {
+        if (st.section === 'studio' && st.subMode) {
+          switchStudioSubMode(st.subMode, false);
+        }
+        switchAppSection(st.section, false);
+      } else {
+        // إذا لم توجد حالة محفوظة، نتحقق من الـ hash أو نعود للرئيسية
+        const h = window.location.hash;
+        if (h === '#radio') {
+          switchAppSection('radio', false);
+        } else if (h === '#studio' || h === '#studio-video') {
+          switchStudioSubMode(h === '#studio-video' ? 'video' : 'images', false);
+          switchAppSection('studio', false);
+        } else {
+          switchAppSection('home', false);
+        }
+      }
+    });
+
+    if (cardSelectLiveRadio) cardSelectLiveRadio.addEventListener('click', () => switchAppSection('radio', true));
     if (cardSelectVideoStudio) {
       cardSelectVideoStudio.addEventListener('click', () => {
-        switchAppSection('studio');
-        switchStudioSubMode('images');
+        switchAppSection('studio', true, 'images');
       });
     }
     if (cardSelectCustomVideoStudio) {
       cardSelectCustomVideoStudio.addEventListener('click', () => {
-        switchAppSection('studio');
-        switchStudioSubMode('video');
+        switchAppSection('studio', true, 'video');
       });
     }
-    if (btnNavHome) btnNavHome.addEventListener('click', () => switchAppSection('home'));
-    if (btnNavLiveRadio) btnNavLiveRadio.addEventListener('click', () => switchAppSection('radio'));
-    if (btnNavVideoStudio) btnNavVideoStudio.addEventListener('click', () => switchAppSection('studio'));
-    if (btnBackFromRadioToHome) btnBackFromRadioToHome.addEventListener('click', () => switchAppSection('home'));
-    if (btnSwitchRadioToStudio) btnSwitchRadioToStudio.addEventListener('click', () => switchAppSection('studio'));
-    if (btnBackFromStudioToHome) btnBackFromStudioToHome.addEventListener('click', () => switchAppSection('home'));
-    if (btnSwitchStudioToRadio) btnSwitchStudioToRadio.addEventListener('click', () => switchAppSection('radio'));
+    if (btnNavHome) btnNavHome.addEventListener('click', () => switchAppSection('home', true));
+    if (btnNavLiveRadio) btnNavLiveRadio.addEventListener('click', () => switchAppSection('radio', true));
+    if (btnNavVideoStudio) btnNavVideoStudio.addEventListener('click', () => switchAppSection('studio', true));
+    if (btnBackFromRadioToHome) btnBackFromRadioToHome.addEventListener('click', () => switchAppSection('home', true));
+    if (btnSwitchRadioToStudio) btnSwitchRadioToStudio.addEventListener('click', () => switchAppSection('studio', true));
+    if (btnBackFromStudioToHome) btnBackFromStudioToHome.addEventListener('click', () => switchAppSection('home', true));
+    if (btnSwitchStudioToRadio) btnSwitchStudioToRadio.addEventListener('click', () => switchAppSection('radio', true));
 
     // =========================================================================
     // 11. التشغيل الخفيف عند فتح الصفحة

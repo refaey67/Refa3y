@@ -34,7 +34,7 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>إذاعة القرآن الكريم | رفاعي</title>
+  <title>إذاعة القرآن الكريم واستوديو التصميم | بواسطة رفاعي</title>
   <meta name="description" content="استوديو إذاعة القرآن الكريم بواسطة رفاعي (By: Refa3y) - بث مباشر لإذاعة القرآن الكريم من القاهرة وإذاعات كبار القراء، استوديو متكامل لتصميم مقاطع وفيديوهات القرآن الكريم للريلز، وتطبيق أندرويد (APK) للتحميل المباشر." />
   <meta name="keywords" content="إذاعة القرآن الكريم, استوديو إذاعة القرآن الكريم, رفاعي, Refa3y, الشيخ محمد رفعت, تصميم فيديوهات قرآنية, ريلز قرآن, تحميل إذاعة القرآن APK" />
   <meta name="author" content="رفاعي | By: Refa3y" />
@@ -138,7 +138,7 @@
       <div class="flex items-center gap-3">
         <img id="headerAppIcon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='5'/><text x='64' y='46' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>استوديو إذاعة</text><text x='64' y='64' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>القرآن الكريم</text><text x='64' y='96' font-family='serif' font-size='18' font-weight='bold' fill='%23fbbf24' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-amber-400/60 shrink-0 object-cover" />
         <div class="flex flex-col text-right">
-          <h1 class="text-base sm:text-lg font-bold gold-gradient-text leading-tight">إذاعة القرآن الكريم - رفاعي</h1>
+          <h1 class="text-base sm:text-lg font-bold gold-gradient-text leading-tight">استوديو إذاعة القرآن الكريم</h1>
           <div class="flex items-center gap-2 flex-wrap mt-0.5">
             <span class="text-[11px] sm:text-xs font-medium text-amber-200/80 tracking-wide">بواسطة رفاعي | By Refa3y</span>
             <button id="btnInstallApp" type="button" class="px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-bold transition inline-flex items-center gap-1 bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm shrink-0" title="تحميل وتثبيت التطبيق على الهاتف">
@@ -6671,18 +6671,18 @@
       g.roundRect(pad1, pad1, size - pad1 * 2, size - pad1 * 2, size * 0.16);
       g.stroke();
 
-      // في الأعلى: «استوديو إذاعة القرآن الكريم»
-      g.font = `700 ${Math.round(size * 0.08)}px "Cairo", sans-serif`;
+      // في الأعلى بخط عربي ذهبي بارز: «استوديو إذاعة القرآن الكريم»
+      g.font = `700 ${Math.round(size * 0.092)}px "Cairo", sans-serif`;
       g.fillStyle = '#fde68a';
       g.textAlign = 'center';
       g.textBaseline = 'middle';
-      g.fillText('استوديو إذاعة', cx, size * 0.30);
-      g.fillText('القرآن الكريم', cx, size * 0.42);
+      g.fillText('استوديو إذاعة', cx, size * 0.36);
+      g.fillText('القرآن الكريم', cx, size * 0.50);
 
-      // في الأسفل: Refa3y
+      // في الأسفل بخط أصغر وأنيق: Refa3y
       g.font = `700 ${Math.round(size * 0.12)}px "Cinzel", serif`;
       g.fillStyle = '#fbbf24';
-      g.fillText('Refa3y', cx, size * 0.70);
+      g.fillText('Refa3y', cx, size * 0.74);
 
       return c.toDataURL('image/png');
     }

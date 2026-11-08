@@ -67,7 +67,7 @@
   <meta name="theme-color" content="#070b14" />
   <link id="appFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='5'/><text x='64' y='46' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>استوديو إذاعة</text><text x='64' y='64' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>القرآن الكريم</text><text x='64' y='96' font-family='serif' font-size='18' font-weight='bold' fill='%23fbbf24' text-anchor='middle'>Refa3y</text></svg>" />
   <link id="appleTouchIcon" rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='5'/><text x='64' y='46' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>استوديو إذاعة</text><text x='64' y='64' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>القرآن الكريم</text><text x='64' y='96' font-family='serif' font-size='18' font-weight='bold' fill='%23fbbf24' text-anchor='middle'>Refa3y</text></svg>" />
-  <link id="pwaManifestLink" rel="manifest" href="data:application/manifest+json;utf8,%7B%22name%22%3A%22%D8%A5%D8%B0%D8%A7%D8%B9%D8%A9%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86%20-%20%D8%B1%D9%81%D8%A7%D8%B9%D9%8A%22%2C%22short_name%22%3A%22%D8%A5%D8%B0%D8%A7%D8%B9%D8%A9%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23070b14%22%2C%22theme_color%22%3A%22%23070b14%22%7D" />
+  <link id="pwaManifestLink" rel="manifest" href="./manifest.json" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/webm-muxer@5.0.2/build/webm-muxer.min.js" defer></script>
@@ -2882,6 +2882,8 @@
         if (urlsToTry.length > 0) {
           let thumbAttempt = 0;
           const imgEl = document.createElement('img');
+          imgEl.loading = 'lazy';
+          imgEl.decoding = 'async';
           imgEl.alt = bg.name;
           imgEl.className = 'w-full h-full object-cover block group-hover:scale-105 transition-transform';
           imgEl.onerror = () => {
@@ -7663,10 +7665,64 @@
       if (btnResetWm) btnResetWm.addEventListener('click', () => setTimeout(syncActiveWatermarkBadge, 20));
     }
 
+
     // =========================================================================
-    // 11. التشغيل الخفيف عند فتح الصفحة
+    // 12. تحديثات الأداء والميديا
     // =========================================================================
-    initCollapsibleSections();
+
+    // MediaSession API setup for better lockscreen/notification control
+    function setupMediaSession(title, artist, artworkUrl) {
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: title,
+          artist: artist,
+          artwork: [{ src: artworkUrl, sizes: '512x512', type: 'image/png' }]
+        });
+      }
+    }
+
+    // Helper to update MediaSession when starting playback
+    function updateMediaSession(type, name, reciter) {
+      const title = type === 'radio' ? `بث مباشر: ${name}` : `${name}`;
+      const artist = reciter || 'إذاعة القرآن الكريم';
+      setupMediaSession(title, artist, './icon-512.png');
+    }
+
+    // Update listeners for playback (to be called when playback starts)
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', () => {
+           if (typeof togglePlay === 'function') togglePlay();
+        });
+        navigator.mediaSession.setActionHandler('pause', () => {
+           if (typeof togglePlay === 'function') togglePlay();
+        });
+    }
+
+    // Update setupPwa to use local icons
+    function initRefa3yPwaSetup() {
+      try {
+        const icon192 = './icon-192.png';
+        const fallbackIcon = generateRefa3yAppIcon(192);
+
+        function setIcon(el, attr) {
+          if (!el) return;
+          el.setAttribute(attr, icon192);
+          el.onerror = () => { el.setAttribute(attr, fallbackIcon); };
+        }
+
+        const favEl = document.getElementById('appFavicon');
+        const touchEl = document.getElementById('appleTouchIcon');
+        const headerAppIcon = document.getElementById('headerAppIcon');
+        const modalAppIconPreview = document.getElementById('modalAppIconPreview');
+
+        setIcon(favEl, 'href');
+        setIcon(touchEl, 'href');
+        setIcon(headerAppIcon, 'src');
+        setIcon(modalAppIconPreview, 'src');
+        
+      } catch (e) {}
+    }
+
     // Initialize gallery and preload default background immediately
     initBackgroundsGallery();
     if (BACKGROUNDS_LIST.length > 0) {

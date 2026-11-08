@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -9,33 +10,85 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 
-// Disable etag caching for HTML to force instant live updates
 app.set('etag', false);
 
-// Explicitly serve backgrounds directory with 1 hour caching
-app.use('/backgrounds', express.static(path.join(__dirname, 'backgrounds'), {
-  etag: true,
-  maxAge: '1h',
-  setHeaders: (res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-  }
-}));
+const bgDir = path.join(__dirname, 'backgrounds');
 
-// Serve sw.js with strictly no cache
-app.get('/sw.js', (req, res) => {
+// Build a clean map of all 40 original files in /backgrounds
+function getBackgroundFilesSorted() {
+  try {
+    return fs.readdirSync(bgDir)
+      .filter((f) => f.toLowerCase().endsWith('.jpg') && !f.startsWith('bg_'))
+      .sort((a, b) => {
+        const na = parseInt(a, 10) || 0;
+        const nb = parseInt(b, 10) || 0;
+        return na - nb || a.localeCompare(b);
+      });
+  } catch (e) {
+    return [];
+  }
+}
+
+// 1. Direct, failsafe image endpoint by number or filename: /api/bg/:id or /backgrounds/:name
+app.get(['/api/bg/:id', '/backgrounds/:name', '/Refa3y/backgrounds/:name'], (req, res) => {
+  const rawParam = req.params.id || req.params.name || '';
+  let decoded = rawParam;
+  try {
+    decoded = decodeURIComponent(rawParam);
+  } catch (e) {}
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+
+  // Direct exact match in backgrounds folder
+  const directPath = path.join(bgDir, path.basename(decoded));
+  if (fs.existsSync(directPath) && fs.statSync(directPath).isFile()) {
+    res.setHeader('Content-Type', 'image/jpeg');
+    return res.sendFile(directPath);
+  }
+
+  // Match by leading number (e.g. "01", "1", "bg_01.jpg", "01_...jpg")
+  const numMatch = decoded.match(/(\d+)/);
+  if (numMatch) {
+    const targetNum = parseInt(numMatch[1], 10);
+    const allFiles = getBackgroundFilesSorted();
+    const matchedFile = allFiles.find((f) => parseInt(f, 10) === targetNum) || allFiles[targetNum - 1];
+    if (matchedFile) {
+      const fullPath = path.join(bgDir, matchedFile);
+      if (fs.existsSync(fullPath)) {
+        res.setHeader('Content-Type', 'image/jpeg');
+        return res.sendFile(fullPath);
+      }
+    }
+  }
+
+  return res.status(404).send('Background not found');
+});
+
+// 2. API endpoint to list all backgrounds dynamically if needed
+app.get('/api/backgrounds', (req, res) => {
+  const files = getBackgroundFilesSorted();
+  res.setHeader('Cache-Control', 'no-store');
+  res.json({ count: files.length, files });
+});
+
+// 3. Serve sw.js as self-unregistering cleanup worker with zero cache
+app.get(['/sw.js', '/Refa3y/sw.js'], (req, res) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
+  res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
   res.sendFile(path.join(__dirname, 'sw.js'));
 });
 
-// Serve static files from root directory with no-cache for HTML
+// 4. Serve static files from root directory
 app.use(express.static(__dirname, {
   dotfiles: 'ignore',
   etag: false,
   extensions: ['html', 'htm'],
   index: false,
   setHeaders: (res, filePath) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     if (filePath.endsWith('.html') || filePath.endsWith('.js') || filePath.endsWith('.json')) {
       res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
       res.setHeader('Pragma', 'no-cache');
@@ -44,8 +97,8 @@ app.use(express.static(__dirname, {
   }
 }));
 
-// Root handler for index.html with strict anti-caching headers
-app.get(['/', '/index.html'], (req, res) => {
+// 5. Root handler for index.html with strict anti-caching headers
+app.get(['/', '/index.html', '/Refa3y', '/Refa3y/', '/Refa3y/index.html'], (req, res) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
@@ -53,9 +106,9 @@ app.get(['/', '/index.html'], (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Fallback for media files (404) vs SPA routing (index.html)
+// 6. Fallback: return 404 for missing media assets, index.html for navigation
 app.use((req, res) => {
-  if (req.path.match(/\.(jpg|jpeg|png|webp|svg|gif|mp3|mp4|m4a|wav|json|css|js)$/i)) {
+  if (req.path.match(/\.(jpg|jpeg|png|webp|svg|gif|mp3|mp4|m4a|wav|json|css|js|ico)$/i)) {
     return res.status(404).send('Asset not found');
   }
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');

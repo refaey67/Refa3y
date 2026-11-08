@@ -136,7 +136,7 @@
     <!-- الرأس المختصر والخفيف -->
     <header class="glass-panel rounded-2xl p-3 sm:p-3.5 flex flex-col md:flex-row items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <img id="headerAppIcon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='5'/><text x='64' y='46' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>إذاعة القرآن</text><text x='64' y='64' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>الكريم - رفاعي</text><text x='64' y='96' font-family='serif' font-size='18' font-weight='bold' fill='%23fbbf24' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-amber-400/60 shrink-0 object-cover" />
+        <img id="headerAppIcon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='5'/><text x='64' y='46' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>استوديو إذاعة</text><text x='64' y='64' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>القرآن الكريم</text><text x='64' y='96' font-family='serif' font-size='18' font-weight='bold' fill='%23fbbf24' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-amber-400/60 shrink-0 object-cover" />
         <div class="flex flex-col text-right">
           <h1 class="text-base sm:text-lg font-bold gold-gradient-text leading-tight">إذاعة القرآن الكريم - رفاعي</h1>
           <div class="flex items-center gap-2 flex-wrap mt-0.5">
@@ -6671,18 +6671,18 @@
       g.roundRect(pad1, pad1, size - pad1 * 2, size - pad1 * 2, size * 0.16);
       g.stroke();
 
-      // في الأعلى بخط عربي ذهبي بارز: «إذاعة القرآن الكريم»
-      g.font = `700 ${Math.round(size * 0.092)}px "Cairo", sans-serif`;
+      // في الأعلى: «استوديو إذاعة القرآن الكريم»
+      g.font = `700 ${Math.round(size * 0.08)}px "Cairo", sans-serif`;
       g.fillStyle = '#fde68a';
       g.textAlign = 'center';
       g.textBaseline = 'middle';
-      g.fillText('إذاعة القرآن', cx, size * 0.36);
-      g.fillText('الكريم - رفاعي', cx, size * 0.50);
+      g.fillText('استوديو إذاعة', cx, size * 0.30);
+      g.fillText('القرآن الكريم', cx, size * 0.42);
 
-      // في الأسفل بخط أصغر وأنيق: Refa3y
+      // في الأسفل: Refa3y
       g.font = `700 ${Math.round(size * 0.12)}px "Cinzel", serif`;
       g.fillStyle = '#fbbf24';
-      g.fillText('Refa3y', cx, size * 0.74);
+      g.fillText('Refa3y', cx, size * 0.70);
 
       return c.toDataURL('image/png');
     }

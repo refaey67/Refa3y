@@ -2716,25 +2716,19 @@
       if (!bgItem) return;
       const cacheKey = bgItem.id || bgItem.src;
 
-      // 1. استخدام النسخة المحملة مسبقاً إذا كانت موجودة (Optimistic caching)
-      if (loadedBgImagesCache[cacheKey] && loadedBgImagesCache[cacheKey].complete) {
+      if (loadedBgImagesCache[cacheKey] && loadedBgImagesCache[cacheKey].complete && loadedBgImagesCache[cacheKey].naturalWidth > 0) {
         activeLoadedBgImage = loadedBgImagesCache[cacheKey];
         if (sourceArtwork) sourceArtwork.src = activeLoadedBgImage.src;
         requestRenderOnce();
         return;
       }
 
-      // 2. ترتيب الروابط: وضع الروابط الأصغر (الصور المصغرة) في البداية إن أمكن
-      // نفترض أن الروابط المصغرة تحتوي على كلمات دلالية أو أصغر في الترتيب
       const urlsToTry = Array.isArray(bgItem.candidates) && bgItem.candidates.length > 0
-        ? [...bgItem.candidates].sort((a, b) => a.length - b.length) // ترتيب تصاعدي حسب الطول (تقريبي للحجم)
+        ? bgItem.candidates
         : [bgItem.src];
 
       let attemptIdx = 0;
       const img = new Image();
-      
-      // تعيين خصائص تحميل سريعة
-      img.decoding = 'async';
 
       img.onload = () => {
         loadedBgImagesCache[cacheKey] = img;
@@ -2743,6 +2737,7 @@
           activeLoadedBgImage = img;
           if (sourceArtwork) sourceArtwork.src = img.src;
           requestRenderOnce();
+          setTimeout(requestRenderOnce, 40);
         }
       };
 
@@ -2754,6 +2749,7 @@
       };
 
       img.src = urlsToTry[0];
+      if (sourceArtwork) sourceArtwork.src = urlsToTry[0];
     }
 
     function selectBackgroundById(bgId) {

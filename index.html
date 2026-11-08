@@ -158,10 +158,10 @@
         </div>
 
         <div id="headerVideoTools" class="hidden items-center gap-1.5 flex-wrap justify-center">
-          <button id="btnAspect169" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-amber-500 text-slate-950">
+          <button id="btnAspect169" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60">
             <span>عرض سينمائي 16:9</span>
           </button>
-          <button id="btnAspect916" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60">
+          <button id="btnAspect916" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-amber-500 text-slate-950">
             <span>طولي ريلز 9:16</span>
           </button>
         </div>
@@ -421,8 +421,8 @@
         <!-- شاشة المعاينة والمشغل -->
         <div class="lg:col-span-8 lg:sticky lg:top-4 space-y-3">
           <div id="stageContainer" class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center relative">
-            <div id="canvasWrapper" class="video-stage-wrapper relative w-full rounded-xl overflow-hidden flex items-center justify-center" style="aspect-ratio: 16 / 9; max-height: 72vh;">
-              <canvas id="videoCanvas" width="1280" height="720" class="w-full h-full object-contain block cursor-pointer"></canvas>
+            <div id="canvasWrapper" class="video-stage-wrapper relative w-full rounded-xl overflow-hidden flex items-center justify-center" style="aspect-ratio: 9 / 16; max-width: 380px; max-height: 72vh;">
+              <canvas id="videoCanvas" width="720" height="1280" class="w-full h-full object-contain block cursor-pointer"></canvas>
 
               <!-- زر التشغيل على المعاينة (مخفي حتى يختار الزائر القارئ والآية) -->
               <button id="bigPlayOverlay" type="button" aria-label="تشغيل الفيديو" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-slate-950/45 hover:bg-slate-950/30 transition group">
@@ -823,8 +823,8 @@
                 <div>
                   <label for="selectMediaFitMode" class="block text-xs text-slate-300 mb-1">ضبط الأبعاد على الواجهة:</label>
                   <select id="selectMediaFitMode" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none focus:border-amber-400">
-                    <option value="16:9" selected>16:9</option>
-                    <option value="9:16">9:16</option>
+                    <option value="16:9">16:9</option>
+                    <option value="9:16" selected>9:16</option>
                   </select>
                 </div>
               </div>
@@ -1687,7 +1687,7 @@
       urlQueue: [],
       urlIndex: 0,
       isPlaying: false,
-      aspectRatio: '16:9',
+      aspectRatio: '9:16',
       textMode: 'transcript',
       ayahPosition: 'bottom',
       ayahFontFamily: 'Amiri Quran',
@@ -1713,7 +1713,7 @@
       lastVideoBgId: null,
       bgType: 'image',
       visualFilter: 'none',
-      mediaFitMode: '16:9',
+      mediaFitMode: '9:16',
       bgBrightness: 1.0,
       mediaPan: 0.50,
       userVideoUrl: null,
@@ -5190,11 +5190,11 @@
       valGlow.textContent = '85%';
       valParticles.textContent = '60%';
       state.visualFilter = 'none';
-      state.mediaFitMode = state.aspectRatio || '16:9';
+      state.mediaFitMode = state.aspectRatio || '9:16';
       state.bgBrightness = 1.0;
       state.mediaPan = 0.50;
       if (selectVisualFilter) selectVisualFilter.value = 'none';
-      if (selectMediaFitMode) selectMediaFitMode.value = state.aspectRatio || '16:9';
+      if (selectMediaFitMode) selectMediaFitMode.value = state.aspectRatio || '9:16';
       if (sliderBgBrightness) sliderBgBrightness.value = '100';
       if (valBgBrightness) valBgBrightness.textContent = '100%';
       state.watermarkText = 'Refa3y';

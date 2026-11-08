@@ -4822,8 +4822,15 @@ audioEl.addEventListener('play', () => {
             applySurahAndAyahSelection(state.selectedSurahNum, 1, maxA, false);
             return;
           }
-        } else if (state.selectedSurahNum && state.selectedFromAyah) {
-          applySurahAndAyahSelection(state.selectedSurahNum, state.selectedFromAyah, state.selectedToAyah || state.selectedFromAyah, false);
+        } else {
+          // لأي قارئ آخر: إذا كانت هناك سورة محددة نطبق الآية المختارة فوراً، وإن لم تكن نحدد سورة الفاتحة الآية ١ افتراضياً
+          const sNum = state.selectedSurahNum || 1;
+          const fromA = state.surahScopeMode === 'full' ? 1 : (state.selectedFromAyah || 1);
+          const toA = state.surahScopeMode === 'full' ? 1 : (state.selectedToAyah || fromA);
+          state.selectedSurahNum = sNum;
+          if (selectSurahEl) selectSurahEl.value = String(sNum);
+          populateAyahDropdowns(sNum, fromA, toA);
+          applySurahAndAyahSelection(sNum, fromA, toA, false);
           return;
         }
 
@@ -5787,6 +5794,9 @@ audioEl.addEventListener('play', () => {
           }
         } else {
           btnModeSingleAyah.classList.remove('hidden');
+          if (state.surahScopeMode === 'full') {
+            setAyahSelectionMode('single');
+          }
         }
       }
       if (btnModeMultiAyah) {
@@ -6245,13 +6255,17 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
         const isRifat = state.currentReciterKey === 'muhammad_rifat';
         const maxAyah = (isRifat && REFAAT_RECITED_RANGES[sNum]) ? REFAAT_RECITED_RANGES[sNum][1] : meta[2];
 
-        populateAyahDropdowns(sNum, null, null);
-        if (state.surahScopeMode === 'full' || isRifat) {
+        if (isRifat) {
           setAyahSelectionMode('full');
           populateAyahDropdowns(sNum, 1, maxAyah);
           applySurahAndAyahSelection(sNum, 1, maxAyah, false);
-        } else if (surahSelectionSummary) {
-          surahSelectionSummary.textContent = `سورة ${meta[1]} — اختر رقم الآية أو اضغط «المقطع كاملاً»`;
+        } else if (state.surahScopeMode === 'full') {
+          populateAyahDropdowns(sNum, 1, maxAyah);
+          applySurahAndAyahSelection(sNum, 1, maxAyah, false);
+        } else {
+          // للقراء العاديين في نمط الآية الواحدة: اعتماد الآية الأولى فوراً لظهور النص والمعاينة مباشرة دون تأخير
+          populateAyahDropdowns(sNum, 1, 1);
+          applySurahAndAyahSelection(sNum, 1, 1, false);
         }
       });
 
@@ -6263,24 +6277,30 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
         if (!curTo || curTo < fromA) {
           selectToAyahEl.value = String(fromA);
         }
-        if (state.surahScopeMode === 'single') {
+        if (state.surahScopeMode === 'multi') {
+          const toA = parseInt(selectToAyahEl.value, 10) || fromA;
+          applySurahAndAyahSelection(sNum, fromA, Math.max(fromA, toA), false);
+        } else {
           applySurahAndAyahSelection(sNum, fromA, fromA, false);
         }
       });
 
       selectToAyahEl.addEventListener('change', () => {
+        const sNum = parseInt(selectSurahEl.value, 10);
+        const toA = parseInt(selectToAyahEl.value, 10);
+        if (!sNum || !toA) return;
         const isRifat = state.currentReciterKey === 'muhammad_rifat';
         if (isRifat) {
-          const sNum = parseInt(selectSurahEl.value, 10);
-          const toA = parseInt(selectToAyahEl.value, 10);
-          if (sNum && toA) {
-            applySurahAndAyahSelection(sNum, 1, toA, false);
-          }
+          applySurahAndAyahSelection(sNum, 1, toA, false);
           return;
         }
         const fromA = parseInt(selectFromAyahEl.value, 10) || 1;
-        const toA = parseInt(selectToAyahEl.value, 10) || fromA;
-        if (toA < fromA) selectFromAyahEl.value = String(toA);
+        if (toA < fromA) {
+          selectFromAyahEl.value = String(toA);
+          applySurahAndAyahSelection(sNum, toA, toA, false);
+        } else {
+          applySurahAndAyahSelection(sNum, fromA, toA, false);
+        }
       });
 
       if (btnModeSingleAyah) btnModeSingleAyah.addEventListener('click', () => setAyahSelectionMode('single'));
@@ -7343,6 +7363,26 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
     // 11. التشغيل الخفيف عند فتح الصفحة
     // =========================================================================
     window.addEventListener('load', () => {
+      // تهيئة قارئ وسورة وآية افتراضية للمعاينة الفورية
+      if (!state.currentReciterKey) {
+        state.currentReciterKey = 'minshawi_mujawwad';
+        const defaultReciterBtn = document.querySelector('.reciter-btn[data-reciter="minshawi_mujawwad"]');
+        if (defaultReciterBtn) {
+          defaultReciterBtn.className = 'reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-amber-500/20 border-amber-400 text-amber-100';
+        }
+        if (activeReciterBadge) {
+          activeReciterBadge.textContent = 'محمد صديق المنشاوي';
+          activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[160px] font-bold';
+        }
+      }
+      populateSurahDropdown(false);
+      if (selectSurahEl && !selectSurahEl.value) {
+        selectSurahEl.value = '1';
+        state.selectedSurahNum = 1;
+      }
+      populateAyahDropdowns(1, 1, 1);
+      applySurahAndAyahSelection(1, 1, 1, false);
+
       syncScopeButtonsForReciter();
       syncTextModeUIForReciter();
       renderRareRecitationsList('all', '');

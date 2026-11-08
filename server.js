@@ -9,26 +9,56 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 
-// Serve static files from root directory
-app.use(express.static(__dirname, {
-  dotfiles: 'ignore',
-  etag: true,
-  extensions: ['html', 'htm'],
-  index: 'index.html',
-  maxAge: '1d'
-}));
+// Disable etag caching for HTML to force instant live updates
+app.set('etag', false);
 
-// Explicitly serve backgrounds directory with proper caching
+// Explicitly serve backgrounds directory with 1 hour caching
 app.use('/backgrounds', express.static(path.join(__dirname, 'backgrounds'), {
   etag: true,
-  maxAge: '1d'
+  maxAge: '1h',
+  setHeaders: (res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
 }));
 
-// Fallback to index.html for SPA routing (Express 5 compatible) - never return HTML for media assets
+// Serve sw.js with strictly no cache
+app.get('/sw.js', (req, res) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.sendFile(path.join(__dirname, 'sw.js'));
+});
+
+// Serve static files from root directory with no-cache for HTML
+app.use(express.static(__dirname, {
+  dotfiles: 'ignore',
+  etag: false,
+  extensions: ['html', 'htm'],
+  index: false,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html') || filePath.endsWith('.js') || filePath.endsWith('.json')) {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
+}));
+
+// Root handler for index.html with strict anti-caching headers
+app.get(['/', '/index.html'], (req, res) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Fallback for media files (404) vs SPA routing (index.html)
 app.use((req, res) => {
   if (req.path.match(/\.(jpg|jpeg|png|webp|svg|gif|mp3|mp4|m4a|wav|json|css|js)$/i)) {
     return res.status(404).send('Asset not found');
   }
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 

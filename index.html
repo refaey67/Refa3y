@@ -7691,10 +7691,18 @@
     // Update listeners for playback (to be called when playback starts)
     if ('mediaSession' in navigator) {
         navigator.mediaSession.setActionHandler('play', () => {
-           if (typeof togglePlay === 'function') togglePlay();
+           if (state.activeAppSection === 'studio') {
+              if (audioEl.paused) audioEl.play().catch(console.error);
+           } else if (state.activeAppSection === 'radio') {
+              if (liveRadioAudio && liveRadioAudio.paused) startLiveRadioStream(false);
+           }
         });
         navigator.mediaSession.setActionHandler('pause', () => {
-           if (typeof togglePlay === 'function') togglePlay();
+           if (state.activeAppSection === 'studio') {
+              if (!audioEl.paused) audioEl.pause();
+           } else if (state.activeAppSection === 'radio') {
+              if (liveRadioAudio && !liveRadioAudio.paused) stopLiveRadioStream();
+           }
         });
     }
 

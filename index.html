@@ -134,12 +134,20 @@
   <div class="max-w-7xl mx-auto space-y-4">
 
     <!-- الرأس المختصر والخفيف -->
-    <header class="glass-panel rounded-2xl p-3.5 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-3">
+    <header class="glass-panel rounded-2xl p-3 sm:p-3.5 flex flex-col md:flex-row items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <img id="headerAppIcon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='5'/><text x='64' y='46' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>استوديو إذاعة</text><text x='64' y='64' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>القرآن الكريم</text><text x='64' y='96' font-family='serif' font-size='18' font-weight='bold' fill='%23fbbf24' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-11 h-11 rounded-xl border border-amber-400/60 shrink-0 object-cover" />
+        <img id="headerAppIcon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='5'/><text x='64' y='46' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>استوديو إذاعة</text><text x='64' y='64' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>القرآن الكريم</text><text x='64' y='96' font-family='serif' font-size='18' font-weight='bold' fill='%23fbbf24' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-amber-400/60 shrink-0 object-cover" />
         <div class="flex flex-col text-right">
-          <h1 class="text-base sm:text-xl font-bold gold-gradient-text leading-tight">استوديو إذاعة القرآن الكريم</h1>
-          <span class="text-[11px] sm:text-xs font-medium text-amber-200/80 tracking-wide">بواسطة رفاعي | By Refa3y</span>
+          <h1 class="text-base sm:text-lg font-bold gold-gradient-text leading-tight">استوديو إذاعة القرآن الكريم</h1>
+          <div class="flex items-center gap-2 flex-wrap mt-0.5">
+            <span class="text-[11px] sm:text-xs font-medium text-amber-200/80 tracking-wide">بواسطة رفاعي | By Refa3y</span>
+            <button id="btnInstallApp" type="button" class="px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-bold transition inline-flex items-center gap-1 bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm shrink-0" title="تحميل وتثبيت التطبيق على الهاتف">
+              <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+              </svg>
+              <span>تثبيت التطبيق (APK)</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -156,22 +164,6 @@
             تصميم الفيديوهات
           </button>
         </div>
-
-        <div id="headerVideoTools" class="hidden items-center gap-1.5 flex-wrap justify-center">
-          <button id="btnAspect169" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60">
-            <span>عرض سينمائي 16:9</span>
-          </button>
-          <button id="btnAspect916" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-amber-500 text-slate-950">
-            <span>طولي ريلز 9:16</span>
-          </button>
-        </div>
-
-        <button id="btnInstallApp" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm">
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
-          </svg>
-          <span>تثبيت التطبيق (APK)</span>
-        </button>
       </div>
     </header>
 
@@ -248,17 +240,6 @@
 
     <!-- واجهة قسم راديو مباشر المستقلة -->
     <div id="liveRadioViewWrapper" class="hidden max-w-4xl mx-auto space-y-3">
-      <div class="glass-panel rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2 border border-emerald-400/30">
-        <span class="px-3 py-1 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 text-xs font-bold">راديو مباشر</span>
-        <div class="flex items-center gap-2">
-          <button id="btnSwitchRadioToStudio" type="button" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs font-bold transition">
-            الانتقال لتصميم الفيديوهات
-          </button>
-          <button id="btnBackFromRadioToHome" type="button" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold transition">
-            العودة للرئيسية ←
-          </button>
-        </div>
-      </div>
 
       <!-- إطار البث المباشر لإذاعة القرآن الكريم -->
       <section id="liveRadioSection" class="glass-panel rounded-2xl p-4 sm:p-5 border border-amber-400/40 relative overflow-hidden space-y-4">
@@ -390,29 +371,27 @@
 
     <!-- واجهة قسم تصميم الفيديوهات المستقلة (مقسمة إلى واجهتين منفصلتين تماماً: واجهة الصور وواجهة رفع الفيديو) -->
     <div id="videoStudioGrid" class="hidden space-y-4">
-      <div class="glass-panel rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2.5 border border-amber-400/30">
-        <div class="flex items-center gap-2 flex-wrap">
-          <span class="px-3 py-1 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-bold">تصميم الفيديوهات</span>
-
+      <div class="glass-panel rounded-2xl p-2 sm:p-2.5 border border-amber-400/30">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full items-center">
           <!-- شريط التبديل الفوري بين واجهة الصور المستقلة وواجهة رفع الفيديو المستقلة -->
-          <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-700/80">
-            <button id="btnStudioSubImages" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center gap-1.5">
+          <div class="grid grid-cols-2 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-700/80 w-full">
+            <button id="btnStudioSubImages" type="button" class="w-full py-1.5 px-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 text-center">
               <span>🖼️ واجهة التصميم بالصور</span>
             </button>
-            <button id="btnStudioSubVideo" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-sky-200 flex items-center gap-1.5">
+            <button id="btnStudioSubVideo" type="button" class="w-full py-1.5 px-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 text-slate-300 hover:text-sky-200 text-center">
               <span>🎬 واجهة رفع فيديو من جهازك</span>
             </button>
           </div>
-        </div>
 
-        <div class="flex items-center gap-2">
-          <button id="btnSwitchStudioToRadio" type="button" class="px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-emerald-200 text-xs font-bold transition flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>الانتقال إلى راديو مباشر</span>
-          </button>
-          <button id="btnBackFromStudioToHome" type="button" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold transition">
-            العودة للرئيسية ←
-          </button>
+          <!-- أزرار أبعاد الفيديو بعرض الإطار كامل كل زر يحتل نصفه (50%) وبنفس الطول -->
+          <div id="studioVideoRatioTools" class="grid grid-cols-2 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-700/80 w-full">
+            <button id="btnAspect169" type="button" class="w-full py-1.5 px-2 rounded-lg text-xs font-semibold transition flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60 text-center">
+              <span>عرض سينمائي 16:9</span>
+            </button>
+            <button id="btnAspect916" type="button" class="w-full py-1.5 px-2 rounded-lg text-xs font-semibold transition flex items-center justify-center bg-amber-500 text-slate-950 text-center">
+              <span>طولي ريلز 9:16</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -514,15 +493,38 @@
           </div>
         </div>
 
-        <!-- القوائم الجانبية للتصميم (بدون اختيار افتراضي وبدون كلام مكرر) -->
-        <div class="lg:col-span-4 space-y-3.5">
+        <!-- القوائم الجانبية للتصميم بنظام الأقسام القابلة للطي -->
+        <div class="lg:col-span-4 space-y-3">
+
+          <!-- شريط التحكم السريع في طي وفتح الأقسام -->
+          <div class="flex items-center justify-between bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 text-xs">
+            <div class="flex items-center gap-1.5 text-slate-300 font-bold">
+              <span>🗂️</span>
+              <span>أقسام إعدادات التصميم</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button id="btnExpandAllSections" type="button" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 transition text-[11px] font-semibold flex items-center gap-1">
+                <span>فتح الكل</span>
+              </button>
+              <button id="btnCollapseAllSections" type="button" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition text-[11px] font-semibold flex items-center gap-1">
+                <span>طي الكل</span>
+              </button>
+            </div>
+          </div>
 
           <!-- ١. مصدر التلاوة والقارئ (المصاحف الكاملة + نوادر وحفلات خارجية) -->
-          <div class="glass-panel rounded-2xl p-4 space-y-3">
-            <div class="flex items-center justify-between gap-2 flex-wrap">
-              <h2 class="text-sm sm:text-base font-bold text-amber-300">١. مصدر التلاوة والقارئ</h2>
-              <span id="activeReciterBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 truncate max-w-[160px]">غير محدد</span>
-            </div>
+          <div class="glass-panel rounded-2xl p-3 sm:p-4 collapsible-section" data-section="1">
+            <button type="button" class="section-toggle-btn w-full flex items-center justify-between gap-2 text-right focus:outline-none select-none group py-0.5" aria-expanded="true">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center shrink-0 border border-amber-400/40 group-hover:bg-amber-500 group-hover:text-slate-950 transition">١</span>
+                <h2 class="text-sm sm:text-base font-bold text-amber-300 truncate">مصدر التلاوة والقارئ</h2>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span id="activeReciterBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 truncate max-w-[120px] sm:max-w-[160px]">غير محدد</span>
+                <span class="section-chevron text-amber-400/80 group-hover:text-amber-300 transition-transform duration-200 rotate-180 text-xs">▼</span>
+              </div>
+            </button>
+            <div class="section-content space-y-3 pt-3">
 
             <!-- أزرار التبديل السريع بين المصاحف الكاملة والتلاوات النادرة -->
             <div class="grid grid-cols-2 gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-bold">
@@ -537,65 +539,65 @@
 
             <!-- لوحة المصاحف الكاملة (الافتراضية — قراء لديهم ١١٤ سورة كاملة مقسمة آية بآية ١٠٠٪) -->
             <div id="standardRecitersBox" class="space-y-2.5">
-              <div id="recitersList" class="space-y-1.5">
+              <div id="recitersList" class="grid grid-cols-2 gap-1.5 max-h-72 overflow-y-auto pl-1">
                 <!-- ١. الشيخ محمد صديق المنشاوي (مجود ثم مرتل) -->
-                <button type="button" data-reciter="minshawi_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد صديق المنشاوي (مجود)</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                <button type="button" data-reciter="minshawi_mujawwad" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">المنشاوي (مجود)</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold self-start">مجود</span>
                 </button>
-                <button type="button" data-reciter="minshawi_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد صديق المنشاوي (مرتل)</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                <button type="button" data-reciter="minshawi_murattal" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">المنشاوي (مرتل)</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold self-start">مرتل</span>
                 </button>
 
                 <!-- ٢. الشيخ عبد الباسط عبد الصمد (مجود ثم مرتل) -->
-                <button type="button" data-reciter="abdulbasit_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ عبد الباسط عبد الصمد (مجود)</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                <button type="button" data-reciter="abdulbasit_mujawwad" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">عبد الباسط (مجود)</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold self-start">مجود</span>
                 </button>
-                <button type="button" data-reciter="abdulbasit_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ عبد الباسط عبد الصمد (مرتل)</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                <button type="button" data-reciter="abdulbasit_murattal" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">عبد الباسط (مرتل)</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold self-start">مرتل</span>
                 </button>
 
                 <!-- ٣. الشيخ محمود خليل الحصري (مجود ثم مرتل) -->
-                <button type="button" data-reciter="husary_mujawwad" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود خليل الحصري (مجود)</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                <button type="button" data-reciter="husary_mujawwad" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">الحصري (مجود)</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold self-start">مجود</span>
                 </button>
-                <button type="button" data-reciter="husary_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود خليل الحصري (مرتل)</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                <button type="button" data-reciter="husary_murattal" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">الحصري (مرتل)</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold self-start">مرتل</span>
                 </button>
 
                 <!-- ٤. الشيخ مصطفى إسماعيل (المصحف المرتل كامل) -->
-                <button type="button" data-reciter="mustafa_ismail" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ مصطفى إسماعيل</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                <button type="button" data-reciter="mustafa_ismail" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">مصطفى إسماعيل</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold self-start">مرتل</span>
                 </button>
 
                 <!-- ٥. الشيخ محمود علي البنا (مرتل) -->
-                <button type="button" data-reciter="banna_murattal" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمود علي البنا</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                <button type="button" data-reciter="banna_murattal" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">محمود علي البنا</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold self-start">مرتل</span>
                 </button>
 
                 <!-- ٦. الشيخ محمد محمود الطبلاوي (المصحف المرتل كامل) -->
-                <button type="button" data-reciter="tablawi" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ محمد محمود الطبلاوي</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+                <button type="button" data-reciter="tablawi" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">محمد محمود الطبلاوي</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold self-start">مرتل</span>
                 </button>
 
                 <!-- ٧. الشيخ أحمد نعينع (مجود) -->
-                <button type="button" data-reciter="ahmed_neana" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ أحمد نعينع</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                <button type="button" data-reciter="ahmed_neana" class="reciter-btn w-full text-right p-2 rounded-xl border transition flex flex-col justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug line-clamp-1">أحمد نعينع</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold self-start">مجود</span>
                 </button>
 
                 <!-- ٨. الشيخ علي حجاج السويسي (مجود) -->
-                <button type="button" data-reciter="hajjaj_suesy" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
-                  <span class="font-bold text-xs sm:text-sm">الشيخ علي حجاج السويسي</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
+                <button type="button" data-reciter="hajjaj_suesy" class="reciter-btn col-span-2 w-full text-right p-2 rounded-xl border transition flex items-center justify-between gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                  <span class="font-bold text-[11px] sm:text-xs leading-snug">الشيخ علي حجاج السويسي</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
                 </button>
               </div>
 
@@ -633,11 +635,22 @@
                 <!-- يتم بناؤها وتحديثها برمجياً عبر renderRareRecitationsList -->
               </div>
             </div>
+            </div>
           </div>
 
           <!-- ٢. اختيار السورة والآيات أو أداة التحكم الخاصة بالنوادر والشيخ محمد رفعت -->
-          <div id="section2Panel" class="glass-panel rounded-2xl p-4 space-y-3">
-            <h2 id="sec2DynamicTitle" class="text-sm sm:text-base font-bold text-amber-300">٢. اختر السورة والآيات</h2>
+          <div id="section2Panel" class="glass-panel rounded-2xl p-3 sm:p-4 collapsible-section" data-section="2">
+            <button type="button" class="section-toggle-btn w-full flex items-center justify-between gap-2 text-right focus:outline-none select-none group py-0.5" aria-expanded="true">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center shrink-0 border border-amber-400/40 group-hover:bg-amber-500 group-hover:text-slate-950 transition">٢</span>
+                <h2 id="sec2DynamicTitle" class="text-sm sm:text-base font-bold text-amber-300 truncate">اختر السورة والآيات</h2>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span id="sec2HeaderBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 truncate max-w-[120px] sm:max-w-[150px]">لم تُختر بعد</span>
+                <span class="section-chevron text-amber-400/80 group-hover:text-amber-300 transition-transform duration-200 rotate-180 text-xs">▼</span>
+              </div>
+            </button>
+            <div class="section-content space-y-3 pt-3">
 
             <!-- يظهر هذا الجزء فقط مع المصاحف الكاملة ويختفي تلقائياً عند اختيار الشيخ محمد رفعت أو النوادر والحفلات -->
             <div id="standardSurahAyahPickerBox" class="space-y-3">
@@ -702,14 +715,22 @@
             <div id="surahSelectionSummary" class="text-[11px] text-slate-400 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5">
               لم يتم اختيار سورة أو آية بعد
             </div>
+            </div>
           </div>
 
           <!-- ٣. قسم الخلفية أو الفيديو (مفصول بالكامل إلى واجهتين مستقلتين: واجهة الصور وواجهة رفع الفيديو) -->
-          <div class="glass-panel rounded-2xl p-4 space-y-3">
-            <div class="flex items-center justify-between gap-2">
-              <h2 id="sec3DynamicTitle" class="text-sm sm:text-base font-bold text-amber-300">٣. اختر الخلفية (واجهة الصور)</h2>
-              <span id="activeBgBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 truncate max-w-[150px]">١. شروق الجبال والسحاب</span>
-            </div>
+          <div class="glass-panel rounded-2xl p-3 sm:p-4 collapsible-section" data-section="3">
+            <button type="button" class="section-toggle-btn w-full flex items-center justify-between gap-2 text-right focus:outline-none select-none group py-0.5" aria-expanded="false">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center shrink-0 border border-amber-400/40 group-hover:bg-amber-500 group-hover:text-slate-950 transition">٣</span>
+                <h2 id="sec3DynamicTitle" class="text-sm sm:text-base font-bold text-amber-300 truncate">اختر الخلفية (واجهة الصور)</h2>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span id="activeBgBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 truncate max-w-[120px] sm:max-w-[150px]">١. شروق الجبال والسحاب</span>
+                <span class="section-chevron text-amber-400/80 group-hover:text-amber-300 transition-transform duration-200 text-xs">▼</span>
+              </div>
+            </button>
+            <div class="section-content hidden space-y-3 pt-3">
 
             <!-- (أ) واجهة الصور المستقلة تماماً عن الفيديو -->
             <div id="imageWorkspaceSection" class="space-y-2.5">
@@ -834,11 +855,22 @@
                 <input id="sliderBgBrightness" type="range" min="35" max="130" value="100" class="w-full h-1.5 rounded-lg cursor-pointer" />
               </div>
             </div>
+            </div>
           </div>
 
           <!-- ٤. طريقة عرض النص وعناصر الشاشة (مشتركة مع إخفاء التوهج والجزيئات وحركة الكاميرا في واجهة الفيديو) -->
-          <div class="glass-panel rounded-2xl p-4 space-y-3">
-            <h2 class="text-sm sm:text-base font-bold text-amber-300">٤. طريقة عرض النص والتأثيرات</h2>
+          <div class="glass-panel rounded-2xl p-3 sm:p-4 collapsible-section" data-section="4">
+            <button type="button" class="section-toggle-btn w-full flex items-center justify-between gap-2 text-right focus:outline-none select-none group py-0.5" aria-expanded="false">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center shrink-0 border border-amber-400/40 group-hover:bg-amber-500 group-hover:text-slate-950 transition">٤</span>
+                <h2 class="text-sm sm:text-base font-bold text-amber-300 truncate">طريقة عرض النص والتأثيرات</h2>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span id="activeTextBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-amber-200 truncate max-w-[120px]">نص كامل</span>
+                <span class="section-chevron text-amber-400/80 group-hover:text-amber-300 transition-transform duration-200 text-xs">▼</span>
+              </div>
+            </button>
+            <div class="section-content hidden space-y-3 pt-3">
 
             <div>
               <label for="selectTextMode" class="block text-xs text-slate-300 mb-1">طريقة عرض النص:</label>
@@ -985,11 +1017,22 @@
             <div class="flex items-center justify-end pt-1 text-xs">
               <button id="btnResetEffects" type="button" class="text-amber-300 hover:underline">إعادة ضبط التأثيرات</button>
             </div>
+            </div>
           </div>
 
           <!-- ٥. توقيع حفظ الحقوق (الافتراضي Refa3y مع إتاحة كتابة اسم آخر) -->
-          <div class="glass-panel rounded-2xl p-4 space-y-3">
-            <h2 class="text-sm sm:text-base font-bold text-amber-300">٥. توقيع حفظ الحقوق</h2>
+          <div class="glass-panel rounded-2xl p-3 sm:p-4 collapsible-section" data-section="5">
+            <button type="button" class="section-toggle-btn w-full flex items-center justify-between gap-2 text-right focus:outline-none select-none group py-0.5" aria-expanded="false">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center shrink-0 border border-amber-400/40 group-hover:bg-amber-500 group-hover:text-slate-950 transition">٥</span>
+                <h2 class="text-sm sm:text-base font-bold text-amber-300 truncate">توقيع حفظ الحقوق</h2>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span id="activeWatermarkBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono font-bold truncate max-w-[100px]">Refa3y</span>
+                <span class="section-chevron text-amber-400/80 group-hover:text-amber-300 transition-transform duration-200 text-xs">▼</span>
+              </div>
+            </button>
+            <div class="section-content hidden space-y-3 pt-3">
 
             <div>
               <label for="inputWatermarkText" class="block text-xs text-slate-300 mb-1">اسم التوقيع (الافتراضي: Refa3y أو اكتب اسماً آخر):</label>
@@ -1051,6 +1094,7 @@
                 <button type="button" data-wm-color="#f8fafc" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-slate-700 bg-slate-100/15 text-slate-100">أبيض لؤلؤي</button>
                 <button type="button" data-wm-color="#6ee7b7" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-slate-700 bg-emerald-400/15 text-emerald-200">زمردي</button>
               </div>
+            </div>
             </div>
           </div>
 
@@ -4601,15 +4645,15 @@
         canvas.height = 720;
         canvasWrapper.style.aspectRatio = '16 / 9';
         canvasWrapper.style.maxWidth = '100%';
-        btnAspect169.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-amber-500 text-slate-950';
-        btnAspect916.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60';
+        btnAspect169.className = 'w-full py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center bg-amber-500 text-slate-950 shadow-sm';
+        btnAspect916.className = 'w-full py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60';
       } else {
         canvas.width = 720;
         canvas.height = 1280;
         canvasWrapper.style.aspectRatio = '9 / 16';
         canvasWrapper.style.maxWidth = '380px';
-        btnAspect916.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-amber-500 text-slate-950';
-        btnAspect169.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60';
+        btnAspect916.className = 'w-full py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center bg-amber-500 text-slate-950 shadow-sm';
+        btnAspect169.className = 'w-full py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60';
       }
       requestRenderOnce();
     }
@@ -4820,6 +4864,13 @@
         activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[160px] font-bold';
       }
 
+      const sec2HeaderBadge = document.getElementById('sec2HeaderBadge');
+      if (sec2HeaderBadge) {
+        sec2HeaderBadge.textContent = rareItem.surahName;
+        sec2HeaderBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[120px] sm:max-w-[150px] font-bold';
+      }
+      if (typeof openSection === 'function') openSection(2);
+
       setStatus(`جاري تحميل نص ${rareItem.surahName}...`, 'amber');
       const versesMap = await fetchSurahVerses(rareItem.surahNum);
       const startGlobal = meta ? meta[3] : 1;
@@ -4919,7 +4970,8 @@
       renderRareRecitationsList(state.activeRareSheikhFilter || 'all', rareSearchInput?.value || '');
 
       document.querySelectorAll('.reciter-btn').forEach(b => {
-        b.className = 'reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200';
+        const isHajjaj = b.getAttribute('data-reciter') === 'hajjaj_suesy';
+        b.className = `reciter-btn ${isHajjaj ? 'col-span-2 flex items-center justify-between' : 'flex flex-col justify-between'} w-full text-right p-2 rounded-xl border transition gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200`;
       });
 
       refreshBigPlayOverlayVisibility();
@@ -5314,15 +5366,18 @@
         syncSection2ModeVisibility();
 
         document.querySelectorAll('.reciter-btn').forEach(b => {
-          b.className = 'reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200';
+          const isHajjaj = b.getAttribute('data-reciter') === 'hajjaj_suesy';
+          b.className = `reciter-btn ${isHajjaj ? 'col-span-2 flex items-center justify-between' : 'flex flex-col justify-between'} w-full text-right p-2 rounded-xl border transition gap-1 bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200`;
         });
-        btn.className = 'reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-amber-500/20 border-amber-400 text-amber-100';
+        const isSelectedHajjaj = btn.getAttribute('data-reciter') === 'hajjaj_suesy';
+        btn.className = `reciter-btn ${isSelectedHajjaj ? 'col-span-2 flex items-center justify-between' : 'flex flex-col justify-between'} w-full text-right p-2 rounded-xl border transition gap-1 bg-amber-500/20 border-amber-400 text-amber-100 ring-1 ring-amber-400/50`;
 
         const reciterObj = RECITERS_DATA[state.currentReciterKey];
         if (activeReciterBadge && reciterObj) {
           activeReciterBadge.textContent = reciterObj.name.replace(/[()]/g, '').replace('الشيخ ', '');
           activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[160px] font-bold';
         }
+        if (typeof openSection === 'function') openSection(2);
 
         // تحديث قائمة السور لتعرض الـ ١١٤ سورة الكاملة للقارئ المختار
         populateSurahDropdown(state.selectedSurahNum);
@@ -6288,6 +6343,12 @@
           <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-200">${rangeLabel}</span>
         </div>
       `;
+
+      const sec2HeaderBadge = document.getElementById('sec2HeaderBadge');
+      if (sec2HeaderBadge) {
+        sec2HeaderBadge.textContent = `${sName} (${rangeLabel})`;
+        sec2HeaderBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-200 truncate max-w-[120px] sm:max-w-[150px] font-bold';
+      }
     }
 
     async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay = false) {
@@ -7370,7 +7431,6 @@
     const homeModeSelector = document.getElementById('homeModeSelector');
     const liveRadioViewWrapper = document.getElementById('liveRadioViewWrapper');
     const videoStudioGrid = document.getElementById('videoStudioGrid');
-    const headerVideoTools = document.getElementById('headerVideoTools');
     const headerNavPills = document.getElementById('headerNavPills');
 
     const btnNavHome = document.getElementById('btnNavHome');
@@ -7380,10 +7440,6 @@
     const cardSelectLiveRadio = document.getElementById('cardSelectLiveRadio');
     const cardSelectVideoStudio = document.getElementById('cardSelectVideoStudio');
     const cardSelectCustomVideoStudio = document.getElementById('cardSelectCustomVideoStudio');
-    const btnBackFromRadioToHome = document.getElementById('btnBackFromRadioToHome');
-    const btnSwitchRadioToStudio = document.getElementById('btnSwitchRadioToStudio');
-    const btnBackFromStudioToHome = document.getElementById('btnBackFromStudioToHome');
-    const btnSwitchStudioToRadio = document.getElementById('btnSwitchStudioToRadio');
 
     function ensureStudioResourcesReady() {
       if (!state.studioInitialized) {
@@ -7422,16 +7478,6 @@
         } else {
           headerNavPills.classList.remove('hidden');
           headerNavPills.classList.add('flex');
-        }
-      }
-
-      if (headerVideoTools) {
-        if (targetSection === 'studio') {
-          headerVideoTools.classList.remove('hidden');
-          headerVideoTools.classList.add('flex');
-        } else {
-          headerVideoTools.classList.add('hidden');
-          headerVideoTools.classList.remove('flex');
         }
       }
 
@@ -7531,14 +7577,96 @@
     if (btnNavHome) btnNavHome.addEventListener('click', () => switchAppSection('home', true));
     if (btnNavLiveRadio) btnNavLiveRadio.addEventListener('click', () => switchAppSection('radio', true));
     if (btnNavVideoStudio) btnNavVideoStudio.addEventListener('click', () => switchAppSection('studio', true));
-    if (btnBackFromRadioToHome) btnBackFromRadioToHome.addEventListener('click', () => switchAppSection('home', true));
-    if (btnSwitchRadioToStudio) btnSwitchRadioToStudio.addEventListener('click', () => switchAppSection('studio', true));
-    if (btnBackFromStudioToHome) btnBackFromStudioToHome.addEventListener('click', () => switchAppSection('home', true));
-    if (btnSwitchStudioToRadio) btnSwitchStudioToRadio.addEventListener('click', () => switchAppSection('radio', true));
+
+    // =========================================================================
+    // 10. نظام الأقسام القابلة للطي (Collapsible Sections / Accordion)
+    // =========================================================================
+    function toggleCollapsibleSection(sectionEl, forceState) {
+      if (!sectionEl) return;
+      const content = sectionEl.querySelector('.section-content');
+      const btn = sectionEl.querySelector('.section-toggle-btn');
+      const chevron = sectionEl.querySelector('.section-chevron');
+      if (!content) return;
+
+      const isCurrentlyOpen = !content.classList.contains('hidden');
+      const nextOpen = typeof forceState === 'boolean' ? forceState : !isCurrentlyOpen;
+
+      content.classList.toggle('hidden', !nextOpen);
+      if (btn) btn.setAttribute('aria-expanded', String(nextOpen));
+      if (chevron) {
+        chevron.classList.toggle('rotate-180', nextOpen);
+      }
+    }
+
+    function openSection(sectionNum) {
+      const targetSec = document.querySelector(`.collapsible-section[data-section="${sectionNum}"]`);
+      if (targetSec) {
+        toggleCollapsibleSection(targetSec, true);
+      }
+    }
+
+    function initCollapsibleSections() {
+      document.querySelectorAll('.collapsible-section .section-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const section = btn.closest('.collapsible-section');
+          if (section) toggleCollapsibleSection(section);
+        });
+      });
+
+      const btnExpandAll = document.getElementById('btnExpandAllSections');
+      if (btnExpandAll) {
+        btnExpandAll.addEventListener('click', () => {
+          document.querySelectorAll('.collapsible-section').forEach(sec => toggleCollapsibleSection(sec, true));
+        });
+      }
+
+      const btnCollapseAll = document.getElementById('btnCollapseAllSections');
+      if (btnCollapseAll) {
+        btnCollapseAll.addEventListener('click', () => {
+          document.querySelectorAll('.collapsible-section').forEach(sec => toggleCollapsibleSection(sec, false));
+        });
+      }
+
+      // مزامنة شارة طريقة عرض النص في عنوان القسم ٤
+      const selectTextModeEl = document.getElementById('selectTextMode');
+      const activeTextBadge = document.getElementById('activeTextBadge');
+      function syncActiveTextBadge() {
+        if (!activeTextBadge || !selectTextModeEl) return;
+        const val = selectTextModeEl.value;
+        if (val === 'none') {
+          activeTextBadge.textContent = 'خلفية فقط';
+          activeTextBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 truncate max-w-[120px]';
+        } else if (val === 'ayah_transcript') {
+          activeTextBadge.textContent = 'آية آية متتابع';
+          activeTextBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 truncate max-w-[120px] font-semibold';
+        } else {
+          activeTextBadge.textContent = 'نص كامل';
+          activeTextBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 truncate max-w-[120px] font-semibold';
+        }
+      }
+      if (selectTextModeEl) {
+        selectTextModeEl.addEventListener('change', syncActiveTextBadge);
+        syncActiveTextBadge();
+      }
+
+      // مزامنة شارة توقيع حفظ الحقوق في عنوان القسم ٥
+      const inputWmText = document.getElementById('inputWatermarkText');
+      const btnResetWm = document.getElementById('btnResetWatermarkText');
+      const activeWmBadge = document.getElementById('activeWatermarkBadge');
+      function syncActiveWatermarkBadge() {
+        if (!activeWmBadge) return;
+        const text = inputWmText ? (inputWmText.value.trim() || 'بدون توقيع') : 'Refa3y';
+        activeWmBadge.textContent = text.slice(0, 16);
+      }
+      if (inputWmText) inputWmText.addEventListener('input', syncActiveWatermarkBadge);
+      if (btnResetWm) btnResetWm.addEventListener('click', () => setTimeout(syncActiveWatermarkBadge, 20));
+    }
 
     // =========================================================================
     // 11. التشغيل الخفيف عند فتح الصفحة
     // =========================================================================
+    initCollapsibleSections();
     // Initialize gallery and preload default background immediately
     initBackgroundsGallery();
     if (BACKGROUNDS_LIST.length > 0) {

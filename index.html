@@ -22,7 +22,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>إذاعة القرآن الكريم واستوديو التصميم | بواسطة رفاعي</title>
-  <!-- Open Graph / Facebook / WhatsApp Social Preview Tags -->
+  <meta name="description" content="استوديو إذاعة القرآن الكريم بواسطة رفاعي (By: Refa3y) - بث مباشر لإذاعة القرآن الكريم من القاهرة وإذاعات كبار القراء، استوديو متكامل لتصميم مقاطع وفيديوهات القرآن الكريم للريلز، وتطبيق أندرويد (APK) للتحميل المباشر." />
+  <meta name="keywords" content="إذاعة القرآن الكريم, استوديو إذاعة القرآن الكريم, رفاعي, Refa3y, الشيخ محمد رفعت, تصميم فيديوهات قرآنية, ريلز قرآن, تحميل إذاعة القرآن APK" />
+  <meta name="author" content="رفاعي | By: Refa3y" />
+  <meta name="application-name" content="إذاعة القرآن - رفاعي" />
+
+  <!-- Open Graph / Facebook / WhatsApp / Telegram Social Preview Tags -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://refaey67.github.io/Refa3y/" />
   <meta property="og:title" content="إذاعة القرآن الكريم واستوديو التصميم | بواسطة رفاعي" />
@@ -42,7 +47,6 @@
   <meta name="twitter:title" content="إذاعة القرآن الكريم واستوديو التصميم | بواسطة رفاعي" />
   <meta name="twitter:description" content="بث مباشر لإذاعة القرآن الكريم من القاهرة وإذاعات كبار القراء، استوديو تصميم مقاطع القرآن، وتطبيق أندرويد APK." />
   <meta name="twitter:image" content="https://refaey67.github.io/Refa3y/og-image.jpg" />
-  <meta name="application-name" content="إذاعة القرآن - رفاعي" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -141,10 +145,10 @@
         </div>
 
         <div id="headerVideoTools" class="hidden items-center gap-1.5 flex-wrap justify-center">
-          <button id="btnAspect169" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60">
+          <button id="btnAspect169" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-amber-500 text-slate-950">
             <span>عرض سينمائي 16:9</span>
           </button>
-          <button id="btnAspect916" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-amber-500 text-slate-950">
+          <button id="btnAspect916" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60">
             <span>طولي ريلز 9:16</span>
           </button>
         </div>
@@ -276,76 +280,44 @@
 
         <!-- أزرار اختيار المحطة الإذاعية المباشرة بدون كلام مكرر -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" id="liveStationsGrid">
-          <!-- محطة إذاعة القرآن الكريم من القاهرة 98.2 FM -->
           <button type="button" data-station-id="cairo_official" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-amber-500/20 border-amber-400 text-amber-100">
             <span class="text-xs font-bold truncate">إذاعة القرآن الكريم — القاهرة</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-amber-400/25 text-amber-200 font-bold shrink-0">98.2 FM</span>
           </button>
 
-          <!-- 1. الشيخ محمد صديق المنشاوي (مجود) -->
           <button type="button" data-station-id="minshawi_mujawwad_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ المنشاوي (مجود)</span>
+            <span class="text-xs font-bold truncate">إذاعة الشيخ المنشاوي</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
           </button>
 
-          <!-- 2. الشيخ محمد صديق المنشاوي (مرتل) -->
-          <button type="button" data-station-id="minshawi_murattal_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ المنشاوي (مرتل)</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
-          </button>
-
-          <!-- 3. الشيخ عبد الباسط عبد الصمد (مجود) -->
           <button type="button" data-station-id="abdulbasit_mujawwad_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ عبد الباسط (مجود)</span>
+            <span class="text-xs font-bold truncate">إذاعة الشيخ عبد الباسط</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
           </button>
 
-          <!-- 4. الشيخ عبد الباسط عبد الصمد (مرتل) -->
-          <button type="button" data-station-id="abdulbasit_murattal_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ عبد الباسط (مرتل)</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
-          </button>
-
-          <!-- 5. الشيخ محمود خليل الحصري (مجود) -->
           <button type="button" data-station-id="husary_mujawwad_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ الحصري (مجود)</span>
+            <span class="text-xs font-bold truncate">إذاعة الشيخ الحصري</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-semibold shrink-0">مجود</span>
           </button>
 
-          <!-- 6. الشيخ محمود خليل الحصري (مرتل) -->
-          <button type="button" data-station-id="husary_murattal_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ الحصري (مرتل)</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+          <button type="button" data-station-id="banna_mujawwad_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+            <span class="text-xs font-bold truncate">إذاعة الشيخ محمود علي البنا</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">٢٤/٧</span>
           </button>
 
-          <!-- 7. الشيخ مصطفى إسماعيل (مرتل) -->
           <button type="button" data-station-id="mustafa_ismail_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ مصطفى إسماعيل</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
+            <span class="text-xs font-bold truncate">إذاعة الشيخ مصطفى إسماعيل</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">٢٤/٧</span>
           </button>
 
-          <!-- 8. الشيخ محمود علي البنا (مرتل) -->
-          <button type="button" data-station-id="banna_murattal_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ محمود علي البنا</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
-          </button>
-
-          <!-- 9. الشيخ محمد محمود الطبلاوي (مرتل) -->
           <button type="button" data-station-id="tablawi_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ محمد محمود الطبلاوي</span>
+            <span class="text-xs font-bold truncate">إذاعة الشيخ الطبلاوي</span>
             <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
           </button>
 
-          <!-- 10. الشيخ أحمد نعينع (مرتل) -->
-          <button type="button" data-station-id="ahmed_neana_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
-            <span class="text-xs font-bold truncate">الشيخ أحمد نعينع</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
-          </button>
-
-          <!-- 11. الشيخ محمد رفعت (تراث إذاعي متواصل) -->
-          <button type="button" data-station-id="muhammad_rifat_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
+          <button type="button" data-station-id="mohamed_refaat_radio" class="live-station-btn text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200">
             <span class="text-xs font-bold truncate">إذاعة الشيخ محمد رفعت</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold shrink-0 border border-amber-500/30">نوادر ٣٢ سورة</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold shrink-0">تراث ٢٤/٧</span>
           </button>
         </div>
 
@@ -436,8 +408,8 @@
         <!-- شاشة المعاينة والمشغل -->
         <div class="lg:col-span-8 lg:sticky lg:top-4 space-y-3">
           <div id="stageContainer" class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center relative">
-            <div id="canvasWrapper" class="video-stage-wrapper relative w-full rounded-xl overflow-hidden flex items-center justify-center" style="aspect-ratio: 9 / 16; max-width: 380px; max-height: 72vh;">
-              <canvas id="videoCanvas" width="720" height="1280" class="w-full h-full object-contain block cursor-pointer"></canvas>
+            <div id="canvasWrapper" class="video-stage-wrapper relative w-full rounded-xl overflow-hidden flex items-center justify-center" style="aspect-ratio: 16 / 9; max-height: 72vh;">
+              <canvas id="videoCanvas" width="1280" height="720" class="w-full h-full object-contain block cursor-pointer"></canvas>
 
               <!-- زر التشغيل على المعاينة (مخفي حتى يختار الزائر القارئ والآية) -->
               <button id="bigPlayOverlay" type="button" aria-label="تشغيل الفيديو" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-slate-950/45 hover:bg-slate-950/30 transition group">
@@ -586,7 +558,7 @@
                   <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
                 </button>
 
-                <!-- ٤. الشيخ مصطفى إسماعيل (مرتل) -->
+                <!-- ٤. الشيخ مصطفى إسماعيل (المصحف المرتل كامل) -->
                 <button type="button" data-reciter="mustafa_ismail" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
                   <span class="font-bold text-xs sm:text-sm">الشيخ مصطفى إسماعيل</span>
                   <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
@@ -598,7 +570,7 @@
                   <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
                 </button>
 
-                <!-- ٦. الشيخ محمد محمود الطبلاوي (مرتل) -->
+                <!-- ٦. الشيخ محمد محمود الطبلاوي (المصحف المرتل كامل) -->
                 <button type="button" data-reciter="tablawi" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
                   <span class="font-bold text-xs sm:text-sm">الشيخ محمد محمود الطبلاوي</span>
                   <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
@@ -610,8 +582,8 @@
                   <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-emerald-300 font-semibold shrink-0">مرتل</span>
                 </button>
 
-                <!-- ٨. الشيخ محمد رفعت (تراث إذاعي — ٣١ سورة) (في نهاية القائمة دائماً) -->
-                <button type="button" data-reciter="muhammad_rifat" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
+                <!-- ٨. الشيخ محمد رفعت (في نهاية القائمة دائماً) -->
+                <button type="button" data-reciter="mohamed_refaat" class="reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-slate-900 border-slate-700/80 hover:border-amber-500/40 text-slate-200">
                   <span class="font-bold text-xs sm:text-sm">الشيخ محمد رفعت (تراث إذاعي — ٣١ سورة)</span>
                   <span class="text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold shrink-0">تراث إذاعي</span>
                 </button>
@@ -677,24 +649,20 @@
             <div class="space-y-2.5 bg-slate-900 p-2.5 rounded-xl border border-slate-800">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
-                  <div class="flex items-center justify-between mb-1">
-                    <label for="selectSurah" class="block text-xs text-slate-300">السورة:</label>
-                    <span id="rifatFilterBadge" class="hidden text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">٣١ سورة متوفرة</span>
-                  </div>
+                  <label for="selectSurah" class="block text-xs text-slate-300 mb-1">السورة:</label>
                   <select id="selectSurah" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-xs text-amber-100 p-2 focus:outline-none"></select>
                 </div>
                 <div>
-                  <label class="block text-xs text-slate-300 mb-1">نطاق التلاوة:</label>
+                  <label class="block text-xs text-slate-300 mb-1">نطاق الآيات:</label>
                   <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
-                    <button id="btnModeSingleAyah" type="button" class="py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-amber-500 text-slate-950 text-center">آية واحدة</button>
-                    <button id="btnModeMultiAyah" type="button" class="py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-300 hover:text-amber-200 text-center">عدة آيات</button>
-                    <button id="btnModeFullSurah" type="button" class="py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-300 hover:text-amber-200 text-center">المقطع كاملاً</button>
+                    <button id="btnModeFullSurah" type="button" class="py-1 px-1.5 rounded-lg text-[11px] font-bold transition text-slate-300 hover:text-amber-200">المقطع كاملاً</button>
+                    <button id="btnModeSingleAyah" type="button" class="py-1 px-1.5 rounded-lg text-[11px] font-bold transition bg-amber-500 text-slate-950">آية واحدة</button>
+                    <button id="btnModeMultiAyah" type="button" class="py-1 px-1.5 rounded-lg text-[11px] font-bold transition text-slate-300 hover:text-amber-200">بعض الآيات</button>
                   </div>
                 </div>
               </div>
 
-              <!-- نمط آية واحدة أو عدة آيات -->
-              <div id="ayahPickersRow" class="grid grid-cols-2 gap-2 items-end">
+              <div class="grid grid-cols-2 gap-2 items-end">
                 <div>
                   <label id="lblFromAyah" for="selectFromAyah" class="block text-xs text-slate-300 mb-1">الآية:</label>
                   <select id="selectFromAyah" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-xs text-amber-100 p-2 focus:outline-none">
@@ -720,19 +688,9 @@
                 </button>
               </div>
 
-              <!-- نمط المقطع كاملاً -->
-              <div id="fullSurahApplyWrapper" class="hidden pt-1">
-                <button id="btnLoadFullSurah" type="button" class="w-full py-2 px-3 rounded-xl bg-amber-500/25 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 text-xs font-bold transition flex items-center justify-center gap-1.5">
-                  <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
-                  <span>اعتماد وتشغيل المقطع كاملاً (كامل تلاوة السورة)</span>
-                </button>
-              </div>
-
               <div id="surahSelectionSummary" class="text-[11px] text-slate-400 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5">
                 لم يتم اختيار سورة أو آية بعد
               </div>
-
-
             </div>
           </div>
 
@@ -852,8 +810,8 @@
                 <div>
                   <label for="selectMediaFitMode" class="block text-xs text-slate-300 mb-1">ضبط الأبعاد على الواجهة:</label>
                   <select id="selectMediaFitMode" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none focus:border-amber-400">
-                    <option value="16:9">16:9</option>
-                    <option value="9:16" selected>9:16</option>
+                    <option value="16:9" selected>16:9</option>
+                    <option value="9:16">9:16</option>
                   </select>
                 </div>
               </div>
@@ -1521,227 +1479,37 @@
       }
     ];
 
-        // قائمة نطاق الآيات المسجلة بالفعل بصوت الشيخ محمد رفعت لكل سورة متوفرة له على خادم mp3quran
-    const REFAAT_RECITED_RANGES = {
-      1: [1, 7],    // الفاتحة كاملة
-      10: [1, 10],  // يونس (١-١٠)
-      11: [1, 17],  // هود (١-١٧)
-      12: [1, 15],  // يوسف (١-١٥)
-      17: [1, 22],  // الإسراء (١-٢٢)
-      18: [1, 21],  // الكهف (١-٢١)
-      19: [1, 40],  // مريم (١-٤٠)
-      20: [1, 52],  // طه (١-٥٢)
-      48: [1, 11],  // الفتح (١-١١)
-      54: [1, 32],  // القمر (١-٣٢)
-      55: [1, 78],  // الرحمن كاملة (١-٧٨)
-      56: [1, 38],  // الواقعة (١-٣٨)
-      69: [1, 24],  // الحاقة (١-٢٤)
-      72: [1, 28],  // الجن كاملة
-      73: [1, 20],  // المزمل كاملة
-      75: [1, 40],  // القيامة كاملة
-      76: [1, 31],  // الإنسان كاملة
-      77: [1, 50],  // المرسلات كاملة
-      78: [1, 40],  // النبأ كاملة
-      79: [1, 46],  // النازعات كاملة
-      81: [1, 29],  // التكوير كاملة
-      82: [1, 19],  // الانفطار كاملة
-      83: [1, 36],  // المطففين كاملة
-      85: [1, 22],  // البروج كاملة
-      86: [1, 17],  // الطارق كاملة
-      87: [1, 19],  // الأعلى كاملة
-      88: [1, 26],  // الغاشية كاملة
-      89: [1, 30],  // الفجر كاملة
-      96: [1, 19],  // العلق كاملة
-      98: [1, 8],   // البينة كاملة
-      100: [1, 11]  // العاديات كاملة
-    };
+    // قائمة السور المسجلة الكاملة والمتوفرة حصرياً بصوت الشيخ محمد رفعت رحمه الله (٣١ سورة موثقة)
+    const REFAAT_AVAILABLE_SURAHS = [
+      1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73,
+      75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 96, 98, 100
+    ];
 
-    // توثيق صيغة الاستفتاح المسجلة في أشرطة إذاعة القرآن الكريم للشيخ محمد رفعت (استعاذة وبسملة أو بسملة فقط)
-    const REFAAT_OPENINGS = {
-      1:  { istiadhah: true,  basmalah: false }, // في الفاتحة البسملة هي الآية الأولى نفسها
-      10: { istiadhah: true,  basmalah: true },
-      11: { istiadhah: true,  basmalah: true },
-      12: { istiadhah: true,  basmalah: true },
-      17: { istiadhah: true,  basmalah: true },
-      18: { istiadhah: true,  basmalah: true },
-      19: { istiadhah: true,  basmalah: true },
-      20: { istiadhah: true,  basmalah: true },
-      48: { istiadhah: true,  basmalah: true },
-      54: { istiadhah: true,  basmalah: true },
-      55: { istiadhah: true,  basmalah: true },
-      56: { istiadhah: true,  basmalah: true },
-      69: { istiadhah: true,  basmalah: true },
-      72: { istiadhah: true,  basmalah: true },
-      73: { istiadhah: false, basmalah: true }, // البسملة فقط
-      75: { istiadhah: true,  basmalah: true },
-      76: { istiadhah: true,  basmalah: true },
-      77: { istiadhah: true,  basmalah: true },
-      78: { istiadhah: true,  basmalah: true },
-      79: { istiadhah: true,  basmalah: true },
-      81: { istiadhah: true,  basmalah: true },
-      82: { istiadhah: true,  basmalah: true },
-      83: { istiadhah: false, basmalah: true }, // البسملة فقط
-      85: { istiadhah: true,  basmalah: true },
-      86: { istiadhah: true,  basmalah: true },
-      87: { istiadhah: true,  basmalah: true },
-      88: { istiadhah: true,  basmalah: true },
-      89: { istiadhah: true,  basmalah: true },
-      96: { istiadhah: true,  basmalah: true },
-      98: { istiadhah: false, basmalah: true }, // البسملة فقط
-      100:{ istiadhah: true,  basmalah: true }
-    };
-
-    const TEXT_ISTIADHAH = 'أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ';
-    const TEXT_BASMALAH = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
-
-    // جدول التوقيتات الدقيقة الموثقة لكل آية في تسجيلات الشيخ محمد رفعت الإذاعية التاريخية (بالثواني)
-    const REFAAT_EXACT_TIMINGS = {
-      // سورة الفاتحة (1)
-      1: {
-        totalDuration: 180,
-        opening: [0, 12],
-        verses: {
-          1: [12, 35],
-          2: [35, 58],
-          3: [58, 78],
-          4: [78, 98],
-          5: [98, 122],
-          6: [122, 148],
-          7: [148, 180]
+    const RECITERS_DATA = {
+      mohamed_refaat: {
+        id: 'mohamed_refaat',
+        name: 'الشيخ محمد رفعت (تراث إذاعي)',
+        isSurahClipReciter: true,
+        availableSurahs: REFAAT_AVAILABLE_SURAHS,
+        getSurahUrls: (surahNum) => {
+          const sNum = Number(surahNum) || 1;
+          const sCode = String(sNum).padStart(3, '0');
+          return [
+            `https://server14.mp3quran.net/refat/${sCode}.mp3`,
+            `https://media.way2quran.com/audio/mohamed-refaat/${sCode}.mp3`,
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://server14.mp3quran.net/refat/${sCode}.mp3`)}`
+          ];
+        },
+        getUrls: (ayah) => {
+          const sNum = ayah?.surahNum || Number(String(ayah?.everyAyahCode || '001001').slice(0, 3)) || 1;
+          const sCode = String(sNum).padStart(3, '0');
+          return [
+            `https://server14.mp3quran.net/refat/${sCode}.mp3`,
+            `https://media.way2quran.com/audio/mohamed-refaat/${sCode}.mp3`,
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://server14.mp3quran.net/refat/${sCode}.mp3`)}`
+          ];
         }
       },
-      // سورة يوسف (12) - الآيات 1 إلى 15 (المدة الكاملة 17:05)
-      12: {
-        totalDuration: 1025,
-        opening: [0, 21],
-        verses: {
-          1:  [21, 35],
-          2:  [35, 48],
-          3:  [48, 105],
-          4:  [105, 159],
-          5:  [159, 225],
-          6:  [225, 309],
-          7:  [309, 340],
-          8:  [340, 385],
-          9:  [385, 594],
-          10: [594, 672],
-          11: [672, 736],
-          12: [736, 864],
-          13: [864, 905],
-          14: [905, 937],
-          15: [937, 1025]
-        }
-      },
-      // سورة الكهف (18) - الآيات 1 إلى 21 (المدة الكاملة 41:00)
-      18: {
-        totalDuration: 2460,
-        opening: [0, 18],
-        verses: {
-          1:  [18, 41],
-          2:  [41, 89],
-          3:  [89, 109],
-          4:  [109, 124],
-          5:  [124, 181],
-          6:  [181, 257],
-          7:  [257, 287],
-          8:  [287, 315],
-          9:  [315, 422],
-          10: [422, 467],
-          11: [467, 487],
-          12: [487, 513],
-          13: [513, 732],
-          14: [732, 826],
-          15: [826, 1081],
-          16: [1081, 1169],
-          17: [1169, 1560],
-          18: [1560, 1829],
-          19: [1829, 2016],
-          20: [2016, 2082],
-          21: [2082, 2460]
-        }
-      },
-      // سورة مريم (19) - الآيات 1 إلى 40 موثقة بالثواني الدقيقة من التسجيل الإذاعي الكامل (45:05)
-      19: {
-        totalDuration: 2705,
-        opening: [0, 10],
-        verses: {
-          1:  [10, 42],     // كهيعص
-          2:  [42, 59],     // ذكر رحمت ربك عبده زكريا
-          3:  [59, 79],     // إذ نادى ربه نداء خفيا
-          4:  [79, 127],    // قال رب إني وهن العظم مني
-          5:  [127, 173],   // وإني خفت الموالي من ورائي
-          6:  [173, 206],   // يرثني ويرث من آل يعقوب
-          7:  [206, 255],   // يا زكريا إنا نبشرك بغلام
-          8:  [255, 308],   // قال رب أنى يكون لي غلام
-          9:  [308, 354],   // قال كذلك قال ربك هو علي هين (05:08 إلى 05:54)
-          10: [354, 397],   // قال رب اجعل لي آية (05:54 إلى 06:37)
-          11: [397, 434],   // فخرج على قومه من المحراب (06:37 إلى 07:14)
-          12: [434, 503],   // يا يحيى خذ الكتاب بقوة (07:14 إلى 08:23)
-          13: [503, 514],   // وحنانا من لدنا وزكاة
-          14: [514, 546],   // وبرا بوالديه ولم يكن جبارا عصيا
-          15: [546, 669],   // وسلام عليه يوم ولد
-          16: [669, 712],   // واذكر في الكتاب مريم إذ انتبذت
-          17: [712, 769],   // فاتخذت من دونهم حجابا
-          18: [769, 798],   // قالت إني أعوذ بالرحمن منك
-          19: [798, 916],   // قال إنما أنا رسول ربك
-          20: [916, 955],   // قالت أنى يكون لي غلام
-          21: [955, 1039],  // قال كذلك قال ربك هو علي هين
-          22: [1039, 1074], // فحملته فانتبذت به مكانا قصيا
-          23: [1074, 1135], // فأجاءها المخاض إلى جذع النخلة
-          24: [1135, 1167], // فناداها من تحتها ألا تحزني
-          25: [1167, 1189], // وهزي إليك بجذع النخلة
-          26: [1189, 1709], // فكلي واشربي وقري عينا
-          27: [1709, 1741], // فأتت به قومها تحمله
-          28: [1741, 1770], // يا أخت هارون ما كان أبوك امرأ سوء
-          29: [1770, 1801], // فأشارت إليه قالوا كيف نكلم
-          30: [1801, 1820], // قال إني عبد الله آتاني الكتاب
-          31: [1820, 1886], // وجعلني مباركا أين ما كنت
-          32: [1886, 1902], // وبرا بوالدتي ولم يجعلني جبارا شقيا
-          33: [1902, 2065], // والسلام علي يوم ولدت
-          34: [2065, 2120], // ذلك عيسى ابن مريم قول الحق
-          35: [2120, 2357], // ما كان لله أن يتخذ من ولد
-          36: [2357, 2391], // وإن الله ربي وربكم فاعبدوه
-          37: [2391, 2428], // فاختلف الأحزاب من بينهم
-          38: [2428, 2475], // أسمع بهم وأبصر يوم يأتوننا
-          39: [2475, 2502], // وأنذرهم يوم الحسرة إذ قضي الأمر
-          40: [2502, 2696]  // إنا نحن نرث الأرض ومن عليها وإلينا يرجعون
-        }
-      },
-      // سورة طه (20)
-      20: {
-        totalDuration: 2335,
-        opening: [0, 19],
-        verses: {
-          1:  [19, 45],
-          2:  [45, 69],
-          3:  [69, 109],
-          4:  [109, 131],
-          5:  [131, 169],
-          6:  [169, 197],
-          7:  [197, 234],
-          8:  [234, 250],
-          9:  [250, 290],
-          10: [290, 373],
-          11: [373, 400],
-          12: [400, 423],
-          13: [423, 473],
-          14: [473, 553],
-          15: [553, 629],
-          16: [629, 698],
-          17: [698, 754],
-          18: [754, 816],
-          19: [816, 825],
-          20: [825, 895],
-          21: [895, 923],
-          22: [923, 984],
-          23: [984, 1007],
-          24: [1007, 1087]
-        }
-      }
-    };
-
-const RECITERS_DATA = {
-      // 1. الشيخ محمد صديق المنشاوي (مجود)
       minshawi_mujawwad: {
         id: 'minshawi_mujawwad',
         name: 'الشيخ محمد صديق المنشاوي (مجود)',
@@ -1752,17 +1520,6 @@ const RECITERS_DATA = {
           `https://verses.quran.com/Minshawi/Mujawwad/mp3/${ayah.everyAyahCode}.mp3`
         ]
       },
-      // 2. الشيخ محمد صديق المنشاوي (مرتل)
-      minshawi_murattal: {
-        id: 'minshawi_murattal',
-        name: 'الشيخ محمد صديق المنشاوي (مرتل)',
-        getUrls: (ayah) => [
-          `https://everyayah.com/data/Minshawy_Murattal_128kbps/${ayah.everyAyahCode}.mp3`,
-          `https://mirrors.quranicaudio.com/everyayah/Minshawy_Murattal_128kbps/${ayah.everyAyahCode}.mp3`,
-          `https://cdn.islamic.network/quran/audio/128/ar.minshawi/${ayah.globalAyah}.mp3`
-        ]
-      },
-      // 3. الشيخ عبد الباسط عبد الصمد (مجود)
       abdulbasit_mujawwad: {
         id: 'abdulbasit_mujawwad',
         name: 'الشيخ عبد الباسط عبد الصمد (مجود)',
@@ -1773,7 +1530,6 @@ const RECITERS_DATA = {
           `https://verses.quran.com/AbdulBaset/Mujawwad/mp3/${ayah.everyAyahCode}.mp3`
         ]
       },
-      // 4. الشيخ عبد الباسط عبد الصمد (مرتل) (جديد)
       abdulbasit_murattal: {
         id: 'abdulbasit_murattal',
         name: 'الشيخ عبد الباسط عبد الصمد (مرتل)',
@@ -1781,85 +1537,19 @@ const RECITERS_DATA = {
           `https://everyayah.com/data/Abdul_Basit_Murattal_192kbps/${ayah.everyAyahCode}.mp3`,
           `https://mirrors.quranicaudio.com/everyayah/Abdul_Basit_Murattal_192kbps/${ayah.everyAyahCode}.mp3`,
           `https://everyayah.com/data/Abdul_Basit_Murattal_64kbps/${ayah.everyAyahCode}.mp3`,
-          `https://verses.quran.com/AbdulBaset/Murattal/mp3/${ayah.everyAyahCode}.mp3`
+          `https://cdn.islamic.network/quran/audio/128/ar.abdulbasitmurattal/${ayah.globalAyah}.mp3`
         ]
       },
-      // 5. الشيخ محمود خليل الحصري (مجود)
-      husary_mujawwad: {
-        id: 'husary_mujawwad',
-        name: 'الشيخ محمود خليل الحصري (مجود)',
-        getUrls: (ayah) => [
-          `https://everyayah.com/data/Husary_128kbps_Mujawwad/${ayah.everyAyahCode}.mp3`,
-          `https://mirrors.quranicaudio.com/everyayah/Husary_128kbps_Mujawwad/${ayah.everyAyahCode}.mp3`,
-          `https://cdn.islamic.network/quran/audio/64/ar.husarymujawwad/${ayah.globalAyah}.mp3`
-        ]
-      },
-      // 6. الشيخ محمود خليل الحصري (مرتل) (جديد)
-      husary_murattal: {
-        id: 'husary_murattal',
-        name: 'الشيخ محمود خليل الحصري (مرتل)',
-        getUrls: (ayah) => [
-          `https://everyayah.com/data/Husary_128kbps/${ayah.everyAyahCode}.mp3`,
-          `https://mirrors.quranicaudio.com/everyayah/Husary_128kbps/${ayah.everyAyahCode}.mp3`,
-          `https://everyayah.com/data/Husary_64kbps/${ayah.everyAyahCode}.mp3`,
-          `https://cdn.islamic.network/quran/audio/128/ar.husary/${ayah.globalAyah}.mp3`
-        ]
-      },
-      // 7. الشيخ مصطفى إسماعيل (مرتل)
       mustafa_ismail: {
         id: 'mustafa_ismail',
         name: 'الشيخ مصطفى إسماعيل (مرتل)',
         getUrls: (ayah) => [
-          `https://everyayah.com/data/Mustafa_Ismail_48kbps/${ayah.everyAyahCode}.mp3`,
-          `https://mirrors.quranicaudio.com/everyayah/Mustafa_Ismail_48kbps/${ayah.everyAyahCode}.mp3`
+          `https://everyayah.com/data/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Minshawy_Mujawwad_192kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Mustafa_Ismail_48kbps/${ayah.everyAyahCode}.mp3`
         ]
       },
-      // 8. الشيخ محمود علي البنا (مرتل)
-      banna_murattal: {
-        id: 'banna_murattal',
-        name: 'الشيخ محمود علي البنا (مرتل)',
-        getUrls: (ayah) => [
-          `https://everyayah.com/data/mahmoud_ali_al_banna_32kbps/${ayah.everyAyahCode}.mp3`,
-          `https://mirrors.quranicaudio.com/everyayah/mahmoud_ali_al_banna_32kbps/${ayah.everyAyahCode}.mp3`,
-          `https://media.quranco.com/audio/albanna-32/${ayah.everyAyahCode}.mp3`
-        ]
-      },
-      // 9. الشيخ محمد محمود الطبلاوي (مرتل)
-      tablawi: {
-        id: 'tablawi',
-        name: 'الشيخ محمد محمود الطبلاوي (مرتل)',
-        getUrls: (ayah) => [
-          `https://everyayah.com/data/Mohammad_al_Tablaway_128kbps/${ayah.everyAyahCode}.mp3`,
-          `https://mirrors.quranicaudio.com/everyayah/Mohammad_al_Tablaway_128kbps/${ayah.everyAyahCode}.mp3`,
-          `https://everyayah.com/data/Mohammad_al_Tablaway_64kbps/${ayah.everyAyahCode}.mp3`
-        ]
-      },
-      // 10. الشيخ أحمد نعينع (مرتل)
-      ahmed_neana: {
-        id: 'ahmed_neana',
-        name: 'الشيخ أحمد نعينع (مرتل)',
-        getUrls: (ayah) => [
-          `https://everyayah.com/data/Ahmed_Neana_128kbps/${ayah.everyAyahCode}.mp3`,
-          `https://mirrors.quranicaudio.com/everyayah/Ahmed_Neana_128kbps/${ayah.everyAyahCode}.mp3`
-        ]
-      },
-      // 11. الشيخ محمد رفعت (تراث إذاعي — ٣١ سورة) (في نهاية القائمة دائماً)
-      muhammad_rifat: {
-        id: 'muhammad_rifat',
-        name: 'الشيخ محمد رفعت (تراث إذاعي — ٣١ سورة)',
-        isSurahClipReciter: true,
-        availableSurahs: [1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 96, 98, 100],
-        getUrls: (ayah) => {
-          const sNum = ayah?.surahNum || parseInt((ayah?.everyAyahCode || '001001').slice(0, 3), 10) || 1;
-          const sCode = String(sNum).padStart(3, '0');
-          return [
-            `https://server14.mp3quran.net/refat/${sCode}.mp3`,
-            `https://media.way2quran.com/audio/mohamed-refaat/${sCode}.mp3`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://server14.mp3quran.net/refat/${sCode}.mp3`)}`
-          ];
-        }
-      },
-      // قراء الحفلات الخارجية والنوادر التراثية الإضافية
       ghalwash: {
         id: 'ghalwash',
         name: 'الشيخ راغب مصطفى غلوش',
@@ -1905,12 +1595,67 @@ const RECITERS_DATA = {
           `https://mirrors.quranicaudio.com/everyayah/Abdul_Basit_Mujawwad_128kbps/${ayah.everyAyahCode}.mp3`
         ]
       },
+      tablawi: {
+        id: 'tablawi',
+        name: 'الشيخ محمد محمود الطبلاوي (مرتل)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Mohammad_al_Tablaway_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Mohammad_al_Tablaway_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://cdn.islamic.network/quran/audio/128/ar.tablawi/${ayah.globalAyah}.mp3`,
+          `https://everyayah.com/data/Minshawy_Murattal_128kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      husary_mujawwad: {
+        id: 'husary_mujawwad',
+        name: 'الشيخ محمود خليل الحصري (مجود)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Husary_128kbps_Mujawwad/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Husary_128kbps_Mujawwad/${ayah.everyAyahCode}.mp3`,
+          `https://cdn.islamic.network/quran/audio/64/ar.husarymujawwad/${ayah.globalAyah}.mp3`
+        ]
+      },
+      husary_murattal: {
+        id: 'husary_murattal',
+        name: 'الشيخ محمود خليل الحصري (مرتل)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Husary_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Husary_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://everyayah.com/data/Husary_64kbps/${ayah.everyAyahCode}.mp3`,
+          `https://cdn.islamic.network/quran/audio/128/ar.husary/${ayah.globalAyah}.mp3`
+        ]
+      },
+      banna_murattal: {
+        id: 'banna_murattal',
+        name: 'الشيخ محمود علي البنا',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/mahmoud_ali_al_banna_32kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/mahmoud_ali_al_banna_32kbps/${ayah.everyAyahCode}.mp3`,
+          `https://media.quranco.com/audio/albanna-32/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      ahmed_neana: {
+        id: 'ahmed_neana',
+        name: 'الشيخ أحمد نعينع (مجود)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Ahmed_Neana_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Ahmed_Neana_128kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
       hajjaj_suesy: {
         id: 'hajjaj_suesy',
         name: 'الشيخ علي حجاج السويسي (مجود)',
         getUrls: (ayah) => [
           `https://everyayah.com/data/Ali_Hajjaj_AlSuesy_128kbps/${ayah.everyAyahCode}.mp3`,
           `https://mirrors.quranicaudio.com/everyayah/Ali_Hajjaj_AlSuesy_128kbps/${ayah.everyAyahCode}.mp3`
+        ]
+      },
+      minshawi_murattal: {
+        id: 'minshawi_murattal',
+        name: 'الشيخ محمد صديق المنشاوي (مرتل)',
+        getUrls: (ayah) => [
+          `https://everyayah.com/data/Minshawy_Murattal_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://mirrors.quranicaudio.com/everyayah/Minshawy_Murattal_128kbps/${ayah.everyAyahCode}.mp3`,
+          `https://cdn.islamic.network/quran/audio/128/ar.minshawi/${ayah.globalAyah}.mp3`
         ]
       }
     };
@@ -1929,7 +1674,7 @@ const RECITERS_DATA = {
       urlQueue: [],
       urlIndex: 0,
       isPlaying: false,
-      aspectRatio: '9:16',
+      aspectRatio: '16:9',
       textMode: 'transcript',
       ayahPosition: 'bottom',
       ayahFontFamily: 'Amiri Quran',
@@ -2044,46 +1789,26 @@ const RECITERS_DATA = {
     // 4. معرض الـ ٢٠ خلفية (توليد كسول عند اختيار الخلفية فقط لمنع أي تهنيج)
     // =========================================================================
     const BACKGROUNDS_LIST = [
-      { id: 'bg_01_mountain_sunrise', name: '١. شروق الجبال والسحاب — Mountain Sunrise', arName: '١. شروق الجبال والسحاب', enName: 'Mountain Sunrise', color: '#8b8176', focalX: 0.50, focalY: 0.45, src: './backgrounds/01_شروق_الجبال_والسحاب_Mountain_Sunrise.jpg' },
-      { id: 'bg_02_ocean_sunset', name: '٢. غروب البحر الهادئ — Ocean Sunset', arName: '٢. غروب البحر الهادئ', enName: 'Ocean Sunset', color: '#695859', focalX: 0.50, focalY: 0.45, src: './backgrounds/02_غروب_البحر_الهادئ_Ocean_Sunset.jpg' },
-      { id: 'bg_03_sky_sunbeams', name: '٣. سحب مهيبة واشعة نور — Sky Sunbeams', arName: '٣. سحب مهيبة واشعة نور', enName: 'Sky Sunbeams', color: '#8c8f8a', focalX: 0.50, focalY: 0.45, src: './backgrounds/03_سحب_مهيبة_واشعة_نور_Sky_Sunbeams.jpg' },
-      { id: 'bg_04_green_valley_river', name: '٤. نهر ووادي اخضر — Green Valley River', arName: '٤. نهر ووادي اخضر', enName: 'Green Valley River', color: '#8f917b', focalX: 0.50, focalY: 0.45, src: './backgrounds/04_نهر_ووادي_اخضر_Green_Valley_River.jpg' },
-      { id: 'bg_05_desert_night_crescent', name: '٥. صحراء وهلال منير — Desert Night Crescent', arName: '٥. صحراء وهلال منير', enName: 'Desert Night Crescent', color: '#363e51', focalX: 0.50, focalY: 0.45, src: './backgrounds/05_صحراء_وهلال_منير_Desert_Night_Crescent.jpg' },
-      { id: 'bg_06_forest_waterfall', name: '٦. شلال وسط الغابات — Forest Waterfall', arName: '٦. شلال وسط الغابات', enName: 'Forest Waterfall', color: '#727055', focalX: 0.50, focalY: 0.45, src: './backgrounds/06_شلال_وسط_الغابات_Forest_Waterfall.jpg' },
-      { id: 'bg_07_cosmic_nebula_arch', name: '٧. سماء كونية وسدم — Cosmic Nebula Arch', arName: '٧. سماء كونية وسدم', enName: 'Cosmic Nebula Arch', color: '#1b1b35', focalX: 0.50, focalY: 0.45, src: './backgrounds/07_سماء_كونية_وسدم_Cosmic_Nebula_Arch.jpg' },
-      { id: 'bg_08_northern_lights_aurora', name: '٨. شفق قطبي وبحيرة — Northern Lights Aurora', arName: '٨. شفق قطبي وبحيرة', enName: 'Northern Lights Aurora', color: '#2c6059', focalX: 0.50, focalY: 0.45, src: './backgrounds/08_شفق_قطبي_وبحيرة_Northern_Lights_Aurora.jpg' },
-      { id: 'bg_09_autumn_lake_mist', name: '٩. بحيرة خريفية وضباب — Autumn Lake Mist', arName: '٩. بحيرة خريفية وضباب', enName: 'Autumn Lake Mist', color: '#b7a088', focalX: 0.50, focalY: 0.45, src: './backgrounds/09_بحيرة_خريفية_وضباب_Autumn_Lake_Mist.jpg' },
-      { id: 'bg_10_desert_dunes_sunset', name: '١٠. كثبان وشفق الغروب — Desert Dunes Sunset', arName: '١٠. كثبان وشفق الغروب', enName: 'Desert Dunes Sunset', color: '#784531', focalX: 0.50, focalY: 0.45, src: './backgrounds/10_كثبان_وشفق_الغروب_Desert_Dunes_Sunset.jpg' },
-      { id: 'bg_11_rain_clouds_ocean', name: '١١. غيوم ممطرة فوق البحر — Rain Clouds Ocean', arName: '١١. غيوم ممطرة فوق البحر', enName: 'Rain Clouds Ocean', color: '#575742', focalX: 0.50, focalY: 0.45, src: './backgrounds/11_غيوم_ممطرة_فوق_البحر_Rain_Clouds_Ocean.jpg' },
-      { id: 'bg_12_lavender_fields', name: '١٢. حقول اللافندر البنفسجية — Lavender Fields', arName: '١٢. حقول اللافندر البنفسجية', enName: 'Lavender Fields', color: '#816365', focalX: 0.50, focalY: 0.45, src: './backgrounds/12_حقول_اللافندر_البنفسجية_Lavender_Fields.jpg' },
-      { id: 'bg_13_alpine_lake_reflection', name: '١٣. انعكاس قمم الثلوج — Alpine Lake Reflection', arName: '١٣. انعكاس قمم الثلوج', enName: 'Alpine Lake Reflection', color: '#75777d', focalX: 0.50, focalY: 0.45, src: './backgrounds/13_انعكاس_قمم_الثلوج_Alpine_Lake_Reflection.jpg' },
-      { id: 'bg_14_desert_oasis_palms', name: '١٤. واحة النخيل — Desert Oasis Palms', arName: '١٤. واحة النخيل', enName: 'Desert Oasis Palms', color: '#a7a48c', focalX: 0.50, focalY: 0.45, src: './backgrounds/14_واحة_النخيل_Desert_Oasis_Palms.jpg' },
-      { id: 'bg_15_grand_canyon_sunrise', name: '١٥. وادي الجرانيت العظيم — Grand Canyon Sunrise', arName: '١٥. وادي الجرانيت العظيم', enName: 'Grand Canyon Sunrise', color: '#80624c', focalX: 0.50, focalY: 0.45, src: './backgrounds/15_وادي_الجرانيت_العظيم_Grand_Canyon_Sunrise.jpg' },
-      { id: 'bg_16_blooming_spring_brook', name: '١٦. اشجار مبهرة وجداول — Blooming Spring Brook', arName: '١٦. اشجار مبهرة وجداول', enName: 'Blooming Spring Brook', color: '#58505a', focalX: 0.50, focalY: 0.45, src: './backgrounds/16_اشجار_مبهرة_وجداول_Blooming_Spring_Brook.jpg' },
-      { id: 'bg_17_tropical_turquoise_shore', name: '١٧. شاطئ استوائي — Tropical Turquoise Shore', arName: '١٧. شاطئ استوائي', enName: 'Tropical Turquoise Shore', color: '#b8d6e0', focalX: 0.50, focalY: 0.45, src: './backgrounds/17_شاطئ_استوائي_Tropical_Turquoise_Shore.jpg' },
-      { id: 'bg_18_snowy_pine_forest', name: '١٨. غابة صنوبر مثلجة — Snowy Pine Forest', arName: '١٨. غابة صنوبر مثلجة', enName: 'Snowy Pine Forest', color: '#77808f', focalX: 0.50, focalY: 0.45, src: './backgrounds/18_غابة_صنوبر_مثلجة_Snowy_Pine_Forest.jpg' },
-      { id: 'bg_19_golden_wheat_field', name: '١٩. حقول القمح الذهبية — Golden Wheat Field', arName: '١٩. حقول القمح الذهبية', enName: 'Golden Wheat Field', color: '#b7844e', focalX: 0.50, focalY: 0.45, src: './backgrounds/19_حقول_القمح_الذهبية_Golden_Wheat_Field.jpg' },
-      { id: 'bg_20_underwater_sunrays', name: '٢٠. اشعة شمس تحت الماء — Underwater Sunrays', arName: '٢٠. اشعة شمس تحت الماء', enName: 'Underwater Sunrays', color: '#37584f', focalX: 0.50, focalY: 0.45, src: './backgrounds/20_اشعة_شمس_تحت_الماء_Underwater_Sunrays.jpg' },
-      { id: 'bg_21_bamboo_forest_mist', name: '٢١. غابة الخيزران الضبابية — Bamboo Forest Mist', arName: '٢١. غابة الخيزران الضبابية', enName: 'Bamboo Forest Mist', color: '#5f6b4b', focalX: 0.50, focalY: 0.45, src: './backgrounds/21_غابة_الخيزران_الضبابية_Bamboo_Forest_Mist.jpg' },
-      { id: 'bg_22_mountain_above_clouds', name: '٢٢. قمة الجبل فوق السحاب — Mountain Above Clouds', arName: '٢٢. قمة الجبل فوق السحاب', enName: 'Mountain Above Clouds', color: '#566b82', focalX: 0.50, focalY: 0.45, src: './backgrounds/22_قمة_الجبل_فوق_السحاب_Mountain_Above_Clouds.jpg' },
-      { id: 'bg_23_coastal_cliff_sunrise', name: '٢٣. جرف صخري وامواج البحر — Coastal Cliff Sunrise', arName: '٢٣. جرف صخري وامواج البحر', enName: 'Coastal Cliff Sunrise', color: '#9a8163', focalX: 0.50, focalY: 0.45, src: './backgrounds/23_جرف_صخري_وامواج_البحر_Coastal_Cliff_Sunrise.jpg' },
-      { id: 'bg_24_misty_pines_sunbeams', name: '٢٤. غابة الصنوبر الصباحية — Misty Pines Sunbeams', arName: '٢٤. غابة الصنوبر الصباحية', enName: 'Misty Pines Sunbeams', color: '#56594b', focalX: 0.50, focalY: 0.45, src: './backgrounds/24_غابة_الصنوبر_الصباحية_Misty_Pines_Sunbeams.jpg' },
-      { id: 'bg_25_desert_milky_way', name: '٢٥. مجرة درب التبانة — Desert Milky Way', arName: '٢٥. مجرة درب التبانة', enName: 'Desert Milky Way', color: '#55484a', focalX: 0.50, focalY: 0.45, src: './backgrounds/25_مجرة_درب_التبانة_Desert_Milky_Way.jpg' },
-      { id: 'bg_26_starry_night_river', name: '٢٦. نهر هادئ وسماء ليلية — Starry Night River', arName: '٢٦. نهر هادئ وسماء ليلية', enName: 'Starry Night River', color: '#303a44', focalX: 0.50, focalY: 0.45, src: './backgrounds/26_نهر_هادئ_وسماء_ليلية_Starry_Night_River.jpg' },
-      { id: 'bg_27_wildflower_alpine_meadow', name: '٢٧. مرج زهور الجبال — Wildflower Alpine Meadow', arName: '٢٧. مرج زهور الجبال', enName: 'Wildflower Alpine Meadow', color: '#919f73', focalX: 0.50, focalY: 0.45, src: './backgrounds/27_مرج_زهور_الجبال_Wildflower_Alpine_Meadow.jpg' },
-      { id: 'bg_28_god_rays_ocean', name: '٢٨. اشعة سماوية فوق البحر — God Rays Ocean', arName: '٢٨. اشعة سماوية فوق البحر', enName: 'God Rays Ocean', color: '#976e41', focalX: 0.50, focalY: 0.45, src: './backgrounds/28_اشعة_سماوية_فوق_البحر_God_Rays_Ocean.jpg' },
-      { id: 'bg_29_tropical_sunset_lagoon', name: '٢٩. غروب استوائي ونخيل — Tropical Sunset Lagoon', arName: '٢٩. غروب استوائي ونخيل', enName: 'Tropical Sunset Lagoon', color: '#7e5d58', focalX: 0.50, focalY: 0.45, src: './backgrounds/29_غروب_استوائي_ونخيل_Tropical_Sunset_Lagoon.jpg' },
-      { id: 'bg_30_emerald_waterfall_pool', name: '٣٠. شلال وبركة زمردية — Emerald Waterfall Pool', arName: '٣٠. شلال وبركة زمردية', enName: 'Emerald Waterfall Pool', color: '#666349', focalX: 0.50, focalY: 0.45, src: './backgrounds/30_شلال_وبركة_زمردية_Emerald_Waterfall_Pool.jpg' },
-      { id: 'bg_31_desert_acacia_moon', name: '٣١. شجرة الصحراء والهلال — Desert Acacia Moon', arName: '٣١. شجرة الصحراء والهلال', enName: 'Desert Acacia Moon', color: '#362a20', focalX: 0.50, focalY: 0.45, src: './backgrounds/31_شجرة_الصحراء_والهلال_Desert_Acacia_Moon.jpg' },
-      { id: 'bg_32_endless_sea_of_clouds', name: '٣٢. محيط من السحب — Endless Sea of Clouds', arName: '٣٢. محيط من السحب', enName: 'Endless Sea of Clouds', color: '#b0a1a6', focalX: 0.50, focalY: 0.45, src: './backgrounds/32_محيط_من_السحب_Endless_Sea_of_Clouds.jpg' },
-      { id: 'bg_33_autumn_forest_creek', name: '٣٣. نهر الغابة الخريفية — Autumn Forest Creek', arName: '٣٣. نهر الغابة الخريفية', enName: 'Autumn Forest Creek', color: '#835838', focalX: 0.50, focalY: 0.45, src: './backgrounds/33_نهر_الغابة_الخريفية_Autumn_Forest_Creek.jpg' },
-      { id: 'bg_34_glassy_lake_sunrise', name: '٣٤. بحيرة الصباح الهادئة — Glassy Lake Sunrise', arName: '٣٤. بحيرة الصباح الهادئة', enName: 'Glassy Lake Sunrise', color: '#7c6854', focalX: 0.50, focalY: 0.45, src: './backgrounds/34_بحيرة_الصباح_الهادئة_Glassy_Lake_Sunrise.jpg' },
-      { id: 'bg_35_lightning_storm_ocean', name: '٣٥. برق وسحب عاصفة — Lightning Storm Ocean', arName: '٣٥. برق وسحب عاصفة', enName: 'Lightning Storm Ocean', color: '#413744', focalX: 0.50, focalY: 0.45, src: './backgrounds/35_برق_وسحب_عاصفة_Lightning_Storm_Ocean.jpg' },
-      { id: 'bg_36_mossy_forest_stream', name: '٣٦. جدول مائي وغابة خضراء — Mossy Forest Stream', arName: '٣٦. جدول مائي وغابة خضراء', enName: 'Mossy Forest Stream', color: '#5f6649', focalX: 0.50, focalY: 0.45, src: './backgrounds/36_جدول_مائي_وغابة_خضراء_Mossy_Forest_Stream.jpg' },
-      { id: 'bg_37_snowy_peaks_alpenglow', name: '٣٧. قمم الثلوج والوهج الوردي — Snowy Peaks Alpenglow', arName: '٣٧. قمم الثلوج والوهج الوردي', enName: 'Snowy Peaks Alpenglow', color: '#6e6771', focalX: 0.50, focalY: 0.45, src: './backgrounds/37_قمم_الثلوج_والوهج_الوردي_Snowy_Peaks_Alpenglow.jpg' },
-      { id: 'bg_38_andalusian_courtyard_pool', name: '٣٨. فناء اندلسي وبركة — Andalusian Courtyard Pool', arName: '٣٨. فناء اندلسي وبركة', enName: 'Andalusian Courtyard Pool', color: '#70614a', focalX: 0.50, focalY: 0.45, src: './backgrounds/38_فناء_اندلسي_وبركة_Andalusian_Courtyard_Pool.jpg' },
-      { id: 'bg_39_full_moon_over_sea', name: '٣٩. بدر كامل فوق البحر — Full Moon Over Sea', arName: '٣٩. بدر كامل فوق البحر', enName: 'Full Moon Over Sea', color: '#3c444c', focalX: 0.50, focalY: 0.45, src: './backgrounds/39_بدر_كامل_فوق_البحر_Full_Moon_Over_Sea.jpg' },
-      { id: 'bg_40_rolling_green_hills', name: '٤٠. تلال خضراء وضباب — Rolling Green Hills', arName: '٤٠. تلال خضراء وضباب', enName: 'Rolling Green Hills', color: '#8d8264', focalX: 0.50, focalY: 0.45, src: './backgrounds/40_تلال_خضراء_وضباب_Rolling_Green_Hills.jpg' },
+      { id: 'bg_mishkat', name: '١. غروب البحر ومآذن الشاطئ', color: '#f59e0b', focalX: 0.50, focalY: 0.42, src: null },
+      { id: 'bg_mountains_dawn', name: '٢. فجر الجبال الشامخة والنور', color: '#10b981', focalX: 0.50, focalY: 0.36, src: null },
+      { id: 'bg_kaaba', name: '٣. الكعبة المشرفة وجبال مكة', color: '#fbbf24', focalX: 0.50, focalY: 0.42, src: null },
+      { id: 'bg_nabawi', name: '٤. المسجد النبوي وجبل أحد', color: '#059669', focalX: 0.50, focalY: 0.38, src: null },
+      { id: 'bg_aqsa', name: '٥. قبة الصخرة وتلال الزيتون', color: '#eab308', focalX: 0.50, focalY: 0.42, src: null },
+      { id: 'bg_azhar_courtyard', name: '٦. بحر السكينة وانعكاس الهلال', color: '#3b82f6', focalX: 0.58, focalY: 0.30, src: null },
+      { id: 'bg_islamic_arches', name: '٧. قمم الجبال الضبابية بالسحر', color: '#6366f1', focalX: 0.50, focalY: 0.35, src: null },
+      { id: 'bg_cairo_mosques', name: '٨. ضفاف النيل ومآذن الغروب', color: '#d97706', focalX: 0.60, focalY: 0.36, src: null },
+      { id: 'bg_emerald_waterfall', name: '٩. شلالات الجبال والوادي الأخضر', color: '#14b8a6', focalX: 0.50, focalY: 0.42, src: null },
+      { id: 'bg_desert_crescent', name: '١٠. كثبان الصحراء وهلال الليل', color: '#b45309', focalX: 0.65, focalY: 0.26, src: null },
+      { id: 'bg_quran_rehal', name: '١١. بحيرة الجبل الصافية فجراً', color: '#0ea5e9', focalX: 0.50, focalY: 0.40, src: null },
+      { id: 'bg_mihrab', name: '١٢. شرفة المحراب المطلة على البحر', color: '#f59e0b', focalX: 0.50, focalY: 0.46, src: null },
+      { id: 'bg_hira_mountain', name: '١٣. جبل النور وآفاق السماء', color: '#d97706', focalX: 0.50, focalY: 0.36, src: null },
+      { id: 'bg_golden_sea', name: '١٤. أمواج البحر الذهبية شروقاً', color: '#facc15', focalX: 0.50, focalY: 0.38, src: null },
+      { id: 'bg_oasis_river', name: '١٥. واحة النخيل ونهر الوادي', color: '#0d9488', focalX: 0.50, focalY: 0.36, src: null },
+      { id: 'bg_laylat_alqadr', name: '١٦. الجبال الثلجية ومجرة السماء', color: '#94a3b8', focalX: 0.50, focalY: 0.34, src: null },
+      { id: 'bg_olive_blessed', name: '١٧. شجرة الزيتون المباركة والخليج', color: '#10b981', focalX: 0.50, focalY: 0.42, src: null },
+      { id: 'bg_galaxy_tasbih', name: '١٨. مشكاة النور فوق ساحل البحر', color: '#fbbf24', focalX: 0.50, focalY: 0.46, src: null },
+      { id: 'bg_aurora_sky', name: '١٩. أنوار الشفق فوق البحر والجبال', color: '#34d399', focalX: 0.50, focalY: 0.35, src: null },
+      { id: 'bg_rain_window', name: '٢٠. غيث السماء فوق التلال والبحر', color: '#38bdf8', focalX: 0.50, focalY: 0.38, src: null }
     ];
 
     function generateScenicDataUrl(type) {
@@ -2649,16 +2374,6 @@ const RECITERS_DATA = {
       const targetSub = subMode === 'video' ? 'video' : 'images';
       state.studioSubMode = targetSub;
 
-      try {
-        localStorage.setItem('refa3y_studio_submode', targetSub);
-        if (state.activeAppSection === 'studio') {
-          const hash = targetSub === 'video' ? '#studio-video' : '#studio';
-          if (window.location.hash !== hash) {
-            history.replaceState(null, '', hash);
-          }
-        }
-      } catch (e) {}
-
       if (imageWorkspaceSection) imageWorkspaceSection.classList.toggle('hidden', targetSub !== 'images');
       if (videoWorkspaceSection) videoWorkspaceSection.classList.toggle('hidden', targetSub !== 'video');
       if (imageOnlyEffectsBox) imageOnlyEffectsBox.classList.toggle('hidden', targetSub === 'video');
@@ -2689,7 +2404,6 @@ const RECITERS_DATA = {
       } else {
         stopVideoPreviewLoop();
         state.bgType = 'image';
-        setAspectRatio('9:16');
         if (state.lastImageBgId) {
           selectBackgroundById(state.lastImageBgId);
         } else {
@@ -2720,29 +2434,19 @@ const RECITERS_DATA = {
         btn.type = 'button';
         btn.className = `rounded-xl border text-right transition flex items-center gap-2 p-2 ${
           isSelected
-            ? 'bg-amber-500/20 border-amber-400 text-amber-100 shadow-sm'
+            ? 'bg-amber-500/20 border-amber-400 text-amber-100'
             : 'bg-slate-900 border-slate-700/80 hover:border-amber-400/50 text-slate-200'
         }`;
-        const arText = bg.arName || bg.name;
-        const enText = bg.enName || '';
         btn.innerHTML = `
           <span class="w-3.5 h-3.5 rounded-full shrink-0 border border-white/30" style="background:${bg.color || '#f59e0b'}"></span>
-          <div class="flex flex-col text-right min-w-0 flex-1 leading-tight">
-            <span class="text-xs font-bold truncate text-slate-100">${arText}</span>
-            ${enText ? `<span class="text-[10px] text-slate-400 truncate dir-ltr">${enText}</span>` : ''}
-          </div>
+          <span class="text-xs font-bold truncate">${bg.name}</span>
         `;
-        btn.title = bg.name;
         btn.addEventListener('click', () => selectBackgroundById(bg.id));
         bgGalleryGrid.appendChild(btn);
       });
     }
 
     function initBackgroundsGallery() {
-      if (!state.currentBgId) {
-        const firstImgBg = BACKGROUNDS_LIST.find(b => !b.isVideo);
-        if (firstImgBg) selectBackgroundById(firstImgBg.id);
-      }
       renderBgGallery();
     }
 
@@ -3036,22 +2740,29 @@ const RECITERS_DATA = {
       return new Blob([buffer], { type: 'audio/wav' });
     }
 
-    function getRifatClipWindow() {
-      const ayah = state.currentAyahKey ? AYAHS_DATA[state.currentAyahKey] : null;
-      if (!ayah || !ayah.isRifatClip || !isFinite(audioEl.duration) || audioEl.duration <= 0) {
-        return null;
+    function sliceAudioBufferBySeconds(srcBuffer, startSec, endSec) {
+      const rate = srcBuffer.sampleRate;
+      const channels = srcBuffer.numberOfChannels;
+      const sFrame = Math.max(0, Math.min(srcBuffer.length - 1, Math.floor((startSec || 0) * rate)));
+      const eFrame = Math.max(sFrame + 1, Math.min(srcBuffer.length, Math.ceil((endSec || srcBuffer.duration) * rate)));
+      const frameCount = Math.max(1, eFrame - sFrame);
+      const offlineCtx = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(channels, frameCount, rate);
+      const sliced = offlineCtx.createBuffer(channels, frameCount, rate);
+      for (let ch = 0; ch < channels; ch++) {
+        const chData = srcBuffer.getChannelData(ch).subarray(sFrame, eFrame);
+        sliced.getChannelData(ch).set(chData, 0);
       }
-      const fullDur = audioEl.duration;
-      const sSec = Math.max(0, Math.min(fullDur, ayah.rifatClipStartSec || 0));
-      const eSec = Math.max(sSec + 0.5, Math.min(fullDur, ayah.rifatClipEndSec || fullDur));
-      const clipDur = Math.max(0.5, eSec - sSec);
-      return { startSec: sSec, endSec: eSec, clipDuration: clipDur };
+      return sliced;
     }
 
     function getUnifiedDuration() {
-      if (state.currentReciterKey === 'muhammad_rifat') {
-        const win = getRifatClipWindow();
-        if (win) return win.clipDuration;
+      if (state.isRefaatSingleFileClip) {
+        const rawDur = isFinite(audioEl.duration) && audioEl.duration > 0 ? audioEl.duration : 0;
+        if (!rawDur) return 0;
+        if (state.refaatIsSubRange && state.refaatClipEndSec > state.refaatClipStartSec) {
+          return Math.max(1, state.refaatClipEndSec - state.refaatClipStartSec);
+        }
+        return rawDur;
       }
       if (state.isSequentialFallback && state.segmentDurations.length > 0) {
         const sum = state.segmentDurations.reduce((acc, d) => acc + (isFinite(d) && d > 0 ? d : 0), 0);
@@ -3061,12 +2772,12 @@ const RECITERS_DATA = {
     }
 
     function getUnifiedCurrentTime() {
-      if (state.currentReciterKey === 'muhammad_rifat') {
-        const win = getRifatClipWindow();
-        if (win) {
-          const rawCur = isFinite(audioEl.currentTime) ? audioEl.currentTime : win.startSec;
-          return Math.max(0, Math.min(win.clipDuration, rawCur - win.startSec));
+      if (state.isRefaatSingleFileClip) {
+        const rawCur = isFinite(audioEl.currentTime) ? audioEl.currentTime : 0;
+        if (state.refaatIsSubRange && state.refaatClipEndSec > state.refaatClipStartSec) {
+          return Math.max(0, Math.min(state.refaatClipEndSec - state.refaatClipStartSec, rawCur - state.refaatClipStartSec));
         }
+        return rawCur;
       }
       if (state.isSequentialFallback && state.segmentDurations.length > 0) {
         const curIdx = state.multiAyahCurrentIdx || 0;
@@ -3079,36 +2790,27 @@ const RECITERS_DATA = {
       return isFinite(audioEl.currentTime) ? audioEl.currentTime : 0;
     }
 
-    function resolveActiveSegmentIndex(currentSec, overrideTotalDur) {
+    function resolveActiveSegmentIndex(currentSec) {
+      if (state.isRefaatSingleFileClip) {
+        const ayah = state.currentAyahKey ? AYAHS_DATA[state.currentAyahKey] : null;
+        const list = ayah?.ayahTextsList || [];
+        if (list.length <= 1) return 0;
+        const totalDur = getUnifiedDuration();
+        if (totalDur <= 0) return 0;
+        const progress = Math.max(0, Math.min(1, currentSec / totalDur));
+        const weights = ayah.ayahCumulativeRatios;
+        if (Array.isArray(weights) && weights.length === list.length) {
+          for (let i = 0; i < weights.length; i++) {
+            if (progress <= weights[i] || i === weights.length - 1) return i;
+          }
+        }
+        return Math.min(list.length - 1, Math.floor(progress * list.length));
+      }
       if (state.isMergedMultiAudio && state.segmentTimings.length > 0) {
         for (let i = 0; i < state.segmentTimings.length; i++) {
           if (currentSec <= state.segmentTimings[i].endSec + 0.05 || i === state.segmentTimings.length - 1) {
             return i;
           }
-        }
-      }
-      const ayah = state.currentAyahKey ? AYAHS_DATA[state.currentAyahKey] : null;
-      const list = ayah?.ayahTextsList || [];
-      if (list.length > 1) {
-        // فحص مباشر بالتوقيت بالثواني للمقاطع
-        if (Array.isArray(ayah.segmentTimings) && ayah.segmentTimings.length === list.length) {
-          for (let i = 0; i < ayah.segmentTimings.length; i++) {
-            const segEnd = ayah.segmentTimings[i].endSec || 0;
-            if (currentSec <= segEnd + 0.05 || i === ayah.segmentTimings.length - 1) {
-              return i;
-            }
-          }
-        }
-        const totalDur = overrideTotalDur || getUnifiedDuration();
-        if (totalDur > 0) {
-          const progress = Math.max(0, Math.min(0.9999, (currentSec || 0) / totalDur));
-          const ratios = ayah.ayahCumulativeRatios;
-          if (Array.isArray(ratios) && ratios.length === list.length) {
-            for (let i = 0; i < ratios.length; i++) {
-              if (progress <= ratios[i] || i === ratios.length - 1) return i;
-            }
-          }
-          return Math.min(list.length - 1, Math.floor(progress * list.length));
         }
       }
       return state.multiAyahCurrentIdx || 0;
@@ -3280,7 +2982,11 @@ const RECITERS_DATA = {
         return;
       }
       if (!ayah) {
-        setStatus('تم اختيار القارئ — اختر السورة والآية الآن', 'amber');
+        if (reciter.isSurahClipReciter) {
+          setStatus('تم اختيار الشيخ محمد رفعت — اختر من السور الـ ٣٢ المتوفرة له الآن', 'amber');
+        } else {
+          setStatus('تم اختيار القارئ — اختر السورة والآية الآن', 'amber');
+        }
         return;
       }
 
@@ -3289,18 +2995,15 @@ const RECITERS_DATA = {
         if (firstImgBg) selectBackgroundById(firstImgBg.id);
       }
 
-      if (state.currentReciterKey === 'muhammad_rifat' && ayah) {
-        const sNum = Number(ayah.surahNum || state.selectedSurahNum || parseInt((ayah.everyAyahCode || '').slice(0, 3), 10)) || 1;
-        const rifatSurahs = [1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 96, 98, 100];
-        if (sNum && !rifatSurahs.includes(sNum)) {
-          setStatus(`سورة ${ayah.surahName || ''} غير متوفرة في تسجيلات الشيخ محمد رفعت — اختر من الـ ٣١ سورة المتوفرة له`, 'amber');
+      // معالجة خاصة لتسجيلات الشيخ محمد رفعت (ملف السورة الكامل أو اقتطاع آيات معينة منه بدون أي قارئ بديل)
+      if (reciter.isSurahClipReciter) {
+        const sNum = Number(ayah.surahNum || state.selectedSurahNum || String(ayah.everyAyahCode || '001001').slice(0, 3)) || 1;
+        if (Array.isArray(reciter.availableSurahs) && !reciter.availableSurahs.includes(sNum)) {
+          setStatus(`سورة ${ayah.surahName || ''} غير متوفرة في تسجيلات الشيخ محمد رفعت — اختر من السور المتاحة له في القائمة`, 'amber');
           return;
         }
-        // تلاوات الشيخ محمد رفعت التاريخية مسجلة كسور كاملة — يتم تشغيل التسجيل الصوتي للسورة أو الجزء المحدد للآيات المختارة
         state.isRefaatSingleFileClip = true;
-        state.isMergedMultiAudio = false;
-        state.isSequentialFallback = false;
-        state.urlQueue = reciter.getUrls(ayah);
+        state.urlQueue = reciter.getSurahUrls ? reciter.getSurahUrls(sNum) : reciter.getUrls(ayah);
         state.urlIndex = 0;
         tryLoadAudioUrl(autoPlay);
         return;
@@ -3338,7 +3041,7 @@ const RECITERS_DATA = {
         state.urlIndex += 1;
         tryLoadAudioUrl(state.isPlaying);
       } else {
-        if (state.currentReciterKey === 'muhammad_rifat') {
+        if (state.currentReciterKey === 'mohamed_refaat') {
           setStatus('تعذر تحميل تسجيل الشيخ محمد رفعت لهذه السورة — جرب سورة أخرى متوفرة له', 'rose');
         } else {
           setStatus('تعذر تحميل التلاوة — جرب قارئاً آخر', 'rose');
@@ -3347,11 +3050,31 @@ const RECITERS_DATA = {
     });
 
     audioEl.addEventListener('loadedmetadata', () => {
-      if (state.currentReciterKey === 'muhammad_rifat') {
-        const win = getRifatClipWindow();
-        if (win) {
-          seekAudioSafely(win.startSec);
+      if (state.isRefaatSingleFileClip && isFinite(audioEl.duration) && audioEl.duration > 0) {
+        const fullDur = audioEl.duration;
+        if (state.refaatIsSubRange) {
+          if (!state.refaatUserAdjustedTrim) {
+            const sRat = Math.max(0, Math.min(0.95, state.refaatStartRatio || 0));
+            const eRat = Math.max(sRat + 0.02, Math.min(1, state.refaatEndRatio || 1));
+            state.refaatClipStartSec = Math.floor(fullDur * sRat);
+            state.refaatClipEndSec = Math.min(Math.floor(fullDur), Math.max(state.refaatClipStartSec + 4, Math.ceil(fullDur * eRat)));
+          } else {
+            state.refaatClipStartSec = Math.max(0, Math.min(fullDur - 2, state.refaatClipStartSec || 0));
+            state.refaatClipEndSec = Math.max(state.refaatClipStartSec + 2, Math.min(fullDur, state.refaatClipEndSec || fullDur));
+          }
+          try { audioEl.currentTime = state.refaatClipStartSec; } catch (e) {}
+          syncRefaatTrimSlidersUI(fullDur);
+        } else {
+          state.refaatClipStartSec = 0;
+          state.refaatClipEndSec = fullDur;
         }
+        const effDur = getUnifiedDuration();
+        timeDuration.textContent = formatTime(effDur);
+        setStatus(`جاهز للتشغيل (${formatTime(effDur)})`, 'emerald');
+        updateVideoTimingComparisonUI();
+        refreshBigPlayOverlayVisibility();
+        requestRenderOnce();
+        return;
       }
       if (state.isSequentialFallback) {
         const curIdx = state.multiAyahCurrentIdx || 0;
@@ -3369,35 +3092,19 @@ const RECITERS_DATA = {
         requestRenderOnce();
         return;
       }
-      const effDur = getUnifiedDuration();
-      timeDuration.textContent = formatTime(effDur);
-      setStatus(`جاهز للتشغيل (${formatTime(effDur)})`, 'emerald');
+      timeDuration.textContent = formatTime(audioEl.duration);
+      setStatus(`جاهز للتشغيل (${formatTime(audioEl.duration)})`, 'emerald');
       updateVideoTimingComparisonUI();
       refreshBigPlayOverlayVisibility();
       requestRenderOnce();
     });
 
-        function seekAudioSafely(targetSec) {
-      if (isFinite(audioEl.duration) && audioEl.duration > 0 && audioEl.readyState >= 1) {
-        try {
-          if (Math.abs(audioEl.currentTime - targetSec) > 0.3) {
-            audioEl.currentTime = targetSec;
-          }
-        } catch (e) {}
-      } else {
-        const onReady = () => {
-          audioEl.removeEventListener('loadedmetadata', onReady);
-          audioEl.removeEventListener('canplay', onReady);
-          try {
-            audioEl.currentTime = targetSec;
-          } catch (e) {}
-        };
-        audioEl.addEventListener('loadedmetadata', onReady);
-        audioEl.addEventListener('canplay', onReady);
+    audioEl.addEventListener('play', () => {
+      if (state.isRefaatSingleFileClip && state.refaatIsSubRange && isFinite(audioEl.duration)) {
+        if (audioEl.currentTime < state.refaatClipStartSec - 0.25 || audioEl.currentTime >= state.refaatClipEndSec - 0.15) {
+          try { audioEl.currentTime = state.refaatClipStartSec; } catch (e) {}
+        }
       }
-    }
-
-audioEl.addEventListener('play', () => {
       updatePlayUI(true);
       setStatus('جاري التشغيل...', 'amber');
       if (state.bgType === 'video' && sourceVideo) {
@@ -3424,13 +3131,13 @@ audioEl.addEventListener('play', () => {
     });
 
     audioEl.addEventListener('timeupdate', () => {
-      if (state.currentReciterKey === 'muhammad_rifat') {
-        const win = getRifatClipWindow();
-        if (win && audioEl.currentTime >= win.endSec) {
+      if (state.isRefaatSingleFileClip && state.refaatIsSubRange && !audioEl.paused) {
+        if (audioEl.currentTime >= state.refaatClipEndSec) {
           audioEl.pause();
-          seekAudioSafely(win.startSec);
+          try { audioEl.currentTime = state.refaatClipStartSec; } catch (e) {}
+          state.multiAyahCurrentIdx = 0;
           updatePlayUI(false);
-          setStatus('اكتملت التلاوة', 'emerald');
+          setStatus('اكتملت التلاوة المختارة', 'emerald');
           requestRenderOnce();
           return;
         }
@@ -3442,7 +3149,9 @@ audioEl.addEventListener('play', () => {
         seekSlider.value = Math.round(ratio * 1000);
         timeCurrent.textContent = formatTime(curSec);
         timeDuration.textContent = formatTime(totalDur);
-        state.multiAyahCurrentIdx = resolveActiveSegmentIndex(curSec);
+        if (state.isMergedMultiAudio || state.isRefaatSingleFileClip) {
+          state.multiAyahCurrentIdx = resolveActiveSegmentIndex(curSec);
+        }
       }
     });
 
@@ -3907,26 +3616,7 @@ audioEl.addEventListener('play', () => {
         targetCtx.textAlign = 'center';
         targetCtx.textBaseline = 'middle';
         const parts = [];
-        if (ayah) {
-          if (ayah.isRareConcert) {
-            parts.push(`${ayah.surahName} (${ayah.ayahNumber})`);
-          } else if (isRifat && ayah.startAyahNum > 1) {
-            parts.push(`${ayah.surahName} — مقطع صوتي`);
-          } else if (!isRifat && state.textMode === 'ayah_transcript' && Array.isArray(ayah.ayahMetaList) && ayah.ayahMetaList.length > 0) {
-            const curIdx = Math.min(ayah.ayahMetaList.length - 1, Math.max(0, activeSegmentIdx || 0));
-            const m = ayah.ayahMetaList[curIdx];
-            if (m?.type === 'istiadhah') {
-              parts.push(`${ayah.surahName} — الاستعاذة`);
-            } else if (m?.type === 'basmalah') {
-              parts.push(`${ayah.surahName} — البسملة`);
-            } else {
-              parts.push(`${ayah.surahName} — ${m?.label || `الآية ${ayah.ayahNumber}`}`);
-            }
-          } else {
-            const isRange = String(ayah.ayahNumber).includes('-');
-            parts.push(`${ayah.surahName} — ${isRange ? `الآيات ${ayah.ayahNumber}` : `الآية ${ayah.ayahNumber}`}`);
-          }
-        }
+        if (ayah) parts.push(ayah.isRareConcert ? `${ayah.surahName} (${ayah.ayahNumber})` : `${ayah.surahName} — الآية ${ayah.ayahNumber}`);
         if (state.customAudioName) parts.push(state.customAudioName);
         else if (reciter) parts.push(reciter.name.replace(/[()]/g, ''));
         targetCtx.fillText(parts.join('  •  '), W / 2, topBarY + topBarH / 2);
@@ -3991,16 +3681,12 @@ audioEl.addEventListener('play', () => {
         bottomSafeY = H - (isVertical ? 60 : 48) - wmPillH - 12;
       }
 
-      // LAYER 6: عرض النص القرآني (مع تعطيل عرض النص إذا كان المقطع من وسط التلاوة للشيخ محمد رفعت، وتعطيل التتابع معه تماماً)
-      const isRifat = (state.currentReciterKey === 'muhammad_rifat');
-      const isRifatSubClip = Boolean(isRifat && ayah && ayah.startAyahNum > 1);
-
-      if (ayah && state.textMode !== 'none' && !isRifatSubClip) {
+      // LAYER 6: عرض النص القرآني مع اختيار نوع الخط وستايل البرواز وشفافيته
+      if (ayah && state.textMode !== 'none') {
         targetCtx.save();
 
         let displayTranscript = ayah.transcriptText || '';
-        // تعطيل التتابع نهائياً مع الشيخ محمد رفعت
-        if (!isRifat && state.textMode === 'ayah_transcript' && Array.isArray(ayah.ayahTextsList) && ayah.ayahTextsList.length > 0) {
+        if (state.textMode === 'ayah_transcript' && Array.isArray(ayah.ayahTextsList) && ayah.ayahTextsList.length > 0) {
           const idx = Math.min(ayah.ayahTextsList.length - 1, Math.max(0, activeSegmentIdx || 0));
           displayTranscript = ayah.ayahTextsList[idx];
         }
@@ -4270,7 +3956,9 @@ audioEl.addEventListener('play', () => {
         syncVideoPlaybackToState(state.isPlaying ? curSec : (state.isVideoPreviewLooping ? tSec : curSec));
       }
       const overallProgress = totalDur > 0 ? Math.min(1, Math.max(0, curSec / totalDur)) : 0;
-      const activeSegIdx = resolveActiveSegmentIndex(curSec);
+      const activeSegIdx = state.isMergedMultiAudio
+        ? resolveActiveSegmentIndex(curSec)
+        : (state.multiAyahCurrentIdx || 0);
       const simEnv = state.isPlaying ? (0.55 + 0.35 * Math.sin(tSec * 4.7)) : 0.25;
 
       drawSceneFrame(
@@ -4347,7 +4035,10 @@ audioEl.addEventListener('play', () => {
       if (!state.currentAyahKey && !state.customAudioUrl) return;
       state.multiAyahCurrentIdx = 0;
       const ayah = AYAHS_DATA[state.currentAyahKey];
-      if (state.isSequentialFallback && ayah?.isMultiAyah && Array.isArray(ayah.multiQueue) && ayah.multiQueue.length > 0 && !state.customAudioUrl) {
+      if (state.isRefaatSingleFileClip && state.refaatIsSubRange) {
+        audioEl.currentTime = state.refaatClipStartSec || 0;
+        audioEl.play().catch(() => {});
+      } else if (state.isSequentialFallback && ayah?.isMultiAyah && Array.isArray(ayah.multiQueue) && ayah.multiQueue.length > 0 && !state.customAudioUrl) {
         const reciter = RECITERS_DATA[state.currentReciterKey] || RECITERS_DATA.minshawi_mujawwad;
         state.urlQueue = reciter.getUrls(ayah.multiQueue[0]);
         state.urlIndex = 0;
@@ -4363,6 +4054,15 @@ audioEl.addEventListener('play', () => {
       const totalDur = getUnifiedDuration();
       if (totalDur <= 0) return;
       const targetSec = ratio * totalDur;
+
+      if (state.isRefaatSingleFileClip && isFinite(audioEl.duration) && audioEl.duration > 0) {
+        const baseStart = state.refaatIsSubRange ? (state.refaatClipStartSec || 0) : 0;
+        audioEl.currentTime = Math.min(audioEl.duration, baseStart + targetSec);
+        timeCurrent.textContent = formatTime(targetSec);
+        state.multiAyahCurrentIdx = resolveActiveSegmentIndex(targetSec);
+        requestRenderOnce();
+        return;
+      }
 
       if (state.isSequentialFallback && state.segmentDurations.length > 0) {
         const ayah = AYAHS_DATA[state.currentAyahKey];
@@ -4401,20 +4101,11 @@ audioEl.addEventListener('play', () => {
         return;
       }
 
-      if (state.currentReciterKey === 'muhammad_rifat') {
-        const win = getRifatClipWindow();
-        if (win) {
-          audioEl.currentTime = win.startSec + (ratio * win.clipDuration);
-          timeCurrent.textContent = formatTime(targetSec);
-          state.multiAyahCurrentIdx = resolveActiveSegmentIndex(targetSec, win.clipDuration);
-          requestRenderOnce();
-          return;
-        }
-      }
-
       if (isFinite(audioEl.duration) && audioEl.duration > 0) {
         audioEl.currentTime = targetSec;
-        state.multiAyahCurrentIdx = resolveActiveSegmentIndex(targetSec);
+        if (state.isMergedMultiAudio) {
+          state.multiAyahCurrentIdx = resolveActiveSegmentIndex(targetSec);
+        }
         requestRenderOnce();
       }
     });
@@ -4532,7 +4223,7 @@ audioEl.addEventListener('play', () => {
             </div>
             <div class="flex items-center justify-between text-xs text-slate-300 w-full">
               <span class="font-medium">${item.concertTitle}</span>
-              <span class="text-[11px] text-amber-300/90 font-mono">${item.surahName} (${item.ayahRange})</span>
+              <span class="text-[11px] text-amber-300/90 font-mono">${item.surahName} (${toArabicDigits(item.startAyah)}–${toArabicDigits(item.endAyah)})</span>
             </div>
             <p class="text-[11px] text-slate-400 font-normal line-clamp-1 italic">${item.previewExcerpt}</p>
           </button>
@@ -4802,35 +4493,22 @@ audioEl.addEventListener('play', () => {
           activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[160px] font-bold';
         }
 
-        const isRifat = state.currentReciterKey === 'muhammad_rifat';
-        syncScopeButtonsForReciter();
-        syncTextModeUIForReciter();
-        populateSurahDropdown(isRifat);
-        if (isRifat && reciterObj?.availableSurahs) {
+        // تحديث قائمة السور لتعرض السور المتوفرة للقارئ (٣٢ سورة للشيخ محمد رفعت أو ١١٤ سورة لباقي القراء)
+        populateSurahDropdown(state.selectedSurahNum);
+
+        if (reciterObj?.isSurahClipReciter) {
           if (!state.selectedSurahNum || !reciterObj.availableSurahs.includes(state.selectedSurahNum)) {
+            // التحويل التلقائي لأشهر وأروع تلاوات الشيخ محمد رفعت (سورة مريم - رقم ١٩) لضمان سماع صوته فوراً
             state.selectedSurahNum = 19;
-            if (selectSurahEl) selectSurahEl.value = '19';
-            const maxMaryam = REFAAT_RECITED_RANGES[19][1];
+            selectSurahEl.value = '19';
+            const sCount = SURAHS_META[18][2];
             setAyahSelectionMode('full');
-            populateAyahDropdowns(19, 1, maxMaryam);
-            applySurahAndAyahSelection(19, 1, maxMaryam, false);
-            return;
-          } else if (state.selectedSurahNum) {
-            const maxA = REFAAT_RECITED_RANGES[state.selectedSurahNum] ? REFAAT_RECITED_RANGES[state.selectedSurahNum][1] : (state.selectedToAyah || 1);
-            setAyahSelectionMode('full');
-            populateAyahDropdowns(state.selectedSurahNum, 1, maxA);
-            applySurahAndAyahSelection(state.selectedSurahNum, 1, maxA, false);
+            populateAyahDropdowns(19, 1, sCount);
+            applySurahAndAyahSelection(19, 1, sCount, false);
             return;
           }
-        } else {
-          // لأي قارئ آخر: إذا كانت هناك سورة محددة نطبق الآية المختارة فوراً، وإن لم تكن نحدد سورة الفاتحة الآية ١ افتراضياً
-          const sNum = state.selectedSurahNum || 1;
-          const fromA = state.surahScopeMode === 'full' ? 1 : (state.selectedFromAyah || 1);
-          const toA = state.surahScopeMode === 'full' ? 1 : (state.selectedToAyah || fromA);
-          state.selectedSurahNum = sNum;
-          if (selectSurahEl) selectSurahEl.value = String(sNum);
-          populateAyahDropdowns(sNum, fromA, toA);
-          applySurahAndAyahSelection(sNum, fromA, toA, false);
+        } else if (state.selectedSurahNum && state.selectedFromAyah) {
+          applySurahAndAyahSelection(state.selectedSurahNum, state.selectedFromAyah, state.selectedToAyah || state.selectedFromAyah, false);
           return;
         }
 
@@ -4855,34 +4533,8 @@ audioEl.addEventListener('play', () => {
       }
     });
 
-    function syncTextModeUIForReciter() {
-      const isRifat = (state.currentReciterKey === 'muhammad_rifat');
-      if (!selectTextMode) return;
-      const optAyahTranscript = selectTextMode.querySelector('option[value="ayah_transcript"]');
-      if (optAyahTranscript) {
-        if (isRifat) {
-          optAyahTranscript.disabled = true;
-          optAyahTranscript.classList.add('hidden');
-          if (state.textMode === 'ayah_transcript') {
-            state.textMode = 'transcript';
-            selectTextMode.value = 'transcript';
-          }
-        } else {
-          optAyahTranscript.disabled = false;
-          optAyahTranscript.classList.remove('hidden');
-        }
-      }
-    }
-
     selectTextMode.addEventListener('change', () => {
-      const isRifat = (state.currentReciterKey === 'muhammad_rifat');
-      if (isRifat && selectTextMode.value === 'ayah_transcript') {
-        setStatus('عرض النص بالتتابع غير متوفر مع تسجيلات الشيخ محمد رفعت الإذاعية', 'amber');
-        selectTextMode.value = 'transcript';
-        state.textMode = 'transcript';
-      } else {
-        state.textMode = selectTextMode.value;
-      }
+      state.textMode = selectTextMode.value;
       requestRenderOnce();
     });
 
@@ -5037,11 +4689,11 @@ audioEl.addEventListener('play', () => {
       valGlow.textContent = '85%';
       valParticles.textContent = '60%';
       state.visualFilter = 'none';
-      state.mediaFitMode = state.aspectRatio || '9:16';
+      state.mediaFitMode = state.aspectRatio || '16:9';
       state.bgBrightness = 1.0;
       state.mediaPan = 0.50;
       if (selectVisualFilter) selectVisualFilter.value = 'none';
-      if (selectMediaFitMode) selectMediaFitMode.value = state.aspectRatio || '9:16';
+      if (selectMediaFitMode) selectMediaFitMode.value = state.aspectRatio || '16:9';
       if (sliderBgBrightness) sliderBgBrightness.value = '100';
       if (valBgBrightness) valBgBrightness.textContent = '100%';
       state.watermarkText = 'Refa3y';
@@ -5240,13 +4892,18 @@ audioEl.addEventListener('play', () => {
 
       try {
         const ayah = AYAHS_DATA[state.currentAyahKey];
-        const isMultiSegment = Boolean(state.currentReciterKey !== 'muhammad_rifat' && ayah?.isMultiAyah && Array.isArray(ayah.multiQueue) && ayah.multiQueue.length > 1 && !state.customAudioUrl);
+        const isRefaatSingle = Boolean(state.isRefaatSingleFileClip && !state.customAudioUrl);
+        const isMultiSegment = !isRefaatSingle && Boolean(ayah?.isMultiAyah && Array.isArray(ayah.multiQueue) && ayah.multiQueue.length > 1 && !state.customAudioUrl);
         const segmentsList = isMultiSegment ? ayah.multiQueue : [ayah];
         const totalSegments = segmentsList.length;
 
         const hasCachedBuffers = isMultiSegment && Array.isArray(ayah._decodedBuffers) && ayah._decodedBuffers.length === totalSegments && ayah._decodedReciterKey === state.currentReciterKey;
         let firstBuffer = hasCachedBuffers ? ayah._decodedBuffers[0] : await fetchAndDecodeSingleItem(segmentsList[0], null);
         if (exportAbortController.cancelled) throw new Error('CANCELLED');
+
+        if (isRefaatSingle && state.refaatIsSubRange && state.refaatClipEndSec > state.refaatClipStartSec) {
+          firstBuffer = sliceAudioBufferBySeconds(firstBuffer, state.refaatClipStartSec, state.refaatClipEndSec);
+        }
 
         const baseSampleRate = firstBuffer.sampleRate;
         const baseChannels = firstBuffer.numberOfChannels;
@@ -5259,38 +4916,6 @@ audioEl.addEventListener('play', () => {
           decodedSegmentsList.push(b);
         }
         firstBuffer = null;
-
-        if (ayah?.isRifatClip) {
-          const fullBuf = decodedSegmentsList[0];
-          if (fullBuf) {
-            const totalFrames = fullBuf.length;
-            const fullDur = fullBuf.duration;
-            let sSec = 0;
-            let eSec = fullDur;
-            if (ayah.rifatClipStartSec !== undefined && ayah.rifatClipEndSec !== undefined) {
-              sSec = Math.max(0, Math.min(fullDur, ayah.rifatClipStartSec || 0));
-              eSec = Math.max(sSec + 0.5, Math.min(fullDur, ayah.rifatClipEndSec || fullDur));
-            } else if (ayah.rifatStartRatio > 0 || (ayah.rifatEndRatio < 0.999 && ayah.rifatEndRatio > 0)) {
-              sSec = (ayah.rifatStartRatio || 0) * fullDur;
-              eSec = (ayah.rifatEndRatio || 1) * fullDur;
-            }
-            if (sSec > 0.05 || eSec < fullDur - 0.5) {
-              const sFrame = Math.max(0, Math.floor(sSec * fullBuf.sampleRate));
-              const eFrame = Math.min(totalFrames, Math.ceil(eSec * fullBuf.sampleRate));
-              const sliceFrames = Math.max(1024, eFrame - sFrame);
-              const slicedBuf = new AudioBuffer({
-                numberOfChannels: fullBuf.numberOfChannels,
-                length: sliceFrames,
-                sampleRate: fullBuf.sampleRate
-              });
-              for (let ch = 0; ch < fullBuf.numberOfChannels; ch++) {
-                const srcCh = fullBuf.getChannelData(ch);
-                slicedBuf.copyToChannel(srcCh.subarray(sFrame, sFrame + sliceFrames), ch, 0);
-              }
-              decodedSegmentsList[0] = slicedBuf;
-            }
-          }
-        }
 
         const exactTotalExportSec = decodedSegmentsList.reduce((acc, b) => acc + (b ? b.duration : 0), 0);
         state.exportTotalDurationSec = exactTotalExportSec;
@@ -5443,8 +5068,7 @@ audioEl.addEventListener('play', () => {
                 }
               }
 
-              const activeFrameSegIdx = (totalSegments > 1) ? sIdx : resolveActiveSegmentIndex(simTimeSec, exactTotalExportSec);
-              drawSceneFrame(offCtx, outW, outH, simTimeSec, overallRatio, activeFrameSegIdx, true, segRms[f]);
+              drawSceneFrame(offCtx, outW, outH, simTimeSec, overallRatio, isRefaatSingle ? resolveActiveSegmentIndex(simTimeSec) : sIdx, true, segRms[f]);
 
               const vFrame = new VideoFrame(offCanvas, {
                 timestamp: Math.round(simTimeSec * 1_000_000),
@@ -5519,8 +5143,7 @@ audioEl.addEventListener('play', () => {
                 }
                 if (sourceVideo.paused) sourceVideo.play().catch(() => {});
               }
-              const activeMRSegIdx = (totalSegments > 1) ? sIdx : resolveActiveSegmentIndex(totalElapsed, exactTotalExportSec);
-              drawSceneFrame(offCtx, outW, outH, totalElapsed, overallRatio, activeMRSegIdx, true, segRms[fIdx]);
+              drawSceneFrame(offCtx, outW, outH, totalElapsed, overallRatio, isRefaatSingle ? resolveActiveSegmentIndex(totalElapsed) : sIdx, true, segRms[fIdx]);
               const pct = Math.min(99, Math.round(overallRatio * 100));
               exportProgressBar.style.width = `${pct}%`;
               exportProgressPercent.textContent = `${pct}%`;
@@ -5678,35 +5301,24 @@ audioEl.addEventListener('play', () => {
     }
 
     state.isMultiAyahMode = false;
-    state.isFullSurahMode = false;
-    state.surahScopeMode = 'single';
     state.selectedSurahNum = null;
     state.selectedFromAyah = null;
     state.selectedToAyah = null;
     state.multiAyahQueue = [];
     state.multiAyahCurrentIdx = 0;
 
-    // إعدادات واقتصاص المقطع الصوتي
-
-    // قائمة السور الـ ٣١ الكاملة المتوفرة تاريخياً بصوت الشيخ محمد رفعت على MP3Quran
-    const RIFAT_AVAILABLE_SURAHS = [1, 10, 11, 12, 17, 18, 19, 20, 48, 54, 55, 56, 69, 72, 73, 75, 76, 77, 78, 79, 81, 82, 83, 85, 86, 87, 88, 89, 96, 98, 100];
-
     const selectSurahEl = document.getElementById('selectSurah');
     const selectFromAyahEl = document.getElementById('selectFromAyah');
     const selectToAyahEl = document.getElementById('selectToAyah');
+    const btnModeFullSurah = document.getElementById('btnModeFullSurah');
     const btnModeSingleAyah = document.getElementById('btnModeSingleAyah');
     const btnModeMultiAyah = document.getElementById('btnModeMultiAyah');
-    const btnModeFullSurah = document.getElementById('btnModeFullSurah');
     const toAyahWrapper = document.getElementById('toAyahWrapper');
-    const ayahPickersRow = document.getElementById('ayahPickersRow');
     const lblFromAyah = document.getElementById('lblFromAyah');
     const singleAyahApplyWrapper = document.getElementById('singleAyahApplyWrapper');
     const multiAyahApplyWrapper = document.getElementById('multiAyahApplyWrapper');
-    const fullSurahApplyWrapper = document.getElementById('fullSurahApplyWrapper');
     const btnLoadSelectedAyahs = document.getElementById('btnLoadSelectedAyahs');
     const btnLoadMultiAyahs = document.getElementById('btnLoadMultiAyahs');
-    const btnLoadFullSurah = document.getElementById('btnLoadFullSurah');
-    const rifatFilterBadge = document.getElementById('rifatFilterBadge');
     const surahSelectionSummary = document.getElementById('surahSelectionSummary');
     const searchAyahInput = document.getElementById('searchAyahInput');
     const btnSearchAyah = document.getElementById('btnSearchAyah');
@@ -5714,305 +5326,260 @@ audioEl.addEventListener('play', () => {
     const searchStatusText = document.getElementById('searchStatusText');
     const searchResultsList = document.getElementById('searchResultsList');
 
+    state.isFullSurahMode = false;
 
-
-    function populateSurahDropdown(filterRifat = false) {
+    function populateSurahDropdown(selectedSurah = null) {
       if (!selectSurahEl) return;
-      const prevVal = parseInt(selectSurahEl.value, 10);
-      selectSurahEl.innerHTML = '<option value="" selected disabled>— اختر السورة —</option>';
-      const list = filterRifat ? SURAHS_META.filter(([num]) => RIFAT_AVAILABLE_SURAHS.includes(num)) : SURAHS_META;
-      list.forEach(([num, name, count]) => {
+      const reciterObj = state.currentReciterKey ? RECITERS_DATA[state.currentReciterKey] : null;
+      const allowedList = reciterObj?.isSurahClipReciter ? reciterObj.availableSurahs : null;
+      const headerLabel = allowedList
+        ? `— اختر من سور الشيخ محمد رفعت (${toArabicDigits(allowedList.length)} سورة) —`
+        : '— اختر السورة —';
+
+      selectSurahEl.innerHTML = `<option value="" ${selectedSurah ? '' : 'selected'} disabled>${headerLabel}</option>`;
+      SURAHS_META.forEach(([num, name, count]) => {
+        if (allowedList && !allowedList.includes(num)) return;
         const opt = document.createElement('option');
         opt.value = String(num);
         opt.textContent = `${toArabicDigits(num)}. سورة ${name} (${toArabicDigits(count)})`;
+        if (selectedSurah && Number(selectedSurah) === num) opt.selected = true;
         selectSurahEl.appendChild(opt);
       });
-
-      if (rifatFilterBadge) {
-        rifatFilterBadge.classList.toggle('hidden', !filterRifat);
-      }
-
-      if (prevVal && list.some(([num]) => num === prevVal)) {
-        selectSurahEl.value = String(prevVal);
-      } else if (filterRifat && list.length > 0) {
-        // إذا لم تكن السورة السابقة ضمن سور الشيخ محمد رفعت، نحدد أول سورة متوفرة (سورة الفاتحة)
-        selectSurahEl.value = String(list[0][0]);
-        state.selectedSurahNum = list[0][0];
-        populateAyahDropdowns(list[0][0]);
-      }
     }
 
     function populateAyahDropdowns(surahNum, selectedFrom = null, selectedTo = null) {
       const meta = SURAHS_META[surahNum - 1];
       if (!meta || !selectFromAyahEl || !selectToAyahEl) return;
-      const isRifat = state.currentReciterKey === 'muhammad_rifat';
-      const maxCount = (isRifat && REFAAT_RECITED_RANGES[surahNum]) ? REFAAT_RECITED_RANGES[surahNum][1] : meta[2];
+      const count = meta[2];
+      selectFromAyahEl.innerHTML = '<option value="" disabled ' + (selectedFrom ? '' : 'selected') + '>— اختر الآية —</option>';
+      selectToAyahEl.innerHTML = '<option value="" disabled ' + (selectedTo ? '' : 'selected') + '>— اختر الآية —</option>';
+      for (let a = 1; a <= count; a++) {
+        const opt1 = document.createElement('option');
+        opt1.value = String(a);
+        opt1.textContent = `الآية ${toArabicDigits(a)}`;
+        if (selectedFrom && a === selectedFrom) opt1.selected = true;
+        selectFromAyahEl.appendChild(opt1);
 
-      if (isRifat) {
-        // للشيخ محمد رفعت: تلاوة السورة تبدأ دائماً وحصراً من بداية المقطع (الآية ١)
-        selectFromAyahEl.innerHTML = '<option value="1" selected>الآية ١ (بداية التلاوة الإذاعية)</option>';
-        selectFromAyahEl.disabled = true;
-        if (lblFromAyah) lblFromAyah.textContent = 'بداية التلاوة:';
+        const opt2 = document.createElement('option');
+        opt2.value = String(a);
+        opt2.textContent = `الآية ${toArabicDigits(a)}`;
+        if (selectedTo && a === selectedTo) opt2.selected = true;
+        selectToAyahEl.appendChild(opt2);
+      }
+    }
 
-        // اختيار عدد الآيات المطلوب تصميم الفيديو عليها بدءاً من أول السورة
-        selectToAyahEl.innerHTML = '<option value="" disabled ' + (selectedTo ? '' : 'selected') + '>— اختر نهاية الآيات المطلوبة —</option>';
-        for (let a = 1; a <= maxCount; a++) {
-          const opt = document.createElement('option');
-          opt.value = String(a);
-          opt.textContent = a === 1 ? 'الآية ١ فقط (من البداية)' : `حتى الآية ${toArabicDigits(a)} (أول ${toArabicDigits(a)} آيات)`;
-          if (selectedTo && a === selectedTo) opt.selected = true;
-          selectToAyahEl.appendChild(opt);
+    function setAyahSelectionMode(mode) {
+      // mode can be 'full', 'single', 'multi', or boolean (true => 'multi', false => 'single')
+      const resolvedMode = mode === true ? 'multi' : (mode === false ? 'single' : mode);
+      state.isFullSurahMode = resolvedMode === 'full';
+      state.isMultiAyahMode = resolvedMode === 'multi' || resolvedMode === 'full';
+
+      const activeCls = 'py-1 px-1.5 rounded-lg text-[11px] font-bold transition bg-amber-500 text-slate-950';
+      const inactiveCls = 'py-1 px-1.5 rounded-lg text-[11px] font-bold transition text-slate-300 hover:text-amber-200';
+
+      if (btnModeFullSurah) btnModeFullSurah.className = resolvedMode === 'full' ? activeCls : inactiveCls;
+      if (btnModeSingleAyah) btnModeSingleAyah.className = resolvedMode === 'single' ? activeCls : inactiveCls;
+      if (btnModeMultiAyah) btnModeMultiAyah.className = resolvedMode === 'multi' ? activeCls : inactiveCls;
+
+      if (resolvedMode === 'full') {
+        toAyahWrapper.classList.remove('hidden');
+        singleAyahApplyWrapper.classList.add('hidden');
+        multiAyahApplyWrapper.classList.remove('hidden');
+        lblFromAyah.textContent = 'من الآية:';
+        const sNum = parseInt(selectSurahEl?.value, 10) || state.selectedSurahNum;
+        if (sNum) {
+          const sCount = SURAHS_META[sNum - 1][2];
+          populateAyahDropdowns(sNum, 1, sCount);
+          applySurahAndAyahSelection(sNum, 1, sCount, Boolean(state.currentReciterKey));
         }
+      } else if (resolvedMode === 'multi') {
+        toAyahWrapper.classList.remove('hidden');
+        singleAyahApplyWrapper.classList.add('hidden');
+        multiAyahApplyWrapper.classList.remove('hidden');
+        lblFromAyah.textContent = 'من الآية:';
       } else {
-        selectFromAyahEl.disabled = false;
-        if (lblFromAyah) lblFromAyah.textContent = state.surahScopeMode === 'multi' ? 'من الآية:' : 'الآية:';
-        selectFromAyahEl.innerHTML = '<option value="" disabled ' + (selectedFrom ? '' : 'selected') + '>— اختر الآية —</option>';
-        selectToAyahEl.innerHTML = '<option value="" disabled ' + (selectedTo ? '' : 'selected') + '>— اختر الآية —</option>';
-        for (let a = 1; a <= maxCount; a++) {
-          const opt1 = document.createElement('option');
-          opt1.value = String(a);
-          opt1.textContent = `الآية ${toArabicDigits(a)}`;
-          if (selectedFrom && a === selectedFrom) opt1.selected = true;
-          selectFromAyahEl.appendChild(opt1);
-
-          const opt2 = document.createElement('option');
-          opt2.value = String(a);
-          opt2.textContent = `الآية ${toArabicDigits(a)}`;
-          if (selectedTo && a === selectedTo) opt2.selected = true;
-          selectToAyahEl.appendChild(opt2);
-        }
+        toAyahWrapper.classList.add('hidden');
+        singleAyahApplyWrapper.classList.remove('hidden');
+        multiAyahApplyWrapper.classList.add('hidden');
+        lblFromAyah.textContent = 'الآية:';
       }
     }
 
-        function syncScopeButtonsForReciter() {
-      const isRifat = (state.currentReciterKey === 'muhammad_rifat');
-      if (btnModeSingleAyah) {
-        if (isRifat) {
-          btnModeSingleAyah.classList.add('hidden');
-          if (state.surahScopeMode === 'single') {
-            setAyahSelectionMode('full');
-          }
-        } else {
-          btnModeSingleAyah.classList.remove('hidden');
-          if (state.surahScopeMode === 'full') {
-            setAyahSelectionMode('single');
-          }
-        }
-      }
-      if (btnModeMultiAyah) {
-        btnModeMultiAyah.textContent = isRifat ? 'تحديد عدد الآيات' : 'عدة آيات';
-      }
+    function syncRefaatTrimSlidersUI(fullDurSec) {
+      const startSlider = document.getElementById('sliderRefaatClipStart');
+      const endSlider = document.getElementById('sliderRefaatClipEnd');
+      const startValEl = document.getElementById('valRefaatClipStart');
+      const endValEl = document.getElementById('valRefaatClipEnd');
+      if (!startSlider || !endSlider) return;
+      const maxSec = Math.max(10, Math.floor(fullDurSec || 60));
+      startSlider.max = String(Math.max(1, maxSec - 2));
+      endSlider.max = String(maxSec);
+      startSlider.value = String(Math.min(maxSec - 2, Math.floor(state.refaatClipStartSec || 0)));
+      endSlider.value = String(Math.min(maxSec, Math.ceil(state.refaatClipEndSec || maxSec)));
+      if (startValEl) startValEl.textContent = formatTime(state.refaatClipStartSec || 0);
+      if (endValEl) endValEl.textContent = formatTime(state.refaatClipEndSec || maxSec);
     }
 
-function setAyahSelectionMode(mode) {
-      // mode: 'single' | 'multi' | 'full'
-      state.surahScopeMode = mode;
-      state.isMultiAyahMode = (mode === 'multi');
-      state.isFullSurahMode = (mode === 'full');
+    function renderSurahClipControlsInSummary(surahNum, sName, sCount, startA, endA) {
+      if (!surahSelectionSummary) return;
+      const isFullClip = (startA === 1 && endA === sCount);
+      const isRefaat = state.currentReciterKey === 'mohamed_refaat';
+      const rangeLabel = startA === endA
+        ? `الآية ${toArabicDigits(startA)}`
+        : (isFullClip ? `المقطع كاملاً (١–${toArabicDigits(sCount)})` : `الآيات ${toArabicDigits(startA)}–${toArabicDigits(endA)}`);
 
-      const activeClass = 'py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-amber-500 text-slate-950 text-center';
-      const inactiveClass = 'py-1 px-1 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-300 hover:text-amber-200 text-center';
-
-      if (btnModeSingleAyah) btnModeSingleAyah.className = (mode === 'single') ? activeClass : inactiveClass;
-      if (btnModeMultiAyah) btnModeMultiAyah.className = (mode === 'multi') ? activeClass : inactiveClass;
-      if (btnModeFullSurah) btnModeFullSurah.className = (mode === 'full') ? activeClass : inactiveClass;
-
-      if (mode === 'full') {
-        if (ayahPickersRow) ayahPickersRow.classList.add('hidden');
-        if (singleAyahApplyWrapper) singleAyahApplyWrapper.classList.add('hidden');
-        if (multiAyahApplyWrapper) multiAyahApplyWrapper.classList.add('hidden');
-        if (fullSurahApplyWrapper) fullSurahApplyWrapper.classList.remove('hidden');
-        if (surahSelectionSummary && state.selectedSurahNum) {
-          const sMeta = SURAHS_META[state.selectedSurahNum - 1];
-          if (sMeta) {
-            surahSelectionSummary.textContent = `سورة ${sMeta[1]} — المقطع كاملاً (${toArabicDigits(sMeta[2])} آية)`;
-          }
-        }
-      } else if (mode === 'multi') {
-        if (ayahPickersRow) ayahPickersRow.classList.remove('hidden');
-        if (toAyahWrapper) toAyahWrapper.classList.remove('hidden');
-        if (singleAyahApplyWrapper) singleAyahApplyWrapper.classList.add('hidden');
-        if (multiAyahApplyWrapper) multiAyahApplyWrapper.classList.remove('hidden');
-        if (fullSurahApplyWrapper) fullSurahApplyWrapper.classList.add('hidden');
-        if (lblFromAyah) lblFromAyah.textContent = 'من الآية:';
-      } else {
-        if (ayahPickersRow) ayahPickersRow.classList.remove('hidden');
-        if (toAyahWrapper) toAyahWrapper.classList.add('hidden');
-        if (singleAyahApplyWrapper) singleAyahApplyWrapper.classList.remove('hidden');
-        if (multiAyahApplyWrapper) multiAyahApplyWrapper.classList.add('hidden');
-        if (fullSurahApplyWrapper) fullSurahApplyWrapper.classList.add('hidden');
-        if (lblFromAyah) lblFromAyah.textContent = 'الآية:';
-      }
-    }
-
-        // مولد التوقيتات المعاير بدقة للتلاوات الإذاعية للشيخ محمد رفعت (لكل السور الـ ٣١)
-    function buildRifatSegmentTimings(surahNum, startA, endA, versesMap, maxAvailableAyah, baseDur, opInfo) {
-      // 1. فحص إذا كانت السورة تملك جدول توقيتات حقيقية موثقة
-      const exactMap = REFAAT_EXACT_TIMINGS[surahNum];
-      if (exactMap && exactMap.verses) {
-        const globalTimings = {};
-        if (exactMap.opening) {
-          const opEnd = exactMap.opening[1];
-          if (opInfo.istiadhah && opInfo.basmalah && surahNum !== 1) {
-            globalTimings.istiadhah = [0, opEnd / 2];
-            globalTimings.basmalah = [opEnd / 2, opEnd];
-          } else if (opInfo.istiadhah) {
-            globalTimings.istiadhah = [0, opEnd];
-          } else if (opInfo.basmalah) {
-            globalTimings.basmalah = [0, opEnd];
-          }
-        }
-
-        for (let a = 1; a <= maxAvailableAyah; a++) {
-          const vT = exactMap.verses[a];
-          if (vT) {
-            globalTimings[a] = [vT[0], vT[1]];
-          }
-        }
-
-        let clipStart = 0;
-        // نمنح مسافة نفس طبيعي 1.2 ثانية قبل بداية الآية لضمان عدم قطع أول حرف أو القفز للآية التالية
-        if (startA > 1 && globalTimings[startA]) {
-          clipStart = Math.max(0, globalTimings[startA][0] - 1.2);
-        }
-
-        let clipEnd = exactMap.totalDuration || baseDur;
-        if (globalTimings[endA]) {
-          clipEnd = globalTimings[endA][1];
-        }
-
-        const clipDur = Math.max(1, clipEnd - clipStart);
-        const segments = [];
-
-        if (startA === 1) {
-          if (globalTimings.istiadhah) {
-            segments.push({
-              type: 'istiadhah',
-              label: 'الاستعاذة',
-              startSec: Math.max(0, globalTimings.istiadhah[0] - clipStart),
-              endSec: Math.max(0, globalTimings.istiadhah[1] - clipStart)
-            });
-          }
-          if (globalTimings.basmalah) {
-            segments.push({
-              type: 'basmalah',
-              label: 'البسملة',
-              startSec: Math.max(0, globalTimings.basmalah[0] - clipStart),
-              endSec: Math.max(0, globalTimings.basmalah[1] - clipStart)
-            });
-          }
-        }
-
-        for (let a = startA; a <= endA; a++) {
-          const vT = globalTimings[a] || [clipStart, clipEnd];
-          segments.push({
-            type: 'ayah',
-            ayahNum: a,
-            label: `الآية ${toArabicDigits(a)}`,
-            startSec: Math.max(0, vT[0] - clipStart),
-            endSec: Math.max(0, vT[1] - clipStart)
-          });
-        }
-
-        return { clipStart, clipEnd, clipDur, segments, isExact: true };
+      let fromOpts = '';
+      let toOpts = '';
+      for (let a = 1; a <= sCount; a++) {
+        fromOpts += `<option value="${a}" ${a === startA ? 'selected' : ''}>الآية ${toArabicDigits(a)}</option>`;
+        toOpts += `<option value="${a}" ${a === endA ? 'selected' : ''}>الآية ${toArabicDigits(a)}</option>`;
       }
 
-      // 2. المحرك الزمني التناسبي المتقدم لبقية سور الشيخ محمد رفعت الـ ٢٦
-      // يحسب وزن التلاوة الحقيقي: عدد الكلمات + وقفات التنفس بين الآيات (Waqf) + مد الحروف المقطعة
-      const opWeights = [];
-      if (opInfo.istiadhah) opWeights.push(['istiadhah', 16.0]);
-      if (opInfo.basmalah && surahNum !== 1) opWeights.push(['basmalah', 16.0]);
-      const totalOpWeight = opWeights.reduce((acc, [, w]) => acc + w, 0);
+      const fullDur = (isFinite(audioEl.duration) && audioEl.duration > 0) ? Math.floor(audioEl.duration) : 300;
+      const curStartSec = Math.floor(state.refaatClipStartSec || 0);
+      const curEndSec = Math.ceil(state.refaatClipEndSec || fullDur);
 
-      const verseWeights = [];
-      for (let a = 1; a <= maxAvailableAyah; a++) {
-        const vText = (versesMap[a] || '').trim();
-        const wordCount = vText.split(/\s+/).filter(Boolean).length || 5;
-        let w = (wordCount * 1.35) + 3.8;
-        if (a === 1 && [10, 11, 12, 19, 20].includes(surahNum)) {
-          w += 22.0; // مد الحروف المقطعة
-        }
-        verseWeights.push([a, w]);
-      }
-      const totalAllWeight = totalOpWeight + verseWeights.reduce((acc, [, w]) => acc + w, 0);
+      surahSelectionSummary.className = 'text-[11px] text-slate-200 bg-slate-950 border border-slate-800 rounded-xl p-2.5 space-y-2';
+      surahSelectionSummary.innerHTML = `
+        <div class="flex items-center justify-between text-xs font-bold text-amber-200 flex-wrap gap-1">
+          <span>📖 سورة ${sName} ${isRefaat ? '• الشيخ محمد رفعت' : ''}</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-100">${rangeLabel}</span>
+        </div>
 
-      let cursor = 0.0;
-      const globalTimings = {};
-      for (const [opType, opW] of opWeights) {
-        const dur = (opW / totalAllWeight) * baseDur;
-        globalTimings[opType] = [cursor, cursor + dur];
-        cursor += dur;
-      }
-      for (const [a, vW] of verseWeights) {
-        const dur = (vW / totalAllWeight) * baseDur;
-        globalTimings[a] = [cursor, cursor + dur];
-        cursor += dur;
-      }
+        <div class="grid grid-cols-2 gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+          <button id="btnSurahTakeFull" type="button" class="py-1.5 px-2 rounded-lg transition ${isFullClip ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-300 hover:text-amber-200'}">
+            <span>المقطع كاملاً (١–${toArabicDigits(sCount)})</span>
+          </button>
+          <button id="btnSurahTakePartial" type="button" class="py-1.5 px-2 rounded-lg transition ${!isFullClip ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-300 hover:text-amber-200'}">
+            <span>اختيار بعض الآيات</span>
+          </button>
+        </div>
 
-      let clipStart = 0;
-      // نمنح مسافة نفس طبيعي 1.2 ثانية قبل بداية الآية في كافة السور
-      if (startA > 1 && globalTimings[startA]) {
-        clipStart = Math.max(0, globalTimings[startA][0] - 1.2);
-      }
-      let clipEnd = baseDur;
-      if (globalTimings[endA]) {
-        clipEnd = globalTimings[endA][1];
-      }
-      const clipDur = Math.max(1, clipEnd - clipStart);
+        <div id="surahPartialRangeBox" class="${isFullClip ? 'hidden' : ''} space-y-2 bg-slate-900/90 p-2 rounded-xl border border-slate-800">
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label for="selectSummaryFromAyah" class="block text-[10px] text-slate-400 mb-1 font-semibold">من الآية:</label>
+              <select id="selectSummaryFromAyah" class="w-full rounded-lg bg-slate-950 border border-slate-700 text-xs text-amber-100 p-1.5 focus:outline-none focus:border-amber-400">
+                ${fromOpts}
+              </select>
+            </div>
+            <div>
+              <label for="selectSummaryToAyah" class="block text-[10px] text-slate-400 mb-1 font-semibold">إلى الآية:</label>
+              <select id="selectSummaryToAyah" class="w-full rounded-lg bg-slate-950 border border-slate-700 text-xs text-amber-100 p-1.5 focus:outline-none focus:border-amber-400">
+                ${toOpts}
+              </select>
+            </div>
+          </div>
 
-      const segments = [];
-      if (startA === 1) {
-        for (const [opType] of opWeights) {
-          const [s, e] = globalTimings[opType];
-          segments.push({
-            type: opType,
-            label: opType === 'istiadhah' ? 'الاستعاذة' : 'البسملة',
-            startSec: Math.max(0, s - clipStart),
-            endSec: Math.max(0, e - clipStart)
-          });
-        }
+          ${isRefaat ? `
+          <div class="pt-2 border-t border-slate-800 space-y-1.5">
+            <div class="flex items-center justify-between text-[10px] text-amber-300 font-semibold">
+              <span>ضبط بداية ونهاية صوت الشيخ محمد رفعت للآيات المختارة:</span>
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between text-[10px]">
+                <span class="text-slate-300">بداية المقطع الصوتي:</span>
+                <span id="valRefaatClipStart" class="text-amber-300 font-mono">${formatTime(curStartSec)}</span>
+              </div>
+              <input id="sliderRefaatClipStart" type="range" min="0" max="${Math.max(10, fullDur - 2)}" step="1" value="${curStartSec}" class="w-full h-1.5 rounded-lg cursor-pointer" />
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between text-[10px]">
+                <span class="text-slate-300">نهاية المقطع الصوتي:</span>
+                <span id="valRefaatClipEnd" class="text-amber-300 font-mono">${formatTime(curEndSec)}</span>
+              </div>
+              <input id="sliderRefaatClipEnd" type="range" min="2" max="${Math.max(12, fullDur)}" step="1" value="${curEndSec}" class="w-full h-1.5 rounded-lg cursor-pointer" />
+            </div>
+          </div>
+          ` : ''}
+        </div>
+      `;
+
+      const btnFull = document.getElementById('btnSurahTakeFull');
+      const btnPartial = document.getElementById('btnSurahTakePartial');
+      const partialBox = document.getElementById('surahPartialRangeBox');
+      const selFrom = document.getElementById('selectSummaryFromAyah');
+      const selTo = document.getElementById('selectSummaryToAyah');
+
+      if (btnFull) {
+        btnFull.addEventListener('click', () => {
+          setAyahSelectionMode('full');
+        });
       }
-      for (let a = startA; a <= endA; a++) {
-        const [s, e] = globalTimings[a] || [clipStart, clipEnd];
-        segments.push({
-          type: 'ayah',
-          ayahNum: a,
-          label: `الآية ${toArabicDigits(a)}`,
-          startSec: Math.max(0, s - clipStart),
-          endSec: Math.max(0, e - clipStart)
+      if (btnPartial) {
+        btnPartial.addEventListener('click', () => {
+          if (partialBox) partialBox.classList.remove('hidden');
+          btnPartial.className = 'py-1.5 px-2 rounded-lg transition bg-amber-500 text-slate-950 shadow-sm';
+          if (btnFull) btnFull.className = 'py-1.5 px-2 rounded-lg transition text-slate-300 hover:text-amber-200';
+          setAyahSelectionMode('multi');
         });
       }
 
-      return { clipStart, clipEnd, clipDur, segments, isExact: false };
+      const onSummaryRangeChange = () => {
+        if (!selFrom || !selTo) return;
+        const fA = parseInt(selFrom.value, 10) || 1;
+        const tA = parseInt(selTo.value, 10) || fA;
+        const actualFrom = Math.min(fA, tA);
+        const actualTo = Math.max(fA, tA);
+        state.isFullSurahMode = (actualFrom === 1 && actualTo === sCount);
+        state.isMultiAyahMode = actualTo > actualFrom;
+        populateAyahDropdowns(surahNum, actualFrom, actualTo);
+        applySurahAndAyahSelection(surahNum, actualFrom, actualTo, Boolean(state.currentReciterKey));
+      };
+
+      if (selFrom) selFrom.addEventListener('change', onSummaryRangeChange);
+      if (selTo) selTo.addEventListener('change', onSummaryRangeChange);
+
+      const startSlider = document.getElementById('sliderRefaatClipStart');
+      const endSlider = document.getElementById('sliderRefaatClipEnd');
+      const startValEl = document.getElementById('valRefaatClipStart');
+      const endValEl = document.getElementById('valRefaatClipEnd');
+
+      if (startSlider && endSlider) {
+        startSlider.addEventListener('input', () => {
+          let sVal = parseInt(startSlider.value, 10) || 0;
+          const eVal = parseInt(endSlider.value, 10) || 10;
+          if (sVal >= eVal - 2) {
+            sVal = Math.max(0, eVal - 2);
+            startSlider.value = String(sVal);
+          }
+          state.refaatUserAdjustedTrim = true;
+          state.refaatClipStartSec = sVal;
+          if (startValEl) startValEl.textContent = formatTime(sVal);
+          if (isFinite(audioEl.duration)) {
+            try { audioEl.currentTime = sVal; } catch (e) {}
+            timeDuration.textContent = formatTime(getUnifiedDuration());
+            updateVideoTimingComparisonUI();
+          }
+        });
+
+        endSlider.addEventListener('input', () => {
+          const sVal = parseInt(startSlider.value, 10) || 0;
+          let eVal = parseInt(endSlider.value, 10) || (sVal + 4);
+          if (eVal <= sVal + 2) {
+            eVal = sVal + 2;
+            endSlider.value = String(eVal);
+          }
+          state.refaatUserAdjustedTrim = true;
+          state.refaatClipEndSec = eVal;
+          if (endValEl) endValEl.textContent = formatTime(eVal);
+          if (isFinite(audioEl.duration)) {
+            timeDuration.textContent = formatTime(getUnifiedDuration());
+            updateVideoTimingComparisonUI();
+          }
+        });
+      }
     }
 
-async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay = false) {
+    async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay = false) {
       if (!surahNum || !fromAyah) return;
       const meta = SURAHS_META[surahNum - 1];
       if (!meta) return;
       const [, sName, sCount, startGlobal] = meta;
-      const isRifat = state.currentReciterKey === 'muhammad_rifat';
-      const maxAvailableAyah = (isRifat && REFAAT_RECITED_RANGES[surahNum]) ? REFAAT_RECITED_RANGES[surahNum][1] : sCount;
-
-      let startA = 1;
-      let endA = maxAvailableAyah;
-
-      if (isRifat) {
-        // للشيخ محمد رفعت: التلاوة تبدأ دائماً وحصراً من بداية المقطع (الآية ١)، مع إمكانية تحديد عدد الآيات حتى نهاية معينة
-        startA = 1;
-        endA = state.isFullSurahMode
-          ? maxAvailableAyah
-          : Math.max(1, Math.min(maxAvailableAyah, toAyah || fromAyah || maxAvailableAyah));
-      } else {
-        startA = Math.max(1, Math.min(maxAvailableAyah, Math.min(fromAyah, toAyah || fromAyah)));
-        endA = (state.isMultiAyahMode || state.isFullSurahMode || (toAyah && toAyah > fromAyah))
-          ? Math.max(startA, Math.min(maxAvailableAyah, Math.max(fromAyah, toAyah || fromAyah)))
-          : startA;
-        if (state.isFullSurahMode) {
-          startA = 1;
-          endA = maxAvailableAyah;
-        }
-      }
+      const startA = Math.max(1, Math.min(sCount, Math.min(fromAyah, toAyah || fromAyah)));
+      const endA = (state.isMultiAyahMode || state.isFullSurahMode || (toAyah && toAyah > fromAyah))
+        ? Math.max(startA, Math.min(sCount, Math.max(fromAyah, toAyah || fromAyah)))
+        : startA;
 
       state.selectedSurahNum = surahNum;
       state.selectedFromAyah = startA;
@@ -6030,120 +5597,74 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
       const cleanedAyahsList = [];
       state.multiAyahQueue = [];
 
-      const opInfo = (isRifat && REFAAT_OPENINGS[surahNum])
-        ? REFAAT_OPENINGS[surahNum]
-        : { istiadhah: false, basmalah: false };
+      // حساب نسب طول الآيات لتقدير بداية ونهاية الآيات المختارة في تسجيل الشيخ محمد رفعت وتوزيع التوقيت بدقة
+      let totalSurahChars = 0;
+      let charsBeforeStart = 0;
+      let charsInSelected = 0;
+      const selectedCharLengths = [];
 
-      const selectedTexts = [];
-      const selectedMeta = [];
-
-      // إدراج الاستعاذة والبسملة فقط عندما يبدأ المقطع من أول التلاوة
-      if (startA === 1 && isRifat) {
-        if (opInfo.istiadhah) {
-          selectedTexts.push(TEXT_ISTIADHAH);
-          selectedMeta.push({ type: 'istiadhah', label: 'الاستعاذة' });
-        }
-        if (opInfo.basmalah && surahNum !== 1) {
-          selectedTexts.push(TEXT_BASMALAH);
-          selectedMeta.push({ type: 'basmalah', label: 'البسملة' });
+      for (let a = 1; a <= sCount; a++) {
+        const rawT = versesMap[a] || `سورة ${sName} — الآية ${toArabicDigits(a)}`;
+        const cleanT = cleanAyahText(rawT, surahNum, a);
+        const cLen = Math.max(12, cleanT.length);
+        totalSurahChars += cLen;
+        if (a < startA) {
+          charsBeforeStart += cLen;
+        } else if (a >= startA && a <= endA) {
+          charsInSelected += cLen;
+          selectedCharLengths.push(cLen);
+          const gAyah = startGlobal + (a - 1);
+          const code = String(surahNum).padStart(3, '0') + String(a).padStart(3, '0');
+          cleanedAyahsList.push(cleanT);
+          state.multiAyahQueue.push({
+            surahNum,
+            ayahNum: a,
+            globalAyah: gAyah,
+            everyAyahCode: code,
+            text: cleanT
+          });
         }
       }
 
-      for (let a = startA; a <= endA; a++) {
-        const gAyah = startGlobal + (a - 1);
-        const code = String(surahNum).padStart(3, '0') + String(a).padStart(3, '0');
-        const rawText = versesMap[a] || `سورة ${sName} — الآية ${toArabicDigits(a)}`;
-        const cleanText = cleanAyahText(rawText, surahNum, a);
-        selectedTexts.push(cleanText);
-        selectedMeta.push({ type: 'ayah', ayahNum: a, label: `الآية ${toArabicDigits(a)}` });
-        state.multiAyahQueue.push({
-          surahNum,
-          ayahNum: a,
-          globalAyah: gAyah,
-          everyAyahCode: code,
-          text: cleanText
-        });
+      const cumulativeRatios = [];
+      let accChars = 0;
+      for (let i = 0; i < selectedCharLengths.length; i++) {
+        accChars += selectedCharLengths[i];
+        cumulativeRatios.push(charsInSelected > 0 ? (accChars / charsInSelected) : ((i + 1) / selectedCharLengths.length));
       }
 
-      let rifatTimingData = null;
-      let ayahCumulativeRatios = [];
+      const isFullSurahSelected = (startA === 1 && endA === sCount);
+      state.refaatIsSubRange = !isFullSurahSelected;
+      state.refaatUserAdjustedTrim = false;
+      state.refaatStartRatio = totalSurahChars > 0 ? (charsBeforeStart / totalSurahChars) : ((startA - 1) / sCount);
+      state.refaatEndRatio = totalSurahChars > 0 ? ((charsBeforeStart + charsInSelected) / totalSurahChars) : (endA / sCount);
 
-      if (isRifat) {
-        const estimatedCatalogDur = (REFAAT_EXACT_TIMINGS[surahNum]?.totalDuration) || Math.max(300, maxAvailableAyah * 35);
-        rifatTimingData = buildRifatSegmentTimings(
-          surahNum,
-          startA,
-          endA,
-          versesMap,
-          maxAvailableAyah,
-          estimatedCatalogDur,
-          opInfo
-        );
-
-        if (rifatTimingData && rifatTimingData.segments) {
-          const cDur = Math.max(1, rifatTimingData.clipDur);
-          ayahCumulativeRatios = rifatTimingData.segments.map(s => Math.min(1.0, s.endSec / cDur));
-          if (ayahCumulativeRatios.length > 0) ayahCumulativeRatios[ayahCumulativeRatios.length - 1] = 1.0;
-        }
-      } else {
-        let selAcc = 0;
-        const weights = selectedTexts.map(t => Math.max(10, t.length));
-        const totalW = weights.reduce((a, b) => a + b, 0);
-        ayahCumulativeRatios = weights.map(w => {
-          selAcc += w;
-          return totalW > 0 ? (selAcc / totalW) : 1;
-        });
-      }
-
-      const isFullSurahSelected = (startA === 1 && endA === maxAvailableAyah);
-      const transcriptJoined = selectedTexts.join(AYAH_SEPARATOR);
+      const transcriptJoined = cleanedAyahsList.join(AYAH_SEPARATOR);
       const firstItem = state.multiAyahQueue[0];
       const rangeLabel = startA === endA
         ? `الآية ${toArabicDigits(startA)}`
-        : (isFullSurahSelected ? (isRifat ? `ما تيسر من السورة (١–${toArabicDigits(maxAvailableAyah)})` : `المقطع كاملاً (١–${toArabicDigits(sCount)})`) : `الآيات ${toArabicDigits(startA)} إلى ${toArabicDigits(endA)}`);
+        : (isFullSurahSelected ? `المقطع كاملاً (١–${toArabicDigits(sCount)})` : `الآيات ${toArabicDigits(startA)} إلى ${toArabicDigits(endA)}`);
 
       AYAHS_DATA[dynamicKey] = {
         id: dynamicKey,
         surahNum,
-        startAyahNum: startA,
-        endAyahNum: endA,
         title: `سورة ${sName} — ${rangeLabel}`,
         surahName: `سورة ${sName}`,
         ayahNumber: startA === endA ? toArabicDigits(startA) : `${toArabicDigits(startA)}-${toArabicDigits(endA)}`,
-        globalAyah: firstItem ? firstItem.globalAyah : 1,
-        everyAyahCode: firstItem ? firstItem.everyAyahCode : '001001',
-        isMultiAyah: selectedTexts.length > 1,
+        globalAyah: firstItem.globalAyah,
+        everyAyahCode: firstItem.everyAyahCode,
+        isMultiAyah: state.multiAyahQueue.length > 1,
         multiQueue: state.multiAyahQueue,
         transcriptText: transcriptJoined,
-        ayahTextsList: selectedTexts,
-        ayahMetaList: selectedMeta,
-        segmentTimings: rifatTimingData?.segments || null,
-        ayahCumulativeRatios: ayahCumulativeRatios,
-        isRifatClip: isRifat,
-        baseCatalogDuration: rifatTimingData?.clipDur ? (REFAAT_EXACT_TIMINGS[surahNum]?.totalDuration || Math.max(300, maxAvailableAyah * 35)) : null,
-        rifatClipStartSec: rifatTimingData ? rifatTimingData.clipStart : 0,
-        rifatClipEndSec: rifatTimingData ? rifatTimingData.clipEnd : 0
+        ayahTextsList: cleanedAyahsList,
+        ayahCumulativeRatios: cumulativeRatios
       };
 
       state.currentAyahKey = dynamicKey;
       state.activePhraseIndex = 0;
       state.multiAyahCurrentIdx = 0;
 
-      syncTextModeUIForReciter();
-      if (surahSelectionSummary) {
-        surahSelectionSummary.className = 'text-[11px] text-amber-200 bg-amber-500/10 border border-amber-400/20 rounded-lg px-2.5 py-1.5 flex items-center justify-between flex-wrap gap-1';
-        if (isRifat && startA > 1) {
-          surahSelectionSummary.innerHTML = `
-            <span>📖 سورة ${sName} • الشيخ محمد رفعت</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-amber-300 font-semibold border border-slate-700">مقطع صوتي بدون نص (${rangeLabel})</span>
-          `;
-        } else {
-          surahSelectionSummary.innerHTML = `
-            <span>📖 سورة ${sName} ${isRifat ? '• الشيخ محمد رفعت' : ''}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-100 font-semibold">${rangeLabel}</span>
-          `;
-        }
-      }
+      renderSurahClipControlsInSummary(surahNum, sName, sCount, startA, endA);
 
       loadCurrentSelection(autoPlay);
       if (chkAutoDownloadOnSelect?.checked && state.currentReciterKey) {
@@ -6196,8 +5717,11 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
 
       await ensureFullQuranLoaded();
 
+      const activeRec = state.currentReciterKey ? RECITERS_DATA[state.currentReciterKey] : null;
+      const allowedSurahsForSearch = activeRec?.isSurahClipReciter ? activeRec.availableSurahs : null;
       const matches = [];
       for (let s = 1; s <= 114; s++) {
+        if (allowedSurahsForSearch && !allowedSurahsForSearch.includes(s)) continue;
         const sMap = surahVersesCache[s];
         if (!sMap) continue;
         const sMeta = SURAHS_META[s - 1];
@@ -6250,22 +5774,16 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
         const sNum = parseInt(selectSurahEl.value, 10);
         if (!sNum) return;
         state.selectedSurahNum = sNum;
-        const meta = SURAHS_META[sNum - 1];
-        if (!meta) return;
-        const isRifat = state.currentReciterKey === 'muhammad_rifat';
-        const maxAyah = (isRifat && REFAAT_RECITED_RANGES[sNum]) ? REFAAT_RECITED_RANGES[sNum][1] : meta[2];
-
-        if (isRifat) {
+        const sCount = SURAHS_META[sNum - 1][2];
+        if (state.isFullSurahMode || state.currentReciterKey === 'mohamed_refaat') {
           setAyahSelectionMode('full');
-          populateAyahDropdowns(sNum, 1, maxAyah);
-          applySurahAndAyahSelection(sNum, 1, maxAyah, false);
-        } else if (state.surahScopeMode === 'full') {
-          populateAyahDropdowns(sNum, 1, maxAyah);
-          applySurahAndAyahSelection(sNum, 1, maxAyah, false);
+          populateAyahDropdowns(sNum, 1, sCount);
+          applySurahAndAyahSelection(sNum, 1, sCount, false);
         } else {
-          // للقراء العاديين في نمط الآية الواحدة: اعتماد الآية الأولى فوراً لظهور النص والمعاينة مباشرة دون تأخير
-          populateAyahDropdowns(sNum, 1, 1);
-          applySurahAndAyahSelection(sNum, 1, 1, false);
+          populateAyahDropdowns(sNum, null, null);
+          if (surahSelectionSummary) {
+            surahSelectionSummary.textContent = `سورة ${SURAHS_META[sNum - 1][1]} — اختر رقم الآية أو اضغط «المقطع كاملاً»`;
+          }
         }
       });
 
@@ -6277,86 +5795,43 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
         if (!curTo || curTo < fromA) {
           selectToAyahEl.value = String(fromA);
         }
-        if (state.surahScopeMode === 'multi') {
-          const toA = parseInt(selectToAyahEl.value, 10) || fromA;
-          applySurahAndAyahSelection(sNum, fromA, Math.max(fromA, toA), false);
-        } else {
+        if (!state.isMultiAyahMode) {
           applySurahAndAyahSelection(sNum, fromA, fromA, false);
         }
       });
 
       selectToAyahEl.addEventListener('change', () => {
-        const sNum = parseInt(selectSurahEl.value, 10);
-        const toA = parseInt(selectToAyahEl.value, 10);
-        if (!sNum || !toA) return;
-        const isRifat = state.currentReciterKey === 'muhammad_rifat';
-        if (isRifat) {
-          applySurahAndAyahSelection(sNum, 1, toA, false);
-          return;
-        }
         const fromA = parseInt(selectFromAyahEl.value, 10) || 1;
-        if (toA < fromA) {
-          selectFromAyahEl.value = String(toA);
-          applySurahAndAyahSelection(sNum, toA, toA, false);
-        } else {
-          applySurahAndAyahSelection(sNum, fromA, toA, false);
-        }
+        const toA = parseInt(selectToAyahEl.value, 10) || fromA;
+        if (toA < fromA) selectFromAyahEl.value = String(toA);
       });
 
-      if (btnModeSingleAyah) btnModeSingleAyah.addEventListener('click', () => setAyahSelectionMode('single'));
-      if (btnModeMultiAyah) btnModeMultiAyah.addEventListener('click', () => setAyahSelectionMode('multi'));
       if (btnModeFullSurah) {
-        btnModeFullSurah.addEventListener('click', () => {
-          setAyahSelectionMode('full');
-          const sNum = parseInt(selectSurahEl.value, 10);
-          if (sNum) {
-            const meta = SURAHS_META[sNum - 1];
-            if (meta) {
-              applySurahAndAyahSelection(sNum, 1, meta[2], Boolean(state.currentReciterKey));
-            }
-          }
-        });
+        btnModeFullSurah.addEventListener('click', () => setAyahSelectionMode('full'));
       }
+      btnModeSingleAyah.addEventListener('click', () => setAyahSelectionMode('single'));
+      btnModeMultiAyah.addEventListener('click', () => setAyahSelectionMode('multi'));
 
-      if (btnLoadSelectedAyahs) {
-        btnLoadSelectedAyahs.addEventListener('click', () => {
-          const sNum = parseInt(selectSurahEl.value, 10);
-          const fromA = parseInt(selectFromAyahEl.value, 10);
-          if (!sNum || !fromA) {
-            setStatus('يرجى اختيار السورة ورقم الآية أولاً', 'amber');
-            return;
-          }
-          applySurahAndAyahSelection(sNum, fromA, fromA, Boolean(state.currentReciterKey));
-        });
-      }
+      btnLoadSelectedAyahs.addEventListener('click', () => {
+        const sNum = parseInt(selectSurahEl.value, 10);
+        const fromA = parseInt(selectFromAyahEl.value, 10);
+        if (!sNum || !fromA) {
+          setStatus('يرجى اختيار السورة ورقم الآية أولاً', 'amber');
+          return;
+        }
+        applySurahAndAyahSelection(sNum, fromA, fromA, Boolean(state.currentReciterKey));
+      });
 
-      if (btnLoadMultiAyahs) {
-        btnLoadMultiAyahs.addEventListener('click', () => {
-          const sNum = parseInt(selectSurahEl.value, 10);
-          const fromA = parseInt(selectFromAyahEl.value, 10);
-          const toA = parseInt(selectToAyahEl.value, 10) || fromA;
-          if (!sNum || !fromA) {
-            setStatus('يرجى اختيار السورة ونطاق الآيات أولاً', 'amber');
-            return;
-          }
-          applySurahAndAyahSelection(sNum, fromA, toA, Boolean(state.currentReciterKey));
-        });
-      }
-
-      if (btnLoadFullSurah) {
-        btnLoadFullSurah.addEventListener('click', () => {
-          const sNum = parseInt(selectSurahEl.value, 10);
-          if (!sNum) {
-            setStatus('يرجى اختيار السورة أولاً', 'amber');
-            return;
-          }
-          const meta = SURAHS_META[sNum - 1];
-          if (!meta) return;
-          applySurahAndAyahSelection(sNum, 1, meta[2], Boolean(state.currentReciterKey));
-        });
-      }
-
-
+      btnLoadMultiAyahs.addEventListener('click', () => {
+        const sNum = parseInt(selectSurahEl.value, 10);
+        const fromA = parseInt(selectFromAyahEl.value, 10);
+        const toA = parseInt(selectToAyahEl.value, 10) || fromA;
+        if (!sNum || !fromA) {
+          setStatus('يرجى اختيار السورة ونطاق الآيات أولاً', 'amber');
+          return;
+        }
+        applySurahAndAyahSelection(sNum, fromA, toA, Boolean(state.currentReciterKey));
+      });
     }
 
     if (btnSearchAyah && searchAyahInput) {
@@ -6449,27 +5924,21 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
       if (nativeInstallPromptBox) nativeInstallPromptBox.classList.remove('hidden');
     });
 
-    const btnOpenInstallModalHome = document.getElementById('btnOpenInstallModalHome');
-    const linkDirectApkHome = document.getElementById('linkDirectApkHome');
     const btnDownloadApkModal = document.getElementById('btnDownloadApkModal');
-    [linkDirectApkHome, btnDownloadApkModal].forEach(el => {
-      if (el) {
-        el.addEventListener('click', () => {
-          if (window.trackRefa3yEvent) {
-            window.trackRefa3yEvent("apk_download_click", { button_id: el.id });
-          }
-        });
-      }
-    });
+    if (btnDownloadApkModal) {
+      btnDownloadApkModal.addEventListener('click', () => {
+        if (window.trackRefa3yEvent) {
+          window.trackRefa3yEvent("apk_download_click", { button_id: btnDownloadApkModal.id });
+        }
+      });
+    }
 
     if (btnInstallApp) {
       btnInstallApp.addEventListener('click', () => {
         if (installAppModal) installAppModal.classList.remove('hidden');
-      });
-    }
-    if (btnOpenInstallModalHome) {
-      btnOpenInstallModalHome.addEventListener('click', () => {
-        if (installAppModal) installAppModal.classList.remove('hidden');
+        if (window.trackRefa3yEvent) {
+          window.trackRefa3yEvent("install_modal_open", { button_id: "btnInstallApp" });
+        }
       });
     }
 
@@ -6502,6 +5971,79 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
     // 10.5 مشغل البث المباشر لإذاعة القرآن الكريم من القاهرة 98.2 FM (حصرياً بدون أي إذاعات أخرى)
     // =========================================================================
     const LIVE_RADIO_STATIONS = {
+      mohamed_refaat_radio: {
+        id: 'mohamed_refaat_radio',
+        name: 'إذاعة الشيخ محمد رفعت — تراث ٢٤/٧',
+        subtitle: 'إذاعة الشيخ محمد رفعت — بث متواصل لتسجيلاته النادرة والـ ٣١ سورة المسجلة',
+        officialPage: 'https://www.mp3quran.net/ar/refat',
+        isPlaylistStation: true,
+        streams: [
+          'https://server14.mp3quran.net/refat/019.mp3',
+          'https://server14.mp3quran.net/refat/012.mp3',
+          'https://server14.mp3quran.net/refat/018.mp3',
+          'https://server14.mp3quran.net/refat/055.mp3',
+          'https://server14.mp3quran.net/refat/020.mp3',
+          'https://server14.mp3quran.net/refat/001.mp3',
+          'https://server14.mp3quran.net/refat/010.mp3',
+          'https://server14.mp3quran.net/refat/011.mp3',
+          'https://server14.mp3quran.net/refat/017.mp3',
+          'https://server14.mp3quran.net/refat/048.mp3',
+          'https://server14.mp3quran.net/refat/054.mp3',
+          'https://server14.mp3quran.net/refat/056.mp3',
+          'https://server14.mp3quran.net/refat/069.mp3',
+          'https://server14.mp3quran.net/refat/072.mp3',
+          'https://server14.mp3quran.net/refat/073.mp3',
+          'https://server14.mp3quran.net/refat/075.mp3',
+          'https://server14.mp3quran.net/refat/076.mp3',
+          'https://server14.mp3quran.net/refat/077.mp3',
+          'https://server14.mp3quran.net/refat/078.mp3',
+          'https://server14.mp3quran.net/refat/079.mp3',
+          'https://server14.mp3quran.net/refat/081.mp3',
+          'https://server14.mp3quran.net/refat/082.mp3',
+          'https://server14.mp3quran.net/refat/083.mp3',
+          'https://server14.mp3quran.net/refat/085.mp3',
+          'https://server14.mp3quran.net/refat/086.mp3',
+          'https://server14.mp3quran.net/refat/087.mp3',
+          'https://server14.mp3quran.net/refat/088.mp3',
+          'https://server14.mp3quran.net/refat/089.mp3',
+          'https://server14.mp3quran.net/refat/096.mp3',
+          'https://server14.mp3quran.net/refat/098.mp3',
+          'https://server14.mp3quran.net/refat/100.mp3'
+        ],
+        serverLabels: [
+          'موجة ١ (تلاوة سورة مريم الخالدة + تشغيل متواصل)',
+          'موجة ٢ (تلاوة سورة يوسف الخالدة + تشغيل متواصل)',
+          'موجة ٣ (تلاوة سورة الكهف + تشغيل متواصل)',
+          'موجة ٤ (تلاوة سورة الرحمن + تشغيل متواصل)',
+          'موجة ٥ (تلاوة سورة طه + تشغيل متواصل)',
+          'موجة ٦ (سورة الفاتحة وبداية الختمة المتوفرة)',
+          'موجة ٧ (سورة يونس — الشيخ محمد رفعت)',
+          'موجة ٨ (سورة هود — الشيخ محمد رفعت)',
+          'موجة ٩ (سورة الإسراء — الشيخ محمد رفعت)',
+          'موجة ١٠ (سورة الفتح — الشيخ محمد رفعت)',
+          'موجة ١١ (سورة القمر — الشيخ محمد رفعت)',
+          'موجة ١٢ (سورة الواقعة — الشيخ محمد رفعت)',
+          'موجة ١٣ (سورة الحاقة — الشيخ محمد رفعت)',
+          'موجة ١٤ (سورة الجن — الشيخ محمد رفعت)',
+          'موجة ١٥ (سورة المزمل — الشيخ محمد رفعت)',
+          'موجة ١٦ (سورة القيامة — الشيخ محمد رفعت)',
+          'موجة ١٧ (سورة الإنسان — الشيخ محمد رفعت)',
+          'موجة ١٨ (سورة المرسلات — الشيخ محمد رفعت)',
+          'موجة ١٩ (سورة النبأ — الشيخ محمد رفعت)',
+          'موجة ٢٠ (سورة النازعات — الشيخ محمد رفعت)',
+          'موجة ٢١ (سورة التكوير — الشيخ محمد رفعت)',
+          'موجة ٢٢ (سورة الانفطار — الشيخ محمد رفعت)',
+          'موجة ٢٣ (سورة المطففين — الشيخ محمد رفعت)',
+          'موجة ٢٤ (سورة البروج — الشيخ محمد رفعت)',
+          'موجة ٢٥ (سورة الطارق — الشيخ محمد رفعت)',
+          'موجة ٢٦ (سورة الأعلى — الشيخ محمد رفعت)',
+          'موجة ٢٧ (سورة الغاشية — الشيخ محمد رفعت)',
+          'موجة ٢٨ (سورة الفجر — الشيخ محمد رفعت)',
+          'موجة ٢٩ (سورة العلق — الشيخ محمد رفعت)',
+          'موجة ٣٠ (سورة البينة — الشيخ محمد رفعت)',
+          'موجة ٣١ (سورة العاديات — الشيخ محمد رفعت)'
+        ]
+      },
       cairo_official: {
         id: 'cairo_official',
         name: 'إذاعة القرآن الكريم — القاهرة (98.2 FM)',
@@ -6522,10 +6064,9 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
           'خادم ٥ (بث القاهرة الاحتياطي المباشر)'
         ]
       },
-      // 1. الشيخ محمد صديق المنشاوي (مجود)
       minshawi_mujawwad_radio: {
         id: 'minshawi_mujawwad_radio',
-        name: 'إذاعة الشيخ محمد صديق المنشاوي (مجود)',
+        name: 'إذاعة الشيخ محمد صديق المنشاوي',
         subtitle: 'إذاعة الشيخ محمد صديق المنشاوي — المصحف المجود',
         officialPage: 'https://qurango.net/radio/mohammed_siddiq_alminshawi_mojawwad',
         streams: [
@@ -6539,27 +6080,9 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
           'خادم ٣ (إذاعة المنشاوي مرتل)'
         ]
       },
-      // 2. الشيخ محمد صديق المنشاوي (مرتل)
-      minshawi_murattal_radio: {
-        id: 'minshawi_murattal_radio',
-        name: 'إذاعة الشيخ محمد صديق المنشاوي (مرتل)',
-        subtitle: 'إذاعة الشيخ محمد صديق المنشاوي — المصحف المرتل',
-        officialPage: 'https://qurango.net/radio/mohammed_siddiq_alminshawi',
-        streams: [
-          'https://qurango.net/radio/mohammed_siddiq_alminshawi',
-          'https://backup.qurango.net/radio/mohammed_siddiq_alminshawi',
-          'https://qurango.net/radio/mohammed_siddiq_alminshawi_mojawwad'
-        ],
-        serverLabels: [
-          'خادم ١ (البث المباشر للمنشاوي مرتل)',
-          'خادم ٢ (الخادم الاحتياطي للمنشاوي مرتل)',
-          'خادم ٣ (إذاعة المنشاوي مجود)'
-        ]
-      },
-      // 3. الشيخ عبد الباسط عبد الصمد (مجود)
       abdulbasit_mujawwad_radio: {
         id: 'abdulbasit_mujawwad_radio',
-        name: 'إذاعة الشيخ عبد الباسط عبد الصمد (مجود)',
+        name: 'إذاعة الشيخ عبد الباسط عبد الصمد',
         subtitle: 'إذاعة الشيخ عبد الباسط عبد الصمد — المصحف المجود',
         officialPage: 'https://qurango.net/radio/abdulbasit_abdulsamad_mojawwad',
         streams: [
@@ -6573,27 +6096,9 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
           'خادم ٣ (إذاعة عبد الباسط مرتل)'
         ]
       },
-      // 4. الشيخ عبد الباسط عبد الصمد (مرتل)
-      abdulbasit_murattal_radio: {
-        id: 'abdulbasit_murattal_radio',
-        name: 'إذاعة الشيخ عبد الباسط عبد الصمد (مرتل)',
-        subtitle: 'إذاعة الشيخ عبد الباسط عبد الصمد — المصحف المرتل',
-        officialPage: 'https://qurango.net/radio/abdulbasit_abdulsamad',
-        streams: [
-          'https://qurango.net/radio/abdulbasit_abdulsamad',
-          'https://backup.qurango.net/radio/abdulbasit_abdulsamad',
-          'https://qurango.net/radio/abdulbasit_abdulsamad_mojawwad'
-        ],
-        serverLabels: [
-          'خادم ١ (البث المباشر لعبد الباسط مرتل)',
-          'خادم ٢ (الخادم الاحتياطي لعبد الباسط مرتل)',
-          'خادم ٣ (إذاعة عبد الباسط مجود)'
-        ]
-      },
-      // 5. الشيخ محمود خليل الحصري (مجود)
       husary_mujawwad_radio: {
         id: 'husary_mujawwad_radio',
-        name: 'إذاعة الشيخ محمود خليل الحصري (مجود)',
+        name: 'إذاعة الشيخ محمود خليل الحصري',
         subtitle: 'إذاعة الشيخ محمود خليل الحصري — المصحف المجود',
         officialPage: 'https://qurango.net/radio/mahmoud_khalil_alhussary_mojawwad',
         streams: [
@@ -6607,28 +6112,26 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
           'خادم ٣ (إذاعة الحصري مرتل)'
         ]
       },
-      // 6. الشيخ محمود خليل الحصري (مرتل)
-      husary_murattal_radio: {
-        id: 'husary_murattal_radio',
-        name: 'إذاعة الشيخ محمود خليل الحصري (مرتل)',
-        subtitle: 'إذاعة الشيخ محمود خليل الحصري — المصحف المرتل',
-        officialPage: 'https://qurango.net/radio/mahmoud_khalil_alhussary',
+      banna_mujawwad_radio: {
+        id: 'banna_mujawwad_radio',
+        name: 'إذاعة الشيخ محمود علي البنا',
+        subtitle: 'إذاعة الشيخ محمود علي البنا — تلاوات متواصلة',
+        officialPage: 'https://qurango.net/radio/mahmoud_ali__albanna_mojawwad',
         streams: [
-          'https://qurango.net/radio/mahmoud_khalil_alhussary',
-          'https://backup.qurango.net/radio/mahmoud_khalil_alhussary',
-          'https://qurango.net/radio/mahmoud_khalil_alhussary_mojawwad'
+          'https://qurango.net/radio/mahmoud_ali__albanna_mojawwad',
+          'https://backup.qurango.net/radio/mahmoud_ali__albanna_mojawwad',
+          'https://qurango.net/radio/mahmoud_ali__albanna'
         ],
         serverLabels: [
-          'خادم ١ (البث المباشر للحصري مرتل)',
-          'خادم ٢ (الخادم الاحتياطي للحصري مرتل)',
-          'خادم ٣ (إذاعة الحصري مجود)'
+          'خادم ١ (البث المباشر للبنا مجود)',
+          'خادم ٢ (الخادم الاحتياطي للبنا مجود)',
+          'خادم ٣ (إذاعة البنا مرتل)'
         ]
       },
-      // 7. الشيخ مصطفى إسماعيل (مرتل)
       mustafa_ismail_radio: {
         id: 'mustafa_ismail_radio',
         name: 'إذاعة الشيخ مصطفى إسماعيل',
-        subtitle: 'إذاعة الشيخ مصطفى إسماعيل — تلاوات متواصلة ٢٤/٧',
+        subtitle: 'إذاعة الشيخ مصطفى إسماعيل — تلاوات متواصلة',
         officialPage: 'https://qurango.net/radio/mustafa_ismail',
         streams: [
           'https://qurango.net/radio/mustafa_ismail',
@@ -6639,74 +6142,20 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
           'خادم ٢ (الخادم الاحتياطي لمصطفى إسماعيل)'
         ]
       },
-      // 8. الشيخ محمود علي البنا (مرتل)
-      banna_murattal_radio: {
-        id: 'banna_murattal_radio',
-        name: 'إذاعة الشيخ محمود علي البنا',
-        subtitle: 'إذاعة الشيخ محمود علي البنا — تلاوات متواصلة',
-        officialPage: 'https://qurango.net/radio/mahmoud_ali__albanna',
-        streams: [
-          'https://qurango.net/radio/mahmoud_ali__albanna',
-          'https://backup.qurango.net/radio/mahmoud_ali__albanna',
-          'https://qurango.net/radio/mahmoud_ali__albanna_mojawwad'
-        ],
-        serverLabels: [
-          'خادم ١ (البث المباشر للبنا مرتل)',
-          'خادم ٢ (الخادم الاحتياطي للبنا مرتل)',
-          'خادم ٣ (إذاعة البنا مجود)'
-        ]
-      },
-      // 9. الشيخ محمد محمود الطبلاوي (مرتل)
       tablawi_radio: {
         id: 'tablawi_radio',
         name: 'إذاعة الشيخ محمد محمود الطبلاوي',
-        subtitle: 'إذاعة الشيخ محمد محمود الطبلاوي — تلاوات متواصلة',
-        officialPage: 'https://qurango.net/radio/mohammad_altablaway',
+        subtitle: 'إذاعة الشيخ محمد محمود الطبلاوي — المصحف المرتل وتلاوات متواصلة',
+        officialPage: 'https://qurango.net/radio/mohammad_al_tablaway',
         streams: [
-          'https://backup.qurango.net/radio/mohammad_altablaway',
-          'https://qurango.net/radio/mohammad_altablaway'
+          'https://qurango.net/radio/mohammad_al_tablaway',
+          'https://backup.qurango.net/radio/mohammad_al_tablaway',
+          'https://qurango.net/radio/alzain_mohammad_ahmad'
         ],
         serverLabels: [
-          'خادم ١ (البث المباشر للطبلاوي مرتل)',
-          'خادم ٢ (الخادم الاحتياطي للطبلاوي)'
-        ]
-      },
-      // 10. الشيخ أحمد نعينع (مرتل)
-      ahmed_neana_radio: {
-        id: 'ahmed_neana_radio',
-        name: 'إذاعة الشيخ أحمد نعينع',
-        subtitle: 'إذاعة الشيخ أحمد نعينع — تلاوات متواصلة',
-        officialPage: 'https://qurango.net/radio/ahmad_nauina',
-        streams: [
-          'https://qurango.net/radio/ahmad_nauina',
-          'https://backup.qurango.net/radio/ahmad_nauina'
-        ],
-        serverLabels: [
-          'خادم ١ (البث المباشر لأحمد نعينع)',
-          'خادم ٢ (الخادم الاحتياطي لأحمد نعينع)'
-        ]
-      },
-      // 11. إذاعة الشيخ محمد رفعت (تراث إذاعي متواصل)
-      muhammad_rifat_radio: {
-        id: 'muhammad_rifat_radio',
-        name: 'إذاعة الشيخ محمد رفعت',
-        subtitle: 'إذاعة الشيخ محمد رفعت (قيثارة السماء) — بث تلاوات نادرة متواصلة ٢٤/٧',
-        officialPage: 'https://mp3quran.net/ar/refat',
-        streams: [
-          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/019.mp3',
-          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/089.mp3',
-          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/012.mp3',
-          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/018.mp3',
-          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/055.mp3',
-          'https://cdn.mp3quran.net/audio/muhammad-refaat/r1/001.mp3'
-        ],
-        serverLabels: [
-          'خادم ١ (سورة مريم الخالدة)',
-          'خادم ٢ (سورة الفجر والبلد)',
-          'خادم ٣ (سورة يوسف وطه)',
-          'خادم ٤ (سورة الكهف)',
-          'خادم ٥ (سورة الرحمن)',
-          'خادم ٦ (سورة الفاتحة وقصار السور)'
+          'خادم ١ (البث المباشر للشيخ الطبلاوي)',
+          'خادم ٢ (الخادم الاحتياطي للشيخ الطبلاوي)',
+          'خادم ٣ (بث احتياطي بديل)'
         ]
       }
     };
@@ -7025,6 +6474,10 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
 
       liveRadioAudio.addEventListener('ended', () => {
         if (state.userRequestedLiveStop) return;
+        const st = LIVE_RADIO_STATIONS[state.currentLiveStationId];
+        if (st && st.isPlaylistStation && st.streams.length > 1) {
+          state.currentLiveStreamIdx = (state.currentLiveStreamIdx + 1) % st.streams.length;
+        }
         startLiveRadioStream(true, true);
       });
 
@@ -7044,14 +6497,6 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
     }
 
     audioEl.addEventListener('play', () => {
-      if (state.currentReciterKey === 'muhammad_rifat') {
-        const win = getRifatClipWindow();
-        if (win) {
-          if (audioEl.currentTime < win.startSec - 0.5 || audioEl.currentTime >= win.endSec) {
-            seekAudioSafely(win.startSec);
-          }
-        }
-      }
       if (!state.userRequestedLiveStop || (liveRadioAudio && !liveRadioAudio.paused)) {
         stopLiveRadioStream();
       }
@@ -7213,31 +6658,8 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
       requestRenderOnce();
     }
 
-    function updateLocationUrl(section, subMode = state.studioSubMode) {
-      let hash = '';
-      if (section === 'radio') {
-        hash = '#radio';
-      } else if (section === 'studio') {
-        hash = subMode === 'video' ? '#studio-video' : '#studio';
-      } else {
-        hash = '#home';
-      }
-      try {
-        localStorage.setItem('refa3y_last_section', section);
-        if (section === 'studio') {
-          localStorage.setItem('refa3y_studio_submode', subMode || 'images');
-        }
-        if (window.location.hash !== hash) {
-          history.replaceState(null, '', hash);
-        }
-      } catch (e) {}
-    }
-
-    function switchAppSection(targetSection, updateUrl = true) {
+    function switchAppSection(targetSection) {
       state.activeAppSection = targetSection;
-      if (updateUrl) {
-        updateLocationUrl(targetSection);
-      }
       if (window.trackRefa3yEvent) {
         window.trackRefa3yEvent("section_view", { section_name: targetSection });
       }
@@ -7289,48 +6711,11 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
       window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
-    function restoreLastSectionOrHash() {
-      try {
-        const rawHash = (window.location.hash || '').replace(/^#\/?/, '').trim().toLowerCase();
-        const savedSection = localStorage.getItem('refa3y_last_section');
-        const savedSubMode = localStorage.getItem('refa3y_studio_submode');
-
-        let targetSection = 'home';
-        let targetSubMode = (savedSubMode === 'video') ? 'video' : 'images';
-
-        if (rawHash === 'radio') {
-          targetSection = 'radio';
-        } else if (rawHash === 'studio' || rawHash === 'studio-images') {
-          targetSection = 'studio';
-          targetSubMode = 'images';
-        } else if (rawHash === 'studio-video') {
-          targetSection = 'studio';
-          targetSubMode = 'video';
-        } else if (rawHash === 'home') {
-          targetSection = 'home';
-        } else if (savedSection && (savedSection === 'radio' || savedSection === 'studio')) {
-          targetSection = savedSection;
-          targetSubMode = (savedSubMode === 'video') ? 'video' : 'images';
-        }
-
-        if (targetSection !== 'home') {
-          switchAppSection(targetSection, false);
-          if (targetSection === 'studio') {
-            switchStudioSubMode(targetSubMode);
-            if (targetSubMode === 'images') {
-              setAspectRatio('9:16');
-            }
-          }
-        }
-      } catch (e) {}
-    }
-
     if (cardSelectLiveRadio) cardSelectLiveRadio.addEventListener('click', () => switchAppSection('radio'));
     if (cardSelectVideoStudio) {
       cardSelectVideoStudio.addEventListener('click', () => {
         switchAppSection('studio');
         switchStudioSubMode('images');
-        setAspectRatio('9:16');
       });
     }
     if (cardSelectCustomVideoStudio) {
@@ -7341,55 +6726,20 @@ async function applySurahAndAyahSelection(surahNum, fromAyah, toAyah, autoPlay =
     }
     if (btnNavHome) btnNavHome.addEventListener('click', () => switchAppSection('home'));
     if (btnNavLiveRadio) btnNavLiveRadio.addEventListener('click', () => switchAppSection('radio'));
-    if (btnNavVideoStudio) btnNavVideoStudio.addEventListener('click', () => {
-      switchAppSection('studio');
-      switchStudioSubMode('images');
-      setAspectRatio('9:16');
-    });
+    if (btnNavVideoStudio) btnNavVideoStudio.addEventListener('click', () => switchAppSection('studio'));
     if (btnBackFromRadioToHome) btnBackFromRadioToHome.addEventListener('click', () => switchAppSection('home'));
-    if (btnSwitchRadioToStudio) btnSwitchRadioToStudio.addEventListener('click', () => {
-      switchAppSection('studio');
-      switchStudioSubMode('images');
-      setAspectRatio('9:16');
-    });
+    if (btnSwitchRadioToStudio) btnSwitchRadioToStudio.addEventListener('click', () => switchAppSection('studio'));
     if (btnBackFromStudioToHome) btnBackFromStudioToHome.addEventListener('click', () => switchAppSection('home'));
     if (btnSwitchStudioToRadio) btnSwitchStudioToRadio.addEventListener('click', () => switchAppSection('radio'));
-
-    // استعادة الواجهة المحفوظة فوراً لمنع أي وميض
-    restoreLastSectionOrHash();
-    window.addEventListener('hashchange', restoreLastSectionOrHash);
 
     // =========================================================================
     // 11. التشغيل الخفيف عند فتح الصفحة
     // =========================================================================
     window.addEventListener('load', () => {
-      // تهيئة قارئ وسورة وآية افتراضية للمعاينة الفورية
-      if (!state.currentReciterKey) {
-        state.currentReciterKey = 'minshawi_mujawwad';
-        const defaultReciterBtn = document.querySelector('.reciter-btn[data-reciter="minshawi_mujawwad"]');
-        if (defaultReciterBtn) {
-          defaultReciterBtn.className = 'reciter-btn w-full text-right p-2.5 rounded-xl border transition flex items-center justify-between bg-amber-500/20 border-amber-400 text-amber-100';
-        }
-        if (activeReciterBadge) {
-          activeReciterBadge.textContent = 'محمد صديق المنشاوي';
-          activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[160px] font-bold';
-        }
-      }
-      populateSurahDropdown(false);
-      if (selectSurahEl && !selectSurahEl.value) {
-        selectSurahEl.value = '1';
-        state.selectedSurahNum = 1;
-      }
-      populateAyahDropdowns(1, 1, 1);
-      applySurahAndAyahSelection(1, 1, 1, false);
-
-      syncScopeButtonsForReciter();
-      syncTextModeUIForReciter();
       renderRareRecitationsList('all', '');
       populateLiveServerSelect();
       syncLiveStationLinks();
       setTimeout(() => initRefa3yPwaSetup(), 200);
-      restoreLastSectionOrHash();
     });
   </script>
 </body>

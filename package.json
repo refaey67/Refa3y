@@ -8,9 +8,7 @@
     "build": "echo 'Build successful'",
     "lint": "echo 'No lint errors'"
   },
-  "devDependencies": {
-    "serve": "^14.2.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "express": "^5.3.0"
   }

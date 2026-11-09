@@ -6661,13 +6661,7 @@
       g.fillStyle = '#0a0f1d';
       g.fillRect(0, 0, size, size);
 
-      // 3. الإطار الذهبي الداخلي بعد هامش الأمان (10%)
-      const pad = size * 0.10;
-      g.strokeStyle = '#f59e0b';
-      g.lineWidth = Math.max(2, size * 0.02);
-      g.beginPath();
-      g.roundRect(pad, pad, size - pad * 2, size - pad * 2, size * 0.10);
-      g.stroke();
+      // 3. تم إزالة الإطار الذهبي بناءً على طلب المستخدم
 
       // 4. النصوص في المنتصف مع مسافة أمان (18%)
       const safeZone = size * 0.18;

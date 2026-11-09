@@ -7709,27 +7709,19 @@
         });
     }
 
-    // Update setupPwa to use local icons
+    // Update setupPwa to use generated icons
     function initRefa3yPwaSetup() {
       try {
-        const icon192 = './icon-192.png';
-        const fallbackIcon = generateRefa3yAppIcon(192);
-
-        function setIcon(el, attr) {
-          if (!el) return;
-          el.setAttribute(attr, icon192);
-          el.onerror = () => { el.setAttribute(attr, fallbackIcon); };
-        }
-
+        const icon192 = generateRefa3yAppIcon(192);
         const favEl = document.getElementById('appFavicon');
         const touchEl = document.getElementById('appleTouchIcon');
         const headerAppIcon = document.getElementById('headerAppIcon');
         const modalAppIconPreview = document.getElementById('modalAppIconPreview');
 
-        setIcon(favEl, 'href');
-        setIcon(touchEl, 'href');
-        setIcon(headerAppIcon, 'src');
-        setIcon(modalAppIconPreview, 'src');
+        if (favEl) favEl.href = icon192;
+        if (touchEl) touchEl.href = icon192;
+        if (headerAppIcon) headerAppIcon.src = icon192;
+        if (modalAppIconPreview) modalAppIconPreview.src = icon192;
         
       } catch (e) {}
     }

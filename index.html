@@ -6657,32 +6657,35 @@
       const g = c.getContext('2d');
       const cx = size / 2;
 
-      // خلفية داكنة راقية
-      g.fillStyle = '#0f172a';
-      g.beginPath();
-      g.roundRect(0, 0, size, size, size * 0.20);
-      g.fill();
+      // 1 & 2. خلفية كاملة لون #0a0f1d
+      g.fillStyle = '#0a0f1d';
+      g.fillRect(0, 0, size, size);
 
-      // إطار ذهبي داخلي
-      const pad1 = size * 0.04;
+      // 3. الإطار الذهبي الداخلي بعد هامش الأمان (10%)
+      const pad = size * 0.10;
       g.strokeStyle = '#f59e0b';
-      g.lineWidth = Math.max(3, size * 0.025);
+      g.lineWidth = Math.max(2, size * 0.02);
       g.beginPath();
-      g.roundRect(pad1, pad1, size - pad1 * 2, size - pad1 * 2, size * 0.16);
+      g.roundRect(pad, pad, size - pad * 2, size - pad * 2, size * 0.10);
       g.stroke();
 
-      // في الأعلى بخط عربي ذهبي بارز: «استوديو إذاعة القرآن الكريم»
-      g.font = `700 ${Math.round(size * 0.088)}px "Cairo", sans-serif`;
-      g.fillStyle = '#fde68a';
+      // 4. النصوص في المنتصف مع مسافة أمان (18%)
+      const safeZone = size * 0.18;
+      
+      // السطر الأول والثاني (استوديو إذاعة القرآن الكريم)
       g.textAlign = 'center';
       g.textBaseline = 'middle';
-      g.fillText('استوديو إذاعة', cx, size * 0.40);
-      g.fillText('القرآن الكريم', cx, size * 0.54);
+      g.fillStyle = '#fde68a';
+      
+      g.font = `700 ${Math.round(size * 0.08)}px "Cairo", sans-serif`;
+      g.fillText('استوديو إذاعة', cx, size * 0.33);
+      g.font = `800 ${Math.round(size * 0.08)}px "Cairo", sans-serif`;
+      g.fillText('القرآن الكريم', cx, size * 0.48);
 
-      // في الأسفل بخط أصغر وأنيق: Refa3y
-      g.font = `700 ${Math.round(size * 0.11)}px "Cinzel", serif`;
+      // السطر الثالث (Refa3y)
+      g.font = `700 ${Math.round(size * 0.09)}px "Cinzel", serif`;
       g.fillStyle = '#fbbf24';
-      g.fillText('Refa3y', cx, size * 0.72);
+      g.fillText('Refa3y', cx, size * 0.66);
 
       return c.toDataURL('image/png');
     }

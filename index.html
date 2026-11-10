@@ -108,6 +108,21 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    .horizontal-touch-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      touch-action: pan-x;
+      scroll-behavior: smooth;
+      cursor: grab;
+    }
+    .horizontal-touch-scroll.is-dragging {
+      scroll-behavior: auto !important;
+      cursor: grabbing;
+    }
+    .horizontal-touch-scroll * {
+      touch-action: pan-x manipulation !important;
+    }
     input, textarea, select, [contenteditable="true"] {
       -webkit-user-select: text !important;
       user-select: text !important;
@@ -639,16 +654,20 @@
                   <button id="btnClearRareSearch" type="button" title="مسح" class="hidden absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 text-xs font-bold px-1">✕</button>
                 </div>
 
-                <!-- أزرار تصفية سريعة بأسماء عمالقة التلاوة الأصليين ١٠٠٪ -->
-                <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] no-scrollbar">
-                  <button type="button" data-sheikh-filter="refaat" class="rare-filter-btn px-2.5 py-1 rounded-lg font-bold transition bg-amber-500 text-slate-950 whitespace-nowrap shrink-0">🎙️ الشيخ محمد رفعت (٣١)</button>
-                  <button type="button" data-sheikh-filter="abdulbasit" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">عبد الباسط (٤)</button>
-                  <button type="button" data-sheikh-filter="minshawi" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">المنشاوي (٤)</button>
-                  <button type="button" data-sheikh-filter="mustafa" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">مصطفى إسماعيل (٣)</button>
-                  <button type="button" data-sheikh-filter="husary" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">الحصري (٢)</button>
-                  <button type="button" data-sheikh-filter="banna" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">البنا (٢)</button>
-                  <button type="button" data-sheikh-filter="tablawi" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">الطبلاوي (٢)</button>
-                  <button type="button" data-sheikh-filter="neana" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">أحمد نعينع (١)</button>
+                <!-- أزرار تصفية سريعة بأسماء عمالقة التلاوة الأصليين ١٠٠٪ مع دعم السحب اللمسي وأزرار التنقل -->
+                <div class="flex items-center gap-1">
+                  <button id="btnRareScrollRight" type="button" aria-label="تمرير لليمين" title="تمرير لليمين" class="w-7 h-7 rounded-lg bg-slate-900 hover:bg-slate-800 active:bg-amber-500 active:text-slate-950 border border-slate-700/80 text-amber-300 font-bold text-sm flex items-center justify-center shrink-0 transition select-none">‹</button>
+                  <div id="rareSheikhFilterBar" class="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] no-scrollbar horizontal-touch-scroll select-none">
+                    <button type="button" data-sheikh-filter="refaat" class="rare-filter-btn px-2.5 py-1 rounded-lg font-bold transition bg-amber-500 text-slate-950 whitespace-nowrap shrink-0">🎙️ الشيخ محمد رفعت (٣١)</button>
+                    <button type="button" data-sheikh-filter="abdulbasit" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">عبد الباسط (٤)</button>
+                    <button type="button" data-sheikh-filter="minshawi" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">المنشاوي (٤)</button>
+                    <button type="button" data-sheikh-filter="mustafa" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">مصطفى إسماعيل (٣)</button>
+                    <button type="button" data-sheikh-filter="husary" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">الحصري (٢)</button>
+                    <button type="button" data-sheikh-filter="banna" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">البنا (٢)</button>
+                    <button type="button" data-sheikh-filter="tablawi" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">الطبلاوي (٢)</button>
+                    <button type="button" data-sheikh-filter="neana" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">أحمد نعينع (١)</button>
+                  </div>
+                  <button id="btnRareScrollLeft" type="button" aria-label="تمرير لليسار" title="تمرير لليسار" class="w-7 h-7 rounded-lg bg-slate-900 hover:bg-slate-800 active:bg-amber-500 active:text-slate-950 border border-slate-700/80 text-amber-300 font-bold text-sm flex items-center justify-center shrink-0 transition select-none">›</button>
                 </div>
               </div>
 
@@ -5515,8 +5534,96 @@
       });
     }
 
+    const rareSheikhFilterBar = document.getElementById('rareSheikhFilterBar');
+    const btnRareScrollRight = document.getElementById('btnRareScrollRight');
+    const btnRareScrollLeft = document.getElementById('btnRareScrollLeft');
+    let rareBarWasDragged = false;
+
+    if (btnRareScrollRight && rareSheikhFilterBar) {
+      btnRareScrollRight.addEventListener('click', () => {
+        rareSheikhFilterBar.scrollBy({ left: 160, behavior: 'smooth' });
+      });
+    }
+    if (btnRareScrollLeft && rareSheikhFilterBar) {
+      btnRareScrollLeft.addEventListener('click', () => {
+        rareSheikhFilterBar.scrollBy({ left: -160, behavior: 'smooth' });
+      });
+    }
+
+    // محرك سحب لمسي برمجي (Touch & Drag-to-Scroll Booster) متوافق مع Android APK WebView والماوس
+    if (rareSheikhFilterBar) {
+      let isDown = false;
+      let startX = 0;
+      let startY = 0;
+      let startScrollLeft = 0;
+
+      rareSheikhFilterBar.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length !== 1) return;
+        isDown = true;
+        rareBarWasDragged = false;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        startScrollLeft = rareSheikhFilterBar.scrollLeft;
+        rareSheikhFilterBar.classList.add('is-dragging');
+      }, { passive: true });
+
+      rareSheikhFilterBar.addEventListener('touchmove', (e) => {
+        if (!isDown || !e.touches || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
+          rareBarWasDragged = true;
+          if (e.cancelable) e.preventDefault();
+          rareSheikhFilterBar.scrollLeft = startScrollLeft - dx;
+        }
+      }, { passive: false });
+
+      const endTouchDrag = () => {
+        if (!isDown) return;
+        isDown = false;
+        rareSheikhFilterBar.classList.remove('is-dragging');
+        setTimeout(() => { rareBarWasDragged = false; }, 60);
+      };
+      rareSheikhFilterBar.addEventListener('touchend', endTouchDrag, { passive: true });
+      rareSheikhFilterBar.addEventListener('touchcancel', endTouchDrag, { passive: true });
+
+      rareSheikhFilterBar.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'touch') return; // تعالجه أحداث اللمس أعلاه بدقة أعلى في WebView
+        isDown = true;
+        rareBarWasDragged = false;
+        startX = e.clientX;
+        startScrollLeft = rareSheikhFilterBar.scrollLeft;
+        rareSheikhFilterBar.classList.add('is-dragging');
+      });
+
+      rareSheikhFilterBar.addEventListener('pointermove', (e) => {
+        if (!isDown || e.pointerType === 'touch') return;
+        const dx = e.clientX - startX;
+        if (Math.abs(dx) > 8) {
+          rareBarWasDragged = true;
+          rareSheikhFilterBar.scrollLeft = startScrollLeft - dx;
+        }
+      });
+
+      const endPointerDrag = (e) => {
+        if (e && e.pointerType === 'touch') return;
+        if (!isDown) return;
+        isDown = false;
+        rareSheikhFilterBar.classList.remove('is-dragging');
+        setTimeout(() => { rareBarWasDragged = false; }, 60);
+      };
+      rareSheikhFilterBar.addEventListener('pointerup', endPointerDrag);
+      rareSheikhFilterBar.addEventListener('pointerleave', endPointerDrag);
+      rareSheikhFilterBar.addEventListener('pointercancel', endPointerDrag);
+    }
+
     document.querySelectorAll('.rare-filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        if (rareBarWasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
         const filterKey = btn.getAttribute('data-sheikh-filter') || 'refaat';
         state.activeRareSheikhFilter = filterKey;
 
@@ -5524,6 +5631,10 @@
           b.className = 'rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0';
         });
         btn.className = 'rare-filter-btn px-2.5 py-1 rounded-lg font-bold transition bg-amber-500 text-slate-950 whitespace-nowrap shrink-0';
+
+        try {
+          btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } catch (err) {}
 
         renderRareRecitationsList(filterKey, rareSearchInput?.value || '');
       });

@@ -641,8 +641,7 @@
 
                 <!-- أزرار تصفية سريعة بأسماء عمالقة التلاوة الأصليين ١٠٠٪ -->
                 <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] no-scrollbar">
-                  <button type="button" data-sheikh-filter="all" class="rare-filter-btn px-2.5 py-1 rounded-lg font-bold transition bg-amber-500 text-slate-950 whitespace-nowrap shrink-0">الكل (٤٩)</button>
-                  <button type="button" data-sheikh-filter="refaat" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 whitespace-nowrap shrink-0">🎙️ الشيخ محمد رفعت (٣١)</button>
+                  <button type="button" data-sheikh-filter="refaat" class="rare-filter-btn px-2.5 py-1 rounded-lg font-bold transition bg-amber-500 text-slate-950 whitespace-nowrap shrink-0">🎙️ الشيخ محمد رفعت (٣١)</button>
                   <button type="button" data-sheikh-filter="abdulbasit" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">عبد الباسط (٤)</button>
                   <button type="button" data-sheikh-filter="minshawi" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">المنشاوي (٤)</button>
                   <button type="button" data-sheikh-filter="mustafa" class="rare-filter-btn px-2.5 py-1 rounded-lg font-medium transition bg-slate-900 hover:bg-slate-800 text-slate-300 whitespace-nowrap shrink-0">مصطفى إسماعيل (٣)</button>
@@ -1695,7 +1694,7 @@
       customAudioUrl: null,
       reciterTabMode: 'standard', // 'standard' | 'rare'
       currentRareRecitationId: null,
-      activeRareSheikhFilter: 'all',
+      activeRareSheikhFilter: 'refaat',
       customAudioName: null,
       urlQueue: [],
       urlIndex: 0,
@@ -4936,7 +4935,7 @@
         btnTabStandardReciters.className = 'py-2 px-2.5 rounded-lg transition text-slate-300 hover:text-amber-200 flex items-center justify-center gap-1.5';
         rareRecitationsBox.classList.remove('hidden');
         standardRecitersBox.classList.add('hidden');
-        renderRareRecitationsList(state.activeRareSheikhFilter || 'all', rareSearchInput?.value || '');
+        renderRareRecitationsList(state.activeRareSheikhFilter || 'refaat', rareSearchInput?.value || '');
         syncSection2ModeVisibility();
         if (state.currentRareRecitationId) {
           const activeRare = RARE_RECITATIONS_LIST.find(r => r.id === state.currentRareRecitationId);
@@ -4959,12 +4958,12 @@
       btnTabRareRecitations.addEventListener('click', () => switchReciterTab('rare'));
     }
 
-    function renderRareRecitationsList(filterSheikh = 'all', searchQuery = '') {
+    function renderRareRecitationsList(filterSheikh = 'refaat', searchQuery = '') {
       if (!rareRecitationsList) return;
       const q = normalizeArabicForSearch(searchQuery);
 
       const filtered = RARE_RECITATIONS_LIST.filter(item => {
-        if (filterSheikh !== 'all' && item.sheikhKey !== filterSheikh) {
+        if (!q && filterSheikh && item.sheikhKey !== filterSheikh) {
           return false;
         }
         if (q) {
@@ -5143,7 +5142,7 @@
         if (firstImgBg) selectBackgroundById(firstImgBg.id);
       }
 
-      renderRareRecitationsList(state.activeRareSheikhFilter || 'all', rareSearchInput?.value || '');
+      renderRareRecitationsList(state.activeRareSheikhFilter || 'refaat', rareSearchInput?.value || '');
 
       document.querySelectorAll('.reciter-btn').forEach(b => {
         const isHajjaj = b.getAttribute('data-reciter') === 'hajjaj_suesy';
@@ -5504,7 +5503,7 @@
       rareSearchInput.addEventListener('input', () => {
         const hasText = Boolean(rareSearchInput.value.trim());
         if (btnClearRareSearch) btnClearRareSearch.classList.toggle('hidden', !hasText);
-        renderRareRecitationsList(state.activeRareSheikhFilter || 'all', rareSearchInput.value);
+        renderRareRecitationsList(state.activeRareSheikhFilter || 'refaat', rareSearchInput.value);
       });
     }
 
@@ -5512,13 +5511,13 @@
       btnClearRareSearch.addEventListener('click', () => {
         rareSearchInput.value = '';
         btnClearRareSearch.classList.add('hidden');
-        renderRareRecitationsList(state.activeRareSheikhFilter || 'all', '');
+        renderRareRecitationsList(state.activeRareSheikhFilter || 'refaat', '');
       });
     }
 
     document.querySelectorAll('.rare-filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const filterKey = btn.getAttribute('data-sheikh-filter') || 'all';
+        const filterKey = btn.getAttribute('data-sheikh-filter') || 'refaat';
         state.activeRareSheikhFilter = filterKey;
 
         document.querySelectorAll('.rare-filter-btn').forEach(b => {
@@ -7935,7 +7934,7 @@
       if (BACKGROUNDS_LIST.length > 0 && !activeLoadedBgImage) {
         loadAndSetBackgroundImage(BACKGROUNDS_LIST[0]);
       }
-      renderRareRecitationsList('all', '');
+      renderRareRecitationsList('refaat', '');
       populateLiveServerSelect();
       syncLiveStationLinks();
       initCollapsibleSections();

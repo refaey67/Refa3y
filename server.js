@@ -12,18 +12,34 @@ const HOST = '0.0.0.0';
 
 app.set('etag', false);
 
-const bgDir = path.join(__dirname, 'backgrounds');
+// Unified CORS and security headers middleware
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
 
-// Build a clean map of all 40 original files in /backgrounds
+const bgDir = path.join(__dirname, 'backgrounds');
+let cachedBgFiles = null;
+
+// Build a clean map of all 40 original files in /backgrounds with in-memory caching
 function getBackgroundFilesSorted() {
+  if (cachedBgFiles && cachedBgFiles.length > 0) {
+    return cachedBgFiles;
+  }
   try {
-    return fs.readdirSync(bgDir)
+    cachedBgFiles = fs.readdirSync(bgDir)
       .filter((f) => f.toLowerCase().endsWith('.jpg') && !f.startsWith('bg_'))
       .sort((a, b) => {
         const na = parseInt(a, 10) || 0;
         const nb = parseInt(b, 10) || 0;
         return na - nb || a.localeCompare(b);
       });
+    return cachedBgFiles;
   } catch (e) {
     return [];
   }
@@ -108,7 +124,7 @@ app.get(['/', '/index.html', '/Refa3y', '/Refa3y/', '/Refa3y/index.html'], (req,
 
 // 6. Fallback: return 404 for missing media assets, index.html for navigation
 app.use((req, res) => {
-  if (req.path.match(/\.(jpg|jpeg|png|webp|svg|gif|mp3|mp4|m4a|wav|json|css|js|ico)$/i)) {
+  if (req.path.match(/\.(jpg|jpeg|png|webp|svg|gif|mp3|mp4|m4a|wav|json|css|js|ico|apk)$/i)) {
     return res.status(404).send('Asset not found');
   }
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');

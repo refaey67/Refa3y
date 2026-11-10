@@ -1125,7 +1125,7 @@
           <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-200 font-semibold">يعمل في الخلفية</span>
         </div>
         <p class="text-xs text-slate-300 leading-relaxed">حزمة تثبيت أندرويد مباشرة تعمل كتطبيق مستقل وتدعم استمرار صوت الإذاعة والتلاوة في الخلفية.</p>
-        <a id="btnDownloadApkModal" href="https://github.com/refaey67/Refa3y/releases/latest/download/Refa3y.apk" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-md">
+        <a id="btnDownloadApkModal" href="https://github.com/refaey67/Refa3y/releases/latest/download/Refa3y.apk" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-md">
           <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
           </svg>
@@ -1213,7 +1213,7 @@
       return cleaned;
     }
 
-    const AYAHS_DATA = { nur_35: { id: 'nur_35', surahName: 'سورة النور', ayahNumber: '٣٥' } };
+    const AYAHS_DATA = {};
 
     // =========================================================================
     // 1.1 مكتبة التلاوات النادرة والحفلات الخارجية وتراث الشيخ محمد رفعت الأصيل ١٠٠٪
@@ -1681,7 +1681,6 @@
       glowIntensity: 0.85,
       particlesIntensity: 0.60,
       imageVisualEffect: 'golden_dust',
-      motionIntensity: 0,
       showHeaderInfo: true,
       showAudioWave: true,
       activePhraseIndex: 0,
@@ -1697,7 +1696,6 @@
       visualFilter: 'none',
       mediaFitMode: '9:16',
       bgBrightness: 1.0,
-      mediaPan: 0.50,
       userVideoUrl: null,
       userVideoName: null,
       userVideoDuration: 0,
@@ -2731,6 +2729,15 @@
       let attemptIdx = 0;
       const img = new Image();
 
+      function assignImageCandidateUrl(targetUrl) {
+        if (/^https?:\/\//i.test(targetUrl)) {
+          img.crossOrigin = 'anonymous';
+        } else {
+          img.removeAttribute('crossorigin');
+        }
+        img.src = targetUrl;
+      }
+
       img.onload = () => {
         loadedBgImagesCache[cacheKey] = img;
         bgItem.resolvedSrc = img.src;
@@ -2745,11 +2752,11 @@
       img.onerror = () => {
         attemptIdx++;
         if (attemptIdx < urlsToTry.length) {
-          img.src = urlsToTry[attemptIdx];
+          assignImageCandidateUrl(urlsToTry[attemptIdx]);
         }
       };
 
-      img.src = urlsToTry[0];
+      assignImageCandidateUrl(urlsToTry[0]);
       if (sourceArtwork) sourceArtwork.src = urlsToTry[0];
     }
 
@@ -2931,29 +2938,34 @@
       renderBgGallery();
     }
 
+    const customImageObjectUrls = [];
+
     if (customBgInput) {
       customBgInput.addEventListener('change', (e) => {
         const files = Array.from(e.target.files || []);
         if (!files.length) return;
         files.forEach((file, idx) => {
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            const dataUrl = ev.target?.result;
-            if (!dataUrl) return;
-            const customId = 'bg_user_' + Date.now() + '_' + idx;
-            const cleanName = file.name.replace(/\.[^/.]+$/, '');
-            BACKGROUNDS_LIST.unshift({
-              id: customId,
-              name: `صورة: ${cleanName}`,
-              color: '#f59e0b',
-              focalX: 0.50,
-              focalY: 0.45,
-              src: dataUrl
-            });
-            selectBackgroundById(customId);
-          };
-          reader.readAsDataURL(file);
+          const objUrl = URL.createObjectURL(file);
+          customImageObjectUrls.push(objUrl);
+          if (customImageObjectUrls.length > 15) {
+            const oldUrl = customImageObjectUrls.shift();
+            if (oldUrl) {
+              try { URL.revokeObjectURL(oldUrl); } catch (err) {}
+            }
+          }
+          const customId = 'bg_user_' + Date.now() + '_' + idx;
+          const cleanName = file.name.replace(/\.[^/.]+$/, '');
+          BACKGROUNDS_LIST.unshift({
+            id: customId,
+            name: `صورة: ${cleanName}`,
+            color: '#f59e0b',
+            focalX: 0.50,
+            focalY: 0.45,
+            src: objUrl
+          });
+          selectBackgroundById(customId);
         });
+        customBgInput.value = '';
       });
     }
 
@@ -2961,6 +2973,14 @@
       customVideoInput.addEventListener('change', (e) => {
         const file = e.target.files?.[0];
         if (!file) return;
+        if (state.userVideoUrl) {
+          try { URL.revokeObjectURL(state.userVideoUrl); } catch (err) {}
+        }
+        for (let i = BACKGROUNDS_LIST.length - 1; i >= 0; i--) {
+          if (BACKGROUNDS_LIST[i].isVideo) {
+            BACKGROUNDS_LIST.splice(i, 1);
+          }
+        }
         const videoObjUrl = URL.createObjectURL(file);
         const cleanName = file.name.replace(/\.[^/.]+$/, '');
         const customId = 'bg_video_' + Date.now();
@@ -3008,6 +3028,7 @@
         });
 
         selectBackgroundById(customId);
+        customVideoInput.value = '';
       });
     }
 
@@ -5587,7 +5608,6 @@
       state.glowIntensity = 0.85;
       state.particlesIntensity = 0.60;
       state.imageVisualEffect = 'golden_dust';
-      state.motionIntensity = 0;
       state.textMode = 'transcript';
       state.ayahFontFamily = 'Amiri Quran';
       state.ayahFrameStyle = 'ornate_gold';
@@ -5603,7 +5623,6 @@
       state.visualFilter = 'none';
       state.mediaFitMode = state.aspectRatio || '9:16';
       state.bgBrightness = 1.0;
-      state.mediaPan = 0.50;
       if (selectVisualFilter) selectVisualFilter.value = 'none';
       if (selectMediaFitMode) selectMediaFitMode.value = state.aspectRatio || '9:16';
       if (sliderBgBrightness) sliderBgBrightness.value = '100';
@@ -5696,6 +5715,8 @@
       return env;
     }
 
+    let lastExportedVideoObjectUrl = null;
+
     function triggerInstantFileDownload(blob, filename) {
       const now = Date.now();
       if (window._lastDownloadTime && (now - window._lastDownloadTime < 2500) && window._lastDownloadFilename === filename) {
@@ -5704,7 +5725,13 @@
       window._lastDownloadTime = now;
       window._lastDownloadFilename = filename;
 
+      if (lastExportedVideoObjectUrl) {
+        try { URL.revokeObjectURL(lastExportedVideoObjectUrl); } catch (e) {}
+        lastExportedVideoObjectUrl = null;
+      }
+
       const videoUrl = URL.createObjectURL(blob);
+      lastExportedVideoObjectUrl = videoUrl;
       downloadVideoLink.href = videoUrl;
       downloadVideoLink.download = filename;
       downloadVideoLink.classList.remove('hidden');
@@ -6665,8 +6692,6 @@
       // 3. تم إزالة الإطار الذهبي بناءً على طلب المستخدم
 
       // 4. النصوص في المنتصف مع مسافة أمان (18%)
-      const safeZone = size * 0.18;
-      
       // السطر الأول والثاني (استوديو إذاعة القرآن الكريم)
       g.textAlign = 'center';
       g.textBaseline = 'middle';
@@ -6716,6 +6741,7 @@
     function closeInstallModalClean() {
       if (!installAppModal || installAppModal.classList.contains('hidden')) return;
       installAppModal.classList.add('hidden');
+      document.body.style.overflow = '';
       if (window.history.state && window.history.state.modal === 'install') {
         try { window.history.back(); } catch (e) {}
       }
@@ -6725,6 +6751,7 @@
       btnInstallApp.addEventListener('click', () => {
         if (installAppModal) {
           installAppModal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
           try {
             window.history.pushState({
               section: state.activeAppSection,
@@ -6763,6 +6790,11 @@
         if (e.target === installAppModal) closeInstallModalClean();
       });
     }
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && installAppModal && !installAppModal.classList.contains('hidden')) {
+        closeInstallModalClean();
+      }
+    });
 
     // =========================================================================
     // 10.5 مشغل البث المباشر لإذاعة القرآن الكريم من القاهرة 98.2 FM (حصرياً بدون أي إذاعات أخرى)
@@ -7540,6 +7572,7 @@
       // إغلاق نافذة التثبيت المنبثقة أولاً إذا كانت مفتوحة
       if (installAppModal && !installAppModal.classList.contains('hidden')) {
         installAppModal.classList.add('hidden');
+        document.body.style.overflow = '';
         return;
       }
 

@@ -80,6 +80,10 @@
   <link rel="dns-prefetch" href="https://everyayah.com">
   <link rel="preconnect" href="https://server14.mp3quran.net" crossorigin>
   <link rel="dns-prefetch" href="https://server14.mp3quran.net">
+  <link rel="preconnect" href="https://cdn.mp3quran.net" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.mp3quran.net">
+  <link rel="preconnect" href="https://www.mp3quran.net" crossorigin>
+  <link rel="dns-prefetch" href="https://www.mp3quran.net">
   <link rel="preconnect" href="https://qurango.net" crossorigin>
   <link rel="dns-prefetch" href="https://qurango.net">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -1633,9 +1637,19 @@
       mustafa_ismail: {
         id: 'mustafa_ismail',
         name: 'الشيخ مصطفى إسماعيل (مرتل)',
-        getUrls: (ayah) => [
-          `https://everyayah.com/data/Mustafa_Ismail_48kbps/${ayah.everyAyahCode}.mp3`
-        ]
+        getUrls: (ayah) => {
+          const codeStr = String(ayah?.everyAyahCode || '001001').padStart(6, '0');
+          const sNum = Number(ayah?.surahNum || codeStr.slice(0, 3)) || 1;
+          const aNum = Number(ayah?.ayahNum || codeStr.slice(3, 6)) || 1;
+          // السور من ٣ إلى ٤٥ غير موجودة في مقسم EveryAyah وتُجلب مباشرة بدقة الآية عبر النطاق الزمني من مصحف الشيخ مصطفى إسماعيل الكامل
+          if (sNum >= 3 && sNum <= 45) {
+            return [`mustafa-slice://${sNum}/${aNum}`];
+          }
+          return [
+            `https://everyayah.com/data/Mustafa_Ismail_48kbps/${codeStr}.mp3`,
+            `mustafa-slice://${sNum}/${aNum}`
+          ];
+        }
       },
       banna_murattal: {
         id: 'banna_murattal',
@@ -3550,6 +3564,105 @@
       tryLoadAudioUrl(autoPlay);
     }
 
+    const mustafaSurahMetaCache = {};
+    const mustafaAyahBlobUrlCache = new Map();
+
+    async function getMustafaSurahTimingMeta(sNum) {
+      const s = Number(sNum) || 1;
+      if (mustafaSurahMetaCache[s]) return mustafaSurahMetaCache[s];
+      const sCode = String(s).padStart(3, '0');
+      const audioUrl = `https://cdn.mp3quran.net/audio/mustafa-ismail/r2/${sCode}.mp3`;
+      const timingUrl = `https://www.mp3quran.net/api/v3/ayat_timing?surah=${s}&read=288`;
+      const [tRes, hRes] = await Promise.all([
+        fetch(timingUrl),
+        fetch(audioUrl, { mode: 'cors', headers: { Range: 'bytes=0-15' } })
+      ]);
+      if (!tRes.ok) throw new Error('Failed to load Mustafa Ismail surah timings');
+      const timings = await tRes.json();
+      let id3Offset = 23523;
+      let totalBytes = 0;
+      const cr = hRes.headers.get('content-range') || '';
+      const m = cr.match(/\/(\d+)/);
+      if (m) totalBytes = Number(m[1]);
+      const hBuf = new Uint8Array(await hRes.arrayBuffer());
+      if (hBuf.length >= 10 && hBuf[0] === 0x49 && hBuf[1] === 0x44 && hBuf[2] === 0x33) {
+        id3Offset = 10 + ((hBuf[6] & 0x7f) << 21) + ((hBuf[7] & 0x7f) << 14) + ((hBuf[8] & 0x7f) << 7) + (hBuf[9] & 0x7f);
+      }
+      const lastEntry = Array.isArray(timings) && timings.length > 0 ? timings[timings.length - 1] : null;
+      const totalMs = lastEntry && Number(lastEntry.end_time) > 0 ? Number(lastEntry.end_time) : 0;
+      mustafaSurahMetaCache[s] = { audioUrl, timings, id3Offset, totalBytes, totalMs };
+      return mustafaSurahMetaCache[s];
+    }
+
+    async function fetchMustafaAyahSliceBuffer(sNum, aNum) {
+      const s = Number(sNum) || 1;
+      const a = Number(aNum) || 1;
+      const meta = await getMustafaSurahTimingMeta(s);
+      const entry = Array.isArray(meta.timings) ? meta.timings.find(item => Number(item.ayah) === a) : null;
+      if (!entry) throw new Error('Ayah timing entry not found');
+      const startMs = Math.max(0, Number(entry.start_time) || 0);
+      const endMs = Math.max(startMs + 800, Number(entry.end_time) || (startMs + 8000));
+
+      let startByte = 0;
+      let endByte = 0;
+      if (meta.totalBytes > meta.id3Offset && meta.totalMs > 0) {
+        const audioPayloadBytes = meta.totalBytes - meta.id3Offset;
+        startByte = Math.max(meta.id3Offset, meta.id3Offset + Math.floor((startMs / meta.totalMs) * audioPayloadBytes) - 1200);
+        endByte = Math.min(meta.totalBytes - 1, meta.id3Offset + Math.ceil((endMs / meta.totalMs) * audioPayloadBytes) + 1200);
+      } else {
+        startByte = Math.max(meta.id3Offset, meta.id3Offset + Math.floor(startMs * 12) - 1200);
+        endByte = meta.id3Offset + Math.ceil(endMs * 12) + 1200;
+      }
+
+      const resp = await fetch(meta.audioUrl, {
+        mode: 'cors',
+        headers: { Range: `bytes=${startByte}-${endByte}` }
+      });
+      if (!resp.ok && resp.status !== 206) {
+        throw new Error('Range fetch failed: ' + resp.status);
+      }
+      const rawBuf = await resp.arrayBuffer();
+      const bytes = new Uint8Array(rawBuf);
+      let syncOffset = 0;
+      const maxScan = Math.min(bytes.length - 4, 4096);
+      for (let i = 0; i < maxScan; i++) {
+        if (
+          bytes[i] === 0xFF &&
+          (bytes[i + 1] & 0xE0) === 0xE0 &&
+          (bytes[i + 1] & 0x18) !== 0x08 &&
+          (bytes[i + 1] & 0x06) !== 0x00 &&
+          (bytes[i + 2] & 0xF0) !== 0xF0 &&
+          (bytes[i + 2] & 0xF0) !== 0x00
+        ) {
+          syncOffset = i;
+          break;
+        }
+      }
+      return rawBuf.slice(syncOffset);
+    }
+
+    async function resolveMustafaSliceBlobUrl(sliceUri) {
+      if (mustafaAyahBlobUrlCache.has(sliceUri)) {
+        return mustafaAyahBlobUrlCache.get(sliceUri);
+      }
+      const parts = sliceUri.replace('mustafa-slice://', '').split('/');
+      const sNum = Number(parts[0]) || 1;
+      const aNum = Number(parts[1]) || 1;
+      const mp3Buf = await fetchMustafaAyahSliceBuffer(sNum, aNum);
+      const blob = new Blob([mp3Buf], { type: 'audio/mpeg' });
+      const blobUrl = URL.createObjectURL(blob);
+      mustafaAyahBlobUrlCache.set(sliceUri, blobUrl);
+      if (mustafaAyahBlobUrlCache.size > 25) {
+        const oldestKey = mustafaAyahBlobUrlCache.keys().next().value;
+        const oldestUrl = mustafaAyahBlobUrlCache.get(oldestKey);
+        mustafaAyahBlobUrlCache.delete(oldestKey);
+        if (oldestUrl) {
+          try { URL.revokeObjectURL(oldestUrl); } catch (e) {}
+        }
+      }
+      return blobUrl;
+    }
+
     function tryLoadAudioUrl(autoPlay = false) {
       if (state.urlIndex >= state.urlQueue.length) {
         setStatus('تعذر الاتصال بمصدر الصوت — ارفع ملف الصوت مباشرة', 'rose');
@@ -3558,6 +3671,28 @@
       const url = state.urlQueue[state.urlIndex];
       if (!state.isSequentialFallback || state.multiAyahCurrentIdx === 0) {
         setStatus('جاري تجهيز التلاوة...', 'amber');
+      }
+      if (typeof url === 'string' && url.startsWith('mustafa-slice://')) {
+        const expectedSession = state.multiMergeSessionId;
+        resolveMustafaSliceBlobUrl(url)
+          .then((blobUrl) => {
+            if (expectedSession !== state.multiMergeSessionId) return;
+            audioEl.src = blobUrl;
+            audioEl.load();
+            if (autoPlay) {
+              audioEl.play().catch(() => updatePlayUI(false));
+            }
+          })
+          .catch(() => {
+            if (expectedSession !== state.multiMergeSessionId) return;
+            if (state.urlIndex + 1 < state.urlQueue.length) {
+              state.urlIndex += 1;
+              tryLoadAudioUrl(autoPlay);
+            } else {
+              setStatus('تعذر تحميل التلاوة — جرب قارئاً آخر', 'rose');
+            }
+          });
+        return;
       }
       audioEl.src = url;
       audioEl.load();
@@ -5790,6 +5925,18 @@
       for (const idx of orderedIndices) {
         const url = rawUrls[idx];
         try {
+          if (typeof url === 'string' && url.startsWith('mustafa-slice://')) {
+            const parts = url.replace('mustafa-slice://', '').split('/');
+            const sNum = Number(parts[0]) || 1;
+            const aNum = Number(parts[1]) || 1;
+            const slicedBuf = await fetchMustafaAyahSliceBuffer(sNum, aNum);
+            if (slicedBuf && slicedBuf.byteLength > 1000) {
+              arrayBuffer = slicedBuf;
+              if (!state.customAudioUrl) reciterWorkingMirrorIdx[reciterKey] = idx;
+              break;
+            }
+            continue;
+          }
           const resp = await fetch(url, { mode: 'cors' });
           if (resp.ok) {
             arrayBuffer = await resp.arrayBuffer();

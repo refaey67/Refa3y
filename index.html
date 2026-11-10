@@ -74,6 +74,14 @@
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.alquran.cloud" crossorigin>
+  <link rel="dns-prefetch" href="https://api.alquran.cloud">
+  <link rel="preconnect" href="https://everyayah.com" crossorigin>
+  <link rel="dns-prefetch" href="https://everyayah.com">
+  <link rel="preconnect" href="https://server14.mp3quran.net" crossorigin>
+  <link rel="dns-prefetch" href="https://server14.mp3quran.net">
+  <link rel="preconnect" href="https://qurango.net" crossorigin>
+  <link rel="dns-prefetch" href="https://qurango.net">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cinzel:wght@600;700&family=Dancing+Script:wght@700&family=Harmattan:wght@400;700&family=Lateef:wght@400;700&family=Noto+Naskh+Arabic:wght@500;700&family=Playfair+Display:wght@600&family=Reem+Kufi:wght@600;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <style>
@@ -85,6 +93,16 @@
     }
     * {
       box-sizing: border-box;
+    }
+    button, a, input, select, textarea, label {
+      touch-action: manipulation;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
     input, textarea, select, [contenteditable="true"] {
       -webkit-user-select: text !important;
@@ -3795,7 +3813,6 @@
         const srcAspect = srcW / srcH;
         const canvasAspect = W / H;
         const fitMode = state.mediaFitMode || 'cover';
-        const userPan = 0.50;
 
         // حساب معامل تنعيم التكرار للفيديو القصير (لمنع أي قطع مفاجئ أو مستفز عند إعادة الفيديو)
         let loopCrossfadeAlpha = 0;
@@ -3863,12 +3880,12 @@
             drawW = W * loopZoomScale;
             drawH = (W / srcAspect) * loopZoomScale;
             offsetX = (W - drawW) * 0.5;
-            offsetY = (H - drawH) * userPan;
+            offsetY = (H - drawH) * 0.5;
           } else {
             drawH = H * loopZoomScale;
             drawW = (H * srcAspect) * loopZoomScale;
             offsetY = (H - drawH) * 0.5;
-            offsetX = (W - drawW) * userPan;
+            offsetX = (W - drawW) * 0.5;
           }
         } else {
           // وضع ملء الإطار بالكامل (cover) على أبعاد 16:9 أو 9:16
@@ -5581,6 +5598,8 @@
     if (inputWatermarkText) {
       inputWatermarkText.addEventListener('input', () => {
         state.watermarkText = inputWatermarkText.value;
+        const wmBadge = document.getElementById('activeWatermarkBadge');
+        if (wmBadge) wmBadge.textContent = (inputWatermarkText.value || '').trim() || 'Refa3y';
         requestRenderOnce();
       });
     }
@@ -5589,6 +5608,8 @@
       btnResetWatermarkText.addEventListener('click', () => {
         state.watermarkText = 'Refa3y';
         if (inputWatermarkText) inputWatermarkText.value = 'Refa3y';
+        const wmBadge = document.getElementById('activeWatermarkBadge');
+        if (wmBadge) wmBadge.textContent = 'Refa3y';
         requestRenderOnce();
       });
     }
@@ -5633,6 +5654,8 @@
       state.watermarkFont = 'Cinzel';
       setWatermarkSize(16);
       if (inputWatermarkText) inputWatermarkText.value = 'Refa3y';
+      const wmBadge = document.getElementById('activeWatermarkBadge');
+      if (wmBadge) wmBadge.textContent = 'Refa3y';
       if (selectWatermarkPos) selectWatermarkPos.value = 'bottom-right';
       if (selectWatermarkFont) selectWatermarkFont.value = 'Cinzel';
       if (inputWatermarkColor) inputWatermarkColor.value = '#fde68a';

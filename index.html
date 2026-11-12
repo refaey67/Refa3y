@@ -257,6 +257,47 @@
     html.light-theme .bg-emerald-500 {
       color: #0f172a !important;
     }
+    /* كبسولة زر تحميل/تحديث تطبيق الأندرويد الملكية (Luxury Gold & Emerald Badge) */
+    #btnInstallApp {
+      background: linear-gradient(135deg, #064e3b 0%, #022c22 100%) !important;
+      border: 1.5px solid #f59e0b !important;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.28) !important;
+      color: #fde68a !important;
+    }
+    #btnInstallApp span {
+      color: #fde68a !important;
+    }
+    html.light-theme #btnInstallApp {
+      background: linear-gradient(135deg, #064e3b 0%, #022c22 100%) !important;
+      border: 1.5px solid #d97706 !important;
+      box-shadow: 0 2px 10px rgba(217, 119, 6, 0.32) !important;
+      color: #fde68a !important;
+    }
+    html.light-theme #btnInstallApp span {
+      color: #fde68a !important;
+    }
+    html.light-theme #btnToggleTheme {
+      background-color: #f8fafc !important;
+      border-color: rgba(217, 119, 6, 0.38) !important;
+      color: #b45309 !important;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+    }
+    html.light-theme #btnToggleTheme:hover {
+      background-color: #f1f5f9 !important;
+      border-color: #d97706 !important;
+    }
+    #headerNavPills:not(.hidden) {
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    html.light-theme .header-actions-row {
+      border-top-color: rgba(217, 119, 6, 0.22) !important;
+    }
+    @media (min-width: 768px) {
+      html.light-theme .header-actions-row {
+        border-top-color: transparent !important;
+      }
+    }
   </style>
 </head>
 <body class="p-3 sm:p-5 select-none">
@@ -268,49 +309,65 @@
   <!-- الحاوية الرئيسية -->
   <div class="max-w-7xl mx-auto space-y-4">
 
-    <!-- الرأس المختصر والخفيف -->
-    <header class="glass-panel rounded-2xl p-3 sm:p-3.5 flex flex-col md:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <img id="headerAppIcon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='5'/><text x='64' y='46' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>استوديو إذاعة</text><text x='64' y='64' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>القرآن الكريم</text><text x='64' y='96' font-family='serif' font-size='18' font-weight='bold' fill='%23fbbf24' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-amber-400/60 shrink-0 object-cover" />
+    <!-- الرأس العلوي المنظم والمتجاوب (Clean Responsive Header Architecture) -->
+    <header class="glass-panel rounded-2xl p-3.5 sm:px-5 sm:py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-2.5 md:gap-4">
+      <!-- الصف الأول على الهاتف (الهوية كاملة بعرض 100% بدون أي قص) والجانب الأيمن على الشاشات الكبيرة -->
+      <div class="w-full md:w-auto flex items-center gap-3 md:order-1">
+        <img id="headerAppIcon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='5'/><text x='64' y='46' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>استوديو إذاعة</text><text x='64' y='64' font-family='sans-serif' font-size='13' font-weight='bold' fill='%23fde68a' text-anchor='middle'>القرآن الكريم</text><text x='64' y='96' font-family='serif' font-size='18' font-weight='bold' fill='%23fbbf24' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-11 h-11 rounded-xl border border-amber-400/60 shrink-0 object-cover shadow-sm" />
         <div class="flex flex-col text-right">
-          <h1 class="text-base sm:text-lg font-bold gold-gradient-text leading-tight">استوديو إذاعة القرآن الكريم</h1>
-          <div class="flex items-center gap-2 flex-wrap mt-0.5">
-            <span class="text-[11px] sm:text-xs font-medium text-amber-200/80 tracking-wide">بواسطة رفاعي | By Refa3y</span>
-            <button id="btnInstallApp" type="button" class="px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-bold transition inline-flex items-center gap-1 bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm shrink-0" title="تحميل وتثبيت التطبيق على الهاتف">
-              <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/>
-              </svg>
-              <span>تثبيت التطبيق (APK)</span>
-            </button>
-          </div>
+          <h1 class="text-base sm:text-lg font-bold gold-gradient-text leading-snug">استوديو إذاعة القرآن الكريم</h1>
+          <span class="text-xs font-medium text-amber-200/80 tracking-wide mt-0.5">بواسطة رفاعي | By Refa3y</span>
         </div>
       </div>
 
-      <div class="flex items-center gap-2 flex-wrap justify-center">
-        <div id="headerNavPills" class="hidden items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-700/80">
-          <button id="btnNavHome" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950">
-            الرئيسية
-          </button>
-          <button id="btnNavLiveRadio" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>راديو مباشر</span>
-          </button>
-          <button id="btnNavVideoStudio" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200">
-            تصميم الفيديوهات
-          </button>
-        </div>
+      <!-- الصف الثاني على الهاتف (أزرار الإجراءات السريعة بعرض متوازن) والجانب الأيسر على الشاشات الكبيرة -->
+      <div class="header-actions-row w-full md:w-auto grid grid-cols-2 md:flex items-center gap-2 pt-2.5 md:pt-0 border-t border-slate-800/70 md:border-0 shrink-0 md:order-3">
+        <button id="btnInstallApp" type="button" class="h-10 w-full md:w-auto px-3 sm:px-3.5 rounded-xl flex items-center justify-center gap-2 text-xs font-bold whitespace-nowrap hover:brightness-110 active:scale-95 transition-all" title="تحميل وتثبيت تطبيق الأندرويد (APK)">
+          <svg width="20" height="20" class="w-5 h-5 shrink-0" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- قوس المحراب الإسلامي الذهبي المزخرف -->
+            <path d="M5 31V16.5C5 9.8 10.5 5.2 15.5 3.2C20.5 5.2 26 9.8 26 16.5V31H5Z" fill="#042f2e" stroke="#fbbf24" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M7.5 29V17C7.5 11.6 11.8 7.8 15.5 6C19.2 7.8 23.5 11.6 23.5 17V29" stroke="#fde68a" stroke-width="0.8" stroke-opacity="0.55" stroke-dasharray="1.5 1.5"/>
+            <!-- قوس سماعة الاستوديو الذهبية -->
+            <path d="M9.8 18.8V16.6C9.8 13.4 12.35 10.9 15.5 10.9C18.65 10.9 21.2 13.4 21.2 16.6V18.8" stroke="#fde68a" stroke-width="1.6" stroke-linecap="round"/>
+            <rect x="8.3" y="17.2" width="2.2" height="4.2" rx="1" fill="#f59e0b"/>
+            <rect x="20.5" y="17.2" width="2.2" height="4.2" rx="1" fill="#f59e0b"/>
+            <!-- قرنا استشعار ورأس الأندرويد الذهبي -->
+            <line x1="12.6" y1="13.2" x2="11.2" y2="11.3" stroke="#fde68a" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="18.4" y1="13.2" x2="19.8" y2="11.3" stroke="#fde68a" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M11.2 18.5C11.2 15.9 13.1 13.9 15.5 13.9C17.9 13.9 19.8 15.9 19.8 18.5V19.4H11.2V18.5Z" fill="#fde68a"/>
+            <circle cx="13.8" cy="16.8" r="0.85" fill="#022c22"/>
+            <circle cx="17.2" cy="16.8" r="0.85" fill="#022c22"/>
+            <rect x="11.5" y="20.4" width="8" height="6.2" rx="1.6" fill="#fbbf24"/>
+            <!-- شارة سهم التحميل الذهبية البارزة -->
+            <circle cx="27.5" cy="24.5" r="7" fill="#f59e0b" stroke="#022c22" stroke-width="1.5"/>
+            <path d="M27.5 20.8V26.8M27.5 26.8L25 24.3M27.5 26.8L30 24.3" stroke="#022c22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="24.8" y1="28.6" x2="30.2" y2="28.6" stroke="#022c22" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <span id="labelInstallAppBtn">تثبيت التطبيق (APK)</span>
+        </button>
 
-        <button id="btnToggleTheme" type="button" aria-label="تبديل المظهر" title="تبديل المظهر (داكن / نهاري / تلقائي)" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/50 text-amber-200 text-xs font-bold transition inline-flex items-center gap-1.5 shrink-0 shadow-sm">
+        <button id="btnToggleTheme" type="button" aria-label="تبديل المظهر" title="تبديل المظهر (داكن / نهاري)" class="h-10 w-full md:w-auto px-3 sm:px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/50 text-amber-200 flex items-center justify-center gap-2 text-xs font-bold whitespace-nowrap shadow-sm active:scale-95 transition-all">
           <svg id="iconThemeDark" class="w-4 h-4 text-amber-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
           </svg>
           <svg id="iconThemeLight" class="w-4 h-4 text-amber-500 shrink-0 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
           </svg>
-          <svg id="iconThemeAuto" class="w-4 h-4 text-emerald-400 shrink-0 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9Zm0 2.25v13.5a6.75 6.75 0 0 1 0-13.5Z" />
-          </svg>
           <span id="labelThemeMode">داكن</span>
+        </button>
+      </div>
+
+      <!-- الصف الثالث على الهاتف (شريط التنقل عند الظهور خارج الشاشة الرئيسية) وفي المنتصف على الشاشات الكبيرة -->
+      <div id="headerNavPills" class="hidden w-full md:w-auto grid-cols-3 gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-700/80 md:order-2">
+        <button id="btnNavHome" type="button" class="h-8 px-2.5 sm:px-3.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center justify-center gap-1.5 text-center whitespace-nowrap">
+          الرئيسية
+        </button>
+        <button id="btnNavLiveRadio" type="button" class="h-8 px-2.5 sm:px-3.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200 flex items-center justify-center gap-1.5 text-center whitespace-nowrap">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+          <span>راديو مباشر</span>
+        </button>
+        <button id="btnNavVideoStudio" type="button" class="h-8 px-2.5 sm:px-3.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200 flex items-center justify-center gap-1.5 text-center whitespace-nowrap">
+          تصميم الفيديوهات
         </button>
       </div>
     </header>
@@ -1260,8 +1317,26 @@
     <div class="glass-panel rounded-2xl max-w-md w-full p-5 border border-amber-400/40 space-y-4 text-right relative">
       <button id="btnCloseInstallModal" type="button" class="absolute top-4 left-4 w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-sm">✕</button>
 
-      <div class="flex items-center gap-3">
-        <img id="modalAppIconPreview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='6'/><text x='64' y='74' font-family='serif' font-size='28' font-weight='bold' fill='%23fde68a' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="w-12 h-12 rounded-xl border border-amber-400 shrink-0" />
+      <div class="flex items-center gap-3.5">
+        <div class="w-14 h-14 rounded-2xl shrink-0 flex items-center justify-center shadow-lg" style="background: linear-gradient(135deg, #064e3b 0%, #022c22 100%); border: 1.5px solid #f59e0b; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);">
+          <svg width="42" height="42" class="w-[42px] h-[42px]" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 31V16.5C5 9.8 10.5 5.2 15.5 3.2C20.5 5.2 26 9.8 26 16.5V31H5Z" fill="#042f2e" stroke="#fbbf24" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M7.5 29V17C7.5 11.6 11.8 7.8 15.5 6C19.2 7.8 23.5 11.6 23.5 17V29" stroke="#fde68a" stroke-width="0.8" stroke-opacity="0.6" stroke-dasharray="1.5 1.5"/>
+            <path d="M9.8 18.8V16.6C9.8 13.4 12.35 10.9 15.5 10.9C18.65 10.9 21.2 13.4 21.2 16.6V18.8" stroke="#fde68a" stroke-width="1.6" stroke-linecap="round"/>
+            <rect x="8.3" y="17.2" width="2.2" height="4.2" rx="1" fill="#f59e0b"/>
+            <rect x="20.5" y="17.2" width="2.2" height="4.2" rx="1" fill="#f59e0b"/>
+            <line x1="12.6" y1="13.2" x2="11.2" y2="11.3" stroke="#fde68a" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="18.4" y1="13.2" x2="19.8" y2="11.3" stroke="#fde68a" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M11.2 18.5C11.2 15.9 13.1 13.9 15.5 13.9C17.9 13.9 19.8 15.9 19.8 18.5V19.4H11.2V18.5Z" fill="#fde68a"/>
+            <circle cx="13.8" cy="16.8" r="0.85" fill="#022c22"/>
+            <circle cx="17.2" cy="16.8" r="0.85" fill="#022c22"/>
+            <rect x="11.5" y="20.4" width="8" height="6.2" rx="1.6" fill="#fbbf24"/>
+            <circle cx="27.5" cy="24.5" r="7" fill="#f59e0b" stroke="#022c22" stroke-width="1.5"/>
+            <path d="M27.5 20.8V26.8M27.5 26.8L25 24.3M27.5 26.8L30 24.3" stroke="#022c22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="24.8" y1="28.6" x2="30.2" y2="28.6" stroke="#022c22" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <img id="modalAppIconPreview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230f172a' stroke='%23f59e0b' stroke-width='6'/><text x='64' y='74' font-family='serif' font-size='28' font-weight='bold' fill='%23fde68a' text-anchor='middle'>Refa3y</text></svg>" alt="Refa3y" class="hidden" />
         <div>
           <h3 class="text-base font-bold text-amber-300">تحميل وتثبيت تطبيق Refa3y</h3>
           <p class="text-xs text-slate-400">اختر طريقة التثبيت المناسبة لجهازك</p>
@@ -8107,15 +8182,15 @@
       if (headerNavPills) {
         if (targetSection === 'home') {
           headerNavPills.classList.add('hidden');
-          headerNavPills.classList.remove('flex');
+          headerNavPills.classList.remove('flex', 'grid');
         } else {
           headerNavPills.classList.remove('hidden');
-          headerNavPills.classList.add('flex');
+          headerNavPills.classList.add('grid');
         }
       }
 
-      const activeBtnClass = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center gap-1.5';
-      const inactiveBtnClass = 'px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200 flex items-center gap-1.5';
+      const activeBtnClass = 'h-8 px-2.5 sm:px-3.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center justify-center gap-1.5 text-center whitespace-nowrap';
+      const inactiveBtnClass = 'h-8 px-2.5 sm:px-3.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200 flex items-center justify-center gap-1.5 text-center whitespace-nowrap';
 
       if (btnNavHome) btnNavHome.className = targetSection === 'home' ? activeBtnClass : inactiveBtnClass;
       if (btnNavLiveRadio) btnNavLiveRadio.className = targetSection === 'radio' ? activeBtnClass : inactiveBtnClass;
@@ -8356,109 +8431,64 @@
     }
 
     // =========================================================================
-    // 13. نظام تبديل المظهر ثلاثي الأوضاع (Dark / Light / Auto) — الافتراضي: داكن
+    // 13. نظام تبديل المظهر المباشر (Dark / Light فقط) + تحديث نص زر الـ APK
     // =========================================================================
     (function initRefa3yThemeManager() {
       const THEME_STORAGE_KEY = 'refa3y_theme_mode';
-      const THEME_ORDER = ['dark', 'light', 'auto'];
       const btnToggleTheme = document.getElementById('btnToggleTheme');
       const iconThemeDark = document.getElementById('iconThemeDark');
       const iconThemeLight = document.getElementById('iconThemeLight');
-      const iconThemeAuto = document.getElementById('iconThemeAuto');
       const labelThemeMode = document.getElementById('labelThemeMode');
       const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      const lightMediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
-      const darkMediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+      const labelInstallAppBtn = document.getElementById('labelInstallAppBtn');
+
+      // إذا كان التطبيق يعمل داخل بيئة Android WebView، اعرض "تحديث التطبيق (APK)"
+      if (labelInstallAppBtn && /;\s*wv\)|Version\/[\d.]+.*Chrome/i.test(navigator.userAgent || '')) {
+        labelInstallAppBtn.textContent = 'تحديث التطبيق (APK)';
+        labelInstallAppBtn.setAttribute('data-short', 'تحديث APK');
+      }
 
       function getSavedThemeMode() {
         try {
           const saved = localStorage.getItem(THEME_STORAGE_KEY);
-          if (saved === 'dark' || saved === 'light' || saved === 'auto') {
+          if (saved === 'light' || saved === 'dark') {
             return saved;
           }
         } catch (e) {}
         return 'dark';
       }
 
-      function resolveAutoTheme() {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-          return 'light';
-        }
-
-        const isAndroidWebView = /;\s*wv\)|Version\/[\d.]+.*Chrome/i.test(navigator.userAgent);
-        if (isAndroidWebView) {
-          const currentHour = new Date().getHours();
-          return (currentHour >= 6 && currentHour < 18) ? 'light' : 'dark';
-        }
-
-        return 'dark';
-      }
-
       function applyThemeMode(mode, persist = false) {
-        const validMode = THEME_ORDER.includes(mode) ? mode : 'dark';
+        const validMode = (mode === 'light') ? 'light' : 'dark';
         if (persist) {
           try {
             localStorage.setItem(THEME_STORAGE_KEY, validMode);
           } catch (e) {}
         }
 
-        const effectiveTheme = validMode === 'auto' ? resolveAutoTheme() : validMode;
-        const isEffectiveLight = (effectiveTheme === 'light');
-        document.documentElement.classList.toggle('light-theme', isEffectiveLight);
+        const isLight = (validMode === 'light');
+        document.documentElement.classList.toggle('light-theme', isLight);
 
         if (metaThemeColor) {
-          metaThemeColor.setAttribute('content', isEffectiveLight ? '#f8fafc' : '#070b14');
+          metaThemeColor.setAttribute('content', isLight ? '#f8fafc' : '#070b14');
         }
 
-        if (iconThemeDark && iconThemeLight && iconThemeAuto && labelThemeMode) {
-          iconThemeDark.classList.toggle('hidden', validMode !== 'dark');
-          iconThemeLight.classList.toggle('hidden', validMode !== 'light');
-          iconThemeAuto.classList.toggle('hidden', validMode !== 'auto');
-
-          if (validMode === 'dark') {
-            labelThemeMode.textContent = 'داكن';
-          } else if (validMode === 'light') {
-            labelThemeMode.textContent = 'نهاري';
-          } else {
-            labelThemeMode.textContent = 'تلقائي';
-          }
+        if (iconThemeDark && iconThemeLight && labelThemeMode) {
+          iconThemeDark.classList.toggle('hidden', isLight);
+          iconThemeLight.classList.toggle('hidden', !isLight);
+          labelThemeMode.textContent = isLight ? 'نهاري' : 'داكن';
         }
       }
 
-      function refreshAutoThemeOnWakeup() {
-        if (getSavedThemeMode() === 'auto') {
-          applyThemeMode('auto', false);
-        }
-      }
-
-      // تطبيق الوضع المحفوظ (أو الليلي كافتراضي عند الدخول لأول مرة) فوراً
+      // تطبيق الوضع المحفوظ (أو الليلي 'dark' كافتراضي عند الدخول لأول مرة) فوراً
       applyThemeMode(getSavedThemeMode(), false);
 
       if (btnToggleTheme) {
         btnToggleTheme.addEventListener('click', () => {
-          const currentMode = getSavedThemeMode();
-          const nextIdx = (THEME_ORDER.indexOf(currentMode) + 1) % THEME_ORDER.length;
-          applyThemeMode(THEME_ORDER[nextIdx], true);
+          const nextMode = (getSavedThemeMode() === 'dark') ? 'light' : 'dark';
+          applyThemeMode(nextMode, true);
         });
       }
-
-      [lightMediaQuery, darkMediaQuery].forEach((mq) => {
-        if (!mq) return;
-        if (typeof mq.addEventListener === 'function') {
-          mq.addEventListener('change', refreshAutoThemeOnWakeup);
-        } else if (typeof mq.addListener === 'function') {
-          mq.addListener(refreshAutoThemeOnWakeup);
-        }
-      });
-
-      // إعادة التحقق الفوري عند العودة للتطبيق أو سحب شريط الإشعارات في الأندرويد (WebView Wakeup Check)
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) {
-          refreshAutoThemeOnWakeup();
-        }
-      });
-      window.addEventListener('focus', refreshAutoThemeOnWakeup);
-      window.addEventListener('pageshow', refreshAutoThemeOnWakeup);
     })();
 
     // Initialize gallery and preload default background immediately

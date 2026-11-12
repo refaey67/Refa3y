@@ -1207,7 +1207,15 @@
     // =========================================================================
     // 1. دوال تنظيف النص القرآني وبيانات القراء
     // =========================================================================
-    const AYAH_SEPARATOR = ' ۝ ';
+    const AYAH_SEPARATOR = ' ';
+
+    function formatAyahWithNumber(cleanText, ayahNum) {
+      const base = (cleanText || '')
+        .replace(/\s*(?:۝[٠-٩0-9]*|﴿[٠-٩0-9]+﴾)\s*$/u, '')
+        .trim();
+      if (!base) return '';
+      return `${base} ﴿${toArabicDigits(ayahNum || 1)}﴾`;
+    }
 
     function normalizeArabicForSearch(str) {
       if (!str) return '';
@@ -1259,37 +1267,37 @@
     // 1.1 مكتبة التلاوات النادرة والحفلات الخارجية وتراث الشيخ محمد رفعت الأصيل ١٠٠٪
     // =========================================================================
     const REFAAT_SURAHS_INFO = [
-      { surahNum: 1, surahName: 'سورة الفاتحة', startAyah: 1, endAyah: 7, concertTitle: 'تلاوة الفاتحة الخالدة من إذاعة القاهرة', previewExcerpt: 'بسم الله الرحمن الرحيم * الحمد لله رب العالمين...' },
-      { surahNum: 19, surahName: 'سورة مريم', startAyah: 1, endAyah: 36, concertTitle: 'التسجيل التاريخي الخاشع من سورة مريم', previewExcerpt: 'كهيعص * ذكر رحمت ربك عبده زكريا * إذ نادى ربه نداء خفيا...' },
-      { surahNum: 18, surahName: 'سورة الكهف', startAyah: 1, endAyah: 110, concertTitle: 'تراث إذاعي نادر من سورة الكهف', previewExcerpt: 'الحمد لله الذي أنزل على عبده الكتاب ولم يجعل له عوجا...' },
-      { surahNum: 17, surahName: 'سورة الإسراء', startAyah: 1, endAyah: 111, concertTitle: 'تلاوة إذاعية خاشعة من سورة الإسراء', previewExcerpt: 'سبحان الذي أسرى بعبده ليلا من المسجد الحرام إلى المسجد الأقصى...' },
-      { surahNum: 12, surahName: 'سورة يوسف', startAyah: 1, endAyah: 111, concertTitle: 'تلاوة نادرة من روائع سورة يوسف', previewExcerpt: 'نحن نقص عليك أحسن القصص بما أوحينا إليك هذا القرآن...' },
-      { surahNum: 20, surahName: 'سورة طه', startAyah: 1, endAyah: 135, concertTitle: 'تسجيل إذاعي نادر من سورة طه', previewExcerpt: 'طه * ما أنزلنا عليك القرآن لتشقى * إلا تذكرة لمن يخشى...' },
-      { surahNum: 55, surahName: 'سورة الرحمن', startAyah: 1, endAyah: 78, concertTitle: 'تلاوة عروس القرآن — سورة الرحمن', previewExcerpt: 'الرحمن * علم القرآن * خلق الإنسان * علمه البيان...' },
-      { surahNum: 56, surahName: 'سورة الواقعة', startAyah: 1, endAyah: 96, concertTitle: 'تلاوة خاشعة من سورة الواقعة', previewExcerpt: 'إذا وقعت الواقعة * ليس لوقعتها كاذبة * خافضة رافعة...' },
-      { surahNum: 48, surahName: 'سورة الفتح', startAyah: 1, endAyah: 29, concertTitle: 'تلاوة تاريخية من سورة الفتح', previewExcerpt: 'إنا فتحنا لك فتحا مبينا * ليغفر لك الله ما تقدم من ذنبك...' },
-      { surahNum: 54, surahName: 'سورة القمر', startAyah: 1, endAyah: 55, concertTitle: 'تسجيل نادر من سورة القمر', previewExcerpt: 'اقتربت الساعة وانشق القمر * وإن يروا آية يعرضوا...' },
-      { surahNum: 10, surahName: 'سورة يونس', startAyah: 1, endAyah: 109, concertTitle: 'تلاوة إذاعية نادرة من سورة يونس', previewExcerpt: 'الر تلك آيات الكتاب الحكيم * أكان للناس عجبا...' },
-      { surahNum: 11, surahName: 'سورة هود', startAyah: 1, endAyah: 123, concertTitle: 'تلاوة إذاعية نادرة من سورة هود', previewExcerpt: 'الر كتاب أحكمت آياته ثم فصلت من لدن حكيم خبير...' },
-      { surahNum: 69, surahName: 'سورة الحاقة', startAyah: 1, endAyah: 52, concertTitle: 'تسجيل إذاعي من سورة الحاقة', previewExcerpt: 'الحاقة * ما الحاقة * وما أدراك ما الحاقة...' },
-      { surahNum: 72, surahName: 'سورة الجن', startAyah: 1, endAyah: 28, concertTitle: 'تسجيل إذاعي نادر من سورة الجن', previewExcerpt: 'قل أوحي إلي أنه استمع نفر من الجن فقالوا إنا سمعنا قرآنا عجبا...' },
-      { surahNum: 73, surahName: 'سورة المزمل', startAyah: 1, endAyah: 20, concertTitle: 'تلاوة خاشعة من سورة المزمل', previewExcerpt: 'يا أيها المزمل * قم الليل إلا قليلا * نصفه أو انقص منه قليلا...' },
-      { surahNum: 75, surahName: 'سورة القيامة', startAyah: 1, endAyah: 40, concertTitle: 'تلاوة نادرة من سورة القيامة', previewExcerpt: 'لا أقسم بيوم القيامة * ولا أقسم بالنفس اللوامة...' },
-      { surahNum: 76, surahName: 'سورة الإنسان', startAyah: 1, endAyah: 31, concertTitle: 'تلاوة روحانية من سورة الإنسان', previewExcerpt: 'هل أتى على الإنسان حين من الدهر لم يكن شيئا مذكورا...' },
-      { surahNum: 77, surahName: 'سورة المرسلات', startAyah: 1, endAyah: 50, concertTitle: 'تلاوة نادرة من سورة المرسلات', previewExcerpt: 'والمرسلات عرفا * فالعاصفات عصفا * والناشرات نشرا...' },
-      { surahNum: 78, surahName: 'سورة النبأ', startAyah: 1, endAyah: 40, concertTitle: 'تلاوة إذاعية من سورة النبأ', previewExcerpt: 'عم يتساءلون * عن النبأ العظيم * الذي هم فيه مختلفون...' },
-      { surahNum: 79, surahName: 'سورة النازعات', startAyah: 1, endAyah: 46, concertTitle: 'تلاوة خالدة من سورة النازعات', previewExcerpt: 'والنازعات غرقا * والناشطات نشطا * والسابحات سبحا...' },
-      { surahNum: 81, surahName: 'سورة التكوير', startAyah: 1, endAyah: 29, concertTitle: 'تلاوة خاشعة من سورة التكوير', previewExcerpt: 'إذا الشمس كورت * وإذا النجوم انكدرت * وإذا الجبال سيرت...' },
-      { surahNum: 82, surahName: 'سورة الانفطار', startAyah: 1, endAyah: 19, concertTitle: 'تلاوة نادرة من سورة الانفطار', previewExcerpt: 'إذا السماء انفطرت * وإذا الكواكب انتثرت...' },
-      { surahNum: 83, surahName: 'سورة المطففين', startAyah: 1, endAyah: 36, concertTitle: 'تلاوة إذاعية من سورة المطففين', previewExcerpt: 'ويل للمطففين * الذين إذا اكتالوا على الناس يستوفون...' },
-      { surahNum: 85, surahName: 'سورة البروج', startAyah: 1, endAyah: 22, concertTitle: 'تلاوة خاشعة من سورة البروج', previewExcerpt: 'والسماء ذات البروج * واليوم الموعود * وشاهد ومشهود...' },
-      { surahNum: 86, surahName: 'سورة الطارق', startAyah: 1, endAyah: 17, concertTitle: 'تلاوة نادرة من سورة الطارق', previewExcerpt: 'والسماء والطارق * وما أدراك ما الطارق * النجم الثاقب...' },
-      { surahNum: 87, surahName: 'سورة الأعلى', startAyah: 1, endAyah: 19, concertTitle: 'تلاوة إذاعية من سورة الأعلى', previewExcerpt: 'سبح اسم ربك الأعلى * الذي خلق فسوى * والذي قدر فهدى...' },
-      { surahNum: 88, surahName: 'سورة الغاشية', startAyah: 1, endAyah: 26, concertTitle: 'تلاوة نادرة من سورة الغاشية', previewExcerpt: 'هل أتاك حديث الغاشية * وجوه يومئذ خاشعة...' },
-      { surahNum: 89, surahName: 'سورة الفجر', startAyah: 1, endAyah: 30, concertTitle: 'تلاوة خالدة من سورة الفجر', previewExcerpt: 'والفجر * وليال عشر * والشفع والوتر * والليل إذا يسر...' },
-      { surahNum: 96, surahName: 'سورة العلق', startAyah: 1, endAyah: 19, concertTitle: 'تلاوة نادرة من سورة العلق', previewExcerpt: 'اقرأ باسم ربك الذي خلق * خلق الإنسان من علق...' },
-      { surahNum: 98, surahName: 'سورة البينة', startAyah: 1, endAyah: 8, concertTitle: 'تلاوة إذاعية من سورة البينة', previewExcerpt: 'لم يكن الذين كفروا من أهل الكتاب والمشركين منفكين...' },
-      { surahNum: 100, surahName: 'سورة العاديات', startAyah: 1, endAyah: 11, concertTitle: 'تلاوة خاشعة من سورة العاديات', previewExcerpt: 'والعاديات ضبحا * فالموريات قدحا * فالمغيرات صبحا...' }
+      { surahNum: 1, surahName: 'سورة الفاتحة', startAyah: 1, endAyah: 7, concertTitle: 'تلاوة الفاتحة الخالدة من إذاعة القاهرة', previewExcerpt: 'بسم الله الرحمن الرحيم ﴿١﴾ الحمد لله رب العالمين ﴿٢﴾...' },
+      { surahNum: 19, surahName: 'سورة مريم', startAyah: 1, endAyah: 36, concertTitle: 'التسجيل التاريخي الخاشع من سورة مريم', previewExcerpt: 'كهيعص ﴿١﴾ ذكر رحمت ربك عبده زكريا ﴿٢﴾ إذ نادى ربه نداء خفيا ﴿٣﴾...' },
+      { surahNum: 18, surahName: 'سورة الكهف', startAyah: 1, endAyah: 110, concertTitle: 'تراث إذاعي نادر من سورة الكهف', previewExcerpt: 'الحمد لله الذي أنزل على عبده الكتاب ولم يجعل له عوجا ﴿١﴾...' },
+      { surahNum: 17, surahName: 'سورة الإسراء', startAyah: 1, endAyah: 111, concertTitle: 'تلاوة إذاعية خاشعة من سورة الإسراء', previewExcerpt: 'سبحان الذي أسرى بعبده ليلا من المسجد الحرام إلى المسجد الأقصى ﴿١﴾...' },
+      { surahNum: 12, surahName: 'سورة يوسف', startAyah: 1, endAyah: 111, concertTitle: 'تلاوة نادرة من روائع سورة يوسف', previewExcerpt: 'نحن نقص عليك أحسن القصص بما أوحينا إليك هذا القرآن ﴿٣﴾...' },
+      { surahNum: 20, surahName: 'سورة طه', startAyah: 1, endAyah: 135, concertTitle: 'تسجيل إذاعي نادر من سورة طه', previewExcerpt: 'طه ﴿١﴾ ما أنزلنا عليك القرآن لتشقى ﴿٢﴾ إلا تذكرة لمن يخشى ﴿٣﴾...' },
+      { surahNum: 55, surahName: 'سورة الرحمن', startAyah: 1, endAyah: 78, concertTitle: 'تلاوة عروس القرآن — سورة الرحمن', previewExcerpt: 'الرحمن ﴿١﴾ علم القرآن ﴿٢﴾ خلق الإنسان ﴿٣﴾ علمه البيان ﴿٤﴾...' },
+      { surahNum: 56, surahName: 'سورة الواقعة', startAyah: 1, endAyah: 96, concertTitle: 'تلاوة خاشعة من سورة الواقعة', previewExcerpt: 'إذا وقعت الواقعة ﴿١﴾ ليس لوقعتها كاذبة ﴿٢﴾ خافضة رافعة ﴿٣﴾...' },
+      { surahNum: 48, surahName: 'سورة الفتح', startAyah: 1, endAyah: 29, concertTitle: 'تلاوة تاريخية من سورة الفتح', previewExcerpt: 'إنا فتحنا لك فتحا مبينا ﴿١﴾ ليغفر لك الله ما تقدم من ذنبك... ﴿٢﴾' },
+      { surahNum: 54, surahName: 'سورة القمر', startAyah: 1, endAyah: 55, concertTitle: 'تسجيل نادر من سورة القمر', previewExcerpt: 'اقتربت الساعة وانشق القمر ﴿١﴾ وإن يروا آية يعرضوا... ﴿٢﴾' },
+      { surahNum: 10, surahName: 'سورة يونس', startAyah: 1, endAyah: 109, concertTitle: 'تلاوة إذاعية نادرة من سورة يونس', previewExcerpt: 'الر تلك آيات الكتاب الحكيم ﴿١﴾ أكان للناس عجبا... ﴿٢﴾' },
+      { surahNum: 11, surahName: 'سورة هود', startAyah: 1, endAyah: 123, concertTitle: 'تلاوة إذاعية نادرة من سورة هود', previewExcerpt: 'الر كتاب أحكمت آياته ثم فصلت من لدن حكيم خبير ﴿١﴾...' },
+      { surahNum: 69, surahName: 'سورة الحاقة', startAyah: 1, endAyah: 52, concertTitle: 'تسجيل إذاعي من سورة الحاقة', previewExcerpt: 'الحاقة ﴿١﴾ ما الحاقة ﴿٢﴾ وما أدراك ما الحاقة ﴿٣﴾...' },
+      { surahNum: 72, surahName: 'سورة الجن', startAyah: 1, endAyah: 28, concertTitle: 'تسجيل إذاعي نادر من سورة الجن', previewExcerpt: 'قل أوحي إلي أنه استمع نفر من الجن فقالوا إنا سمعنا قرآنا عجبا ﴿١﴾...' },
+      { surahNum: 73, surahName: 'سورة المزمل', startAyah: 1, endAyah: 20, concertTitle: 'تلاوة خاشعة من سورة المزمل', previewExcerpt: 'يا أيها المزمل ﴿١﴾ قم الليل إلا قليلا ﴿٢﴾ نصفه أو انقص منه قليلا ﴿٣﴾...' },
+      { surahNum: 75, surahName: 'سورة القيامة', startAyah: 1, endAyah: 40, concertTitle: 'تلاوة نادرة من سورة القيامة', previewExcerpt: 'لا أقسم بيوم القيامة ﴿١﴾ ولا أقسم بالنفس اللوامة ﴿٢﴾...' },
+      { surahNum: 76, surahName: 'سورة الإنسان', startAyah: 1, endAyah: 31, concertTitle: 'تلاوة روحانية من سورة الإنسان', previewExcerpt: 'هل أتى على الإنسان حين من الدهر لم يكن شيئا مذكورا ﴿١﴾...' },
+      { surahNum: 77, surahName: 'سورة المرسلات', startAyah: 1, endAyah: 50, concertTitle: 'تلاوة نادرة من سورة المرسلات', previewExcerpt: 'والمرسلات عرفا ﴿١﴾ فالعاصفات عصفا ﴿٢﴾ والناشرات نشرا ﴿٣﴾...' },
+      { surahNum: 78, surahName: 'سورة النبأ', startAyah: 1, endAyah: 40, concertTitle: 'تلاوة إذاعية من سورة النبأ', previewExcerpt: 'عم يتساءلون ﴿١﴾ عن النبأ العظيم ﴿٢﴾ الذي هم فيه مختلفون ﴿٣﴾...' },
+      { surahNum: 79, surahName: 'سورة النازعات', startAyah: 1, endAyah: 46, concertTitle: 'تلاوة خالدة من سورة النازعات', previewExcerpt: 'والنازعات غرقا ﴿١﴾ والناشطات نشطا ﴿٢﴾ والسابحات سبحا ﴿٣﴾...' },
+      { surahNum: 81, surahName: 'سورة التكوير', startAyah: 1, endAyah: 29, concertTitle: 'تلاوة خاشعة من سورة التكوير', previewExcerpt: 'إذا الشمس كورت ﴿١﴾ وإذا النجوم انكدرت ﴿٢﴾ وإذا الجبال سيرت ﴿٣﴾...' },
+      { surahNum: 82, surahName: 'سورة الانفطار', startAyah: 1, endAyah: 19, concertTitle: 'تلاوة نادرة من سورة الانفطار', previewExcerpt: 'إذا السماء انفطرت ﴿١﴾ وإذا الكواكب انتثرت ﴿٢﴾...' },
+      { surahNum: 83, surahName: 'سورة المطففين', startAyah: 1, endAyah: 36, concertTitle: 'تلاوة إذاعية من سورة المطففين', previewExcerpt: 'ويل للمطففين ﴿١﴾ الذين إذا اكتالوا على الناس يستوفون ﴿٢﴾...' },
+      { surahNum: 85, surahName: 'سورة البروج', startAyah: 1, endAyah: 22, concertTitle: 'تلاوة خاشعة من سورة البروج', previewExcerpt: 'والسماء ذات البروج ﴿١﴾ واليوم الموعود ﴿٢﴾ وشاهد ومشهود ﴿٣﴾...' },
+      { surahNum: 86, surahName: 'سورة الطارق', startAyah: 1, endAyah: 17, concertTitle: 'تلاوة نادرة من سورة الطارق', previewExcerpt: 'والسماء والطارق ﴿١﴾ وما أدراك ما الطارق ﴿٢﴾ النجم الثاقب ﴿٣﴾...' },
+      { surahNum: 87, surahName: 'سورة الأعلى', startAyah: 1, endAyah: 19, concertTitle: 'تلاوة إذاعية من سورة الأعلى', previewExcerpt: 'سبح اسم ربك الأعلى ﴿١﴾ الذي خلق فسوى ﴿٢﴾ والذي قدر فهدى ﴿٣﴾...' },
+      { surahNum: 88, surahName: 'سورة الغاشية', startAyah: 1, endAyah: 26, concertTitle: 'تلاوة نادرة من سورة الغاشية', previewExcerpt: 'هل أتاك حديث الغاشية ﴿١﴾ وجوه يومئذ خاشعة ﴿٢﴾...' },
+      { surahNum: 89, surahName: 'سورة الفجر', startAyah: 1, endAyah: 30, concertTitle: 'تلاوة خالدة من سورة الفجر', previewExcerpt: 'والفجر ﴿١﴾ وليال عشر ﴿٢﴾ والشفع والوتر ﴿٣﴾ والليل إذا يسر ﴿٤﴾...' },
+      { surahNum: 96, surahName: 'سورة العلق', startAyah: 1, endAyah: 19, concertTitle: 'تلاوة نادرة من سورة العلق', previewExcerpt: 'اقرأ باسم ربك الذي خلق ﴿١﴾ خلق الإنسان من علق ﴿٢﴾...' },
+      { surahNum: 98, surahName: 'سورة البينة', startAyah: 1, endAyah: 8, concertTitle: 'تلاوة إذاعية من سورة البينة', previewExcerpt: 'لم يكن الذين كفروا من أهل الكتاب والمشركين منفكين... ﴿١﴾' },
+      { surahNum: 100, surahName: 'سورة العاديات', startAyah: 1, endAyah: 11, concertTitle: 'تلاوة خاشعة من سورة العاديات', previewExcerpt: 'والعاديات ضبحا ﴿١﴾ فالموريات قدحا ﴿٢﴾ فالمغيرات صبحا ﴿٣﴾...' }
     ];
 
     const RARE_RECITATIONS_LIST = [
@@ -1320,7 +1328,7 @@
         endAyah: 21,
         tag: 'حفل الأقصى',
         year: '١٩٦٤',
-        previewExcerpt: 'واذكر في الكتاب مريم إذ انتبذت من أهلها مكانا شرقيا...'
+        previewExcerpt: 'واذكر في الكتاب مريم إذ انتبذت من أهلها مكانا شرقيا ﴿١٦﴾...'
       },
       {
         id: 'abdulbasit_damascus_hashr',
@@ -1334,7 +1342,7 @@
         endAyah: 24,
         tag: 'حفل دمشق',
         year: '١٩٥٨',
-        previewExcerpt: 'لو أنزلنا هذا القرآن على جبل لرأيته خاشعا متصدعا...'
+        previewExcerpt: 'لو أنزلنا هذا القرآن على جبل لرأيته خاشعا متصدعا... ﴿٢١﴾'
       },
       {
         id: 'abdulbasit_hussain_yusuf',
@@ -1348,7 +1356,7 @@
         endAyah: 4,
         tag: 'مسجد الحسين',
         year: '١٩٦٠',
-        previewExcerpt: 'نحن نقص عليك أحسن القصص بما أوحينا إليك هذا القرآن...'
+        previewExcerpt: 'نحن نقص عليك أحسن القصص بما أوحينا إليك هذا القرآن ﴿٣﴾...'
       },
       {
         id: 'abdulbasit_aqsa_qiyamah',
@@ -1362,7 +1370,7 @@
         endAyah: 12,
         tag: 'حفل الأقصى',
         year: '١٩٦٤',
-        previewExcerpt: 'لا أقسم بيوم القيامة * ولا أقسم بالنفس اللوامة...'
+        previewExcerpt: 'لا أقسم بيوم القيامة ﴿١﴾ ولا أقسم بالنفس اللوامة ﴿٢﴾...'
       },
       {
         id: 'minshawi_libya_fajr',
@@ -1376,7 +1384,7 @@
         endAyah: 14,
         tag: 'حفل ليبيا',
         year: '١٩٦٨',
-        previewExcerpt: 'والفجر * وليال عشر * والشفع والوتر * والليل إذا يسر...'
+        previewExcerpt: 'والفجر ﴿١﴾ وليال عشر ﴿٢﴾ والشفع والوتر ﴿٣﴾ والليل إذا يسر ﴿٤﴾...'
       },
       {
         id: 'minshawi_kuwait_room',
@@ -1390,7 +1398,7 @@
         endAyah: 21,
         tag: 'حفل الكويت',
         year: '١٩٦٦',
-        previewExcerpt: 'فسبحان الله حين تمسون وحين تصبحون * وله الحمد في السماوات...'
+        previewExcerpt: 'فسبحان الله حين تمسون وحين تصبحون ﴿١٧﴾ وله الحمد في السماوات... ﴿١٨﴾'
       },
       {
         id: 'minshawi_aqsa_israa',
@@ -1404,7 +1412,7 @@
         endAyah: 4,
         tag: 'حفل الأقصى',
         year: '١٩٥٦',
-        previewExcerpt: 'سبحان الذي أسرى بعبده ليلا من المسجد الحرام إلى المسجد الأقصى...'
+        previewExcerpt: 'سبحان الذي أسرى بعبده ليلا من المسجد الحرام إلى المسجد الأقصى ﴿١﴾...'
       },
       {
         id: 'minshawi_shuara_radio',
@@ -1418,7 +1426,7 @@
         endAyah: 85,
         tag: 'تسجيل نادر',
         year: 'إذاعي',
-        previewExcerpt: 'الذي خلقني فهو يهدين * والذي هو يطعمني ويسقين...'
+        previewExcerpt: 'الذي خلقني فهو يهدين ﴿٧٨﴾ والذي هو يطعمني ويسقين ﴿٧٩﴾...'
       },
       {
         id: 'mustafa_imran_mihrab',
@@ -1432,7 +1440,7 @@
         endAyah: 39,
         tag: 'تلاوة خالدة',
         year: '١٩٦٣',
-        previewExcerpt: 'فنادته الملائكة وهو قائم يصلي في المحراب أن الله يبشرك بيحيى...'
+        previewExcerpt: 'فنادته الملائكة وهو قائم يصلي في المحراب أن الله يبشرك بيحيى... ﴿٣٩﴾'
       },
       {
         id: 'mustafa_hud_naziat',
@@ -1446,7 +1454,7 @@
         endAyah: 43,
         tag: 'تلاوة خالدة',
         year: '١٩٦٠',
-        previewExcerpt: 'وقال اركبوا فيها بسم الله مجراها ومرساها إن ربي لغفور رحيم...'
+        previewExcerpt: 'وقال اركبوا فيها بسم الله مجراها ومرساها إن ربي لغفور رحيم ﴿٤١﴾...'
       },
       {
         id: 'mustafa_hussain_yusuf',
@@ -1460,7 +1468,7 @@
         endAyah: 22,
         tag: 'تلاوة خالدة',
         year: '١٩٦٢',
-        previewExcerpt: 'وقال الذي اشتراه من مصر لامرأته أكرمي مثواه عسى أن ينفعنا...'
+        previewExcerpt: 'وقال الذي اشتراه من مصر لامرأته أكرمي مثواه عسى أن ينفعنا... ﴿٢١﴾'
       },
       {
         id: 'husary_hussain_qadr',
@@ -1474,7 +1482,7 @@
         endAyah: 5,
         tag: 'مجود نادر',
         year: '١٩٦١',
-        previewExcerpt: 'إنا أنزلناه في ليلة القدر * وما أدراك ما ليلة القدر...'
+        previewExcerpt: 'إنا أنزلناه في ليلة القدر ﴿١﴾ وما أدراك ما ليلة القدر ﴿٢﴾...'
       },
       {
         id: 'husary_mujawwad_nur',
@@ -1488,7 +1496,7 @@
         endAyah: 36,
         tag: 'مجود نادر',
         year: 'إذاعي',
-        previewExcerpt: 'الله نور السماوات والأرض مثل نوره كمشكاة فيها مصباح...'
+        previewExcerpt: 'الله نور السماوات والأرض مثل نوره كمشكاة فيها مصباح... ﴿٣٥﴾'
       },
       {
         id: 'banna_hussain_naziat',
@@ -1502,7 +1510,7 @@
         endAyah: 10,
         tag: 'تسجيل إذاعي',
         year: '١٩٦٨',
-        previewExcerpt: 'والنازعات غرقا * والناشطات نشطا * والسابحات سبحا...'
+        previewExcerpt: 'والنازعات غرقا ﴿١﴾ والناشطات نشطا ﴿٢﴾ والسابحات سبحا ﴿٣﴾...'
       },
       {
         id: 'banna_maryam_alex',
@@ -1516,7 +1524,7 @@
         endAyah: 6,
         tag: 'تسجيل إذاعي',
         year: '١٩٦٥',
-        previewExcerpt: 'كهيعص * ذكر رحمت ربك عبده زكريا * إذ نادى ربه نداء خفيا...'
+        previewExcerpt: 'كهيعص ﴿١﴾ ذكر رحمت ربك عبده زكريا ﴿٢﴾ إذ نادى ربه نداء خفيا ﴿٣﴾...'
       },
       {
         id: 'tablawi_ahzab_radio',
@@ -1530,7 +1538,7 @@
         endAyah: 57,
         tag: 'تسجيل إذاعي',
         year: 'إذاعي',
-        previewExcerpt: 'إن الله وملائكته يصلون على النبي يا أيها الذين آمنوا صلوا عليه...'
+        previewExcerpt: 'إن الله وملائكته يصلون على النبي يا أيها الذين آمنوا صلوا عليه... ﴿٥٦﴾'
       },
       {
         id: 'tablawi_qisar_radio',
@@ -1544,7 +1552,7 @@
         endAyah: 11,
         tag: 'تسجيل إذاعي',
         year: '١٩٧٤',
-        previewExcerpt: 'والضحى * والليل إذا سجى * ما ودعك ربك وما قلى...'
+        previewExcerpt: 'والضحى ﴿١﴾ والليل إذا سجى ﴿٢﴾ ما ودعك ربك وما قلى ﴿٣﴾...'
       },
       {
         id: 'neana_rahman_radio',
@@ -1558,7 +1566,7 @@
         endAyah: 13,
         tag: 'تلاوة مجودة',
         year: 'إذاعي',
-        previewExcerpt: 'الرحمن * علم القرآن * خلق الإنسان * علمه البيان...'
+        previewExcerpt: 'الرحمن ﴿١﴾ علم القرآن ﴿٢﴾ خلق الإنسان ﴿٣﴾ علمه البيان ﴿٤﴾...'
       }
     ];
 
@@ -3390,6 +3398,27 @@
           tempAudio.removeAttribute('src');
           tempAudio.load();
         };
+        const assignUrlAtCurrentIndex = () => {
+          if (uIdx >= urls.length) {
+            durations[idx] = 8;
+            cleanup();
+            resolve();
+            return;
+          }
+          const candidateUrl = urls[uIdx];
+          if (typeof candidateUrl === 'string' && candidateUrl.startsWith('mustafa-slice://')) {
+            resolveMustafaSliceBlobUrl(candidateUrl)
+              .then((blobUrl) => {
+                tempAudio.src = blobUrl;
+              })
+              .catch(() => {
+                uIdx += 1;
+                assignUrlAtCurrentIndex();
+              });
+          } else {
+            tempAudio.src = candidateUrl;
+          }
+        };
         tempAudio.onloadedmetadata = () => {
           durations[idx] = isFinite(tempAudio.duration) ? tempAudio.duration : 8;
           cleanup();
@@ -3397,15 +3426,9 @@
         };
         tempAudio.onerror = () => {
           uIdx += 1;
-          if (uIdx < urls.length) {
-            tempAudio.src = urls[uIdx];
-          } else {
-            durations[idx] = 8;
-            cleanup();
-            resolve();
-          }
+          assignUrlAtCurrentIndex();
         };
-        tempAudio.src = urls[0];
+        assignUrlAtCurrentIndex();
       })));
       if (sessionId !== state.multiMergeSessionId) return;
       state.segmentDurations = durations;
@@ -3737,16 +3760,11 @@
       if (state.isRefaatSingleFileClip && isFinite(audioEl.duration) && audioEl.duration > 0) {
         const fullDur = audioEl.duration;
         if (state.refaatIsSubRange) {
-          if (!state.refaatUserAdjustedTrim) {
-            const sRat = Math.max(0, Math.min(0.95, state.refaatStartRatio || 0));
-            const eRat = Math.max(sRat + 0.02, Math.min(1, state.refaatEndRatio || 1));
-            state.refaatClipStartSec = Math.floor(fullDur * sRat);
-            state.refaatClipEndSec = Math.min(Math.floor(fullDur), Math.max(state.refaatClipStartSec + 4, Math.ceil(fullDur * eRat)));
-          } else {
-            state.refaatClipStartSec = Math.max(0, Math.min(fullDur - 2, state.refaatClipStartSec || 0));
-            state.refaatClipEndSec = Math.max(state.refaatClipStartSec + 2, Math.min(fullDur, state.refaatClipEndSec || fullDur));
-          }
-          try { audioEl.currentTime = state.refaatClipStartSec; } catch (e) {}
+          state.refaatClipStartSec = Math.max(0, Math.min(fullDur - 2, state.refaatClipStartSec || 0));
+          const targetEndSec = (state.refaatClipEndSec && state.refaatClipEndSec > state.refaatClipStartSec)
+            ? state.refaatClipEndSec
+            : fullDur;
+          state.refaatClipEndSec = Math.max(state.refaatClipStartSec + 2, Math.min(fullDur, targetEndSec));
           syncRefaatTrimSlidersUI(fullDur);
         } else {
           state.refaatClipStartSec = 0;
@@ -5041,6 +5059,7 @@
       const startA = Math.max(minAllowedAyah, Math.min(maxAllowedAyah, Math.min(fromAyah, toAyah)));
       const endA = Math.max(startA, Math.min(maxAllowedAyah, Math.max(fromAyah, toAyah)));
 
+      const isSameRareItem = (state.currentRareRecitationId === rareItem.id);
       state.currentRareRecitationId = rareItem.id;
       state.rareSelectedFromAyah = startA;
       state.rareSelectedToAyah = endA;
@@ -5088,13 +5107,14 @@
           selectedCharLengths.push(cLen);
           const gAyah = startGlobal + (a - 1);
           const code = String(rareItem.surahNum).padStart(3, '0') + String(a).padStart(3, '0');
-          cleanedAyahsList.push(cleanT);
+          const formattedAyah = formatAyahWithNumber(cleanT, a);
+          cleanedAyahsList.push(formattedAyah);
           queue.push({
             surahNum: rareItem.surahNum,
             ayahNum: a,
             globalAyah: gAyah,
             everyAyahCode: code,
-            text: cleanT
+            text: formattedAyah
           });
         }
       }
@@ -5140,13 +5160,12 @@
       if (isSingleFileClip) {
         state.isRefaatSingleFileClip = true;
         state.refaatIsSubRange = !isFullClip;
-        if (isFullClip) {
+        if (isFullClip || !isSameRareItem) {
           state.refaatUserAdjustedTrim = false;
           state.refaatStartRatio = 0;
           state.refaatEndRatio = 1;
-        } else if (!state.refaatUserAdjustedTrim) {
-          state.refaatStartRatio = totalSurahChars > 0 ? (charsBeforeStart / totalSurahChars) : 0;
-          state.refaatEndRatio = totalSurahChars > 0 ? ((charsBeforeStart + charsInSelected) / totalSurahChars) : 1;
+          state.refaatClipStartSec = 0;
+          state.refaatClipEndSec = (isFinite(audioEl.duration) && audioEl.duration > 0) ? Math.floor(audioEl.duration) : 0;
         }
       } else {
         state.isRefaatSingleFileClip = false;
@@ -5174,22 +5193,30 @@
         state.isMergedMultiAudio = false;
         state.isSequentialFallback = false;
         const targetUrls = reciter.getSurahUrls ? reciter.getSurahUrls(rareItem.surahNum) : reciter.getUrls(queue[0]);
-        const alreadyLoadedSameSurah = audioEl.src && targetUrls.some(u => audioEl.src.includes(u.split('/').pop()));
-        if (alreadyLoadedSameSurah && isFinite(audioEl.duration) && audioEl.duration > 0) {
-          const fullDur = audioEl.duration;
-          if (!isFullClip && !state.refaatUserAdjustedTrim) {
-            const sRat = Math.max(0, Math.min(0.92, state.refaatStartRatio || 0));
-            const eRat = Math.max(sRat + 0.03, Math.min(1, state.refaatEndRatio || 1));
-            state.refaatClipStartSec = Math.floor(fullDur * sRat);
-            state.refaatClipEndSec = Math.min(Math.floor(fullDur), Math.max(state.refaatClipStartSec + 6, Math.ceil(fullDur * eRat)));
-          } else if (isFullClip && !state.refaatUserAdjustedTrim) {
-            state.refaatClipStartSec = 0;
-            state.refaatClipEndSec = Math.floor(fullDur);
+        const alreadyLoadedSameSurah = Boolean(
+          (isSameRareItem && audioEl.src) ||
+          (audioEl.src && targetUrls.some(u => audioEl.src.includes(u.split('/').pop())))
+        );
+        if (alreadyLoadedSameSurah) {
+          if (isFinite(audioEl.duration) && audioEl.duration > 0) {
+            const fullDur = audioEl.duration;
+            if (isFullClip) {
+              state.refaatClipStartSec = 0;
+              state.refaatClipEndSec = Math.floor(fullDur);
+            } else {
+              state.refaatClipStartSec = Math.max(0, Math.min(Math.floor(fullDur) - 2, Math.floor(state.refaatClipStartSec || 0)));
+              const targetEndSec = (state.refaatClipEndSec && state.refaatClipEndSec > state.refaatClipStartSec)
+                ? state.refaatClipEndSec
+                : Math.floor(fullDur);
+              state.refaatClipEndSec = Math.max(state.refaatClipStartSec + 2, Math.min(Math.floor(fullDur), Math.ceil(targetEndSec)));
+            }
+            syncRefaatTrimSlidersUI(fullDur);
+            const effDur = getUnifiedDuration();
+            timeDuration.textContent = formatTime(effDur);
+            if (audioEl.paused) {
+              setStatus(`جاهز للتشغيل (${formatTime(effDur)})`, 'emerald');
+            }
           }
-          syncRefaatTrimSlidersUI(fullDur);
-          const effDur = getUnifiedDuration();
-          timeDuration.textContent = formatTime(effDur);
-          setStatus(`جاهز للتشغيل (${formatTime(effDur)})`, 'emerald');
           if (autoPlay) {
             try { audioEl.currentTime = state.refaatClipStartSec || 0; } catch (e) {}
             audioEl.play().catch(() => updatePlayUI(false));
@@ -5360,9 +5387,9 @@
           state.rareTakeFullClip = false;
           state.refaatIsSubRange = Boolean(rareItem.isSingleFileRare);
           if (rareItem.isSingleFileRare && isFinite(audioEl.duration) && audioEl.duration > 0) {
-            if (!state.refaatClipEndSec || state.refaatClipEndSec >= audioEl.duration) {
-              state.refaatClipStartSec = Math.floor(audioEl.currentTime || 0);
-              state.refaatClipEndSec = Math.min(Math.floor(audioEl.duration), state.refaatClipStartSec + 45);
+            if (!state.refaatClipEndSec || state.refaatClipEndSec <= state.refaatClipStartSec) {
+              state.refaatClipStartSec = 0;
+              state.refaatClipEndSec = Math.floor(audioEl.duration);
             }
             syncRefaatTrimSlidersUI(audioEl.duration);
             timeDuration.textContent = formatTime(getUnifiedDuration());
@@ -6705,13 +6732,14 @@
           selectedCharLengths.push(cLen);
           const gAyah = startGlobal + (a - 1);
           const code = String(surahNum).padStart(3, '0') + String(a).padStart(3, '0');
-          cleanedAyahsList.push(cleanT);
+          const formattedAyah = formatAyahWithNumber(cleanT, a);
+          cleanedAyahsList.push(formattedAyah);
           state.multiAyahQueue.push({
             surahNum,
             ayahNum: a,
             globalAyah: gAyah,
             everyAyahCode: code,
-            text: cleanT
+            text: formattedAyah
           });
         }
       }
@@ -6823,7 +6851,7 @@
           if (!vText) continue;
           const cleaned = cleanAyahText(vText, s, a);
           if (normalizeArabicForSearch(cleaned).includes(qNorm)) {
-            matches.push({ surahNum: s, surahName: sMeta[1], ayahNum: a, text: cleaned });
+            matches.push({ surahNum: s, surahName: sMeta[1], ayahNum: a, text: formatAyahWithNumber(cleaned, a) });
             if (matches.length >= 40) break;
           }
         }

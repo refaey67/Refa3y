@@ -160,6 +160,103 @@
       min-width: 0;
       max-width: 100%;
     }
+
+    /* =====================================================================
+       أنماط الوضع النهاري (Warm Ivory & Amber Gold — html.light-theme)
+       ===================================================================== */
+    html.light-theme body {
+      background-color: #f8fafc;
+      background-image: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      color: #0f172a;
+    }
+    html.light-theme .glass-panel {
+      background: #ffffff;
+      border: 1px solid rgba(217, 119, 6, 0.28);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    }
+    html.light-theme .gold-gradient-text {
+      color: #b45309 !important;
+    }
+    /* الحفاظ على شاشة معاينة الفيديو داكنة دائماً لرؤية ألوان التصميم الحقيقية */
+    html.light-theme .video-stage-wrapper,
+    html.light-theme #videoCanvas {
+      background: #050811 !important;
+      border-color: rgba(217, 119, 6, 0.42);
+    }
+    /* تحويل الخلفيات الداكنة الداخلية إلى درجات عاجية ورمادية فاتحة خارج شاشة الفيديو */
+    html.light-theme :not(#canvasWrapper):not(#canvasWrapper *) > .bg-slate-950,
+    html.light-theme .bg-slate-950:not(#canvasWrapper *),
+    html.light-theme .bg-slate-950\/90:not(#canvasWrapper *),
+    html.light-theme .bg-slate-950\/80:not(#canvasWrapper *) {
+      background-color: #f1f5f9 !important;
+    }
+    html.light-theme .bg-slate-900:not(#canvasWrapper *),
+    html.light-theme .bg-slate-900\/95:not(#canvasWrapper *),
+    html.light-theme .bg-slate-900\/90:not(#canvasWrapper *),
+    html.light-theme .bg-slate-900\/80:not(#canvasWrapper *),
+    html.light-theme .bg-slate-900\/60:not(#canvasWrapper *),
+    html.light-theme .bg-slate-900\/50:not(#canvasWrapper *) {
+      background-color: #f8fafc !important;
+    }
+    html.light-theme .bg-slate-800:not(#canvasWrapper *),
+    html.light-theme .bg-slate-800\/90:not(#canvasWrapper *),
+    html.light-theme .bg-slate-800\/80:not(#canvasWrapper *) {
+      background-color: #e2e8f0 !important;
+    }
+    html.light-theme .hover\:bg-slate-800:not(#canvasWrapper *):hover,
+    html.light-theme .hover\:bg-slate-700:not(#canvasWrapper *):hover {
+      background-color: #cbd5e1 !important;
+    }
+    /* الحدود والفواصل في الوضع النهاري */
+    html.light-theme .border-slate-800:not(#canvasWrapper *),
+    html.light-theme .border-slate-800\/90:not(#canvasWrapper *),
+    html.light-theme .border-slate-800\/80:not(#canvasWrapper *),
+    html.light-theme .border-slate-700:not(#canvasWrapper *),
+    html.light-theme .border-slate-700\/80:not(#canvasWrapper *),
+    html.light-theme .border-slate-600:not(#canvasWrapper *) {
+      border-color: #cbd5e1 !important;
+    }
+    /* النصوص الأساسية والثانوية في الوضع النهاري */
+    html.light-theme .text-slate-100:not(#canvasWrapper *),
+    html.light-theme .text-slate-200:not(#canvasWrapper *) {
+      color: #0f172a !important;
+    }
+    html.light-theme .text-slate-300:not(#canvasWrapper *) {
+      color: #1e293b !important;
+    }
+    html.light-theme .text-slate-400:not(#canvasWrapper *),
+    html.light-theme .text-slate-500:not(#canvasWrapper *) {
+      color: #475569 !important;
+    }
+    /* النصوص الذهبية الكهرمانية في الوضع النهاري */
+    html.light-theme .text-amber-100:not(#canvasWrapper *),
+    html.light-theme .text-amber-200:not(#canvasWrapper *),
+    html.light-theme .text-amber-200\/80:not(#canvasWrapper *),
+    html.light-theme .text-amber-300:not(#canvasWrapper *),
+    html.light-theme .text-amber-300\/90:not(#canvasWrapper *) {
+      color: #b45309 !important;
+    }
+    html.light-theme .hover\:text-amber-200:not(#canvasWrapper *):hover,
+    html.light-theme .hover\:text-amber-300:not(#canvasWrapper *):hover {
+      color: #92400e !important;
+    }
+    /* النصوص الزمردية والسماوية في الوضع النهاري */
+    html.light-theme .text-emerald-100:not(#canvasWrapper *),
+    html.light-theme .text-emerald-200:not(#canvasWrapper *),
+    html.light-theme .text-emerald-300:not(#canvasWrapper *),
+    html.light-theme .text-emerald-400:not(#canvasWrapper *) {
+      color: #047857 !important;
+    }
+    html.light-theme .text-sky-200:not(#canvasWrapper *),
+    html.light-theme .text-sky-300:not(#canvasWrapper *) {
+      color: #0369a1 !important;
+    }
+    /* الحفاظ على وضوح النصوص الداكنة فوق الأزرار الذهبية والزمردية المصمتة */
+    html.light-theme .bg-amber-500,
+    html.light-theme .bg-amber-400,
+    html.light-theme .bg-emerald-500 {
+      color: #0f172a !important;
+    }
   </style>
 </head>
 <body class="p-3 sm:p-5 select-none">
@@ -202,6 +299,19 @@
             تصميم الفيديوهات
           </button>
         </div>
+
+        <button id="btnToggleTheme" type="button" aria-label="تبديل المظهر" title="تبديل المظهر (داكن / نهاري / تلقائي)" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/50 text-amber-200 text-xs font-bold transition inline-flex items-center gap-1.5 shrink-0 shadow-sm">
+          <svg id="iconThemeDark" class="w-4 h-4 text-amber-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg>
+          <svg id="iconThemeLight" class="w-4 h-4 text-amber-500 shrink-0 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+          </svg>
+          <svg id="iconThemeAuto" class="w-4 h-4 text-emerald-400 shrink-0 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9Zm0 2.25v13.5a6.75 6.75 0 0 1 0-13.5Z" />
+          </svg>
+          <span id="labelThemeMode">داكن</span>
+        </button>
       </div>
     </header>
 
@@ -8244,6 +8354,85 @@
         
       } catch (e) {}
     }
+
+    // =========================================================================
+    // 13. نظام تبديل المظهر ثلاثي الأوضاع (Dark / Light / Auto) — الافتراضي: داكن
+    // =========================================================================
+    (function initRefa3yThemeManager() {
+      const THEME_STORAGE_KEY = 'refa3y_theme_mode';
+      const THEME_ORDER = ['dark', 'light', 'auto'];
+      const btnToggleTheme = document.getElementById('btnToggleTheme');
+      const iconThemeDark = document.getElementById('iconThemeDark');
+      const iconThemeLight = document.getElementById('iconThemeLight');
+      const iconThemeAuto = document.getElementById('iconThemeAuto');
+      const labelThemeMode = document.getElementById('labelThemeMode');
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      const lightMediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+
+      function getSavedThemeMode() {
+        try {
+          const saved = localStorage.getItem(THEME_STORAGE_KEY);
+          if (saved === 'dark' || saved === 'light' || saved === 'auto') {
+            return saved;
+          }
+        } catch (e) {}
+        return 'dark';
+      }
+
+      function applyThemeMode(mode, persist = false) {
+        const validMode = THEME_ORDER.includes(mode) ? mode : 'dark';
+        if (persist) {
+          try {
+            localStorage.setItem(THEME_STORAGE_KEY, validMode);
+          } catch (e) {}
+        }
+
+        const isEffectiveLight = validMode === 'light' || (validMode === 'auto' && Boolean(lightMediaQuery && lightMediaQuery.matches));
+        document.documentElement.classList.toggle('light-theme', isEffectiveLight);
+
+        if (metaThemeColor) {
+          metaThemeColor.setAttribute('content', isEffectiveLight ? '#f8fafc' : '#070b14');
+        }
+
+        if (iconThemeDark && iconThemeLight && iconThemeAuto && labelThemeMode) {
+          iconThemeDark.classList.toggle('hidden', validMode !== 'dark');
+          iconThemeLight.classList.toggle('hidden', validMode !== 'light');
+          iconThemeAuto.classList.toggle('hidden', validMode !== 'auto');
+
+          if (validMode === 'dark') {
+            labelThemeMode.textContent = 'داكن';
+          } else if (validMode === 'light') {
+            labelThemeMode.textContent = 'نهاري';
+          } else {
+            labelThemeMode.textContent = 'تلقائي';
+          }
+        }
+      }
+
+      // تطبيق الوضع المحفوظ (أو الليلي كافتراضي عند الدخول لأول مرة) فوراً
+      applyThemeMode(getSavedThemeMode(), false);
+
+      if (btnToggleTheme) {
+        btnToggleTheme.addEventListener('click', () => {
+          const currentMode = getSavedThemeMode();
+          const nextIdx = (THEME_ORDER.indexOf(currentMode) + 1) % THEME_ORDER.length;
+          applyThemeMode(THEME_ORDER[nextIdx], true);
+        });
+      }
+
+      if (lightMediaQuery) {
+        const onSystemSchemeChange = () => {
+          if (getSavedThemeMode() === 'auto') {
+            applyThemeMode('auto', false);
+          }
+        };
+        if (typeof lightMediaQuery.addEventListener === 'function') {
+          lightMediaQuery.addEventListener('change', onSystemSchemeChange);
+        } else if (typeof lightMediaQuery.addListener === 'function') {
+          lightMediaQuery.addListener(onSystemSchemeChange);
+        }
+      }
+    })();
 
     // Initialize gallery and preload default background immediately
     initBackgroundsGallery();

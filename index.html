@@ -1211,10 +1211,12 @@
 
     function formatAyahWithNumber(cleanText, ayahNum) {
       const base = (cleanText || '')
+        .replace(/[\u200E\u200F\u061C\u2066-\u2069]/g, '')
         .replace(/\s*(?:۝[٠-٩0-9]*|﴿[٠-٩0-9]+﴾)\s*$/u, '')
         .trim();
       if (!base) return '';
-      return `${base} ﴿${toArabicDigits(ayahNum || 1)}﴾`;
+      const numStr = toArabicDigits(ayahNum || 1);
+      return `${base} \u200F﴿\u200F${numStr}\u200F﴾\u200F`;
     }
 
     function normalizeArabicForSearch(str) {
@@ -3881,14 +3883,183 @@
     // =========================================================================
     // 6. محرك الرسم السريع والخفيف (يرسم عند الطلب فقط وعند التشغيل لمنع الـ Lag)
     // =========================================================================
-    function wrapArabicLines(context, text, maxWidth) {
-      const words = text.split(' ');
+    const AYAH_MARKER_TOKEN_REGEX = /^[\u200E\u200F\u061C]*﴿[\u200E\u200F\u061C]*([٠-٩0-9]+)[\u200E\u200F\u061C]*﴾[\u200E\u200F\u061C]*$/u;
+    const AYAH_MARKER_SPLIT_REGEX = /(\s*[\u200E\u200F\u061C]*﴿[\u200E\u200F\u061C]*[٠-٩0-9]+[\u200E\u200F\u061C]*﴾[\u200E\u200F\u061C]*)/gu;
+
+    function parseLineIntoAyahParts(line) {
+      if (!line) return [];
+      const rawChunks = line.split(AYAH_MARKER_SPLIT_REGEX);
+      const parts = [];
+      for (let i = 0; i < rawChunks.length; i++) {
+        const chunk = rawChunks[i].trim();
+        if (!chunk) continue;
+        const m = chunk.match(AYAH_MARKER_TOKEN_REGEX);
+        if (m) {
+          parts.push({ type: 'marker', numStr: m[1] });
+        } else {
+          const cleanChunk = chunk.replace(/[\u200E\u200F\u061C]/g, '').trim();
+          if (cleanChunk) parts.push({ type: 'text', text: cleanChunk });
+        }
+      }
+      return parts;
+    }
+
+    function getAyahOrnamentWidth(context, numStr, fontSize) {
+      context.save();
+      const numFontSize = Math.max(11, Math.round(fontSize * 0.66));
+      context.font = `700 ${numFontSize}px "Amiri", "Cairo", serif`;
+      const numW = context.measureText(numStr || '١').width;
+      context.restore();
+      return Math.max(Math.round(fontSize * 1.18), Math.ceil(numW + fontSize * 0.72));
+    }
+
+    function measureLineWithOrnaments(context, line, fontSize) {
+      const parts = parseLineIntoAyahParts(line);
+      if (parts.length === 0) return 0;
+      const gap = Math.round(fontSize * 0.25);
+      let totalW = 0;
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        if (p.type === 'marker') {
+          totalW += getAyahOrnamentWidth(context, p.numStr, fontSize);
+        } else {
+          totalW += context.measureText(p.text).width;
+        }
+        if (i < parts.length - 1) totalW += gap;
+      }
+      return totalW;
+    }
+
+    function drawAyahOrnamentBadge(targetCtx, cx, cy, numStr, fontSize, chosenFont, textColor) {
+      targetCtx.save();
+      const numFontSize = Math.max(11, Math.round(fontSize * 0.66));
+      targetCtx.font = `700 ${numFontSize}px "${chosenFont}", "Amiri", "Cairo", serif`;
+      const numW = targetCtx.measureText(numStr || '١').width;
+
+      const rx = Math.max(fontSize * 0.38, numW * 0.5 + fontSize * 0.20);
+      const ry = fontSize * 0.52;
+      const color = textColor || '#fef08a';
+
+      targetCtx.fillStyle = color;
+      targetCtx.strokeStyle = color;
+
+      // دالة رسم قوس قرآني مزخرف واحد (dir = 1 للقوس الأيمن المفتوح نحو اليسار، dir = -1 للقوس الأيسر المفتوح نحو اليمين)
+      const drawBracketSide = (dir) => {
+        const tipX = cx + dir * (rx * 0.46);
+        const outerMidX = cx + dir * (rx * 1.14);
+        const innerMidX = cx + dir * (rx * 0.86);
+        const nibTipX = cx + dir * (rx * 1.24);
+        const nibH = Math.max(2.2, fontSize * 0.09);
+
+        targetCtx.beginPath();
+        targetCtx.moveTo(tipX, cy - ry);
+        // المنحنى الخارجي من الأعلى إلى الوسط ثم للأسفل
+        targetCtx.bezierCurveTo(
+          cx + dir * (rx * 0.96), cy - ry * 0.82,
+          outerMidX, cy - ry * 0.34,
+          outerMidX, cy
+        );
+        targetCtx.bezierCurveTo(
+          outerMidX, cy + ry * 0.34,
+          cx + dir * (rx * 0.96), cy + ry * 0.82,
+          tipX, cy + ry
+        );
+        // المنحنى الداخلي من الأسفل للعودة إلى الأعلى (يمنح القوس سماكة المصحف المزخرف في المنتصف وأطرافاً مدببة)
+        targetCtx.bezierCurveTo(
+          cx + dir * (rx * 0.78), cy + ry * 0.72,
+          innerMidX, cy + ry * 0.30,
+          innerMidX, cy
+        );
+        targetCtx.bezierCurveTo(
+          innerMidX, cy - ry * 0.30,
+          cx + dir * (rx * 0.78), cy - ry * 0.72,
+          tipX, cy - ry
+        );
+        targetCtx.closePath();
+        targetCtx.fill();
+
+        // حليّة قرآنية صغيرة في منتصف ظهر القوس
+        targetCtx.beginPath();
+        targetCtx.moveTo(outerMidX - dir * 1, cy - nibH);
+        targetCtx.lineTo(nibTipX, cy);
+        targetCtx.lineTo(outerMidX - dir * 1, cy + nibH);
+        targetCtx.closePath();
+        targetCtx.fill();
+      };
+
+      // رسم القوس الأيمن ) والقوس الأيسر ( بتماثل هندسي تام يستحيل انعكاسه في أي فيديو أو متصفح
+      drawBracketSide(1);
+      drawBracketSide(-1);
+
+      // رسم رقم الآية في المركز تماماً
+      targetCtx.direction = 'rtl';
+      targetCtx.textAlign = 'center';
+      targetCtx.textBaseline = 'middle';
+      targetCtx.fillText(numStr, cx, cy + fontSize * 0.03);
+      targetCtx.restore();
+    }
+
+    function drawQuranLineWithOrnament(targetCtx, line, centerX, centerY, fontSize, chosenFont, textColor) {
+      const parts = parseLineIntoAyahParts(line);
+      if (parts.length === 0) return;
+      targetCtx.save();
+      targetCtx.direction = 'rtl';
+      targetCtx.textAlign = 'center';
+      targetCtx.textBaseline = 'middle';
+      targetCtx.font = `700 ${fontSize}px "${chosenFont}", "Amiri Quran", "Amiri", serif`;
+
+      if (parts.length === 1 && parts[0].type === 'text') {
+        targetCtx.fillText(parts[0].text, centerX, centerY);
+        targetCtx.restore();
+        return;
+      }
+
+      const gap = Math.round(fontSize * 0.25);
+      const widths = parts.map(p => (
+        p.type === 'marker'
+          ? getAyahOrnamentWidth(targetCtx, p.numStr, fontSize)
+          : targetCtx.measureText(p.text).width
+      ));
+      const totalW = widths.reduce((acc, w) => acc + w, 0) + gap * Math.max(0, parts.length - 1);
+
+      // الترتيب من اليمين إلى اليسار (RTL): الجزء الأول في أقصى اليمين والفاصل القرآني عن يساره
+      let cursorRight = centerX + totalW / 2;
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        const w = widths[i];
+        const partCenterX = cursorRight - w / 2;
+        if (p.type === 'marker') {
+          drawAyahOrnamentBadge(targetCtx, partCenterX, centerY, p.numStr, fontSize, chosenFont, textColor);
+        } else {
+          targetCtx.font = `700 ${fontSize}px "${chosenFont}", "Amiri Quran", "Amiri", serif`;
+          targetCtx.fillStyle = textColor || '#fef08a';
+          targetCtx.direction = 'rtl';
+          targetCtx.textAlign = 'center';
+          targetCtx.textBaseline = 'middle';
+          targetCtx.fillText(p.text, partCenterX, centerY);
+        }
+        cursorRight -= (w + gap);
+      }
+      targetCtx.restore();
+    }
+
+    function wrapArabicLines(context, text, maxWidth, fontSize = 28) {
+      const rawWords = text.split(' ').filter(Boolean);
+      const words = [];
+      for (let i = 0; i < rawWords.length; i++) {
+        const tok = rawWords[i];
+        if (AYAH_MARKER_TOKEN_REGEX.test(tok) && words.length > 0) {
+          words[words.length - 1] = words[words.length - 1] + ' ' + tok;
+        } else {
+          words.push(tok);
+        }
+      }
       const lines = [];
       let currentLine = words[0] || '';
       for (let i = 1; i < words.length; i++) {
         const testLine = currentLine + ' ' + words[i];
-        const metrics = context.measureText(testLine);
-        if (metrics.width > maxWidth && currentLine.length > 0) {
+        const lineW = measureLineWithOrnaments(context, testLine, fontSize);
+        if (lineW > maxWidth && currentLine.length > 0) {
           lines.push(currentLine);
           currentLine = words[i];
         } else {
@@ -4432,10 +4603,11 @@
           targetCtx.font = `700 ${fontSize}px "${chosenFont}", "Amiri Quran", "Amiri", serif`;
         }
 
+        targetCtx.direction = 'rtl';
         targetCtx.textAlign = 'center';
         targetCtx.textBaseline = 'middle';
 
-        const lines = wrapArabicLines(targetCtx, displayTranscript, maxLineWidth);
+        const lines = wrapArabicLines(targetCtx, displayTranscript, maxLineWidth, fontSize);
         const lineHeight = Math.round(fontSize * 1.85);
         const padY = Math.max(18, Math.round(fontSize * 0.7));
 
@@ -4601,7 +4773,15 @@
               else if (distBot < fadeZone) edgeAlpha = Math.max(0, Math.min(1, distBot / fadeZone));
             }
             targetCtx.globalAlpha = edgeAlpha;
-            targetCtx.fillText(line, W / 2, ly);
+            drawQuranLineWithOrnament(
+              targetCtx,
+              line,
+              W / 2,
+              ly,
+              fontSize,
+              chosenFont,
+              state.ayahTextColor || '#fef08a'
+            );
           }
         });
 
@@ -6190,9 +6370,12 @@
         }
 
         const offCanvas = document.createElement('canvas');
+        offCanvas.setAttribute('dir', 'rtl');
+        offCanvas.dir = 'rtl';
         offCanvas.width = outW;
         offCanvas.height = outH;
         const offCtx = offCanvas.getContext('2d');
+        if (offCtx) offCtx.direction = 'rtl';
 
         const hasWebCodecs = ('VideoEncoder' in window) && ('AudioEncoder' in window) && ('AudioData' in window) && ('VideoFrame' in window);
         let exportedBlob = null;

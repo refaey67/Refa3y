@@ -8381,20 +8381,12 @@
       }
 
       function resolveAutoTheme() {
-        const lightMatches = Boolean(
-          window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
-        );
-        if (lightMatches) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
           return 'light';
         }
 
-        const darkMatches = Boolean(
-          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        );
-        const isAndroidWebView = /wv|Version\/[\d.]+.*Chrome/i.test(navigator.userAgent || '');
-        const isSchemeUnsupportedOrLockedInWebView = isAndroidWebView || (!lightMatches && !darkMatches);
-
-        if (isSchemeUnsupportedOrLockedInWebView) {
+        const isAndroidWebView = /;\s*wv\)|Version\/[\d.]+.*Chrome/i.test(navigator.userAgent);
+        if (isAndroidWebView) {
           const currentHour = new Date().getHours();
           return (currentHour >= 6 && currentHour < 18) ? 'light' : 'dark';
         }

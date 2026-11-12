@@ -8368,6 +8368,7 @@
       const labelThemeMode = document.getElementById('labelThemeMode');
       const metaThemeColor = document.querySelector('meta[name="theme-color"]');
       const lightMediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+      const darkMediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
       function getSavedThemeMode() {
         try {
@@ -8379,6 +8380,28 @@
         return 'dark';
       }
 
+      function resolveAutoTheme() {
+        const lightMatches = Boolean(
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+        );
+        if (lightMatches) {
+          return 'light';
+        }
+
+        const darkMatches = Boolean(
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        );
+        const isAndroidWebView = /wv|Version\/[\d.]+.*Chrome/i.test(navigator.userAgent || '');
+        const isSchemeUnsupportedOrLockedInWebView = isAndroidWebView || (!lightMatches && !darkMatches);
+
+        if (isSchemeUnsupportedOrLockedInWebView) {
+          const currentHour = new Date().getHours();
+          return (currentHour >= 6 && currentHour < 18) ? 'light' : 'dark';
+        }
+
+        return 'dark';
+      }
+
       function applyThemeMode(mode, persist = false) {
         const validMode = THEME_ORDER.includes(mode) ? mode : 'dark';
         if (persist) {
@@ -8387,7 +8410,8 @@
           } catch (e) {}
         }
 
-        const isEffectiveLight = validMode === 'light' || (validMode === 'auto' && Boolean(lightMediaQuery && lightMediaQuery.matches));
+        const effectiveTheme = validMode === 'auto' ? resolveAutoTheme() : validMode;
+        const isEffectiveLight = (effectiveTheme === 'light');
         document.documentElement.classList.toggle('light-theme', isEffectiveLight);
 
         if (metaThemeColor) {
@@ -8409,6 +8433,12 @@
         }
       }
 
+      function refreshAutoThemeOnWakeup() {
+        if (getSavedThemeMode() === 'auto') {
+          applyThemeMode('auto', false);
+        }
+      }
+
       // تطبيق الوضع المحفوظ (أو الليلي كافتراضي عند الدخول لأول مرة) فوراً
       applyThemeMode(getSavedThemeMode(), false);
 
@@ -8420,18 +8450,23 @@
         });
       }
 
-      if (lightMediaQuery) {
-        const onSystemSchemeChange = () => {
-          if (getSavedThemeMode() === 'auto') {
-            applyThemeMode('auto', false);
-          }
-        };
-        if (typeof lightMediaQuery.addEventListener === 'function') {
-          lightMediaQuery.addEventListener('change', onSystemSchemeChange);
-        } else if (typeof lightMediaQuery.addListener === 'function') {
-          lightMediaQuery.addListener(onSystemSchemeChange);
+      [lightMediaQuery, darkMediaQuery].forEach((mq) => {
+        if (!mq) return;
+        if (typeof mq.addEventListener === 'function') {
+          mq.addEventListener('change', refreshAutoThemeOnWakeup);
+        } else if (typeof mq.addListener === 'function') {
+          mq.addListener(refreshAutoThemeOnWakeup);
         }
-      }
+      });
+
+      // إعادة التحقق الفوري عند العودة للتطبيق أو سحب شريط الإشعارات في الأندرويد (WebView Wakeup Check)
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          refreshAutoThemeOnWakeup();
+        }
+      });
+      window.addEventListener('focus', refreshAutoThemeOnWakeup);
+      window.addEventListener('pageshow', refreshAutoThemeOnWakeup);
     })();
 
     // Initialize gallery and preload default background immediately

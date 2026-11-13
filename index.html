@@ -7309,7 +7309,7 @@
       const srvLabel = getCurrentServerLabel(st, state.currentLiveStreamIdx);
       setLiveRadioStatusUI('loading', `جاري التحويل إلى ${srvLabel}...`);
       setTimeout(() => {
-        if (!state.userRequestedLiveStop) {
+        if (!state.userRequestedLiveStop && (expectedSessionId === undefined || expectedSessionId === state.liveSessionId)) {
           startLiveRadioStream(true, true);
         }
       }, 900);

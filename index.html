@@ -2,15 +2,15 @@
 <html lang="ar" dir="rtl">
 <head>
   <script>
-    // Immediate cache-buster & ServiceWorker unregistration
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(function(regs) {
-        regs.forEach(function(r) { r.unregister(); });
-      });
-    }
+    // Clear stale caches and register Network-First Service Worker for PWA installability
     if ('caches' in window) {
       caches.keys().then(function(keys) {
         keys.forEach(function(k) { caches.delete(k); });
+      });
+    }
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js').catch(function() {});
       });
     }
   </script>
@@ -45,8 +45,8 @@
   <meta property="og:url" content="https://refaey67.github.io/Refa3y/" />
   <meta property="og:title" content="إذاعة القرآن الكريم واستوديو التصميم | بواسطة رفاعي" />
   <meta property="og:description" content="بث مباشر لإذاعة القرآن الكريم من القاهرة وإذاعات كبار القراء ٢٤/٧، استوديو لتصميم مقاطع الريلز، وتطبيق أندرويد (APK) للتحميل المباشر." />
-  <meta property="og:image" content="https://refaey67.github.io/Refa3y/og-image.jpg" />
-  <meta property="og:image:secure_url" content="https://refaey67.github.io/Refa3y/og-image.jpg" />
+  <meta property="og:image" content="https://refaey67.github.io/Refa3y/backgrounds/01_%D8%B4%D8%B1%D9%88%D9%82_%D8%A7%D9%84%D8%AC%D8%A8%D8%A7%D9%84_%D9%88%D8%A7%D9%84%D8%B3%D8%AD%D8%A7%D8%A8_Mountain_Sunrise.jpg" />
+  <meta property="og:image:secure_url" content="https://refaey67.github.io/Refa3y/backgrounds/01_%D8%B4%D8%B1%D9%88%D9%82_%D8%A7%D9%84%D8%AC%D8%A8%D8%A7%D9%84_%D9%88%D8%A7%D9%84%D8%B3%D8%AD%D8%A7%D8%A8_Mountain_Sunrise.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -59,7 +59,7 @@
   <meta name="twitter:url" content="https://refaey67.github.io/Refa3y/" />
   <meta name="twitter:title" content="إذاعة القرآن الكريم واستوديو التصميم | بواسطة رفاعي" />
   <meta name="twitter:description" content="بث مباشر لإذاعة القرآن الكريم من القاهرة وإذاعات كبار القراء، استوديو تصميم مقاطع القرآن، وتطبيق أندرويد APK." />
-  <meta name="twitter:image" content="https://refaey67.github.io/Refa3y/og-image.jpg" />
+  <meta name="twitter:image" content="https://refaey67.github.io/Refa3y/backgrounds/01_%D8%B4%D8%B1%D9%88%D9%82_%D8%A7%D9%84%D8%AC%D8%A8%D8%A7%D9%84_%D9%88%D8%A7%D9%84%D8%B3%D8%AD%D8%A7%D8%A8_Mountain_Sunrise.jpg" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -302,8 +302,8 @@
 </head>
 <body class="p-3 sm:p-5 select-none">
 
-  <!-- صورة وفيديو المشهد النشط (الفيديو مكتوم الصوت تماماً بشكل دائم) -->
-  <img id="sourceArtwork" src="backgrounds/01_%D8%B4%D8%B1%D9%88%D9%82_%D8%A7%D9%84%D8%AC%D8%A8%D8%A7%D9%84_%D9%88%D8%A7%D9%84%D8%B3%D8%AD%D8%A7%D8%A8_Mountain_Sunrise.jpg" alt="خلفية المشهد" class="hidden" />
+  <!-- صورة وفيديو المشهد النشط (تأجيل تحميل الخلفية الأولى لحين فتح قسم الاستوديو) -->
+  <img id="sourceArtwork" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>" data-initial-src="backgrounds/01_%D8%B4%D8%B1%D9%88%D9%82_%D8%A7%D9%84%D8%AC%D8%A8%D8%A7%D9%84_%D9%88%D8%A7%D9%84%D8%B3%D8%AD%D8%A7%D8%A8_Mountain_Sunrise.jpg" alt="خلفية المشهد" class="hidden" />
   <video id="sourceVideo" muted defaultMuted playsinline preload="auto" class="hidden"></video>
 
   <!-- الحاوية الرئيسية -->
@@ -2831,13 +2831,15 @@
     }
 
     function handleSourceArtworkLoaded() {
-      requestRenderOnce();
+      if (sourceArtwork && sourceArtwork.naturalWidth > 1) {
+        requestRenderOnce();
+      }
     }
     sourceArtwork.addEventListener('load', handleSourceArtworkLoaded);
     sourceArtwork.addEventListener('error', (e) => {
       console.warn('Background image load error:', sourceArtwork.src);
     });
-    if (sourceArtwork.complete && sourceArtwork.naturalWidth > 0) {
+    if (sourceArtwork.complete && sourceArtwork.naturalWidth > 1) {
       requestRenderOnce();
     }
 
@@ -3031,7 +3033,7 @@
       }
 
       if (activeBgBadge) activeBgBadge.textContent = found.name;
-      renderBgGallery();
+      updateBgGalleryActiveState();
       requestRenderOnce();
     }
 
@@ -3057,10 +3059,10 @@
           : '٣. اختر الخلفية (واجهة الصور)';
       }
 
-      const activeImgBtn = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center gap-1.5';
-      const inactiveImgBtn = 'px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200 flex items-center gap-1.5';
-      const activeVidBtn = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-sky-400 text-slate-950 flex items-center gap-1.5';
-      const inactiveVidBtn = 'px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-sky-200 flex items-center gap-1.5';
+      const activeImgBtn = 'w-full px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center justify-center gap-1.5 text-center';
+      const inactiveImgBtn = 'w-full px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-amber-200 flex items-center justify-center gap-1.5 text-center';
+      const activeVidBtn = 'w-full px-3 py-1.5 rounded-lg text-xs font-bold transition bg-sky-400 text-slate-950 flex items-center justify-center gap-1.5 text-center';
+      const inactiveVidBtn = 'w-full px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-300 hover:text-sky-200 flex items-center justify-center gap-1.5 text-center';
 
       if (btnStudioSubImages) btnStudioSubImages.className = targetSub === 'images' ? activeImgBtn : inactiveImgBtn;
       if (btnStudioSubVideo) btnStudioSubVideo.className = targetSub === 'video' ? activeVidBtn : inactiveVidBtn;
@@ -3101,10 +3103,38 @@
       btnStudioSubVideo.addEventListener('click', () => switchStudioSubMode('video', true));
     }
 
-    function renderBgGallery() {
+    const BG_BTN_SELECTED_CLASS = 'group w-full text-right rounded-xl border p-1.5 transition flex items-center gap-2 overflow-hidden bg-amber-500/25 border-amber-400 text-amber-100 ring-1 ring-amber-400/90 shadow-md';
+    const BG_BTN_UNSELECTED_CLASS = 'group w-full text-right rounded-xl border p-1.5 transition flex items-center gap-2 overflow-hidden bg-slate-900/90 border-slate-700/80 hover:border-amber-400/60 hover:bg-slate-800 text-slate-200';
+
+    function updateBgGalleryActiveState() {
       if (!bgGalleryGrid) return;
-      bgGalleryGrid.innerHTML = '';
+      const imageBgsCount = BACKGROUNDS_LIST.filter(bg => !bg.isVideo).length;
+      const buttons = bgGalleryGrid.querySelectorAll('button[data-bg-id]');
+      if (!buttons.length || buttons.length !== imageBgsCount) {
+        renderBgGallery(true);
+        return;
+      }
+      buttons.forEach((btn) => {
+        const isSelected = btn.getAttribute('data-bg-id') === state.currentBgId;
+        btn.className = isSelected ? BG_BTN_SELECTED_CLASS : BG_BTN_UNSELECTED_CLASS;
+        const subSpan = btn.querySelector('[data-bg-status]');
+        if (subSpan) {
+          subSpan.className = 'text-[9px] truncate ' + (isSelected ? 'text-amber-300 font-semibold' : 'text-slate-400');
+          subSpan.textContent = isSelected ? '✓ نشطة' : 'خلفية طبيعية';
+        }
+      });
+    }
+
+    function renderBgGallery(forceRebuild = false) {
+      if (!bgGalleryGrid) return;
       const imageBgs = BACKGROUNDS_LIST.filter(bg => !bg.isVideo);
+      const existingButtons = bgGalleryGrid.querySelectorAll('button[data-bg-id]');
+      if (!forceRebuild && existingButtons.length === imageBgs.length && existingButtons.length > 0) {
+        updateBgGalleryActiveState();
+        return;
+      }
+
+      bgGalleryGrid.innerHTML = '';
 
       // تقسيم الـ ٤٠ خلفية إلى عمودين متساويين (العمود الأول ١-٢٠ والعمود الثاني ٢١-٤٠)
       const col1 = document.createElement('div');
@@ -3118,11 +3148,8 @@
         const isSelected = bg.id === state.currentBgId;
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'group w-full text-right rounded-xl border p-1.5 transition flex items-center gap-2 overflow-hidden ' + (
-          isSelected
-            ? 'bg-amber-500/25 border-amber-400 text-amber-100 ring-1 ring-amber-400/90 shadow-md'
-            : 'bg-slate-900/90 border-slate-700/80 hover:border-amber-400/60 hover:bg-slate-800 text-slate-200'
-        );
+        btn.setAttribute('data-bg-id', bg.id);
+        btn.className = isSelected ? BG_BTN_SELECTED_CLASS : BG_BTN_UNSELECTED_CLASS;
 
         const thumbWrap = document.createElement('div');
         thumbWrap.className = 'w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-slate-700/80 relative flex items-center justify-center';
@@ -3157,6 +3184,7 @@
         titleSpan.textContent = bg.name;
 
         const subSpan = document.createElement('span');
+        subSpan.setAttribute('data-bg-status', '1');
         subSpan.className = 'text-[9px] truncate ' + (isSelected ? 'text-amber-300 font-semibold' : 'text-slate-400');
         subSpan.textContent = isSelected ? '✓ نشطة' : 'خلفية طبيعية';
 
@@ -4317,9 +4345,9 @@
         updateVideoFrameBuffer();
       }
       const isVideoBg = Boolean(isVideoModeActive && state.hasValidVideoBuffer && videoFrameBufferCanvas.width > 0 && videoFrameBufferCanvas.height > 0);
-      const readyImgEl = (activeLoadedBgImage && activeLoadedBgImage.complete && activeLoadedBgImage.naturalWidth > 0)
+      const readyImgEl = (activeLoadedBgImage && activeLoadedBgImage.complete && activeLoadedBgImage.naturalWidth > 1)
         ? activeLoadedBgImage
-        : ((sourceArtwork && sourceArtwork.complete && sourceArtwork.naturalWidth > 0) ? sourceArtwork : null);
+        : ((sourceArtwork && sourceArtwork.complete && sourceArtwork.naturalWidth > 1) ? sourceArtwork : null);
       const isImageBg = Boolean(!isVideoModeActive && state.currentBgId && readyImgEl);
       if (!isVideoBg && !isImageBg && state.currentBgId) {
         const curBg = BACKGROUNDS_LIST.find(b => b.id === state.currentBgId);
@@ -8270,6 +8298,8 @@
         const activeBg = state.currentBgId || (BACKGROUNDS_LIST.find(b => !b.isVideo)?.id);
         if (activeBg && state.studioSubMode !== 'video') {
           selectBackgroundById(activeBg);
+        } else if (sourceArtwork && sourceArtwork.dataset.initialSrc && (!sourceArtwork.src || sourceArtwork.src.startsWith('data:'))) {
+          sourceArtwork.src = sourceArtwork.dataset.initialSrc;
         }
       }
       refreshBigPlayOverlayVisibility();
@@ -8279,6 +8309,10 @@
     function switchAppSection(targetSection, pushHistory = true, customSubMode = null) {
       const prevSection = state.activeAppSection;
       state.activeAppSection = targetSection;
+
+      if (targetSection === 'studio') {
+        ensureStudioResourcesReady();
+      }
 
       if (customSubMode && targetSection === 'studio') {
         switchStudioSubMode(customSubMode, false);

@@ -88,13 +88,21 @@ app.get('/api/backgrounds', (req, res) => {
   res.json({ count: files.length, files });
 });
 
-// 3. Serve sw.js as self-unregistering cleanup worker with zero cache
+// 3. Serve sw.js as Network-First Service Worker with zero cache
 app.get(['/sw.js', '/Refa3y/sw.js'], (req, res) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
   res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
   res.sendFile(path.join(__dirname, 'sw.js'));
+});
+
+// 3b. Explicitly serve og-image.jpg for social media crawlers (Facebook / WhatsApp / Twitter)
+app.get(['/og-image.jpg', '/Refa3y/og-image.jpg'], (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.setHeader('Content-Type', 'image/jpeg');
+  res.sendFile(path.join(__dirname, 'og-image.jpg'));
 });
 
 // 4. Serve static files from root directory

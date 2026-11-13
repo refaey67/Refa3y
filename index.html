@@ -5,7 +5,6 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <script>
-    // إجبار Android WebView على مسح الكاش وإلغاء أي Service Worker قديم وسحب أحدث نسخة مرة واحدة في بداية الجلسة
     (function() {
       try {
         if ('caches' in window) {
@@ -14,19 +13,11 @@
           });
         }
         if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistrations().then(function(regs) {
-            regs.forEach(function(r) { r.unregister(); });
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('./sw.js').then(function(reg) {
+              try { reg.update(); } catch (e) {}
+            }).catch(function() {});
           });
-        }
-        if (!sessionStorage.getItem('app_fresh_loaded')) {
-          sessionStorage.setItem('app_fresh_loaded', '1');
-          var urlObj = new URL(window.location.href);
-          urlObj.searchParams.set('_t', String(Date.now()));
-          window.location.replace(urlObj.toString());
-        } else if (window.location.search.indexOf('_t=') !== -1 && window.history && window.history.replaceState) {
-          var cleanUrl = new URL(window.location.href);
-          cleanUrl.searchParams.delete('_t');
-          window.history.replaceState(window.history.state, '', cleanUrl.pathname + cleanUrl.search + cleanUrl.hash);
         }
       } catch (e) {}
     })();
@@ -296,6 +287,11 @@
     html.light-theme .bg-amber-400,
     html.light-theme .bg-emerald-500 {
       color: #0f172a !important;
+    }
+    html.light-theme .rare-filter-btn:not(.bg-amber-500) {
+      background-color: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #1e293b !important;
     }
     /* كبسولة زر تحميل/تحديث تطبيق الأندرويد الملكية (Luxury Gold & Emerald Badge) */
     #btnInstallApp {
@@ -1465,19 +1461,6 @@
       }
     }
 
-    async function drawAyahOnCanvas(ayahText) {
-      await ensureQuranFontLoaded('24px "Scheherazade New"');
-      const cleanText = sanitizeQuranText(ayahText);
-      const canvas = document.getElementById('myCanvas') || document.getElementById('previewCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      ctx.font = '36px "Scheherazade New", "Amiri Quran", serif';
-      ctx.direction = 'rtl';
-      ctx.textAlign = 'center';
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillText(cleanText, canvas.width / 2, canvas.height / 2);
-    }
-
     function formatAyahWithNumber(cleanText, ayahNum) {
       const base = sanitizeQuranText(cleanText || '')
         .replace(/[\u200E\u200F\u061C\u2066-\u2069]/g, '')
@@ -2166,8 +2149,6 @@
         candidates: [
           `backgrounds/${encodedName}`,
           `backgrounds/${fileName}`,
-          `background/${encodedName}`,
-          `background/${fileName}`,
           `./api/bg/${num}.jpg`
         ]
       };
@@ -6898,167 +6879,6 @@
     const btnDoneInstallModal = document.getElementById('btnDoneInstallModal');
     const nativeInstallPromptBox = document.getElementById('nativeInstallPromptBox');
     const btnTriggerNativeInstall = document.getElementById('btnTriggerNativeInstall');
-    const headerAppIcon = document.getElementById('headerAppIcon');
-    const modalAppIconPreview = document.getElementById('modalAppIconPreview');
-
-    function generateRefa3yAppIcon(size = 192) {
-      const c = document.createElement('canvas');
-      c.width = size;
-      c.height = size;
-      const g = c.getContext('2d');
-      const s = size / 128;
-
-      const drawRoundedRect = (x, y, w, h, r) => {
-        g.beginPath();
-        g.moveTo(x + r, y);
-        g.lineTo(x + w - r, y);
-        g.quadraticCurveTo(x + w, y, x + w, y + r);
-        g.lineTo(x + w, y + h - r);
-        g.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-        g.lineTo(x + r, y + h);
-        g.quadraticCurveTo(x, y + h, x, y + h - r);
-        g.lineTo(x, y + r);
-        g.quadraticCurveTo(x, y, x + r, y);
-        g.closePath();
-      };
-
-      // 1. خلفية دائرية الحواف (rx="28") بتدرج كحلي ملكي عميق (#0f172a إلى #050811)
-      const bgGrad = g.createLinearGradient(0, 0, 0, size);
-      bgGrad.addColorStop(0, '#0f172a');
-      bgGrad.addColorStop(1, '#050811');
-      drawRoundedRect(0, 0, size, size, 28 * s);
-      g.fillStyle = bgGrad;
-      g.fill();
-
-      // إطار خارجي ذهبي أنيق
-      drawRoundedRect(3 * s, 3 * s, 122 * s, 122 * s, 25 * s);
-      g.strokeStyle = '#f59e0b';
-      g.lineWidth = 3.5 * s;
-      g.stroke();
-
-      // 2. قوس المحراب الإسلامي الذهبي (#f59e0b)
-      g.save();
-      g.beginPath();
-      g.moveTo(16 * s, 112 * s);
-      g.lineTo(16 * s, 54 * s);
-      g.bezierCurveTo(16 * s, 28 * s, 40 * s, 12 * s, 64 * s, 7 * s);
-      g.bezierCurveTo(88 * s, 12 * s, 112 * s, 28 * s, 112 * s, 54 * s);
-      g.lineTo(112 * s, 112 * s);
-      g.moveTo(12 * s, 112 * s);
-      g.lineTo(116 * s, 112 * s);
-      g.strokeStyle = 'rgba(245, 158, 11, 0.88)';
-      g.lineWidth = 2.6 * s;
-      g.lineCap = 'round';
-      g.stroke();
-      g.restore();
-
-      // 3. الهلال الذهبي وموجات البث الصوتي المتناغمة في الأعلى
-      g.save();
-      g.fillStyle = '#fde68a';
-      g.beginPath();
-      g.arc(64 * s, 27.5 * s, 9.2 * s, 0.15 * Math.PI, 0.85 * Math.PI, false);
-      g.arc(64 * s, 23.8 * s, 8.0 * s, 0.82 * Math.PI, 0.18 * Math.PI, true);
-      g.closePath();
-      g.fill();
-
-      g.strokeStyle = '#fbbf24';
-      g.lineWidth = 3.0 * s;
-      g.lineCap = 'round';
-      // موجات صوتية يسار
-      g.beginPath();
-      g.arc(53 * s, 31 * s, 12.5 * s, 0.72 * Math.PI, 1.28 * Math.PI, false);
-      g.stroke();
-      g.beginPath();
-      g.arc(53 * s, 31 * s, 20.5 * s, 0.74 * Math.PI, 1.26 * Math.PI, false);
-      g.stroke();
-      // موجات صوتية يمين
-      g.beginPath();
-      g.arc(75 * s, 31 * s, 12.5 * s, -0.28 * Math.PI, 0.28 * Math.PI, false);
-      g.stroke();
-      g.beginPath();
-      g.arc(75 * s, 31 * s, 20.5 * s, -0.26 * Math.PI, 0.26 * Math.PI, false);
-      g.stroke();
-      g.restore();
-
-      // 4. المصحف المفتوح الكبير والبارز في منتصف المحراب (بدون أي نصوص)
-      const goldGrad = g.createLinearGradient(24 * s, 46 * s, 104 * s, 90 * s);
-      goldGrad.addColorStop(0, '#fde68a');
-      goldGrad.addColorStop(0.5, '#fbbf24');
-      goldGrad.addColorStop(1, '#d97706');
-
-      g.save();
-      g.fillStyle = '#062c28';
-      g.strokeStyle = goldGrad;
-      g.lineWidth = 3.8 * s;
-      g.lineJoin = 'round';
-
-      // الصفحة اليسرى للمصحف
-      g.beginPath();
-      g.moveTo(64 * s, 52 * s);
-      g.bezierCurveTo(52 * s, 46 * s, 35 * s, 46 * s, 24 * s, 51 * s);
-      g.lineTo(24 * s, 85 * s);
-      g.bezierCurveTo(35 * s, 80 * s, 52 * s, 80 * s, 64 * s, 86 * s);
-      g.closePath();
-      g.fill();
-      g.stroke();
-
-      // الصفحة اليمنى للمصحف
-      g.beginPath();
-      g.moveTo(64 * s, 52 * s);
-      g.bezierCurveTo(76 * s, 46 * s, 93 * s, 46 * s, 104 * s, 51 * s);
-      g.lineTo(104 * s, 85 * s);
-      g.bezierCurveTo(93 * s, 80 * s, 76 * s, 80 * s, 64 * s, 86 * s);
-      g.closePath();
-      g.fill();
-      g.stroke();
-
-      // سطور الآيات المذهبة داخل المصحف
-      g.strokeStyle = '#fde68a';
-      g.lineWidth = 2.4 * s;
-      g.lineCap = 'round';
-      g.beginPath();
-      g.moveTo(32 * s, 60 * s);
-      g.bezierCurveTo(42 * s, 57 * s, 52 * s, 57 * s, 58 * s, 60 * s);
-      g.moveTo(32 * s, 69 * s);
-      g.bezierCurveTo(42 * s, 66 * s, 52 * s, 66 * s, 58 * s, 69 * s);
-      g.moveTo(32 * s, 78 * s);
-      g.bezierCurveTo(42 * s, 75 * s, 52 * s, 75 * s, 58 * s, 78 * s);
-      g.moveTo(96 * s, 60 * s);
-      g.bezierCurveTo(86 * s, 57 * s, 76 * s, 57 * s, 70 * s, 60 * s);
-      g.moveTo(96 * s, 69 * s);
-      g.bezierCurveTo(86 * s, 66 * s, 76 * s, 66 * s, 70 * s, 69 * s);
-      g.moveTo(96 * s, 78 * s);
-      g.bezierCurveTo(86 * s, 75 * s, 76 * s, 75 * s, 70 * s, 78 * s);
-      g.stroke();
-
-      // حامل المصحف (الرحل الذهبي)
-      g.strokeStyle = '#f59e0b';
-      g.lineWidth = 3.4 * s;
-      g.beginPath();
-      g.moveTo(30 * s, 91 * s);
-      g.lineTo(64 * s, 85 * s);
-      g.lineTo(98 * s, 91 * s);
-      g.moveTo(44 * s, 100 * s);
-      g.lineTo(64 * s, 88 * s);
-      g.lineTo(84 * s, 100 * s);
-      g.stroke();
-      g.restore();
-
-      return c.toDataURL('image/png');
-    }
-
-    function initRefa3yPwaSetup() {
-      try {
-        const icon192 = window._refa3yIcon192 || generateRefa3yAppIcon(192);
-        window._refa3yIcon192 = icon192;
-        const favEl = document.getElementById('appFavicon');
-        const touchEl = document.getElementById('appleTouchIcon');
-        if (favEl) favEl.href = icon192;
-        if (touchEl) touchEl.href = icon192;
-        if (headerAppIcon) headerAppIcon.src = icon192;
-        if (modalAppIconPreview) modalAppIconPreview.src = icon192;
-      } catch (e) {}
-    }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
@@ -8071,10 +7891,11 @@
     function setupMediaSession(title, artist, artworkUrl) {
       if ('mediaSession' in navigator && typeof MediaMetadata !== 'undefined') {
         try {
+          const isSvg = artworkUrl && artworkUrl.startsWith('data:image/svg+xml');
           navigator.mediaSession.metadata = new MediaMetadata({
             title: title,
             artist: artist,
-            artwork: artworkUrl ? [{ src: artworkUrl, sizes: '192x192', type: 'image/png' }] : []
+            artwork: artworkUrl ? [{ src: artworkUrl, sizes: '192x192', type: isSvg ? 'image/svg+xml' : 'image/jpeg' }] : []
           });
         } catch (e) {}
       }
@@ -8083,7 +7904,8 @@
     function updateMediaSession(type, name, reciter) {
       const title = type === 'radio' ? `بث مباشر: ${name}` : `${name}`;
       const artist = reciter || 'إذاعة القرآن الكريم — Refa3y';
-      const iconUrl = window._refa3yIcon192 || (typeof generateRefa3yAppIcon === 'function' ? (window._refa3yIcon192 = generateRefa3yAppIcon(192)) : '');
+      const favEl = document.getElementById('appFavicon');
+      const iconUrl = (favEl && favEl.href) ? favEl.href : './og-image.jpg';
       setupMediaSession(title, artist, iconUrl);
     }
 
@@ -8174,7 +7996,6 @@
       populateLiveServerSelect();
       syncLiveStationLinks();
       initCollapsibleSections();
-      setTimeout(() => initRefa3yPwaSetup(), 200);
     });
   </script>
 </body>

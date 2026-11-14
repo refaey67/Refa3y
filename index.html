@@ -151,12 +151,15 @@
       overflow-x: hidden;
       padding-top: max(12px, env(safe-area-inset-top, 12px)) !important;
     }
-    .font-quran, .quran-text-container, #previewCanvas {
+    .font-quran, .quran-text-container {
       font-family: 'Scheherazade New', 'Amiri Quran', serif;
       font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1, "ccmp" 1;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       line-height: 2.1;
+    }
+    #canvasWrapper, #videoCanvas, .quran-text-container {
+      direction: rtl !important;
     }
     .gold-gradient-text {
       color: #fbbf24;
@@ -312,15 +315,22 @@
     html.light-theme #btnInstallApp span {
       color: #fde68a !important;
     }
-    html.light-theme #btnToggleTheme {
+    html.light-theme #btnToggleTheme,
+    html.light-theme #btnLangSwitcher {
       background-color: #f8fafc !important;
       border-color: rgba(217, 119, 6, 0.38) !important;
       color: #b45309 !important;
       box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
     }
-    html.light-theme #btnToggleTheme:hover {
+    html.light-theme #btnToggleTheme:hover,
+    html.light-theme #btnLangSwitcher:hover {
       background-color: #f1f5f9 !important;
       border-color: #d97706 !important;
+    }
+    html.light-theme #langDropdownMenu {
+      background-color: #ffffff !important;
+      border-color: rgba(217, 119, 6, 0.35) !important;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.14) !important;
     }
     #headerNavPills:not(.hidden) {
       display: grid !important;
@@ -350,14 +360,14 @@
       <!-- الصف الأول على الهاتف (الهوية كاملة بعرض 100% بدون أي قص) والجانب الأيمن على الشاشات الكبيرة -->
       <div class="w-full md:w-auto flex items-center gap-3 md:order-1">
         <img id="headerAppIcon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><defs><linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'><stop offset='0%25' stop-color='%230f172a'/><stop offset='100%25' stop-color='%23050811'/></linearGradient><linearGradient id='gold' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%23fde68a'/><stop offset='50%25' stop-color='%23fbbf24'/><stop offset='100%25' stop-color='%23d97706'/></linearGradient></defs><rect width='128' height='128' rx='28' fill='url(%23bg)'/><rect x='3' y='3' width='122' height='122' rx='25' fill='none' stroke='%23f59e0b' stroke-width='3.5'/><path d='M16 112V54C16 28 40 12 64 7C88 12 112 28 112 54V112M12 112H116' fill='none' stroke='%23f59e0b' stroke-width='2.6' stroke-linecap='round' opacity='0.88'/><path d='M54.5 26A9.8 9.8 0 1 0 73.5 26A8.2 8.2 0 1 1 54.5 26Z' fill='%23fde68a'/><path d='M44 22A17 17 0 0 0 44 40M36 16A25 25 0 0 0 36 46M84 22A17 17 0 0 1 84 40M92 16A25 25 0 0 1 92 46' fill='none' stroke='%23fbbf24' stroke-width='3' stroke-linecap='round'/><path d='M64 52C52 46 35 46 24 51V85C35 80 52 80 64 86ZM64 52C76 46 93 46 104 51V85C93 80 76 80 64 86Z' fill='%23062c28' stroke='url(%23gold)' stroke-width='3.8' stroke-linejoin='round'/><path d='M32 60C42 57 52 57 58 60M32 69C42 66 52 66 58 69M32 78C42 75 52 75 58 78M96 60C86 57 76 57 70 60M96 69C86 66 76 66 70 69M96 78C86 75 76 75 70 78' fill='none' stroke='%23fde68a' stroke-width='2.4' stroke-linecap='round'/><path d='M30 91L64 85L98 91M44 100L64 88L84 100' fill='none' stroke='%23f59e0b' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/></svg>" alt="Refa3y" class="w-11 h-11 rounded-xl border border-amber-400/60 shrink-0 object-cover shadow-sm" />
-        <div class="flex flex-col text-right">
-          <h1 class="text-base sm:text-lg font-bold gold-gradient-text leading-snug">استوديو إذاعة القرآن الكريم</h1>
-          <span class="text-xs font-medium text-amber-200/80 tracking-wide mt-0.5">بواسطة رفاعي | By Refa3y</span>
+        <div class="flex flex-col text-right" id="headerBrandTextWrap">
+          <h1 id="headerBrandTitle" class="text-base sm:text-lg font-bold gold-gradient-text leading-snug">استوديو إذاعة القرآن الكريم</h1>
+          <span id="headerBrandSubtitle" class="text-xs font-medium text-amber-200/80 tracking-wide mt-0.5">بواسطة رفاعي | By Refa3y</span>
         </div>
       </div>
 
       <!-- الصف الثاني على الهاتف (أزرار الإجراءات السريعة بعرض متوازن) والجانب الأيسر على الشاشات الكبيرة -->
-      <div class="header-actions-row w-full md:w-auto grid grid-cols-2 md:flex items-center gap-2 pt-2.5 md:pt-0 border-t border-slate-800/70 md:border-0 shrink-0 md:order-3">
+      <div class="header-actions-row w-full md:w-auto grid grid-cols-[1fr_auto_auto] md:flex items-center gap-2 pt-2.5 md:pt-0 border-t border-slate-800/70 md:border-0 shrink-0 md:order-3">
         <button id="btnInstallApp" type="button" class="h-10 w-full md:w-auto px-3 sm:px-3.5 rounded-xl flex items-center justify-center gap-2 text-xs font-bold whitespace-nowrap hover:brightness-110 active:scale-95 transition-all" title="تحميل وتثبيت تطبيق الأندرويد (APK)">
           <svg width="20" height="20" class="w-5 h-5 shrink-0" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <!-- قوس المحراب الإسلامي الذهبي المزخرف -->
@@ -382,7 +392,7 @@
           <span id="labelInstallAppBtn">تثبيت التطبيق (APK)</span>
         </button>
 
-        <button id="btnToggleTheme" type="button" aria-label="تبديل المظهر" title="تبديل المظهر (داكن / نهاري)" class="h-10 w-full md:w-auto px-3 sm:px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/50 text-amber-200 flex items-center justify-center gap-2 text-xs font-bold whitespace-nowrap shadow-sm active:scale-95 transition-all">
+        <button id="btnToggleTheme" type="button" aria-label="تبديل المظهر" title="تبديل المظهر (داكن / نهاري)" class="h-10 w-auto px-3 sm:px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/50 text-amber-200 flex items-center justify-center gap-1.5 text-xs font-bold whitespace-nowrap shadow-sm active:scale-95 transition-all">
           <svg id="iconThemeDark" class="w-4 h-4 text-amber-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
           </svg>
@@ -391,6 +401,34 @@
           </svg>
           <span id="labelThemeMode">داكن</span>
         </button>
+
+        <div class="relative shrink-0" id="langSwitcherContainer">
+          <button id="btnLangSwitcher" type="button" aria-haspopup="true" aria-expanded="false" aria-label="تغيير اللغة" title="اللغة / Language" class="h-10 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/50 text-amber-200 flex items-center justify-center gap-1.5 text-xs font-bold whitespace-nowrap shadow-sm active:scale-95 transition-all">
+            <svg class="w-4 h-4 text-amber-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+            </svg>
+            <span id="labelCurrentLang" class="font-mono tracking-wider">AR</span>
+          </button>
+
+          <div id="langDropdownMenu" role="menu" class="hidden absolute top-full mt-1.5 left-0 w-40 rounded-xl bg-slate-900 border border-amber-400/40 shadow-xl py-1.5 z-50">
+            <button type="button" data-lang="ar" role="menuitem" class="lang-option-btn w-full px-3.5 py-2 text-xs font-bold flex items-center justify-between hover:bg-slate-800 transition text-amber-300 bg-amber-500/15">
+              <span>العربية</span>
+              <span class="text-[10px] font-mono opacity-80">AR</span>
+            </button>
+            <button type="button" data-lang="en" role="menuitem" class="lang-option-btn w-full px-3.5 py-2 text-xs font-semibold flex items-center justify-between hover:bg-slate-800 transition text-slate-200">
+              <span>English</span>
+              <span class="text-[10px] font-mono opacity-80">EN</span>
+            </button>
+            <button type="button" data-lang="fr" role="menuitem" class="lang-option-btn w-full px-3.5 py-2 text-xs font-semibold flex items-center justify-between hover:bg-slate-800 transition text-slate-200">
+              <span>Français</span>
+              <span class="text-[10px] font-mono opacity-80">FR</span>
+            </button>
+            <button type="button" data-lang="de" role="menuitem" class="lang-option-btn w-full px-3.5 py-2 text-xs font-semibold flex items-center justify-between hover:bg-slate-800 transition text-slate-200">
+              <span>Deutsch</span>
+              <span class="text-[10px] font-mono opacity-80">DE</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- الصف الثالث على الهاتف (شريط التنقل عند الظهور خارج الشاشة الرئيسية) وفي المنتصف على الشاشات الكبيرة -->
@@ -641,8 +679,8 @@
         <!-- شاشة المعاينة والمشغل -->
         <div class="lg:col-span-8 lg:sticky lg:top-4 space-y-3">
           <div id="stageContainer" class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center relative">
-            <div id="canvasWrapper" class="video-stage-wrapper relative w-full rounded-xl overflow-hidden flex items-center justify-center" style="aspect-ratio: 9 / 16; max-width: 380px; max-height: 72vh;">
-              <canvas id="videoCanvas" width="720" height="1280" class="w-full h-full object-contain block cursor-pointer"></canvas>
+            <div id="canvasWrapper" dir="rtl" class="video-stage-wrapper relative w-full rounded-xl overflow-hidden flex items-center justify-center" style="aspect-ratio: 9 / 16; max-width: 380px; max-height: 72vh;">
+              <canvas id="videoCanvas" dir="rtl" width="720" height="1280" class="w-full h-full object-contain block cursor-pointer"></canvas>
 
               <!-- زر التشغيل على المعاينة (مخفي حتى يختار الزائر القارئ والآية) -->
               <button id="bigPlayOverlay" type="button" aria-label="تشغيل الفيديو" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-slate-950/45 hover:bg-slate-950/30 transition group">
@@ -2537,9 +2575,10 @@
       if (imageOnlyEffectsBox) imageOnlyEffectsBox.classList.toggle('hidden', targetSub === 'video');
 
       if (sec3DynamicTitle) {
+        const t = window.tRefa3y || ((k, fb) => fb);
         sec3DynamicTitle.textContent = targetSub === 'video'
-          ? '٣. رفع وتخصيص الفيديو (واجهة الفيديو)'
-          : '٣. اختر الخلفية (واجهة الصور)';
+          ? t('sec3TitleVideo', '٣. رفع وتخصيص الفيديو (واجهة الفيديو)')
+          : t('sec3TitleImages', '٣. اختر الخلفية (واجهة الصور)');
       }
 
       const activeImgBtn = 'w-full px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 flex items-center justify-center gap-1.5 text-center';
@@ -2920,7 +2959,10 @@
     }
 
     function setStatus(text, tone = 'emerald') {
-      audioStatusBadge.textContent = text;
+      state.lastRawStatusText = text;
+      state.lastStatusTone = tone;
+      const displayMsg = typeof window.translateStatusText === 'function' ? window.translateStatusText(text) : text;
+      audioStatusBadge.textContent = displayMsg;
       audioStatusBadge.className = 'text-xs px-3 py-1.5 rounded-xl font-medium ';
       if (tone === 'emerald') {
         audioStatusBadge.className += 'bg-emerald-500/15 border border-emerald-400/30 text-emerald-300';
@@ -3563,16 +3605,17 @@
 
     function updatePlayUI(playing) {
       state.isPlaying = playing;
+      const t = window.tRefa3y || ((k, fb) => fb);
       if (playing) {
         bigPlayOverlay.classList.add('hidden');
         iconPlay.classList.add('hidden');
         iconPause.classList.remove('hidden');
-        labelPlayPause.textContent = 'إيقاف مؤقت';
+        labelPlayPause.textContent = t('btnPauseRecitation', 'إيقاف مؤقت');
       } else {
         refreshBigPlayOverlayVisibility();
         iconPlay.classList.remove('hidden');
         iconPause.classList.add('hidden');
-        labelPlayPause.textContent = 'تشغيل التلاوة';
+        labelPlayPause.textContent = t('btnPlayRecitation', 'تشغيل التلاوة');
       }
     }
 
@@ -4808,12 +4851,13 @@
       }
 
       if (sec2DynamicTitle) {
+        const t = window.tRefa3y || ((k, fb) => fb);
         if (isRareOrRefaatMode) {
           sec2DynamicTitle.textContent = state.currentReciterKey === 'mohamed_refaat'
-            ? '٢. أداة التحكم في مقطع الشيخ محمد رفعت'
-            : '٢. أداة التحكم في المقطع والآيات المعروضة';
+            ? t('sec2TitleRefaat', '٢. أداة التحكم في مقطع الشيخ محمد رفعت')
+            : t('sec2TitleRare', '٢. أداة التحكم في المقطع والآيات المعروضة');
         } else {
-          sec2DynamicTitle.textContent = '٢. اختر السورة والآيات';
+          sec2DynamicTitle.textContent = t('sec2TitleStandard', '٢. اختر السورة والآيات');
         }
       }
 
@@ -7221,7 +7265,10 @@
 
     function setLiveRadioStatusUI(statusType, message) {
       if (!liveRadioStateText || !liveRadioBadge || !liveRadioDot) return;
-      liveRadioStateText.textContent = message;
+      state.lastLiveRadioStatusType = statusType;
+      state.lastLiveRadioRawMsg = message;
+      const displayMsg = typeof window.translateStatusText === 'function' ? window.translateStatusText(message) : message;
+      liveRadioStateText.textContent = displayMsg;
       if (statusType === 'playing') {
         liveRadioBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 border border-emerald-400/50 text-emerald-200';
         liveRadioDot.className = 'w-2 h-2 rounded-full bg-emerald-400';
@@ -7240,14 +7287,15 @@
     function updateLivePlayButtonsUI(playing) {
       state.isLiveRadioPlaying = playing;
       if (!iconLivePlay || !iconLivePause || !labelLivePlay) return;
+      const t = window.tRefa3y || ((k, fb) => fb);
       if (playing) {
         iconLivePlay.classList.add('hidden');
         iconLivePause.classList.remove('hidden');
-        labelLivePlay.textContent = 'إيقاف البث المباشر';
+        labelLivePlay.textContent = t('liveStopBtn', 'إيقاف البث المباشر');
       } else {
         iconLivePlay.classList.remove('hidden');
         iconLivePause.classList.add('hidden');
-        labelLivePlay.textContent = 'تشغيل البث المباشر';
+        labelLivePlay.textContent = t('livePlayBtn', 'تشغيل البث المباشر');
       }
     }
 
@@ -7928,22 +7976,1174 @@
     }
 
     // =========================================================================
-    // 13. نظام تبديل المظهر المباشر (Dark / Light فقط) + تحديث نص زر الـ APK
+    // 13. نظام تعدد اللغات الذكي (AR / EN / FR / DE) + نظام تبديل المظهر (Dark / Light)
     // =========================================================================
-    (function initRefa3yThemeManager() {
+    const SUPPORTED_LANGS = ['ar', 'en', 'fr', 'de'];
+    const LANG_STORAGE_KEY = 'refa3y_lang';
+
+    const I18N_DICT = {
+      ar: {
+        headerTitle: 'استوديو إذاعة القرآن الكريم',
+        headerSubtitle: 'بواسطة رفاعي | By Refa3y',
+        installApp: 'تثبيت التطبيق (APK)',
+        updateApp: 'تحديث التطبيق (APK)',
+        installAppTitle: 'تحميل وتثبيت تطبيق الأندرويد (APK)',
+        themeDark: 'داكن',
+        themeLight: 'نهاري',
+        themeToggleTitle: 'تبديل المظهر (داكن / نهاري)',
+        langSwitcherTitle: 'تغيير اللغة',
+        navHome: 'الرئيسية',
+        navLiveRadio: 'راديو مباشر',
+        navVideoStudio: 'تصميم الفيديوهات',
+        homeHeading: 'اختر القسم',
+        card1Badge: 'بث مباشر ٢٤/٧',
+        card1Title: '١. راديو مباشر',
+        card1Desc: 'إذاعة القرآن الكريم من القاهرة وإذاعات كبار القراء',
+        card1Footer: 'فتح الإذاعة المباشرة',
+        card1Enter: 'دخول ←',
+        card2Badge: '١١٤ سورة • ٤٠ خلفية سينمائية وطبيعية',
+        card2Title: '٢. تصميم الفيديوهات (واجهة الصور)',
+        card2Desc: 'تصميم مقاطع قرآنية بالخلفيات الجاهزة أو بصور من جهازك',
+        card2Footer: 'فتح استوديو التصميم',
+        card2Enter: 'دخول ←',
+        card3Badge: 'واجهة فيديو مستقلة',
+        card3Title: '٣. تصميم بفيديو من جهازك',
+        card3Desc: 'ارفع فيديو من جهازك (يُحذف صوته فوراً) مع ضبط التوقيت والفلاتر',
+        card3Footer: 'فتح واجهة رفع الفيديو',
+        card3Enter: 'دخول ←',
+        liveHeading: 'إذاعة القرآن الكريم — بث مباشر',
+        liveReady: 'جاهز للتشغيل',
+        liveStopped: 'متوقف مؤقتاً',
+        liveExtLink: 'رابط البث المباشر',
+        liveOfficialLink: 'الموقع الرسمي للإذاعة',
+        livePlayBtn: 'تشغيل البث المباشر',
+        liveStopBtn: 'إيقاف البث المباشر',
+        liveNextServerBtn: 'تبديل الخادم',
+        liveUrlLabel: 'الرابط:',
+        liveUrlPlaceholder: 'الصق أي رابط بث مباشر (HTTPS) لتجربته...',
+        livePlayUrlBtn: 'تشغيل الرابط',
+        liveCopyUrlBtn: 'نسخ الرابط',
+        st_cairo_official: 'إذاعة القرآن الكريم — القاهرة',
+        st_minshawi_mujawwad_radio: 'إذاعة الشيخ المنشاوي',
+        st_abdulbasit_mujawwad_radio: 'إذاعة الشيخ عبد الباسط',
+        st_husary_mujawwad_radio: 'إذاعة الشيخ الحصري',
+        st_banna_mujawwad_radio: 'إذاعة الشيخ محمود علي البنا',
+        st_mustafa_ismail_radio: 'إذاعة الشيخ مصطفى إسماعيل',
+        st_tablawi_radio: 'إذاعة الشيخ الطبلاوي',
+        st_mohamed_refaat_radio: 'إذاعة الشيخ محمد رفعت',
+        tagMujawwad: 'مجود',
+        tagMurattal: 'مرتل',
+        tag247: '٢٤/٧',
+        tagHeritage247: 'تراث ٢٤/٧',
+        studioSubImages: '🖼️ واجهة التصميم بالصور',
+        studioSubVideo: '🎬 واجهة رفع فيديو من جهازك',
+        aspect169: 'عرض سينمائي 16:9',
+        aspect916: 'طولي ريلز 9:16',
+        bigPlayLabel: 'اضغط لتشغيل المعاينة',
+        recordingBadge: 'جاري تصدير الفيديو...',
+        exportTitle: 'جاري تجهيز وتصدير الفيديو...',
+        exportSub: 'يرجى الانتظار لحين اكتمال التحميل',
+        cancelExport: 'إلغاء التصدير',
+        btnPlayRecitation: 'تشغيل التلاوة',
+        btnPauseRecitation: 'إيقاف مؤقت',
+        statusInitial: 'اختر القارئ والآية للبدء',
+        autoDownload: 'تحميل تلقائي',
+        btnRecordVideo: 'تحميل المقطع فوراً (فيديو + صوت القارئ)',
+        btnSaveAnother: 'حفظ نسخة أخرى',
+        sectionsHeader: 'أقسام إعدادات التصميم',
+        expandAll: 'فتح الكل',
+        collapseAll: 'طي الكل',
+        sec1Title: 'مصدر التلاوة والقارئ',
+        badgeUnselected: 'غير محدد',
+        badgeNotChosenYet: 'لم تُختر بعد',
+        tabStandardReciters: '📖 المصاحف الكاملة',
+        tabRareRecitations: '✨ نوادر وحفلات خارجية',
+        lblCustomAudio: 'أو ارفع ملفاً صوتياً من جهازك:',
+        rareSearchPlaceholder: 'ابحث باسم الشيخ (محمد رفعت، عبد الباسط، المنشاوي...) أو السورة...',
+        sec2TitleStandard: 'اختر السورة والآيات',
+        sec2TitleRefaat: '٢. أداة التحكم في مقطع الشيخ محمد رفعت',
+        sec2TitleRare: '٢. أداة التحكم في المقطع والآيات المعروضة',
+        searchAyahPlaceholder: 'ابحث عن آية في المصحف...',
+        btnSearchAyah: 'بحث',
+        lblSurah: 'السورة:',
+        lblAyahRange: 'نطاق الآيات:',
+        modeFullSurah: 'المقطع كاملاً',
+        modeSingleAyah: 'آية واحدة',
+        modeMultiAyah: 'بعض الآيات',
+        lblFromAyahSingle: 'الآية:',
+        lblFromAyahMulti: 'من الآية:',
+        lblToAyah: 'إلى الآية:',
+        optChooseAyah: '— اختر الآية —',
+        btnApplySingleAyah: 'اعتماد وتشغيل الآية',
+        btnApplyMultiAyah: 'اعتماد نطاق الآيات',
+        surahSummaryEmpty: 'لم يتم اختيار سورة أو آية بعد',
+        sec3TitleImages: 'اختر الخلفية (واجهة الصور)',
+        sec3TitleVideo: 'رفع وتخصيص الفيديو (واجهة الفيديو)',
+        lblCustomBgImage: 'ارفع صورة خلفية من جهازك:',
+        lblCustomBgVideo: 'ارفع فيديو خلفية من جهازك (يُحذف صوته فوراً):',
+        badgeVideoMuted: 'تم حذف صوت الفيديو الأصلي تلقائياً',
+        btnPreviewVideoMotion: 'معاينة حركة الفيديو',
+        btnStopVideoMotion: 'إيقاف معاينة الفيديو',
+        videoTimingDefault: 'مدة الفيديو: --:-- • ارفع فيديو واختر آية لمطابقة التوقيت',
+        lblLongVideoPolicy: 'حالة الفيديو الطويل (أطول من الآيات المختارة):',
+        optLongVideoTrim: 'اقتطاع الجزء الزائد من الفيديو بعد انتهاء التلاوة المختارة',
+        lblShortVideoPolicy: 'حالة الفيديو القصير (أقصر من الآيات المختارة):',
+        optShortVideoLoop: 'تكرار من أول الفيديو ليكون بنفس طول الآيات المختارة',
+        lblLoopTransition: 'تأثير تنعيم تكرار الفيديو (لمنع القطع المفاجئ):',
+        optLoopCrossfade: 'تلاشي سينمائي متداخل ناعم (دمج النهاية بالبداية)',
+        optLoopDip: 'تمويه ليلي هادئ وإشراق تدريجي عند الإعادة',
+        optLoopShimmer: 'إشراقة نورانية ذهبية ناعمة عند نقطة التكرار',
+        optLoopZoom: 'تموج زووم انسيابي ناعم مع التلاشي المتداخل',
+        lblVisualFilter: 'فلتر الخلفية / الفيديو:',
+        fltNone: 'طبيعي (بدون فلتر)',
+        fltWarm: 'سينمائي دافئ',
+        fltNight: 'ليلي هادئ',
+        fltGold: 'ذهبي قرآني',
+        fltBw: 'أبيض وأسود كلاسيكي',
+        fltEmerald: 'زمردي روحاني',
+        fltContrast: 'تباين عميق',
+        fltDarkFocus: 'تعتيم مريح لإبراز الآيات',
+        lblMediaFitMode: 'ضبط الأبعاد على الواجهة:',
+        lblBgBrightness: 'إضاءة الخلفية',
+        sec4Title: 'طريقة عرض النص والتأثيرات',
+        badgeTextFull: 'نص كامل',
+        badgeTextSeq: 'آية آية متتابع',
+        badgeTextNone: 'خلفية فقط',
+        lblTextMode: 'طريقة عرض النص:',
+        optTextNone: 'خلفيه فقط بدون نص قرآني',
+        optTextFull: 'النص القرآني كامل',
+        optTextSeq: 'عرض النص آيه آيه بنظام متتابع',
+        lblAyahPos: 'مكان النص:',
+        posTop: '١. أعلى المقطع',
+        posMiddle: '٢. وسط المقطع',
+        posBottom: '٣. أسفل المقطع',
+        lblAyahFontFamily: 'نوع الخط العربي للآيات القرآنية:',
+        lblAyahFontSize: 'حجم خط الآيات:',
+        lblAyahTextColor: 'لون خط كتابة الآيات:',
+        lblAyahFrameStyle: 'ستايل البرواز خلف الآيات المكتوبة:',
+        frmOrnateGold: 'برواز ذهبي مزخرف كلاسيكي (الافتراضي)',
+        frmDoubleRoyal: 'برواز ملكي مزدوج الإطار والزخرفة',
+        frmMihrab: 'برواز محراب مسجدي مقوس',
+        frmEmerald: 'برواز زمردي قرآني مذهب',
+        frmMinimal: 'برواز عصري ناعم بدون زخارف',
+        frmBand: 'شريط سينمائي متدرج مفتوح الجانبين',
+        frmNone: 'إزالة البرواز تماماً (النص القرآني فقط)',
+        lblAyahFrameOpacity: 'شفافية البرواز خلف الآيات',
+        lblImageVisualEffect: 'تأثيرات بصرية مشهورة (لواجهه الصور):',
+        fxGoldenDust: 'جزيئات النور الذهبية الصاعدة (الافتراضي)',
+        fxGodRays: 'أشعة نور ساقطة من الأعلى (God Rays)',
+        fxStarryNight: 'تلألؤ نجوم السحر المتلألئة (Starry Night)',
+        fxLightRain: 'قطرات غيث ونور هادئة (Light Rain)',
+        fxGoldenBokeh: 'دوائر بوكيه ضوئية دافئة (Golden Bokeh)',
+        fxSpiritualPulse: 'هالة نورانية خاشعة تتفاعل مع التلاوة',
+        fxNone: 'بدون تأثير بصري إضافي',
+        lblGlow: 'توهج الإضاءة',
+        lblParticles: 'كثافة التأثير البصري / جزيئات النور',
+        lblShowHeaderInfo: 'إظهار اسم السورة والشيخ أعلى المقطع',
+        lblAudioWave: 'إظهار شريط النبضات الصوتية من الأسفل (موجات صوتية)',
+        btnResetEffects: 'إعادة ضبط التأثيرات',
+        sec5Title: 'توقيع حفظ الحقوق',
+        lblWatermarkText: 'اسم التوقيع (الافتراضي: Refa3y أو اكتب اسماً آخر):',
+        lblWatermarkPos: 'مكان التوقيع:',
+        wmBottomRight: 'أسفل اليمين',
+        wmBottomLeft: 'أسفل اليسار',
+        wmTopRight: 'أعلى اليمين',
+        wmTopLeft: 'أعلى اليسار',
+        wmBottomCenter: 'أسفل المنتصف',
+        wmTopCenter: 'أعلى المنتصف',
+        lblWatermarkFont: 'نوع الخط:',
+        lblWatermarkSize: 'حجم الخط:',
+        lblWatermarkColor: 'لون التوقيع:',
+        modalTitle: 'تحميل وتثبيت تطبيق Refa3y',
+        modalSub: 'اختر طريقة التثبيت المناسبة لجهازك',
+        modalApkTitle: '١. نسخة تطبيق الأندرويد الكاملة (APK)',
+        modalApkBadge: 'يعمل في الخلفية',
+        modalApkDesc: 'حزمة تثبيت أندرويد مباشرة تعمل كتطبيق مستقل وتدعم استمرار صوت الإذاعة والتلاوة في الخلفية.',
+        modalApkBtn: 'تحميل ملف التطبيق الآن (Refa3y.apk)',
+        modalPwaTitle: '٢. تثبيت فوري سريع بدون تنزيل ملف:',
+        modalPwaBtn: 'تثبيت مباشر على الشاشة الرئيسية',
+        modalCloseBtn: 'إغلاق'
+      },
+      en: {
+        headerTitle: 'Holy Quran Radio & Studio',
+        headerSubtitle: 'By Refa3y | بواسطة رفاعي',
+        installApp: 'Install App (APK)',
+        updateApp: 'Update App (APK)',
+        installAppTitle: 'Download & Install Android App (APK)',
+        themeDark: 'Dark',
+        themeLight: 'Light',
+        themeToggleTitle: 'Toggle Theme (Dark / Light)',
+        langSwitcherTitle: 'Change Language',
+        navHome: 'Home',
+        navLiveRadio: 'Live Radio',
+        navVideoStudio: 'Video Studio',
+        homeHeading: 'Choose Section',
+        card1Badge: '24/7 Live Stream',
+        card1Title: '1. Live Quran Radio',
+        card1Desc: 'Cairo Holy Quran Radio (98.2 FM) & Master Reciters Stations',
+        card1Footer: 'Open Live Radio',
+        card1Enter: 'Enter →',
+        card2Badge: '114 Surahs • 40 Nature & Cinema Backgrounds',
+        card2Title: '2. Video Studio (Image Mode)',
+        card2Desc: 'Design Quranic videos with ready backgrounds or your own images',
+        card2Footer: 'Open Design Studio',
+        card2Enter: 'Enter →',
+        card3Badge: 'Dedicated Video Mode',
+        card3Title: '3. Design with Your Video',
+        card3Desc: 'Upload a video from your device (auto-muted) with timing & filters',
+        card3Footer: 'Open Video Upload Studio',
+        card3Enter: 'Enter →',
+        liveHeading: 'Holy Quran Radio — Live Stream',
+        liveReady: 'Ready to play',
+        liveStopped: 'Paused',
+        liveExtLink: 'Direct Stream Link',
+        liveOfficialLink: 'Official Radio Website',
+        livePlayBtn: 'Play Live Stream',
+        liveStopBtn: 'Stop Live Stream',
+        liveNextServerBtn: 'Switch Server',
+        liveUrlLabel: 'URL:',
+        liveUrlPlaceholder: 'Paste any HTTPS live stream URL to test...',
+        livePlayUrlBtn: 'Play URL',
+        liveCopyUrlBtn: 'Copy URL',
+        st_cairo_official: 'Holy Quran Radio — Cairo',
+        st_minshawi_mujawwad_radio: 'Sheikh Al-Minshawi Radio',
+        st_abdulbasit_mujawwad_radio: 'Sheikh Abdulbasit Radio',
+        st_husary_mujawwad_radio: 'Sheikh Al-Husary Radio',
+        st_banna_mujawwad_radio: 'Sheikh Mahmoud Ali Al-Banna',
+        st_mustafa_ismail_radio: 'Sheikh Mustafa Ismail Radio',
+        st_tablawi_radio: 'Sheikh Al-Tablawi Radio',
+        st_mohamed_refaat_radio: 'Sheikh Mohamed Refaat Radio',
+        tagMujawwad: 'Mujawwad',
+        tagMurattal: 'Murattal',
+        tag247: '24/7',
+        tagHeritage247: 'Heritage 24/7',
+        studioSubImages: '🖼️ Image Background Mode',
+        studioSubVideo: '🎬 Custom Video Upload Mode',
+        aspect169: 'Landscape 16:9',
+        aspect916: 'Vertical Reels 9:16',
+        bigPlayLabel: 'Click to preview recitation',
+        recordingBadge: 'Exporting video...',
+        exportTitle: 'Preparing & exporting video...',
+        exportSub: 'Please wait until download finishes',
+        cancelExport: 'Cancel Export',
+        btnPlayRecitation: 'Play Recitation',
+        btnPauseRecitation: 'Pause',
+        statusInitial: 'Select reciter & verse to start',
+        autoDownload: 'Auto-download',
+        btnRecordVideo: 'Download Video Now (Video + Audio)',
+        btnSaveAnother: 'Save Another Copy',
+        sectionsHeader: 'Studio Design Settings',
+        expandAll: 'Expand All',
+        collapseAll: 'Collapse All',
+        sec1Title: 'Reciter & Audio Source',
+        badgeUnselected: 'Not selected',
+        badgeNotChosenYet: 'Not chosen yet',
+        tabStandardReciters: '📖 Complete Mushafs',
+        tabRareRecitations: '✨ Rare & Live Concerts',
+        lblCustomAudio: 'Or upload an audio file from your device:',
+        rareSearchPlaceholder: 'Search by Sheikh name or Surah...',
+        sec2TitleStandard: 'Select Surah & Verses',
+        sec2TitleRefaat: '2. Sheikh Mohamed Refaat Clip Controller',
+        sec2TitleRare: '2. Clip & Displayed Verses Controller',
+        searchAyahPlaceholder: 'Search for a verse in the Quran...',
+        btnSearchAyah: 'Search',
+        lblSurah: 'Surah:',
+        lblAyahRange: 'Verse Range:',
+        modeFullSurah: 'Full Clip',
+        modeSingleAyah: 'Single Verse',
+        modeMultiAyah: 'Verse Range',
+        lblFromAyahSingle: 'Verse:',
+        lblFromAyahMulti: 'From Verse:',
+        lblToAyah: 'To Verse:',
+        optChooseAyah: '— Select Verse —',
+        btnApplySingleAyah: 'Load & Play Verse',
+        btnApplyMultiAyah: 'Load Verse Range',
+        surahSummaryEmpty: 'No Surah or verse selected yet',
+        sec3TitleImages: 'Select Background (Image Mode)',
+        sec3TitleVideo: 'Upload & Customize Video (Video Mode)',
+        lblCustomBgImage: 'Upload a custom background image:',
+        lblCustomBgVideo: 'Upload a background video (original audio auto-muted):',
+        badgeVideoMuted: 'Original video audio automatically muted',
+        btnPreviewVideoMotion: 'Preview Video Motion',
+        btnStopVideoMotion: 'Stop Video Preview',
+        videoTimingDefault: 'Video duration: --:-- • Upload video & pick verse to match timing',
+        lblLongVideoPolicy: 'Long Video Policy (longer than recitation):',
+        optLongVideoTrim: 'Trim excess video after recitation ends',
+        lblShortVideoPolicy: 'Short Video Policy (shorter than recitation):',
+        optShortVideoLoop: 'Loop video from start to match recitation length',
+        lblLoopTransition: 'Seamless Loop Transition Effect:',
+        optLoopCrossfade: 'Smooth Cinematic Crossfade',
+        optLoopDip: 'Serene Night Dip & Gradual Fade-In',
+        optLoopShimmer: 'Soft Golden Spiritual Shimmer at Loop Point',
+        optLoopZoom: 'Smooth Zoom Flow with Crossfade',
+        lblVisualFilter: 'Background / Video Filter:',
+        fltNone: 'Natural (No Filter)',
+        fltWarm: 'Warm Cinema',
+        fltNight: 'Serene Night',
+        fltGold: 'Quranic Gold',
+        fltBw: 'Classic B&W',
+        fltEmerald: 'Spiritual Emerald',
+        fltContrast: 'Deep Contrast',
+        fltDarkFocus: 'Soft Dimming for Verse Clarity',
+        lblMediaFitMode: 'Aspect Ratio Fit:',
+        lblBgBrightness: 'Background Brightness',
+        sec4Title: 'Text Display & Visual Effects',
+        badgeTextFull: 'Full Text',
+        badgeTextSeq: 'Verse-by-Verse',
+        badgeTextNone: 'Background Only',
+        lblTextMode: 'Text Display Mode:',
+        optTextNone: 'Background only (No Quranic text)',
+        optTextFull: 'Full Quranic text',
+        optTextSeq: 'Sequential verse-by-verse display',
+        lblAyahPos: 'Text Position:',
+        posTop: '1. Top',
+        posMiddle: '2. Center',
+        posBottom: '3. Bottom',
+        lblAyahFontFamily: 'Quranic Arabic Font:',
+        lblAyahFontSize: 'Verse Font Size:',
+        lblAyahTextColor: 'Verse Text Color:',
+        lblAyahFrameStyle: 'Verse Backdrop Frame Style:',
+        frmOrnateGold: 'Classic Ornate Gold Frame (Default)',
+        frmDoubleRoyal: 'Royal Double Border Frame',
+        frmMihrab: 'Mosque Mihrab Arch Frame',
+        frmEmerald: 'Luxury Emerald & Gold Frame',
+        frmMinimal: 'Minimal Soft Modern Frame',
+        frmBand: 'Open-Sided Cinematic Gradient Band',
+        frmNone: 'No Frame (Quranic Text Only)',
+        lblAyahFrameOpacity: 'Frame Backdrop Opacity',
+        lblImageVisualEffect: 'Visual Effects (Image Mode):',
+        fxGoldenDust: 'Rising Golden Light Particles (Default)',
+        fxGodRays: 'Heavenly Light Rays (God Rays)',
+        fxStarryNight: 'Twinkling Starry Night',
+        fxLightRain: 'Gentle Light Rain Drops',
+        fxGoldenBokeh: 'Warm Golden Bokeh Circles',
+        fxSpiritualPulse: 'Spiritual Aura Reacting to Voice',
+        fxNone: 'No Extra Visual Effect',
+        lblGlow: 'Lighting Glow',
+        lblParticles: 'Visual Effect / Particles Density',
+        lblShowHeaderInfo: 'Show Surah & Reciter Name at Top',
+        lblAudioWave: 'Show Audio Waveform Spectrum at Bottom',
+        btnResetEffects: 'Reset Effects',
+        sec5Title: 'Copyright Watermark Signature',
+        lblWatermarkText: 'Signature Text (Default: Refa3y or custom name):',
+        lblWatermarkPos: 'Signature Position:',
+        wmBottomRight: 'Bottom Right',
+        wmBottomLeft: 'Bottom Left',
+        wmTopRight: 'Top Right',
+        wmTopLeft: 'Top Left',
+        wmBottomCenter: 'Bottom Center',
+        wmTopCenter: 'Top Center',
+        lblWatermarkFont: 'Font Family:',
+        lblWatermarkSize: 'Font Size:',
+        lblWatermarkColor: 'Signature Color:',
+        modalTitle: 'Download & Install Refa3y App',
+        modalSub: 'Choose the installation method for your device',
+        modalApkTitle: '1. Full Android App Package (APK)',
+        modalApkBadge: 'Background Play',
+        modalApkDesc: 'Direct Android APK installer that runs as a standalone app with full background audio playback.',
+        modalApkBtn: 'Download App Now (Refa3y.apk)',
+        modalPwaTitle: '2. Instant Browser Install (No file download):',
+        modalPwaBtn: 'Install Directly to Home Screen',
+        modalCloseBtn: 'Close'
+      },
+      fr: {
+        headerTitle: 'Studio & Radio du Saint Coran',
+        headerSubtitle: 'Par Refa3y | بواسطة رفاعي',
+        installApp: 'Installer (APK)',
+        updateApp: 'Mettre à jour (APK)',
+        installAppTitle: "Télécharger et installer l'application Android (APK)",
+        themeDark: 'Sombre',
+        themeLight: 'Clair',
+        themeToggleTitle: 'Changer le thème (Sombre / Clair)',
+        langSwitcherTitle: 'Changer de langue',
+        navHome: 'Accueil',
+        navLiveRadio: 'Radio en Direct',
+        navVideoStudio: 'Studio Vidéo',
+        homeHeading: 'Choisir une Section',
+        card1Badge: 'En Direct 24/7',
+        card1Title: '1. Radio Coran en Direct',
+        card1Desc: 'Radio du Saint Coran du Caire (98.2 FM) et grands récitateurs',
+        card1Footer: 'Ouvrir la Radio en Direct',
+        card1Enter: 'Entrer →',
+        card2Badge: '114 Sourates • 40 Fonds Nature & Cinéma',
+        card2Title: '2. Studio Vidéo (Mode Images)',
+        card2Desc: 'Créez des vidéos coraniques avec nos fonds ou vos propres images',
+        card2Footer: 'Ouvrir le Studio Design',
+        card2Enter: 'Entrer →',
+        card3Badge: 'Mode Vidéo Dédié',
+        card3Title: '3. Créer avec Votre Vidéo',
+        card3Desc: 'Importez une vidéo (son coupé auto) avec synchronisation et filtres',
+        card3Footer: "Ouvrir l'Import Vidéo",
+        card3Enter: 'Entrer →',
+        liveHeading: 'Radio du Saint Coran — En Direct',
+        liveReady: 'Prêt à écouter',
+        liveStopped: 'En pause',
+        liveExtLink: 'Lien du Flux Direct',
+        liveOfficialLink: 'Site Officiel de la Radio',
+        livePlayBtn: 'Écouter le Direct',
+        liveStopBtn: 'Arrêter le Direct',
+        liveNextServerBtn: 'Changer de Serveur',
+        liveUrlLabel: 'Lien :',
+        liveUrlPlaceholder: 'Collez un lien de flux direct HTTPS à tester...',
+        livePlayUrlBtn: 'Lire le Lien',
+        liveCopyUrlBtn: 'Copier',
+        st_cairo_official: 'Radio du Saint Coran — Le Caire',
+        st_minshawi_mujawwad_radio: 'Radio Cheikh Al-Minshawi',
+        st_abdulbasit_mujawwad_radio: 'Radio Cheikh Abdulbasit',
+        st_husary_mujawwad_radio: 'Radio Cheikh Al-Husary',
+        st_banna_mujawwad_radio: 'Radio Cheikh Mahmoud Ali Al-Banna',
+        st_mustafa_ismail_radio: 'Radio Cheikh Mustafa Ismail',
+        st_tablawi_radio: 'Radio Cheikh Al-Tablawi',
+        st_mohamed_refaat_radio: 'Radio Cheikh Mohamed Refaat',
+        tagMujawwad: 'Mujawwad',
+        tagMurattal: 'Murattal',
+        tag247: '24/7',
+        tagHeritage247: 'Patrimoine 24/7',
+        studioSubImages: '🖼️ Mode Fonds Images',
+        studioSubVideo: '🎬 Mode Import Vidéo',
+        aspect169: 'Cinéma 16:9',
+        aspect916: 'Vertical Reels 9:16',
+        bigPlayLabel: 'Cliquez pour prévisualiser',
+        recordingBadge: 'Exportation vidéo...',
+        exportTitle: 'Préparation et exportation de la vidéo...',
+        exportSub: 'Veuillez patienter pendant le téléchargement',
+        cancelExport: 'Annuler',
+        btnPlayRecitation: 'Lire la Récitation',
+        btnPauseRecitation: 'Pause',
+        statusInitial: 'Choisissez le récitateur et le verset',
+        autoDownload: 'Téléchargement auto',
+        btnRecordVideo: 'Télécharger la Vidéo (Vidéo + Audio)',
+        btnSaveAnother: 'Enregistrer une copie',
+        sectionsHeader: 'Paramètres du Studio',
+        expandAll: 'Tout Ouvrir',
+        collapseAll: 'Tout Réduire',
+        sec1Title: 'Récitateur et Source Audio',
+        badgeUnselected: 'Non défini',
+        badgeNotChosenYet: 'Non choisi',
+        tabStandardReciters: '📖 Mushafs Complets',
+        tabRareRecitations: '✨ Raretés & Concerts',
+        lblCustomAudio: 'Ou importez un fichier audio depuis votre appareil :',
+        rareSearchPlaceholder: 'Rechercher par Cheikh ou Sourate...',
+        sec2TitleStandard: 'Choisir la Sourate et les Versets',
+        sec2TitleRefaat: '2. Contrôle de Récitation — Cheikh Refaat',
+        sec2TitleRare: '2. Contrôle de l’Extrait et des Versets',
+        searchAyahPlaceholder: 'Rechercher un verset dans le Coran...',
+        btnSearchAyah: 'Chercher',
+        lblSurah: 'Sourate :',
+        lblAyahRange: 'Plage de versets :',
+        modeFullSurah: 'Extrait Complet',
+        modeSingleAyah: 'Un Verset',
+        modeMultiAyah: 'Plusieurs Versets',
+        lblFromAyahSingle: 'Verset :',
+        lblFromAyahMulti: 'Du Verset :',
+        lblToAyah: 'Au Verset :',
+        optChooseAyah: '— Choisir le verset —',
+        btnApplySingleAyah: 'Charger et Lire le Verset',
+        btnApplyMultiAyah: 'Charger la Plage de Versets',
+        surahSummaryEmpty: 'Aucune sourate ou verset sélectionné',
+        sec3TitleImages: 'Choisir le Fond (Mode Images)',
+        sec3TitleVideo: 'Importer et Régler la Vidéo',
+        lblCustomBgImage: 'Importer une image de fond :',
+        lblCustomBgVideo: 'Importer une vidéo de fond (son original coupé) :',
+        badgeVideoMuted: 'Son original de la vidéo coupé automatiquement',
+        btnPreviewVideoMotion: 'Aperçu de la Vidéo',
+        btnStopVideoMotion: 'Arrêter l’Aperçu',
+        videoTimingDefault: 'Durée vidéo : --:-- • Importez une vidéo et choisissez un verset',
+        lblLongVideoPolicy: 'Vidéo Longue (plus longue que la récitation) :',
+        optLongVideoTrim: 'Couper le surplus vidéo après la fin de la récitation',
+        lblShortVideoPolicy: 'Vidéo Courte (plus courte que la récitation) :',
+        optShortVideoLoop: 'Répéter la vidéo en boucle sur la durée de la récitation',
+        lblLoopTransition: 'Transition Douce de Boucle Vidéo :',
+        optLoopCrossfade: 'Fondu Enchaîné Cinématographique Doux',
+        optLoopDip: 'Fondu Nocturne Paisible et Éclaircissement',
+        optLoopShimmer: 'Lueur Dorée Spirituelle au Point de Boucle',
+        optLoopZoom: 'Flux de Zoom Fluide avec Fondu',
+        lblVisualFilter: 'Filtre Visuel (Fond / Vidéo) :',
+        fltNone: 'Naturel (Sans filtre)',
+        fltWarm: 'Cinéma Chaleureux',
+        fltNight: 'Nuit Paisible',
+        fltGold: 'Or Coranique',
+        fltBw: 'Noir et Blanc Classique',
+        fltEmerald: 'Émeraude Spirituel',
+        fltContrast: 'Contraste Profond',
+        fltDarkFocus: 'Assombrissement Doux pour les Versets',
+        lblMediaFitMode: 'Format d’Affichage :',
+        lblBgBrightness: 'Luminosité du Fond',
+        sec4Title: 'Affichage du Texte et Effets',
+        badgeTextFull: 'Texte Complet',
+        badgeTextSeq: 'Verset par Verset',
+        badgeTextNone: 'Fond Seul',
+        lblTextMode: 'Mode d’Affichage du Texte :',
+        optTextNone: 'Fond uniquement (Sans texte coranique)',
+        optTextFull: 'Texte coranique complet',
+        optTextSeq: 'Affichage séquentiel verset par verset',
+        lblAyahPos: 'Position du Texte :',
+        posTop: '1. En Haut',
+        posMiddle: '2. Au Centre',
+        posBottom: '3. En Bas',
+        lblAyahFontFamily: 'Police Arabe Coranique :',
+        lblAyahFontSize: 'Taille de Police des Versets :',
+        lblAyahTextColor: 'Couleur du Texte des Versets :',
+        lblAyahFrameStyle: 'Style du Cadre derrière les Versets :',
+        frmOrnateGold: 'Cadre Doré Orné Classique (Défaut)',
+        frmDoubleRoyal: 'Cadre Royal à Double Bordure',
+        frmMihrab: 'Cadre en Arche de Mihrab',
+        frmEmerald: 'Cadre Émeraude et Or',
+        frmMinimal: 'Cadre Moderne Doux Minimaliste',
+        frmBand: 'Bandeau Cinématographique Dégradé',
+        frmNone: 'Sans Cadre (Texte Coranique Seul)',
+        lblAyahFrameOpacity: 'Opacité du Cadre',
+        lblImageVisualEffect: 'Effets Visuels (Mode Images) :',
+        fxGoldenDust: 'Particules de Lumière Dorée (Défaut)',
+        fxGodRays: 'Rayons de Lumière Céleste (God Rays)',
+        fxStarryNight: 'Nuit Étoilée Scintillante',
+        fxLightRain: 'Pluie de Lumière Paisible',
+        fxGoldenBokeh: 'Bokeh Doré Chaleureux',
+        fxSpiritualPulse: 'Aura Spirituelle Réactive à la Voix',
+        fxNone: 'Aucun Effet Visuel Supplémentaire',
+        lblGlow: 'Éclat Lumineux',
+        lblParticles: 'Densité des Particules',
+        lblShowHeaderInfo: 'Afficher la Sourate et le Récitateur en Haut',
+        lblAudioWave: 'Afficher les Ondes Audio en Bas',
+        btnResetEffects: 'Réinitialiser les Effets',
+        sec5Title: 'Signature et Droits (Watermark)',
+        lblWatermarkText: 'Nom de la Signature (Défaut : Refa3y) :',
+        lblWatermarkPos: 'Position de la Signature :',
+        wmBottomRight: 'En Bas à Droite',
+        wmBottomLeft: 'En Bas à Gauche',
+        wmTopRight: 'En Haut à Droite',
+        wmTopLeft: 'En Haut à Gauche',
+        wmBottomCenter: 'En Bas au Centre',
+        wmTopCenter: 'En Haut au Centre',
+        lblWatermarkFont: 'Police de la Signature :',
+        lblWatermarkSize: 'Taille de la Signature :',
+        lblWatermarkColor: 'Couleur de la Signature :',
+        modalTitle: 'Télécharger et Installer l’Application Refa3y',
+        modalSub: 'Choisissez la méthode d’installation pour votre appareil',
+        modalApkTitle: '1. Application Android Complète (APK)',
+        modalApkBadge: 'Lecture en Arrière-plan',
+        modalApkDesc: 'Fichier APK Android autonome prenant en charge la lecture continue de la radio en arrière-plan.',
+        modalApkBtn: 'Télécharger l’Application (Refa3y.apk)',
+        modalPwaTitle: '2. Installation Rapide via le Navigateur :',
+        modalPwaBtn: 'Installer sur l’Écran d’Accueil',
+        modalCloseBtn: 'Fermer'
+      },
+      de: {
+        headerTitle: 'Edler Koran Radio & Video-Studio',
+        headerSubtitle: 'Von Refa3y | بواسطة رفاعي',
+        installApp: 'App (APK)',
+        updateApp: 'Update (APK)',
+        installAppTitle: 'Android-App herunterladen & installieren (APK)',
+        themeDark: 'Dunkel',
+        themeLight: 'Hell',
+        themeToggleTitle: 'Design wechseln (Dunkel / Hell)',
+        langSwitcherTitle: 'Sprache ändern',
+        navHome: 'Startseite',
+        navLiveRadio: 'Live-Radio',
+        navVideoStudio: 'Video-Studio',
+        homeHeading: 'Bereich auswählen',
+        card1Badge: '24/7 Live-Stream',
+        card1Title: '1. Live-Koranradio',
+        card1Desc: 'Koranradio aus Kairo (98.2 FM) & Sender großer Rezitatoren',
+        card1Footer: 'Live-Radio öffnen',
+        card1Enter: 'Öffnen →',
+        card2Badge: '114 Suren • 40 Natur- & Kinohintergründe',
+        card2Title: '2. Video-Studio (Bildmodus)',
+        card2Desc: 'Koranvideos mit fertigen Hintergründen oder eigenen Bildern gestalten',
+        card2Footer: 'Design-Studio öffnen',
+        card2Enter: 'Öffnen →',
+        card3Badge: 'Eigener Videomodus',
+        card3Title: '3. Mit eigenem Video gestalten',
+        card3Desc: 'Eigenes Video hochladen (Ton wird automatisch stummgeschaltet) & anpassen',
+        card3Footer: 'Video-Upload öffnen',
+        card3Enter: 'Öffnen →',
+        liveHeading: 'Edler Koran Radio — Live-Stream',
+        liveReady: 'Bereit zum Abspielen',
+        liveStopped: 'Pausiert',
+        liveExtLink: 'Direkter Stream-Link',
+        liveOfficialLink: 'Offizielle Radio-Webseite',
+        livePlayBtn: 'Live-Stream starten',
+        liveStopBtn: 'Live-Stream stoppen',
+        liveNextServerBtn: 'Server wechseln',
+        liveUrlLabel: 'URL:',
+        liveUrlPlaceholder: 'HTTPS-Live-Stream-URL zum Testen einfügen...',
+        livePlayUrlBtn: 'Abspielen',
+        liveCopyUrlBtn: 'Kopieren',
+        st_cairo_official: 'Edler Koran Radio — Kairo',
+        st_minshawi_mujawwad_radio: 'Scheich Al-Minshawi Radio',
+        st_abdulbasit_mujawwad_radio: 'Scheich Abdulbasit Radio',
+        st_husary_mujawwad_radio: 'Scheich Al-Husary Radio',
+        st_banna_mujawwad_radio: 'Scheich Mahmoud Ali Al-Banna',
+        st_mustafa_ismail_radio: 'Scheich Mustafa Ismail Radio',
+        st_tablawi_radio: 'Scheich Al-Tablawi Radio',
+        st_mohamed_refaat_radio: 'Scheich Mohamed Refaat Radio',
+        tagMujawwad: 'Mujawwad',
+        tagMurattal: 'Murattal',
+        tag247: '24/7',
+        tagHeritage247: 'Erbe 24/7',
+        studioSubImages: '🖼️ Bildhintergrund-Modus',
+        studioSubVideo: '🎬 Eigenes Video hochladen',
+        aspect169: 'Kinoformat 16:9',
+        aspect916: 'Hochformat Reels 9:16',
+        bigPlayLabel: 'Klicken für Vorschau',
+        recordingBadge: 'Video wird exportiert...',
+        exportTitle: 'Video wird vorbereitet und exportiert...',
+        exportSub: 'Bitte warten Sie, bis der Download abgeschlossen ist',
+        cancelExport: 'Abbrechen',
+        btnPlayRecitation: 'Rezitation abspielen',
+        btnPauseRecitation: 'Pause',
+        statusInitial: 'Rezitator & Vers zum Starten wählen',
+        autoDownload: 'Auto-Download',
+        btnRecordVideo: 'Video jetzt herunterladen (Video + Audio)',
+        btnSaveAnother: 'Weitere Kopie speichern',
+        sectionsHeader: 'Design-Einstellungen',
+        expandAll: 'Alle öffnen',
+        collapseAll: 'Alle schließen',
+        sec1Title: 'Rezitator & Audioquelle',
+        badgeUnselected: 'Nicht gewählt',
+        badgeNotChosenYet: 'Noch nicht gewählt',
+        tabStandardReciters: '📖 Vollständige Mushafs',
+        tabRareRecitations: '✨ Raritäten & Konzerte',
+        lblCustomAudio: 'Oder eigene Audiodatei vom Gerät hochladen:',
+        rareSearchPlaceholder: 'Nach Scheich oder Sure suchen...',
+        sec2TitleStandard: 'Sure & Verse auswählen',
+        sec2TitleRefaat: '2. Steuerung für Scheich Mohamed Refaat',
+        sec2TitleRare: '2. Steuerung für Abschnitt & Verse',
+        searchAyahPlaceholder: 'Nach einem Vers im Koran suchen...',
+        btnSearchAyah: 'Suchen',
+        lblSurah: 'Sure:',
+        lblAyahRange: 'Versbereich:',
+        modeFullSurah: 'Ganzer Abschnitt',
+        modeSingleAyah: 'Einzelner Vers',
+        modeMultiAyah: 'Mehrere Verse',
+        lblFromAyahSingle: 'Vers:',
+        lblFromAyahMulti: 'Von Vers:',
+        lblToAyah: 'Bis Vers:',
+        optChooseAyah: '— Vers wählen —',
+        btnApplySingleAyah: 'Vers laden & abspielen',
+        btnApplyMultiAyah: 'Versbereich laden',
+        surahSummaryEmpty: 'Noch keine Sure oder Vers ausgewählt',
+        sec3TitleImages: 'Hintergrund wählen (Bildmodus)',
+        sec3TitleVideo: 'Video hochladen & anpassen',
+        lblCustomBgImage: 'Eigenes Hintergrundbild hochladen:',
+        lblCustomBgVideo: 'Hintergrundvideo hochladen (Originalton wird stummgeschaltet):',
+        badgeVideoMuted: 'Originalton des Videos automatisch entfernt',
+        btnPreviewVideoMotion: 'Videobewegung testen',
+        btnStopVideoMotion: 'Videovorschau stoppen',
+        videoTimingDefault: 'Videodauer: --:-- • Video hochladen & Vers wählen',
+        lblLongVideoPolicy: 'Langes Video (länger als die Rezitation):',
+        optLongVideoTrim: 'Überschüssiges Video nach Ende der Rezitation abschneiden',
+        lblShortVideoPolicy: 'Kurzes Video (kürzer als die Rezitation):',
+        optShortVideoLoop: 'Video von Anfang an wiederholen (Schleife)',
+        lblLoopTransition: 'Sanfter Übergangseffekt bei Videowiederholung:',
+        optLoopCrossfade: 'Sanfte filmische Überblendung (Crossfade)',
+        optLoopDip: 'Ruhige Nachtabblendung beim Neustart',
+        optLoopShimmer: 'Goldener Lichtschimmer am Übergangspunkt',
+        optLoopZoom: 'Sanfter Zoom-Fluss mit Überblendung',
+        lblVisualFilter: 'Hintergrund- / Videofilter:',
+        fltNone: 'Natürlich (Ohne Filter)',
+        fltWarm: 'Warmes Kino',
+        fltNight: 'Ruhige Nacht',
+        fltGold: 'Koran-Gold',
+        fltBw: 'Klassisches Schwarz-Weiß',
+        fltEmerald: 'Spirituelles Smaragdgrün',
+        fltContrast: 'Tiefer Kontrast',
+        fltDarkFocus: 'Sanfte Abdunklung für klare Verse',
+        lblMediaFitMode: 'Seitenverhältnis:',
+        lblBgBrightness: 'Hintergrundhelligkeit',
+        sec4Title: 'Textanzeige & Visuelle Effekte',
+        badgeTextFull: 'Volltext',
+        badgeTextSeq: 'Vers für Vers',
+        badgeTextNone: 'Nur Hintergrund',
+        lblTextMode: 'Textanzeigemodus:',
+        optTextNone: 'Nur Hintergrund (Kein Korantext)',
+        optTextFull: 'Vollständiger Korantext',
+        optTextSeq: 'Sequenzielle Anzeige (Vers für Vers)',
+        lblAyahPos: 'Textposition:',
+        posTop: '1. Oben',
+        posMiddle: '2. Mitte',
+        posBottom: '3. Unten',
+        lblAyahFontFamily: 'Arabische Koranschriftart:',
+        lblAyahFontSize: 'Schriftgröße der Verse:',
+        lblAyahTextColor: 'Schriftfarbe der Verse:',
+        lblAyahFrameStyle: 'Rahmenstil hinter den Versen:',
+        frmOrnateGold: 'Klassischer goldener Schmuckrahmen (Standard)',
+        frmDoubleRoyal: 'Königlicher Doppelrahmen',
+        frmMihrab: 'Moschee-Mihrab-Bogenrahmen',
+        frmEmerald: 'Edler Smaragd-Gold-Rahmen',
+        frmMinimal: 'Moderner schlichter Rahmen',
+        frmBand: 'Offenes filmisches Verlaufsband',
+        frmNone: 'Kein Rahmen (Nur Korantext)',
+        lblAyahFrameOpacity: 'Rahchendeckkraft',
+        lblImageVisualEffect: 'Visuelle Effekte (Bildmodus):',
+        fxGoldenDust: 'Aufsteigende goldene Lichtpartikel (Standard)',
+        fxGodRays: 'Himmlische Lichtstrahlen (God Rays)',
+        fxStarryNight: 'Funkelnde Sternennacht',
+        fxLightRain: 'Sanfte Lichtregentropfen',
+        fxGoldenBokeh: 'Warme goldene Bokeh-Kreise',
+        fxSpiritualPulse: 'Spirituelle Aura passend zur Stimme',
+        fxNone: 'Kein zusätzlicher Effekt',
+        lblGlow: 'Lichtglanz',
+        lblParticles: 'Effekt- / Partikeldichte',
+        lblShowHeaderInfo: 'Suren- & Rezitatorname oben anzeigen',
+        lblAudioWave: 'Audiowellen-Spektrum unten anzeigen',
+        btnResetEffects: 'Effekte zurücksetzen',
+        sec5Title: 'Wasserzeichen / Urheberrecht',
+        lblWatermarkText: 'Signaturname (Standard: Refa3y oder eigener Name):',
+        lblWatermarkPos: 'Signaturposition:',
+        wmBottomRight: 'Unten rechts',
+        wmBottomLeft: 'Unten links',
+        wmTopRight: 'Oben rechts',
+        wmTopLeft: 'Oben links',
+        wmBottomCenter: 'Unten Mitte',
+        wmTopCenter: 'Oben Mitte',
+        lblWatermarkFont: 'Schriftart:',
+        lblWatermarkSize: 'Schriftgröße:',
+        lblWatermarkColor: 'Signaturfarbe:',
+        modalTitle: 'Refa3y App herunterladen & installieren',
+        modalSub: 'Wählen Sie die passende Installationsmethode für Ihr Gerät',
+        modalApkTitle: '1. Vollständige Android-App (APK)',
+        modalApkBadge: 'Hintergrund-Audio',
+        modalApkDesc: 'Direktes Android-APK-Installationspaket mit kontinuierlicher Audiowiedergabe im Hintergrund.',
+        modalApkBtn: 'App jetzt herunterladen (Refa3y.apk)',
+        modalPwaTitle: '2. Schnelle Browser-Installation (Ohne Datei-Download):',
+        modalPwaBtn: 'Direkt zum Startbildschirm hinzufügen',
+        modalCloseBtn: 'Schließen'
+      }
+    };
+
+    const STATUS_TRANSLATIONS = {
+      'اختر القارئ والآية للبدء': { en: 'Select reciter & verse to start', fr: 'Choisissez le récitateur et le verset', de: 'Rezitator & Vers zum Starten wählen' },
+      'جاهز للتشغيل': { en: 'Ready to play', fr: 'Prêt à écouter', de: 'Bereit zum Abspielen' },
+      'متوقف مؤقتاً': { en: 'Paused', fr: 'En pause', de: 'Pausiert' },
+      'يرجى اختيار القارئ أولاً': { en: 'Please select a reciter first', fr: 'Veuillez d’abord choisir un récitateur', de: 'Bitte wählen Sie zuerst einen Rezitator' },
+      'يرجى اختيار السورة والآية أولاً': { en: 'Please select a Surah & verse first', fr: 'Veuillez d’abord choisir la sourate et le verset', de: 'Bitte wählen Sie zuerst Sure & Vers' },
+      'تم نسخ رابط البث المباشر': { en: 'Live stream URL copied', fr: 'Lien du flux direct copié', de: 'Live-Stream-URL kopiert' }
+    };
+
+    function resolveInitialLanguage() {
+      try {
+        const saved = localStorage.getItem(LANG_STORAGE_KEY);
+        if (saved && SUPPORTED_LANGS.includes(saved)) {
+          return saved;
+        }
+        const navList = Array.isArray(navigator.languages) && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language || ''];
+        for (let i = 0; i < navList.length; i++) {
+          const code = String(navList[i] || '').toLowerCase().split(/[-_]/)[0];
+          if (SUPPORTED_LANGS.includes(code)) {
+            return code;
+          }
+        }
+      } catch (e) {}
+      return 'ar';
+    }
+
+    state.currentLang = resolveInitialLanguage();
+
+    window.tRefa3y = function(key, fallback) {
+      const lang = state.currentLang || 'ar';
+      const dict = I18N_DICT[lang] || I18N_DICT.ar;
+      return (dict && dict[key] !== undefined) ? dict[key] : (fallback !== undefined ? fallback : (I18N_DICT.ar[key] || key));
+    };
+
+    window.translateStatusText = function(rawText) {
+      if (!rawText) return '';
+      const lang = state.currentLang || 'ar';
+      if (lang === 'ar') return rawText;
+      if (STATUS_TRANSLATIONS[rawText] && STATUS_TRANSLATIONS[rawText][lang]) {
+        return STATUS_TRANSLATIONS[rawText][lang];
+      }
+      if (rawText.startsWith('يبث الآن مباشرة • ')) {
+        const prefix = { en: 'Live Now • ', fr: 'En Direct • ', de: 'Jetzt Live • ' }[lang] || 'Live • ';
+        return prefix + rawText.replace('يبث الآن مباشرة • ', '');
+      }
+      if (rawText.startsWith('جاري تحميل البث • ')) {
+        const prefix = { en: 'Loading Stream • ', fr: 'Chargement du Flux • ', de: 'Stream lädt • ' }[lang] || 'Loading • ';
+        return prefix + rawText.replace('جاري تحميل البث • ', '');
+      }
+      if (rawText.startsWith('جاري التحويل إلى ')) {
+        const prefix = { en: 'Switching to ', fr: 'Passage vers ', de: 'Wechsle zu ' }[lang] || 'Switching • ';
+        return prefix + rawText.replace('جاري التحويل إلى ', '');
+      }
+      if (rawText.startsWith('جاري إعادة محاولة الاتصال • ')) {
+        const prefix = { en: 'Retrying connection • ', fr: 'Nouvelle tentative • ', de: 'Verbindung wird wiederholt • ' }[lang] || 'Retrying • ';
+        return prefix + rawText.replace('جاري إعادة محاولة الاتصال • ', '');
+      }
+      return rawText;
+    };
+
+    function applyLanguage(lang, persist = false) {
+      const validLang = SUPPORTED_LANGS.includes(lang) ? lang : 'ar';
+      state.currentLang = validLang;
+      if (persist) {
+        try {
+          localStorage.setItem(LANG_STORAGE_KEY, validLang);
+        } catch (e) {}
+      }
+
+      const isRtl = (validLang === 'ar');
+      document.documentElement.lang = validLang;
+      document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+
+      // الحفاظ الدائم على اتجاه من اليمين لليسار لشاشة معاينة ورسم الفيديو والنصوص القرآنية
+      const cw = document.getElementById('canvasWrapper');
+      const vc = document.getElementById('videoCanvas');
+      if (cw) cw.setAttribute('dir', 'rtl');
+      if (vc) vc.setAttribute('dir', 'rtl');
+      document.querySelectorAll('.quran-text-container, .font-quran').forEach(el => {
+        el.setAttribute('dir', 'rtl');
+      });
+
+      const d = I18N_DICT[validLang] || I18N_DICT.ar;
+      const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined) el.textContent = val;
+      };
+      const setQueryTxt = (sel, val) => {
+        const el = document.querySelector(sel);
+        if (el && val !== undefined) el.textContent = val;
+      };
+
+      // تحديث زر وقائمة اللغة في الهيدر
+      setTxt('labelCurrentLang', validLang.toUpperCase());
+      const btnLang = document.getElementById('btnLangSwitcher');
+      const menuLang = document.getElementById('langDropdownMenu');
+      if (btnLang) {
+        btnLang.title = d.langSwitcherTitle;
+        btnLang.setAttribute('aria-label', d.langSwitcherTitle);
+      }
+      if (menuLang) {
+        menuLang.classList.toggle('left-0', isRtl);
+        menuLang.classList.toggle('right-0', !isRtl);
+        menuLang.querySelectorAll('.lang-option-btn').forEach(btn => {
+          const isCurrent = btn.getAttribute('data-lang') === validLang;
+          btn.className = isCurrent
+            ? 'lang-option-btn w-full px-3.5 py-2 text-xs font-bold flex items-center justify-between hover:bg-slate-800 transition text-amber-300 bg-amber-500/15'
+            : 'lang-option-btn w-full px-3.5 py-2 text-xs font-semibold flex items-center justify-between hover:bg-slate-800 transition text-slate-200';
+        });
+      }
+
+      // الهيدر وشريط التنقل
+      const brandWrap = document.getElementById('headerBrandTextWrap');
+      if (brandWrap) {
+        brandWrap.classList.toggle('text-right', isRtl);
+        brandWrap.classList.toggle('text-left', !isRtl);
+      }
+      setTxt('headerBrandTitle', d.headerTitle);
+      setTxt('headerBrandSubtitle', d.headerSubtitle);
+
+      const isWebView = /;\s*wv\)|Version\/[\d.]+.*Chrome/i.test(navigator.userAgent || '');
+      setTxt('labelInstallAppBtn', isWebView ? d.updateApp : d.installApp);
+      const btnInstall = document.getElementById('btnInstallApp');
+      if (btnInstall) btnInstall.title = d.installAppTitle;
+
+      const isLightTheme = document.documentElement.classList.contains('light-theme');
+      setTxt('labelThemeMode', isLightTheme ? d.themeLight : d.themeDark);
+      const btnTheme = document.getElementById('btnToggleTheme');
+      if (btnTheme) {
+        btnTheme.title = d.themeToggleTitle;
+        btnTheme.setAttribute('aria-label', d.themeToggleTitle);
+      }
+
+      setTxt('btnNavHome', d.navHome);
+      setQueryTxt('#btnNavLiveRadio span:last-child', d.navLiveRadio);
+      setTxt('btnNavVideoStudio', d.navVideoStudio);
+
+      // بطاقات الشاشة الرئيسية الثلاث
+      setQueryTxt('#homeModeSelector h2', d.homeHeading);
+      const updateHomeCard = (cardId, badge, title, desc, footer, enter) => {
+        const card = document.getElementById(cardId);
+        if (!card) return;
+        card.classList.toggle('text-right', isRtl);
+        card.classList.toggle('text-left', !isRtl);
+        const topSpan = card.querySelector('div:first-child > span');
+        const h3 = card.querySelector('h3');
+        const p = card.querySelector('p');
+        const footSpans = card.querySelectorAll('div:last-child > span');
+        if (topSpan) topSpan.textContent = badge;
+        if (h3) h3.textContent = title;
+        if (p) p.textContent = desc;
+        if (footSpans[0]) footSpans[0].textContent = footer;
+        if (footSpans[1]) footSpans[1].textContent = enter;
+      };
+      updateHomeCard('cardSelectLiveRadio', d.card1Badge, d.card1Title, d.card1Desc, d.card1Footer, d.card1Enter);
+      updateHomeCard('cardSelectVideoStudio', d.card2Badge, d.card2Title, d.card2Desc, d.card2Footer, d.card2Enter);
+      updateHomeCard('cardSelectCustomVideoStudio', d.card3Badge, d.card3Title, d.card3Desc, d.card3Footer, d.card3Enter);
+
+      // قسم راديو مباشر
+      setQueryTxt('#liveRadioSection h2', d.liveHeading);
+      setQueryTxt('#liveExternalStreamLink span', d.liveExtLink);
+      setQueryTxt('#liveOfficialSiteLink span', d.liveOfficialLink);
+      setTxt('labelLivePlay', state.isLiveRadioPlaying ? d.liveStopBtn : d.livePlayBtn);
+      setTxt('btnLiveNextServer', d.liveNextServerBtn);
+      const urlBoxLabel = document.querySelector('#liveStreamUrlDisplay')?.previousElementSibling;
+      if (urlBoxLabel) urlBoxLabel.textContent = d.liveUrlLabel;
+      const urlInput = document.getElementById('liveStreamUrlDisplay');
+      if (urlInput) urlInput.placeholder = d.liveUrlPlaceholder;
+      setTxt('btnPlayCustomStream', d.livePlayUrlBtn);
+      setTxt('btnCopyLiveUrl', d.liveCopyUrlBtn);
+
+      document.querySelectorAll('#liveStationsGrid .live-station-btn').forEach(btn => {
+        btn.classList.toggle('text-right', isRtl);
+        btn.classList.toggle('text-left', !isRtl);
+        const stId = btn.getAttribute('data-station-id');
+        const spans = btn.querySelectorAll('span');
+        if (spans[0] && d['st_' + stId]) spans[0].textContent = d['st_' + stId];
+        if (spans[1]) {
+          if (stId === 'minshawi_mujawwad_radio' || stId === 'abdulbasit_mujawwad_radio' || stId === 'husary_mujawwad_radio') {
+            spans[1].textContent = d.tagMujawwad;
+          } else if (stId === 'tablawi_radio') {
+            spans[1].textContent = d.tagMurattal;
+          } else if (stId === 'banna_mujawwad_radio' || stId === 'mustafa_ismail_radio') {
+            spans[1].textContent = d.tag247;
+          } else if (stId === 'mohamed_refaat_radio') {
+            spans[1].textContent = d.tagHeritage247;
+          }
+        }
+      });
+
+      if (liveRadioStateText) {
+        if (!state.lastLiveRadioRawMsg || state.lastLiveRadioRawMsg === 'جاهز للتشغيل') {
+          liveRadioStateText.textContent = d.liveReady;
+        } else if (state.lastLiveRadioRawMsg === 'متوقف مؤقتاً') {
+          liveRadioStateText.textContent = d.liveStopped;
+        } else {
+          liveRadioStateText.textContent = window.translateStatusText(state.lastLiveRadioRawMsg);
+        }
+      }
+
+      // قسم تصميم الفيديوهات
+      setQueryTxt('#btnStudioSubImages span', d.studioSubImages);
+      setQueryTxt('#btnStudioSubVideo span', d.studioSubVideo);
+      setQueryTxt('#btnAspect169 span', d.aspect169);
+      setQueryTxt('#btnAspect916 span', d.aspect916);
+      setQueryTxt('#bigPlayOverlay span', d.bigPlayLabel);
+      setTxt('recordingStatusText', d.recordingBadge);
+      setTxt('exportOverlayTitle', d.exportTitle);
+      setTxt('exportOverlaySub', d.exportSub);
+      setTxt('btnCancelExport', d.cancelExport);
+      setTxt('labelPlayPause', state.isPlaying ? d.btnPauseRecitation : d.btnPlayRecitation);
+      const autoDlSpan = document.querySelector('#chkAutoDownloadOnSelect')?.nextElementSibling;
+      if (autoDlSpan) autoDlSpan.textContent = d.autoDownload;
+      if (!state.isRecording) setTxt('labelRecordBtn', d.btnRecordVideo);
+      setQueryTxt('#downloadVideoLink span', d.btnSaveAnother);
+
+      if (audioStatusBadge) {
+        const rawSt = state.lastRawStatusText || 'اختر القارئ والآية للبدء';
+        audioStatusBadge.textContent = window.translateStatusText(rawSt);
+      }
+
+      // شريط طي وفتح الأقسام والأقسام الخمسة
+      const secHeaderSpans = document.querySelectorAll('#btnExpandAllSections')?.[0]?.parentElement?.previousElementSibling?.querySelectorAll('span');
+      if (secHeaderSpans && secHeaderSpans[1]) secHeaderSpans[1].textContent = d.sectionsHeader;
+      setQueryTxt('#btnExpandAllSections span', d.expandAll);
+      setQueryTxt('#btnCollapseAllSections span', d.collapseAll);
+
+      setQueryTxt('.collapsible-section[data-section="1"] h2', d.sec1Title);
+      if (!state.currentReciterKey && !state.customAudioUrl && !state.currentRareRecitationId) {
+        setTxt('activeReciterBadge', d.badgeUnselected);
+      }
+      setQueryTxt('#btnTabStandardReciters span', d.tabStandardReciters);
+      setQueryTxt('#btnTabRareRecitations span:last-child', d.tabRareRecitations);
+      setQueryTxt('label[for="customAudioInput"]', d.lblCustomAudio);
+      const rareInp = document.getElementById('rareSearchInput');
+      if (rareInp) rareInp.placeholder = d.rareSearchPlaceholder;
+
+      const reciterLabelsMap = {
+        minshawi_mujawwad: { ar: ['المنشاوي (مجود)', 'مجود'], en: ['Al-Minshawi (Mujawwad)', 'Mujawwad'], fr: ['Al-Minshawi (Mujawwad)', 'Mujawwad'], de: ['Al-Minshawi (Mujawwad)', 'Mujawwad'] },
+        minshawi_murattal: { ar: ['المنشاوي (مرتل)', 'مرتل'], en: ['Al-Minshawi (Murattal)', 'Murattal'], fr: ['Al-Minshawi (Murattal)', 'Murattal'], de: ['Al-Minshawi (Murattal)', 'Murattal'] },
+        abdulbasit_mujawwad: { ar: ['عبد الباسط (مجود)', 'مجود'], en: ['Abdulbasit (Mujawwad)', 'Mujawwad'], fr: ['Abdulbasit (Mujawwad)', 'Mujawwad'], de: ['Abdulbasit (Mujawwad)', 'Mujawwad'] },
+        abdulbasit_murattal: { ar: ['عبد الباسط (مرتل)', 'مرتل'], en: ['Abdulbasit (Murattal)', 'Murattal'], fr: ['Abdulbasit (Murattal)', 'Murattal'], de: ['Abdulbasit (Murattal)', 'Murattal'] },
+        husary_mujawwad: { ar: ['الحصري (مجود)', 'مجود'], en: ['Al-Husary (Mujawwad)', 'Mujawwad'], fr: ['Al-Husary (Mujawwad)', 'Mujawwad'], de: ['Al-Husary (Mujawwad)', 'Mujawwad'] },
+        husary_murattal: { ar: ['الحصري (مرتل)', 'مرتل'], en: ['Al-Husary (Murattal)', 'Murattal'], fr: ['Al-Husary (Murattal)', 'Murattal'], de: ['Al-Husary (Murattal)', 'Murattal'] },
+        mustafa_ismail: { ar: ['مصطفى إسماعيل', 'مرتل'], en: ['Mustafa Ismail', 'Murattal'], fr: ['Mustafa Ismail', 'Murattal'], de: ['Mustafa Ismail', 'Murattal'] },
+        banna_murattal: { ar: ['محمود علي البنا', 'مرتل'], en: ['Mahmoud Ali Al-Banna', 'Murattal'], fr: ['Mahmoud Ali Al-Banna', 'Murattal'], de: ['Mahmoud Ali Al-Banna', 'Murattal'] },
+        tablawi: { ar: ['محمد محمود الطبلاوي', 'مرتل'], en: ['Mohamed Al-Tablawi', 'Murattal'], fr: ['Mohamed Al-Tablawi', 'Murattal'], de: ['Mohamed Al-Tablawi', 'Murattal'] },
+        ahmed_neana: { ar: ['أحمد نعينع', 'مجود'], en: ['Ahmed Naina', 'Mujawwad'], fr: ['Ahmed Naina', 'Mujawwad'], de: ['Ahmed Naina', 'Mujawwad'] },
+        hajjaj_suesy: { ar: ['الشيخ علي حجاج السويسي', 'مجود'], en: ['Sheikh Ali Hajjaj Al-Suesy', 'Mujawwad'], fr: ['Cheikh Ali Hajjaj Al-Suesy', 'Mujawwad'], de: ['Scheich Ali Hajjaj Al-Suesy', 'Mujawwad'] }
+      };
+      document.querySelectorAll('#recitersList .reciter-btn').forEach(btn => {
+        btn.classList.toggle('text-right', isRtl);
+        btn.classList.toggle('text-left', !isRtl);
+        const rKey = btn.getAttribute('data-reciter');
+        const pair = reciterLabelsMap[rKey]?.[validLang] || reciterLabelsMap[rKey]?.ar;
+        const spans = btn.querySelectorAll('span');
+        if (pair && spans[0] && spans[1]) {
+          spans[0].textContent = pair[0];
+          spans[1].textContent = pair[1];
+        }
+      });
+
+      const rareFilterMap = {
+        refaat: { ar: '🎙️ الشيخ محمد رفعت (٣١)', en: '🎙️ Sheikh Mohamed Refaat (31)', fr: '🎙️ Cheikh Mohamed Refaat (31)', de: '🎙️ Scheich Mohamed Refaat (31)' },
+        abdulbasit: { ar: 'عبد الباسط (٤)', en: 'Abdulbasit (4)', fr: 'Abdulbasit (4)', de: 'Abdulbasit (4)' },
+        minshawi: { ar: 'المنشاوي (٤)', en: 'Al-Minshawi (4)', fr: 'Al-Minshawi (4)', de: 'Al-Minshawi (4)' },
+        mustafa: { ar: 'مصطفى إسماعيل (٣)', en: 'Mustafa Ismail (3)', fr: 'Mustafa Ismail (3)', de: 'Mustafa Ismail (3)' },
+        husary: { ar: 'الحصري (٢)', en: 'Al-Husary (2)', fr: 'Al-Husary (2)', de: 'Al-Husary (2)' },
+        banna: { ar: 'البنا (٢)', en: 'Al-Banna (2)', fr: 'Al-Banna (2)', de: 'Al-Banna (2)' },
+        tablawi: { ar: 'الطبلاوي (٢)', en: 'Al-Tablawi (2)', fr: 'Al-Tablawi (2)', de: 'Al-Tablawi (2)' },
+        neana: { ar: 'أحمد نعينع (١)', en: 'Ahmed Naina (1)', fr: 'Ahmed Naina (1)', de: 'Ahmed Naina (1)' }
+      };
+      document.querySelectorAll('#rareSheikhFilterBar .rare-filter-btn').forEach(btn => {
+        const fKey = btn.getAttribute('data-sheikh-filter');
+        const txt = rareFilterMap[fKey]?.[validLang] || rareFilterMap[fKey]?.ar;
+        if (txt) btn.textContent = txt;
+      });
+
+      // القسم ٢
+      syncSection2ModeVisibility();
+      if (!state.currentAyahKey && !state.currentRareRecitationId) {
+        setTxt('sec2HeaderBadge', d.badgeNotChosenYet);
+        const sumEl = document.getElementById('surahSelectionSummary');
+        if (sumEl && state.reciterTabMode !== 'rare') sumEl.textContent = d.surahSummaryEmpty;
+      }
+      const searchInp = document.getElementById('searchAyahInput');
+      if (searchInp) searchInp.placeholder = d.searchAyahPlaceholder;
+      setTxt('btnSearchAyah', d.btnSearchAyah);
+      setQueryTxt('label[for="selectSurah"]', d.lblSurah);
+      const rangeLbl = document.getElementById('btnModeFullSurah')?.parentElement?.previousElementSibling;
+      if (rangeLbl) rangeLbl.textContent = d.lblAyahRange;
+      setTxt('btnModeFullSurah', d.modeFullSurah);
+      setTxt('btnModeSingleAyah', d.modeSingleAyah);
+      setTxt('btnModeMultiAyah', d.modeMultiAyah);
+      setTxt('lblFromAyah', state.ayahRangeMode === 'multi' ? d.lblFromAyahMulti : d.lblFromAyahSingle);
+      setQueryTxt('label[for="selectToAyah"]', d.lblToAyah);
+      setTxt('btnLoadSelectedAyahs', d.btnApplySingleAyah);
+      setQueryTxt('#btnLoadMultiAyahs span', d.btnApplyMultiAyah);
+
+      // القسم ٣
+      setTxt('sec3DynamicTitle', state.studioSubMode === 'video' ? d.sec3TitleVideo : d.sec3TitleImages);
+      setQueryTxt('label[for="customBgInput"]', d.lblCustomBgImage);
+      setQueryTxt('label[for="customVideoInput"]', d.lblCustomBgVideo);
+      const mutedSpans = document.querySelectorAll('#videoCustomControlsPanel > div:first-child span span');
+      if (mutedSpans && mutedSpans[1]) mutedSpans[1].textContent = d.badgeVideoMuted;
+      if (btnToggleVideoPreview) {
+        btnToggleVideoPreview.textContent = state.isVideoMotionPreviewing ? d.btnStopVideoMotion : d.btnPreviewVideoMotion;
+      }
+      if (!state.userVideoUrl) {
+        setTxt('videoTimingComparisonBar', d.videoTimingDefault);
+      }
+      setQueryTxt('label[for="selectLongVideoPolicy"]', d.lblLongVideoPolicy);
+      setQueryTxt('#selectLongVideoPolicy option[value="auto_start"]', d.optLongVideoTrim);
+      setQueryTxt('label[for="selectShortVideoPolicy"]', d.lblShortVideoPolicy);
+      setQueryTxt('#selectShortVideoPolicy option[value="auto_loop"]', d.optShortVideoLoop);
+      setQueryTxt('label[for="selectLoopTransitionEffect"]', d.lblLoopTransition);
+      setQueryTxt('#selectLoopTransitionEffect option[value="crossfade_smooth"]', d.optLoopCrossfade);
+      setQueryTxt('#selectLoopTransitionEffect option[value="cinematic_dip"]', d.optLoopDip);
+      setQueryTxt('#selectLoopTransitionEffect option[value="golden_shimmer"]', d.optLoopShimmer);
+      setQueryTxt('#selectLoopTransitionEffect option[value="zoom_flow"]', d.optLoopZoom);
+      setQueryTxt('label[for="selectVisualFilter"]', d.lblVisualFilter);
+      setQueryTxt('#selectVisualFilter option[value="none"]', d.fltNone);
+      setQueryTxt('#selectVisualFilter option[value="cinema_warm"]', d.fltWarm);
+      setQueryTxt('#selectVisualFilter option[value="night_serene"]', d.fltNight);
+      setQueryTxt('#selectVisualFilter option[value="golden_quran"]', d.fltGold);
+      setQueryTxt('#selectVisualFilter option[value="bw_classic"]', d.fltBw);
+      setQueryTxt('#selectVisualFilter option[value="emerald_glow"]', d.fltEmerald);
+      setQueryTxt('#selectVisualFilter option[value="deep_contrast"]', d.fltContrast);
+      setQueryTxt('#selectVisualFilter option[value="dark_focus"]', d.fltDarkFocus);
+      setQueryTxt('label[for="selectMediaFitMode"]', d.lblMediaFitMode);
+      const brightLbl = document.getElementById('valBgBrightness')?.previousElementSibling;
+      if (brightLbl) brightLbl.textContent = d.lblBgBrightness;
+
+      // القسم ٤
+      setQueryTxt('.collapsible-section[data-section="4"] h2', d.sec4Title);
+      setQueryTxt('label[for="selectTextMode"]', d.lblTextMode);
+      setQueryTxt('#selectTextMode option[value="none"]', d.optTextNone);
+      setQueryTxt('#selectTextMode option[value="transcript"]', d.optTextFull);
+      setQueryTxt('#selectTextMode option[value="ayah_transcript"]', d.optTextSeq);
+      const activeTextBadgeEl = document.getElementById('activeTextBadge');
+      const selectTextModeEl = document.getElementById('selectTextMode');
+      if (activeTextBadgeEl && selectTextModeEl) {
+        if (selectTextModeEl.value === 'none') activeTextBadgeEl.textContent = d.badgeTextNone;
+        else if (selectTextModeEl.value === 'ayah_transcript') activeTextBadgeEl.textContent = d.badgeTextSeq;
+        else activeTextBadgeEl.textContent = d.badgeTextFull;
+      }
+      const posLbl = document.getElementById('ayahPositionGroup')?.previousElementSibling;
+      if (posLbl) posLbl.textContent = d.lblAyahPos;
+      setQueryTxt('#btnAyahPosTop span', d.posTop);
+      setQueryTxt('#btnAyahPosMiddle span', d.posMiddle);
+      setQueryTxt('#btnAyahPosBottom span', d.posBottom);
+      setQueryTxt('label[for="selectAyahFontFamily"]', d.lblAyahFontFamily);
+      const fSizeLbl = document.getElementById('valAyahFontSize')?.previousElementSibling;
+      if (fSizeLbl) fSizeLbl.textContent = d.lblAyahFontSize;
+      setQueryTxt('label[for="inputAyahTextColor"]', d.lblAyahTextColor);
+      setQueryTxt('label[for="selectAyahFrameStyle"]', d.lblAyahFrameStyle);
+      setQueryTxt('#selectAyahFrameStyle option[value="ornate_gold"]', d.frmOrnateGold);
+      setQueryTxt('#selectAyahFrameStyle option[value="double_royal"]', d.frmDoubleRoyal);
+      setQueryTxt('#selectAyahFrameStyle option[value="mihrab_arch"]', d.frmMihrab);
+      setQueryTxt('#selectAyahFrameStyle option[value="emerald_luxury"]', d.frmEmerald);
+      setQueryTxt('#selectAyahFrameStyle option[value="minimal_soft"]', d.frmMinimal);
+      setQueryTxt('#selectAyahFrameStyle option[value="cinematic_band"]', d.frmBand);
+      setQueryTxt('#selectAyahFrameStyle option[value="none"]', d.frmNone);
+      const opLbl = document.getElementById('valAyahFrameOpacity')?.previousElementSibling;
+      if (opLbl) opLbl.textContent = d.lblAyahFrameOpacity;
+      setQueryTxt('label[for="selectImageVisualEffect"]', d.lblImageVisualEffect);
+      setQueryTxt('#selectImageVisualEffect option[value="golden_dust"]', d.fxGoldenDust);
+      setQueryTxt('#selectImageVisualEffect option[value="god_rays"]', d.fxGodRays);
+      setQueryTxt('#selectImageVisualEffect option[value="starry_night"]', d.fxStarryNight);
+      setQueryTxt('#selectImageVisualEffect option[value="light_rain"]', d.fxLightRain);
+      setQueryTxt('#selectImageVisualEffect option[value="golden_bokeh"]', d.fxGoldenBokeh);
+      setQueryTxt('#selectImageVisualEffect option[value="spiritual_pulse"]', d.fxSpiritualPulse);
+      setQueryTxt('#selectImageVisualEffect option[value="none"]', d.fxNone);
+      const glowLbl = document.getElementById('valGlow')?.previousElementSibling;
+      if (glowLbl) glowLbl.textContent = d.lblGlow;
+      const partLbl = document.getElementById('valParticles')?.previousElementSibling;
+      if (partLbl) partLbl.textContent = d.lblParticles;
+      const hdrChkSpan = document.getElementById('chkShowHeaderInfo')?.previousElementSibling;
+      if (hdrChkSpan) hdrChkSpan.textContent = d.lblShowHeaderInfo;
+      const waveChkSpan = document.getElementById('chkAudioWave')?.previousElementSibling;
+      if (waveChkSpan) waveChkSpan.textContent = d.lblAudioWave;
+      setTxt('btnResetEffects', d.btnResetEffects);
+
+      // القسم ٥
+      setQueryTxt('.collapsible-section[data-section="5"] h2', d.sec5Title);
+      setQueryTxt('label[for="inputWatermarkText"]', d.lblWatermarkText);
+      setQueryTxt('label[for="selectWatermarkPos"]', d.lblWatermarkPos);
+      setQueryTxt('#selectWatermarkPos option[value="bottom-right"]', d.wmBottomRight);
+      setQueryTxt('#selectWatermarkPos option[value="bottom-left"]', d.wmBottomLeft);
+      setQueryTxt('#selectWatermarkPos option[value="top-right"]', d.wmTopRight);
+      setQueryTxt('#selectWatermarkPos option[value="top-left"]', d.wmTopLeft);
+      setQueryTxt('#selectWatermarkPos option[value="bottom-center"]', d.wmBottomCenter);
+      setQueryTxt('#selectWatermarkPos option[value="top-center"]', d.wmTopCenter);
+      setQueryTxt('label[for="selectWatermarkFont"]', d.lblWatermarkFont);
+      setQueryTxt('label[for="sliderWatermarkSize"]', d.lblWatermarkSize);
+      setQueryTxt('label[for="inputWatermarkColor"]', d.lblWatermarkColor);
+
+      // نافذة تثبيت التطبيق (#installAppModal)
+      const modalCard = document.querySelector('#installAppModal > div');
+      if (modalCard) {
+        modalCard.classList.toggle('text-right', isRtl);
+        modalCard.classList.toggle('text-left', !isRtl);
+      }
+      setQueryTxt('#installAppModal h3', d.modalTitle);
+      const modalSubEl = document.querySelector('#installAppModal h3')?.nextElementSibling;
+      if (modalSubEl) modalSubEl.textContent = d.modalSub;
+      const apkBox = document.getElementById('btnDownloadApkModal')?.parentElement;
+      if (apkBox) {
+        const topSpans = apkBox.querySelectorAll('div:first-child > span');
+        if (topSpans[0]) topSpans[0].textContent = d.modalApkTitle;
+        if (topSpans[1]) topSpans[1].textContent = d.modalApkBadge;
+        const p = apkBox.querySelector('p');
+        if (p) p.textContent = d.modalApkDesc;
+      }
+      setQueryTxt('#btnDownloadApkModal span', d.modalApkBtn);
+      setQueryTxt('#nativeInstallPromptBox > span', d.modalPwaTitle);
+      setTxt('btnTriggerNativeInstall', d.modalPwaBtn);
+      setTxt('btnDoneInstallModal', d.modalCloseBtn);
+    }
+
+    (function initRefa3yLanguageAndThemeManager() {
       const THEME_STORAGE_KEY = 'refa3y_theme_mode';
       const btnToggleTheme = document.getElementById('btnToggleTheme');
       const iconThemeDark = document.getElementById('iconThemeDark');
       const iconThemeLight = document.getElementById('iconThemeLight');
       const labelThemeMode = document.getElementById('labelThemeMode');
       const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      const labelInstallAppBtn = document.getElementById('labelInstallAppBtn');
-
-      // إذا كان التطبيق يعمل داخل بيئة Android WebView، اعرض "تحديث التطبيق (APK)"
-      if (labelInstallAppBtn && /;\s*wv\)|Version\/[\d.]+.*Chrome/i.test(navigator.userAgent || '')) {
-        labelInstallAppBtn.textContent = 'تحديث التطبيق (APK)';
-        labelInstallAppBtn.setAttribute('data-short', 'تحديث APK');
-      }
+      const btnLangSwitcher = document.getElementById('btnLangSwitcher');
+      const langDropdownMenu = document.getElementById('langDropdownMenu');
+      const langSwitcherContainer = document.getElementById('langSwitcherContainer');
 
       function getSavedThemeMode() {
         try {
@@ -7973,12 +9173,52 @@
         if (iconThemeDark && iconThemeLight && labelThemeMode) {
           iconThemeDark.classList.toggle('hidden', isLight);
           iconThemeLight.classList.toggle('hidden', !isLight);
-          labelThemeMode.textContent = isLight ? 'نهاري' : 'داكن';
+          const t = window.tRefa3y || ((k, fb) => fb);
+          labelThemeMode.textContent = isLight ? t('themeLight', 'نهاري') : t('themeDark', 'داكن');
         }
       }
 
-      // تطبيق الوضع المحفوظ (أو الليلي 'dark' كافتراضي عند الدخول لأول مرة) فوراً
+      function closeLangDropdown() {
+        if (!langDropdownMenu || !btnLangSwitcher) return;
+        langDropdownMenu.classList.add('hidden');
+        btnLangSwitcher.setAttribute('aria-expanded', 'false');
+      }
+
+      if (btnLangSwitcher && langDropdownMenu) {
+        btnLangSwitcher.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isHidden = langDropdownMenu.classList.contains('hidden');
+          langDropdownMenu.classList.toggle('hidden', !isHidden);
+          btnLangSwitcher.setAttribute('aria-expanded', String(isHidden));
+        });
+
+        langDropdownMenu.querySelectorAll('.lang-option-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const chosenLang = btn.getAttribute('data-lang');
+            if (chosenLang) {
+              applyLanguage(chosenLang, true);
+            }
+            closeLangDropdown();
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (langSwitcherContainer && !langSwitcherContainer.contains(e.target)) {
+            closeLangDropdown();
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            closeLangDropdown();
+          }
+        });
+      }
+
+      // تطبيق المظهر واللغة فوراً عند فتح الموقع
       applyThemeMode(getSavedThemeMode(), false);
+      applyLanguage(state.currentLang, false);
 
       if (btnToggleTheme) {
         btnToggleTheme.addEventListener('click', () => {
@@ -7996,6 +9236,7 @@
       populateLiveServerSelect();
       syncLiveStationLinks();
       initCollapsibleSections();
+      applyLanguage(state.currentLang, false);
     });
   </script>
 </body>

@@ -8834,10 +8834,46 @@
       setTxt('headerBrandTitle', d.headerTitle);
       setTxt('headerBrandSubtitle', d.headerSubtitle);
 
-      const isWebView = /;\s*wv\)|Version\/[\d.]+.*Chrome/i.test(navigator.userAgent || '');
-      setTxt('labelInstallAppBtn', isWebView ? d.updateApp : d.installApp);
+      const isAppWrapper = (function() {
+        try {
+          const ua = navigator.userAgent || '';
+          const ref = document.referrer || '';
+          return Boolean(
+            /;\s*wv\)/i.test(ua) ||
+            (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+            window.navigator.standalone === true ||
+            ref.includes('android-app://com.aistudio.refa3y.quran') ||
+            ref.startsWith('android-app://')
+          );
+        } catch (e) {
+          return false;
+        }
+      })();
+
+      setTxt('labelInstallAppBtn', d.installApp);
       const btnInstall = document.getElementById('btnInstallApp');
-      if (btnInstall) btnInstall.title = d.installAppTitle;
+      const actionsRow = document.querySelector('.header-actions-row');
+      if (btnInstall) {
+        btnInstall.title = d.installAppTitle;
+        btnInstall.classList.toggle('hidden', isAppWrapper);
+        btnInstall.style.display = isAppWrapper ? 'none' : '';
+      }
+      if (actionsRow) {
+        actionsRow.classList.toggle('grid-cols-[1fr_auto_auto]', !isAppWrapper);
+        actionsRow.classList.toggle('grid-cols-[1fr_auto]', isAppWrapper);
+      }
+      const btnDlApkModal = document.getElementById('btnDownloadApkModal');
+      if (btnDlApkModal) {
+        btnDlApkModal.classList.toggle('hidden', isAppWrapper);
+        btnDlApkModal.style.display = isAppWrapper ? 'none' : '';
+        if (btnDlApkModal.parentElement) {
+          btnDlApkModal.parentElement.classList.toggle('hidden', isAppWrapper);
+        }
+      }
+      document.querySelectorAll('a[href*="Refa3y.apk"]').forEach(link => {
+        link.classList.toggle('hidden', isAppWrapper);
+        link.style.display = isAppWrapper ? 'none' : '';
+      });
 
       const isLightTheme = document.documentElement.classList.contains('light-theme');
       setTxt('labelThemeMode', isLightTheme ? d.themeLight : d.themeDark);

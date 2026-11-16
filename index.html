@@ -6939,75 +6939,6 @@
       });
     }
 
-    function isRunningInAppOrChromeless() {
-      try {
-        const ua = navigator.userAgent || '';
-        const ref = document.referrer || '';
-        const isWebViewUa = /;\s*wv\)/i.test(ua) || /\bwv\b/i.test(ua);
-        const isStandaloneMedia = Boolean(
-          window.matchMedia && (
-            window.matchMedia('(display-mode: standalone)').matches ||
-            window.matchMedia('(display-mode: fullscreen)').matches ||
-            window.matchMedia('(display-mode: minimal-ui)').matches
-          )
-        );
-        const isIosStandalone = window.navigator.standalone === true;
-        const isAndroidAppRef = ref.startsWith('android-app://') || ref.includes('android-app://com.aistudio.refa3y.quran');
-        const isChromelessMobile = (
-          window.innerWidth <= 768 &&
-          window.outerHeight > 0 &&
-          (window.outerHeight - window.innerHeight <= 40)
-        );
-        return Boolean(
-          isWebViewUa ||
-          isStandaloneMedia ||
-          isIosStandalone ||
-          isAndroidAppRef ||
-          isChromelessMobile
-        );
-      } catch (e) {
-        return false;
-      }
-    }
-
-    function syncApkButtonsVisibility() {
-      const isAppWrapper = isRunningInAppOrChromeless();
-      const btnInstall = document.getElementById('btnInstallApp');
-      const actionsRow = document.querySelector('.header-actions-row');
-      if (btnInstall) {
-        btnInstall.classList.toggle('hidden', isAppWrapper);
-        btnInstall.style.display = isAppWrapper ? 'none' : '';
-      }
-      if (actionsRow) {
-        actionsRow.classList.toggle('grid-cols-[1fr_auto_auto]', !isAppWrapper);
-        actionsRow.classList.toggle('grid-cols-[1fr_auto]', isAppWrapper);
-      }
-      const btnDlApk = document.getElementById('btnDownloadApkModal');
-      if (btnDlApk) {
-        btnDlApk.classList.toggle('hidden', isAppWrapper);
-        btnDlApk.style.display = isAppWrapper ? 'none' : '';
-        if (btnDlApk.parentElement) {
-          btnDlApk.parentElement.classList.toggle('hidden', isAppWrapper);
-          btnDlApk.parentElement.style.display = isAppWrapper ? 'none' : '';
-        }
-      }
-      document.querySelectorAll('a[href*="Refa3y.apk"]').forEach(link => {
-        link.classList.toggle('hidden', isAppWrapper);
-        link.style.display = isAppWrapper ? 'none' : '';
-      });
-    }
-
-    syncApkButtonsVisibility();
-    window.addEventListener('resize', syncApkButtonsVisibility, { passive: true });
-    if (window.matchMedia) {
-      try {
-        const mqStandalone = window.matchMedia('(display-mode: standalone)');
-        if (mqStandalone.addEventListener) {
-          mqStandalone.addEventListener('change', syncApkButtonsVisibility);
-        }
-      } catch (e) {}
-    }
-
     function closeInstallModalClean() {
       if (!installAppModal || installAppModal.classList.contains('hidden')) return;
       installAppModal.classList.add('hidden');
@@ -7019,8 +6950,6 @@
 
     if (btnInstallApp) {
       btnInstallApp.addEventListener('click', () => {
-        syncApkButtonsVisibility();
-        if (isRunningInAppOrChromeless()) return;
         if (installAppModal) {
           installAppModal.classList.remove('hidden');
           document.body.style.overflow = 'hidden';
@@ -8905,12 +8834,10 @@
       setTxt('headerBrandTitle', d.headerTitle);
       setTxt('headerBrandSubtitle', d.headerSubtitle);
 
-      setTxt('labelInstallAppBtn', d.installApp);
+      const isWebView = /;\s*wv\)|Version\/[\d.]+.*Chrome/i.test(navigator.userAgent || '');
+      setTxt('labelInstallAppBtn', isWebView ? d.updateApp : d.installApp);
       const btnInstall = document.getElementById('btnInstallApp');
-      if (btnInstall) {
-        btnInstall.title = d.installAppTitle;
-      }
-      syncApkButtonsVisibility();
+      if (btnInstall) btnInstall.title = d.installAppTitle;
 
       const isLightTheme = document.documentElement.classList.contains('light-theme');
       setTxt('labelThemeMode', isLightTheme ? d.themeLight : d.themeDark);

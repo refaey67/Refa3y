@@ -2210,9 +2210,17 @@
       ["40", "٤٠. تلال خضراء وضباب", "40_تلال_خضراء_وضباب_Rolling_Green_Hills.jpg", "#10b981", 0.5, 0.45]
     ].map(([num, name, fileName, color, focalX, focalY]) => {
       const encodedName = encodeURIComponent(fileName);
+      const enWords = fileName
+        .replace(/\.[a-z0-9]+$/i, '')
+        .split('_')
+        .filter(part => /^[A-Za-z]+$/.test(part))
+        .join(' ');
+      const nameEn = enWords ? `${parseInt(num, 10)}. ${enWords}` : name;
       return {
         id: `bg_${num}`,
         name,
+        nameAr: name,
+        nameEn,
         fileName,
         color,
         focalX,
@@ -2225,6 +2233,18 @@
         ]
       };
     });
+
+    function getLocalizedBgName(bg) {
+      if (!bg) return '';
+      const isAr = (state.currentLang || 'ar') === 'ar';
+      return isAr ? (bg.nameAr || bg.name || '') : (bg.nameEn || bg.name || '');
+    }
+
+    function getLocalizedBgSubLabel(isSelected) {
+      const isAr = (state.currentLang || 'ar') === 'ar';
+      if (isAr) return isSelected ? '✓ نشطة' : 'خلفية طبيعية';
+      return isSelected ? '✓ Active' : 'Nature Scene';
+    }
 
     const bgGalleryGrid = document.getElementById('bgGalleryGrid');
     const activeBgBadge = document.getElementById('activeBgBadge');
@@ -2587,7 +2607,7 @@
         loadAndSetBackgroundImage(found);
       }
 
-      if (activeBgBadge) activeBgBadge.textContent = found.name;
+      if (activeBgBadge) activeBgBadge.textContent = getLocalizedBgName(found);
       updateBgGalleryActiveState();
       requestRenderOnce();
     }
@@ -2629,7 +2649,14 @@
           selectBackgroundById(state.lastVideoBgId);
         } else {
           state.currentBgId = null;
-          if (activeBgBadge) activeBgBadge.textContent = 'بانتظار رفع الفيديو';
+          if (activeBgBadge) {
+            const isAr = (state.currentLang || 'ar') === 'ar';
+            activeBgBadge.textContent = isAr ? 'بانتظار رفع الفيديو' : ({
+              en: 'Awaiting video upload',
+              fr: 'En attente de vidéo',
+              de: 'Warte auf Video'
+            }[state.currentLang] || 'Awaiting video upload');
+          }
           requestRenderOnce();
         }
       } else {
@@ -2659,10 +2686,21 @@
       btnStudioSubVideo.addEventListener('click', () => switchStudioSubMode('video', true));
     }
 
-    const BG_BTN_SELECTED_CLASS = 'group w-full text-right rounded-xl border p-1.5 transition flex items-center gap-2 overflow-hidden bg-amber-500/25 border-amber-400 text-amber-100 ring-1 ring-amber-400/90 shadow-md';
-    const BG_BTN_UNSELECTED_CLASS = 'group w-full text-right rounded-xl border p-1.5 transition flex items-center gap-2 overflow-hidden bg-slate-900/90 border-slate-700/80 hover:border-amber-400/60 hover:bg-slate-800 text-slate-200';
+    const BG_BTN_SELECTED_BASE = 'group w-full rounded-xl border p-1.5 transition flex items-center gap-2 overflow-hidden bg-amber-500/25 border-amber-400 text-amber-100 ring-1 ring-amber-400/90 shadow-md';
+    const BG_BTN_UNSELECTED_BASE = 'group w-full rounded-xl border p-1.5 transition flex items-center gap-2 overflow-hidden bg-slate-900/90 border-slate-700/80 hover:border-amber-400/60 hover:bg-slate-800 text-slate-200';
+
+    function getBgBtnClass(isSelected) {
+      const alignCls = (state.currentLang || 'ar') === 'ar' ? 'text-right' : 'text-left';
+      return `${isSelected ? BG_BTN_SELECTED_BASE : BG_BTN_UNSELECTED_BASE} ${alignCls}`;
+    }
 
     function updateBgGalleryActiveState() {
+      if (activeBgBadge && state.currentBgId) {
+        const currentBgObj = BACKGROUNDS_LIST.find(b => b.id === state.currentBgId);
+        if (currentBgObj) {
+          activeBgBadge.textContent = getLocalizedBgName(currentBgObj);
+        }
+      }
       if (!bgGalleryGrid) return;
       const imageBgsCount = BACKGROUNDS_LIST.filter(bg => !bg.isVideo).length;
       const buttons = bgGalleryGrid.querySelectorAll('button[data-bg-id]');
@@ -2671,12 +2709,18 @@
         return;
       }
       buttons.forEach((btn) => {
-        const isSelected = btn.getAttribute('data-bg-id') === state.currentBgId;
-        btn.className = isSelected ? BG_BTN_SELECTED_CLASS : BG_BTN_UNSELECTED_CLASS;
+        const bgId = btn.getAttribute('data-bg-id');
+        const isSelected = bgId === state.currentBgId;
+        btn.className = getBgBtnClass(isSelected);
+        const bgObj = BACKGROUNDS_LIST.find(b => b.id === bgId);
+        const titleSpan = btn.querySelector('[data-bg-title]');
+        if (titleSpan && bgObj) {
+          titleSpan.textContent = getLocalizedBgName(bgObj);
+        }
         const subSpan = btn.querySelector('[data-bg-status]');
         if (subSpan) {
           subSpan.className = 'text-[9px] truncate ' + (isSelected ? 'text-amber-300 font-semibold' : 'text-slate-400');
-          subSpan.textContent = isSelected ? '✓ نشطة' : 'خلفية طبيعية';
+          subSpan.textContent = getLocalizedBgSubLabel(isSelected);
         }
       });
     }
@@ -2705,7 +2749,7 @@
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.setAttribute('data-bg-id', bg.id);
-        btn.className = isSelected ? BG_BTN_SELECTED_CLASS : BG_BTN_UNSELECTED_CLASS;
+        btn.className = getBgBtnClass(isSelected);
 
         const thumbWrap = document.createElement('div');
         thumbWrap.className = 'w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-slate-700/80 relative flex items-center justify-center';
@@ -2720,7 +2764,7 @@
           const imgEl = document.createElement('img');
           imgEl.loading = 'lazy';
           imgEl.decoding = 'async';
-          imgEl.alt = bg.name;
+          imgEl.alt = getLocalizedBgName(bg);
           imgEl.className = 'w-full h-full object-cover block group-hover:scale-105 transition-transform';
           imgEl.onerror = () => {
             thumbAttempt++;
@@ -2736,13 +2780,14 @@
         textWrap.className = 'flex flex-col min-w-0 flex-1';
 
         const titleSpan = document.createElement('span');
+        titleSpan.setAttribute('data-bg-title', '1');
         titleSpan.className = 'text-[11px] font-bold truncate leading-snug';
-        titleSpan.textContent = bg.name;
+        titleSpan.textContent = getLocalizedBgName(bg);
 
         const subSpan = document.createElement('span');
         subSpan.setAttribute('data-bg-status', '1');
         subSpan.className = 'text-[9px] truncate ' + (isSelected ? 'text-amber-300 font-semibold' : 'text-slate-400');
-        subSpan.textContent = isSelected ? '✓ نشطة' : 'خلفية طبيعية';
+        subSpan.textContent = getLocalizedBgSubLabel(isSelected);
 
         textWrap.appendChild(titleSpan);
         textWrap.appendChild(subSpan);
@@ -4888,19 +4933,27 @@
         const t = window.tRefa3y || ((k, fb) => fb);
         if (isRareOrRefaatMode) {
           sec2DynamicTitle.textContent = state.currentReciterKey === 'mohamed_refaat'
-            ? t('sec2TitleRefaat', '٢. أداة التحكم في مقطع الشيخ محمد رفعت')
-            : t('sec2TitleRare', '٢. أداة التحكم في المقطع والآيات المعروضة');
+            ? t('sec2TitleRefaat', 'أداة التحكم في مقطع الشيخ محمد رفعت')
+            : t('sec2TitleRare', 'أداة التحكم في المقطع والآيات المعروضة');
         } else {
-          sec2DynamicTitle.textContent = t('sec2TitleStandard', '٢. اختر السورة والآيات');
+          sec2DynamicTitle.textContent = t('sec2TitleStandard', 'اختر السورة والآيات');
         }
       }
 
       const surahSummaryEl = document.getElementById('surahSelectionSummary');
       if (isRareOrRefaatMode && !state.currentRareRecitationId && surahSummaryEl) {
+        const isAr = (state.currentLang || 'ar') === 'ar';
+        const hintMsg = isAr
+          ? 'اختر سورة للشيخ محمد رفعت أو حفلاً نادراً من القائمة أعلاه لتظهر هنا أداة التحكم المخصصة للمقطع'
+          : ({
+              en: 'Select a Surah by Sheikh Mohamed Refaat or a rare concert above to open the clip controller here',
+              fr: 'Sélectionnez une sourate de Cheikh Mohamed Refaat ou un concert rare ci-dessus pour afficher le contrôleur',
+              de: 'Wählen Sie oben eine Sure von Scheich Mohamed Refaat oder ein seltenes Konzert, um die Steuerung zu öffnen'
+            }[state.currentLang] || 'Select a Surah by Sheikh Mohamed Refaat or a rare concert above to open the clip controller here');
         surahSummaryEl.className = 'text-[11px] text-slate-200 bg-slate-950 border border-slate-800 rounded-xl p-2.5';
         surahSummaryEl.innerHTML = `
           <div class="text-center py-3 px-2.5 text-xs text-amber-200/90 bg-slate-900/90 rounded-xl border border-amber-500/30 leading-relaxed">
-            اختر سورة للشيخ محمد رفعت أو حفلاً نادراً من القائمة أعلاه لتظهر هنا أداة التحكم المخصصة للمقطع
+            ${hintMsg}
           </div>
         `;
       }
@@ -4908,6 +4961,7 @@
 
     function switchReciterTab(tabMode) {
       state.reciterTabMode = tabMode;
+      const t = window.tRefa3y || ((k, fb) => fb);
       if (tabMode === 'standard') {
         btnTabStandardReciters.className = 'py-2 px-2.5 rounded-lg transition bg-amber-500 text-slate-950 flex items-center justify-center gap-1.5 shadow-sm';
         btnTabRareRecitations.className = 'py-2 px-2.5 rounded-lg transition text-slate-300 hover:text-amber-200 flex items-center justify-center gap-1.5';
@@ -4922,14 +4976,14 @@
           if (state.currentReciterKey === 'mohamed_refaat') {
             state.currentReciterKey = null;
             if (activeReciterBadge) {
-              activeReciterBadge.textContent = 'لم يُختر بعد';
+              activeReciterBadge.textContent = t('badgeUnselected', 'Not selected');
               activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 truncate max-w-[150px]';
             }
           }
           const surahSummaryEl = document.getElementById('surahSelectionSummary');
           if (surahSummaryEl) {
             surahSummaryEl.className = 'text-[11px] text-slate-400 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5';
-            surahSummaryEl.textContent = 'اختر القارئ ثم اختر السورة والآية من القوائم أعلاه';
+            surahSummaryEl.textContent = t('surahSummaryEmpty', 'No Surah or verse selected yet');
           }
         }
         syncSection2ModeVisibility();
@@ -4977,31 +5031,47 @@
       });
 
       if (filtered.length === 0) {
+        const isAr = (state.currentLang || 'ar') === 'ar';
+        const emptyMsg = isAr
+          ? 'لم يتم العثور على تلاوة نادرة مطابقة لكلمات البحث'
+          : ({
+              en: 'No matching rare recitation found',
+              fr: 'Aucune récitation rare correspondante trouvée',
+              de: 'Keine passende seltene Rezitation gefunden'
+            }[state.currentLang] || 'No matching rare recitation found');
         rareRecitationsList.innerHTML = `
           <div class="text-center py-6 text-xs text-slate-400 bg-slate-900/60 rounded-xl border border-slate-800 p-4">
-            لم يتم العثور على تلاوة نادرة مطابقة لكلمات البحث
+            ${emptyMsg}
           </div>
         `;
         return;
       }
+
+      const isAr = (state.currentLang || 'ar') === 'ar';
+      const alignCls = isAr ? 'text-right' : 'text-left';
 
       rareRecitationsList.innerHTML = filtered.map(item => {
         const isSelected = state.currentRareRecitationId === item.id;
         const borderCls = isSelected
           ? 'border-amber-400 bg-amber-500/20 text-amber-100 shadow-md ring-1 ring-amber-400/40'
           : 'border-slate-800/90 bg-slate-900/90 hover:border-amber-500/40 text-slate-200';
+        const locReciter = getLocalizedRareReciterName(item);
+        const locTag = getLocalizedRareTag(item.tag);
+        const locConcert = getLocalizedRareConcertTitle(item);
+        const locSurah = typeof getLocalizedSurahName === 'function' ? getLocalizedSurahName(item.surahNum, true) : item.surahName;
+        const rangeNums = isAr ? `${toArabicDigits(item.startAyah)}–${toArabicDigits(item.endAyah)}` : `${item.startAyah}–${item.endAyah}`;
 
         return `
-          <button type="button" data-rare-id="${item.id}" class="rare-recitation-card w-full text-right p-3 rounded-xl border transition flex flex-col gap-1.5 ${borderCls}">
+          <button type="button" data-rare-id="${item.id}" class="rare-recitation-card w-full ${alignCls} p-3 rounded-xl border transition flex flex-col gap-1.5 ${borderCls}">
             <div class="flex items-center justify-between gap-1.5 w-full">
-              <span class="font-bold text-xs sm:text-sm text-amber-200 truncate">${item.reciterName}</span>
-              <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800/90 border border-slate-700/80 text-amber-300 font-semibold shrink-0">${item.tag}</span>
+              <span class="font-bold text-xs sm:text-sm text-amber-200 truncate">${locReciter}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800/90 border border-slate-700/80 text-amber-300 font-semibold shrink-0">${locTag}</span>
             </div>
             <div class="flex items-center justify-between text-xs text-slate-300 w-full">
-              <span class="font-medium">${item.concertTitle}</span>
-              <span class="text-[11px] text-amber-300/90 font-mono">${item.surahName} (${toArabicDigits(item.startAyah)}–${toArabicDigits(item.endAyah)})</span>
+              <span class="font-medium">${locConcert}</span>
+              <span class="text-[11px] text-amber-300/90 font-mono">${locSurah} (${rangeNums})</span>
             </div>
-            <p class="text-[11px] text-slate-400 font-normal line-clamp-1 italic">${item.previewExcerpt}</p>
+            <p dir="rtl" class="text-[11px] text-slate-400 font-normal line-clamp-1 italic text-right">${item.previewExcerpt}</p>
           </button>
         `;
       }).join('');
@@ -5039,13 +5109,16 @@
       syncSection2ModeVisibility();
 
       if (activeReciterBadge) {
-        activeReciterBadge.textContent = rareItem.reciterName.replace('الشيخ ', '');
+        const isAr = (state.currentLang || 'ar') === 'ar';
+        activeReciterBadge.textContent = isAr
+          ? rareItem.reciterName.replace('الشيخ ', '')
+          : getLocalizedRareReciterName(rareItem).replace(/^(Sheikh|Cheikh|Scheich)\s+/i, '');
         activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[160px] font-bold';
       }
 
       const sec2HeaderBadge = document.getElementById('sec2HeaderBadge');
       if (sec2HeaderBadge) {
-        sec2HeaderBadge.textContent = rareItem.surahName;
+        sec2HeaderBadge.textContent = getLocalizedSurahName(rareItem.surahNum, true);
         sec2HeaderBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[120px] sm:max-w-[150px] font-bold';
       }
       if (typeof openSection === 'function') openSection(2);
@@ -5213,6 +5286,8 @@
       const surahSummaryEl = document.getElementById('surahSelectionSummary');
       if (!surahSummaryEl) return;
 
+      const isAr = (state.currentLang || 'ar') === 'ar';
+      const lang = state.currentLang || 'ar';
       const meta = SURAHS_META[rareItem.surahNum - 1];
       const maxSurahAyah = meta ? meta[2] : rareItem.endAyah;
       const isSingleFileClip = Boolean(rareItem.isSingleFileRare);
@@ -5222,8 +5297,9 @@
       let fromOptions = '';
       let toOptions = '';
       for (let a = fullStart; a <= fullEnd; a++) {
-        fromOptions += `<option value="${a}" ${a === startA ? 'selected' : ''}>الآية ${toArabicDigits(a)}</option>`;
-        toOptions += `<option value="${a}" ${a === endA ? 'selected' : ''}>الآية ${toArabicDigits(a)}</option>`;
+        const ayahLbl = typeof getLocalizedAyahLabel === 'function' ? getLocalizedAyahLabel(a) : (isAr ? `الآية ${toArabicDigits(a)}` : `Verse ${a}`);
+        fromOptions += `<option value="${a}" ${a === startA ? 'selected' : ''}>${ayahLbl}</option>`;
+        toOptions += `<option value="${a}" ${a === endA ? 'selected' : ''}>${ayahLbl}</option>`;
       }
 
       const fullDur = (isFinite(audioEl.duration) && audioEl.duration > 0) ? Math.floor(audioEl.duration) : 300;
@@ -5231,42 +5307,76 @@
       const curEndSec = Math.ceil(state.refaatClipEndSec || fullDur);
       const selectedAyahsCount = endA - startA + 1;
 
+      const locReciter = getLocalizedRareReciterName(rareItem);
+      const locTag = getLocalizedRareTag(rareItem.tag);
+      const locYear = isAr ? rareItem.year : String(rareItem.year || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace('إذاعي', 'Radio');
+      const locConcert = getLocalizedRareConcertTitle(rareItem);
+      const locSurah = typeof getLocalizedSurahName === 'function' ? getLocalizedSurahName(rareItem.surahNum, true) : rareItem.surahName;
+
+      const lblRangeHeader = isAr ? 'نطاق التلاوة والنص المعروض:' : ({ en: 'Recitation & Displayed Text Range:', fr: 'Plage de récitation et texte :', de: 'Rezitations- & Textbereich:' }[lang] || 'Recitation & Displayed Text Range:');
+      const lblSelectedRange = isAr
+        ? `المحدد: ${startA === endA ? `آية واحدة (${toArabicDigits(startA)})` : `${toArabicDigits(selectedAyahsCount)} آيات (${toArabicDigits(startA)}–${toArabicDigits(endA)})`}`
+        : `Selected: ${startA === endA ? `1 Verse (${startA})` : `${selectedAyahsCount} Verses (${startA}–${endA})`}`;
+      const lblFullClipBtn = isAr ? 'المقطع كاملاً' : (window.tRefa3y ? window.tRefa3y('modeFullSurah', 'Full Clip') : 'Full Clip');
+      const lblCustomRangeBtn = isAr
+        ? (isSingleFileClip ? '✂️ أخذ عينة / آيات محددة' : 'تحديد آيات معينة')
+        : ({
+            en: isSingleFileClip ? '✂️ Audio Sample / Select Verses' : 'Select Specific Verses',
+            fr: isSingleFileClip ? '✂️ Extrait Audio / Choisir Versets' : 'Choisir des Versets',
+            de: isSingleFileClip ? '✂️ Audio-Ausschnitt / Verse wählen' : 'Bestimmte Verse wählen'
+          }[lang] || (isSingleFileClip ? '✂️ Audio Sample / Select Verses' : 'Select Specific Verses'));
+      const lblFromVerse = isAr ? 'النص من الآية:' : (window.tRefa3y ? window.tRefa3y('lblFromAyahMulti', 'From Verse:') : 'From Verse:');
+      const lblToVerse = isAr ? 'إلى الآية:' : (window.tRefa3y ? window.tRefa3y('lblToAyah', 'To Verse:') : 'To Verse:');
+      const lblSampleHeader = isAr ? '🎙️ أخذ عينة وضبط بداية ونهاية صوت الشيخ:' : ({ en: '🎙️ Trim Audio Sample Start & End:', fr: '🎙️ Ajuster le début et la fin de l’extrait audio :', de: '🎙️ Start & Ende des Audio-Ausschnitts anpassen:' }[lang] || '🎙️ Trim Audio Sample Start & End:');
+      const lblNowCursor = isAr ? 'الآن: 00:00' : 'Now: 00:00';
+      const lblSampleHelp = isAr
+        ? 'شغّل الصوت واسمع الشيخ، ثم اضغط <strong class="text-amber-200">«📍 بداية العينة هنا»</strong> عند بداية قراءته للآية، و<strong class="text-amber-200">«🏁 نهاية العينة هنا»</strong> عند انتهائه، أو حرك المؤشرين:'
+        : 'Play the audio and click <strong class="text-amber-200">"📍 Set Start Here"</strong> where the verse begins and <strong class="text-amber-200">"🏁 Set End Here"</strong> where it ends, or drag the sliders:';
+      const lblSetStartBtn = isAr ? '📍 بداية العينة هنا' : ({ en: '📍 Set Start Here', fr: '📍 Début ici', de: '📍 Start hier setzen' }[lang] || '📍 Set Start Here');
+      const lblSetEndBtn = isAr ? '🏁 نهاية العينة هنا' : ({ en: '🏁 Set End Here', fr: '🏁 Fin ici', de: '🏁 Ende hier setzen' }[lang] || '🏁 Set End Here');
+      const lblStartSlider = isAr ? 'بداية العينة الصوتية:' : ({ en: 'Audio Sample Start:', fr: 'Début de l’extrait :', de: 'Ausschnitt-Start:' }[lang] || 'Audio Sample Start:');
+      const lblEndSlider = isAr ? 'نهاية العينة الصوتية:' : ({ en: 'Audio Sample End:', fr: 'Fin de l’extrait :', de: 'Ausschnitt-Ende:' }[lang] || 'Audio Sample End:');
+      const lblSyncHeader = isAr ? `⏱️ ضبط توقيت انتقال الآيات على الشاشة (${toArabicDigits(selectedAyahsCount)} آيات):` : `⏱️ Verse Transition Timing (${selectedAyahsCount} Verses):`;
+      const lblResetSync = isAr ? 'إعادة للتلقائي' : ({ en: 'Reset to Auto', fr: 'Réinitialiser', de: 'Auf Auto zurücksetzen' }[lang] || 'Reset to Auto');
+      const lblMarkNextBtn = isAr ? '⏭️ اعرض الآية التالية في هذه اللحظة' : ({ en: '⏭️ Show Next Verse Right Now', fr: '⏭️ Afficher le verset suivant maintenant', de: '⏭️ Nächsten Vers jetzt anzeigen' }[lang] || '⏭️ Show Next Verse Right Now');
+      const lblSyncStatus = isAr ? 'التوزيع الحالي: تلقائي متوازن حسب طول الآيات' : 'Current timing: Balanced automatic distribution by verse length';
+
       surahSummaryEl.innerHTML = `
         <div class="space-y-2.5 bg-slate-900/90 rounded-xl p-3 border border-amber-500/30">
           <div class="flex items-center justify-between text-xs font-bold text-amber-200 flex-wrap gap-1">
-            <span>✨ ${rareItem.reciterName}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/25 border border-amber-400/40 text-amber-100 font-semibold">${rareItem.tag} (${rareItem.year})</span>
+            <span>✨ ${locReciter}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/25 border border-amber-400/40 text-amber-100 font-semibold">${locTag} (${locYear})</span>
           </div>
           <div class="text-[11px] text-slate-200 font-semibold flex items-center justify-between">
-            <span>${rareItem.concertTitle}</span>
-            <span class="text-amber-300 font-mono">${rareItem.surahName}</span>
+            <span>${locConcert}</span>
+            <span class="text-amber-300 font-mono">${locSurah}</span>
           </div>
 
           <div class="pt-2 border-t border-slate-800 space-y-2">
             <div class="flex items-center justify-between text-xs text-slate-300">
-              <span class="font-bold">نطاق التلاوة والنص المعروض:</span>
-              <span class="text-amber-300 font-mono text-[11px]">المحدد: ${startA === endA ? `آية واحدة (${toArabicDigits(startA)})` : `${toArabicDigits(selectedAyahsCount)} آيات (${toArabicDigits(startA)}–${toArabicDigits(endA)})`}</span>
+              <span class="font-bold">${lblRangeHeader}</span>
+              <span class="text-amber-300 font-mono text-[11px]">${lblSelectedRange}</span>
             </div>
 
             <div class="grid grid-cols-2 gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-bold">
               <button id="btnRareFullClip" type="button" class="py-1.5 px-2 rounded-lg transition ${isFullClip ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-300 hover:text-amber-200'}">
-                <span>المقطع كاملاً</span>
+                <span>${lblFullClipBtn}</span>
               </button>
               <button id="btnRareCustomRange" type="button" class="py-1.5 px-2 rounded-lg transition ${!isFullClip ? 'bg-amber-500 text-slate-950 shadow-sm' : 'text-slate-300 hover:text-amber-200'}">
-                <span>${isSingleFileClip ? '✂️ أخذ عينة / آيات محددة' : 'تحديد آيات معينة'}</span>
+                <span>${lblCustomRangeBtn}</span>
               </button>
             </div>
 
             <div id="rareRangeDropdownsBox" class="${isFullClip ? 'hidden' : ''} space-y-2.5 bg-slate-950/90 p-2.5 rounded-xl border border-slate-800">
               <div class="grid grid-cols-2 gap-2">
                 <div>
-                  <label for="selectRareFromAyah" class="block text-[10px] text-slate-400 mb-1 font-semibold">النص من الآية:</label>
+                  <label for="selectRareFromAyah" class="block text-[10px] text-slate-400 mb-1 font-semibold">${lblFromVerse}</label>
                   <select id="selectRareFromAyah" class="w-full rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-100 p-1.5 focus:outline-none focus:border-amber-400">
                     ${fromOptions}
                   </select>
                 </div>
                 <div>
-                  <label for="selectRareToAyah" class="block text-[10px] text-slate-400 mb-1 font-semibold">إلى الآية:</label>
+                  <label for="selectRareToAyah" class="block text-[10px] text-slate-400 mb-1 font-semibold">${lblToVerse}</label>
                   <select id="selectRareToAyah" class="w-full rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-100 p-1.5 focus:outline-none focus:border-amber-400">
                     ${toOptions}
                   </select>
@@ -5277,25 +5387,25 @@
               <!-- أداة أخذ العينة الحية وضبط توقيت الآيات لتسجيلات الشيخ محمد رفعت المتصلة -->
               <div class="pt-2 border-t border-slate-800/90 space-y-2">
                 <div class="flex items-center justify-between">
-                  <span class="text-[11px] font-bold text-amber-300">🎙️ أخذ عينة وضبط بداية ونهاية صوت الشيخ:</span>
-                  <span id="valRefaatLiveCursor" class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-900 text-emerald-300 border border-slate-700">الآن: 00:00</span>
+                  <span class="text-[11px] font-bold text-amber-300">${lblSampleHeader}</span>
+                  <span id="valRefaatLiveCursor" class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-900 text-emerald-300 border border-slate-700">${lblNowCursor}</span>
                 </div>
                 <p class="text-[10px] text-slate-400 leading-relaxed">
-                  شغّل الصوت واسمع الشيخ، ثم اضغط <strong class="text-amber-200">«📍 بداية العينة هنا»</strong> عند بداية قراءته للآية، و<strong class="text-amber-200">«🏁 نهاية العينة هنا»</strong> عند انتهائه، أو حرك المؤشرين:
+                  ${lblSampleHelp}
                 </p>
 
                 <div class="grid grid-cols-2 gap-1.5">
                   <button id="btnCaptureRefaatStartNow" type="button" class="py-1.5 px-2 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/50 text-emerald-200 text-[11px] font-bold transition flex items-center justify-center gap-1">
-                    <span>📍 بداية العينة هنا</span>
+                    <span>${lblSetStartBtn}</span>
                   </button>
                   <button id="btnCaptureRefaatEndNow" type="button" class="py-1.5 px-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/50 text-amber-200 text-[11px] font-bold transition flex items-center justify-center gap-1">
-                    <span>🏁 نهاية العينة هنا</span>
+                    <span>${lblSetEndBtn}</span>
                   </button>
                 </div>
 
                 <div class="space-y-1">
                   <div class="flex justify-between text-[10px]">
-                    <span class="text-slate-300">بداية العينة الصوتية:</span>
+                    <span class="text-slate-300">${lblStartSlider}</span>
                     <span id="valRefaatClipStart" class="text-amber-300 font-mono">${formatTime(curStartSec)}</span>
                   </div>
                   <input id="sliderRefaatClipStart" type="range" min="0" max="${Math.max(10, fullDur - 2)}" step="1" value="${curStartSec}" class="w-full h-1.5 rounded-lg cursor-pointer" />
@@ -5303,7 +5413,7 @@
 
                 <div class="space-y-1">
                   <div class="flex justify-between text-[10px]">
-                    <span class="text-slate-300">نهاية العينة الصوتية:</span>
+                    <span class="text-slate-300">${lblEndSlider}</span>
                     <span id="valRefaatClipEnd" class="text-amber-300 font-mono">${formatTime(curEndSec)}</span>
                   </div>
                   <input id="sliderRefaatClipEnd" type="range" min="2" max="${Math.max(12, fullDur)}" step="1" value="${curEndSec}" class="w-full h-1.5 rounded-lg cursor-pointer" />
@@ -5312,16 +5422,16 @@
                 ${selectedAyahsCount > 1 ? `
                 <div class="pt-2 border-t border-slate-800/80 space-y-1.5">
                   <div class="flex items-center justify-between">
-                    <span class="text-[10px] font-bold text-sky-300">⏱️ ضبط توقيت انتقال الآيات على الشاشة (${toArabicDigits(selectedAyahsCount)} آيات):</span>
-                    <button id="btnResetRefaatAyahSync" type="button" class="text-[10px] text-slate-400 hover:text-amber-300 underline">إعادة للتلقائي</button>
+                    <span class="text-[10px] font-bold text-sky-300">${lblSyncHeader}</span>
+                    <button id="btnResetRefaatAyahSync" type="button" class="text-[10px] text-slate-400 hover:text-amber-300 underline">${lblResetSync}</button>
                   </div>
                   <div class="flex items-center gap-1.5">
                     <button id="btnMarkNextAyahNow" type="button" class="flex-1 py-1.5 px-2.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/50 text-sky-200 text-[11px] font-bold transition">
-                      ⏭️ اعرض الآية التالية في هذه اللحظة
+                      ${lblMarkNextBtn}
                     </button>
                   </div>
                   <div id="refaatSyncStatusText" class="text-[10px] text-slate-400 font-mono">
-                    التوزيع الحالي: تلقائي متوازن حسب طول الآيات
+                    ${lblSyncStatus}
                   </div>
                 </div>
                 ` : ''}
@@ -5653,7 +5763,11 @@
 
         const reciterObj = RECITERS_DATA[state.currentReciterKey];
         if (activeReciterBadge && reciterObj) {
-          activeReciterBadge.textContent = reciterObj.name.replace(/[()]/g, '').replace('الشيخ ', '');
+          const isAr = (state.currentLang || 'ar') === 'ar';
+          const btnFirstSpan = btn.querySelector('span');
+          activeReciterBadge.textContent = (!isAr && btnFirstSpan && btnFirstSpan.textContent)
+            ? btnFirstSpan.textContent
+            : reciterObj.name.replace(/[()]/g, '').replace('الشيخ ', '');
           activeReciterBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400 text-amber-200 truncate max-w-[160px] font-bold';
         }
         if (typeof openSection === 'function') openSection(2);
@@ -6480,6 +6594,109 @@
       [111,"المسد",5,6217],[112,"الإخلاص",4,6222],[113,"الفلق",5,6226],[114,"الناس",6,6231]
     ];
 
+    const SURAH_NAMES_EN = [
+      "Al-Fatihah","Al-Baqarah","Aal-E-Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal","At-Tawbah","Yunus",
+      "Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl","Al-Isra","Al-Kahf","Maryam","Ta-Ha",
+      "Al-Anbiya","Al-Hajj","Al-Mu'minun","An-Nur","Al-Furqan","Ash-Shu'ara","An-Naml","Al-Qasas","Al-Ankabut","Ar-Rum",
+      "Luqman","As-Sajdah","Al-Ahzab","Saba","Fatir","Ya-Sin","As-Saffat","Sad","Az-Zumar","Ghafir",
+      "Fussilat","Ash-Shura","Az-Zukhruf","Ad-Dukhan","Al-Jathiyah","Al-Ahqaf","Muhammad","Al-Fath","Al-Hujurat","Qaf",
+      "Adh-Dhariyat","At-Tur","An-Najm","Al-Qamar","Ar-Rahman","Al-Waqi'ah","Al-Hadid","Al-Mujadila","Al-Hashr","Al-Mumtahanah",
+      "As-Saff","Al-Jumu'ah","Al-Munafiqun","At-Taghabun","At-Talaq","At-Tahrim","Al-Mulk","Al-Qalam","Al-Haqqah","Al-Ma'arij",
+      "Nuh","Al-Jinn","Al-Muzzammil","Al-Muddaththir","Al-Qiyamah","Al-Insan","Al-Mursalat","An-Naba","An-Nazi'at","Abasa",
+      "At-Takwir","Al-Infitar","Al-Mutaffifin","Al-Inshiqaq","Al-Buruj","At-Tariq","Al-A'la","Al-Ghashiyah","Al-Fajr","Al-Balad",
+      "Ash-Shams","Al-Layl","Ad-Duhaa","Ash-Sharh","At-Tin","Al-Alaq","Al-Qadr","Al-Bayyinah","Az-Zalzalah","Al-Adiyat",
+      "Al-Qari'ah","At-Takathur","Al-Asr","Al-Humazah","Al-Fil","Quraysh","Al-Ma'un","Al-Kawthar","Al-Kafirun","An-Nasr",
+      "Al-Masad","Al-Ikhlas","Al-Falaq","An-Nas"
+    ];
+
+    function getLocalizedSurahName(surahNum, includePrefix = true) {
+      const idx = Number(surahNum) - 1;
+      const meta = SURAHS_META[idx];
+      const arName = meta ? meta[1] : String(surahNum);
+      const enName = SURAH_NAMES_EN[idx] || arName;
+      const lang = state.currentLang || 'ar';
+      if (lang === 'ar') {
+        return includePrefix ? `سورة ${arName}` : arName;
+      }
+      if (!includePrefix) return enName;
+      const prefix = { en: 'Surah', fr: 'Sourate', de: 'Sure' }[lang] || 'Surah';
+      return `${prefix} ${enName}`;
+    }
+
+    function getLocalizedAyahLabel(ayahNum) {
+      const lang = state.currentLang || 'ar';
+      if (lang === 'ar') return `الآية ${toArabicDigits(ayahNum)}`;
+      const prefix = { en: 'Verse', fr: 'Verset', de: 'Vers' }[lang] || 'Verse';
+      return `${prefix} ${ayahNum}`;
+    }
+
+    function getLocalizedRareReciterName(item) {
+      const lang = state.currentLang || 'ar';
+      if (lang === 'ar') return item.reciterName;
+      const titlePrefix = { en: 'Sheikh', fr: 'Cheikh', de: 'Scheich' }[lang] || 'Sheikh';
+      const namesBySheikh = {
+        refaat: 'Mohamed Refaat',
+        abdulbasit: 'Abdulbasit Abdulsamad',
+        minshawi: 'Mohamed Siddiq Al-Minshawi',
+        mustafa: 'Mustafa Ismail',
+        husary: 'Mahmoud Khalil Al-Husary',
+        banna: 'Mahmoud Ali Al-Banna',
+        tablawi: 'Mohamed Mahmoud Al-Tablawi',
+        neana: 'Ahmed Naina'
+      };
+      const baseName = namesBySheikh[item.sheikhKey];
+      return baseName ? `${titlePrefix} ${baseName}` : item.reciterName;
+    }
+
+    function getLocalizedRareTag(tag) {
+      const lang = state.currentLang || 'ar';
+      if (lang === 'ar') return tag;
+      const map = {
+        'تراث إذاعي أصيل': { en: 'Radio Heritage', fr: 'Patrimoine Radio', de: 'Radio-Erbe' },
+        'حفل الأقصى': { en: 'Al-Aqsa Concert', fr: 'Concert Al-Aqsa', de: 'Al-Aqsa Konzert' },
+        'حفل دمشق': { en: 'Damascus Concert', fr: 'Concert de Damas', de: 'Damaskus-Konzert' },
+        'مسجد الحسين': { en: 'Al-Hussein Mosque', fr: 'Mosquée Al-Hussein', de: 'Al-Hussein Moschee' },
+        'حفل ليبيا': { en: 'Libya Concert', fr: 'Concert de Libye', de: 'Libyen-Konzert' },
+        'حفل الكويت': { en: 'Kuwait Concert', fr: 'Concert du Koweït', de: 'Kuwait-Konzert' },
+        'تسجيل نادر': { en: 'Rare Recording', fr: 'Enregistrement Rare', de: 'Seltene Aufnahme' },
+        'تلاوة خالدة': { en: 'Immortal Recitation', fr: 'Récitation Immortelle', de: 'Unsterbliche Rezitation' },
+        'مجود نادر': { en: 'Rare Mujawwad', fr: 'Mujawwad Rare', de: 'Seltenes Mujawwad' },
+        'تسجيل إذاعي': { en: 'Radio Broadcast', fr: 'Enregistrement Radio', de: 'Radioaufnahme' }
+      };
+      return map[tag]?.[lang] || map[tag]?.en || tag;
+    }
+
+    function getLocalizedRareConcertTitle(item) {
+      const lang = state.currentLang || 'ar';
+      if (lang === 'ar') return item.concertTitle;
+      const sName = getLocalizedSurahName(item.surahNum, true);
+      if (item.sheikhKey === 'refaat') {
+        const prefix = { en: 'Historic Recitation of', fr: 'Récitation Historique de', de: 'Historische Rezitation von' }[lang] || 'Historic Recitation of';
+        return `${prefix} ${sName}`;
+      }
+      const byId = {
+        abdulbasit_aqsa_maryam: { en: 'Blessed Al-Aqsa Mosque Concert', fr: 'Concert de la Mosquée Al-Aqsa', de: 'Konzert in der Al-Aqsa-Moschee' },
+        abdulbasit_damascus_hashr: { en: 'Legendary Damascus Concert — Syria', fr: 'Concert Légendaire de Damas — Syrie', de: 'Legendäres Konzert in Damaskus — Syrien' },
+        abdulbasit_hussain_yusuf: { en: 'Imam Al-Hussein Mosque Concert — Cairo', fr: 'Concert de la Mosquée Al-Hussein — Le Caire', de: 'Imam Al-Hussein Moschee Konzert — Kairo' },
+        abdulbasit_aqsa_qiyamah: { en: 'Al-Aqsa Mosque Concert (Al-Qiyamah)', fr: 'Concert Al-Aqsa (Al-Qiyamah)', de: 'Al-Aqsa-Moschee Konzert (Al-Qiyamah)' },
+        minshawi_libya_fajr: { en: 'Legendary Tripoli Concert — Libya', fr: 'Concert Légendaire de Tripoli — Libye', de: 'Legendäres Tripolis-Konzert — Libyen' },
+        minshawi_kuwait_room: { en: 'Immortal Kuwait Concert', fr: 'Concert Immortel du Koweït', de: 'Unsterbliches Kuwait-Konzert' },
+        minshawi_aqsa_israa: { en: 'Blessed Al-Aqsa Mosque Concert', fr: 'Concert de la Mosquée Al-Aqsa', de: 'Konzert in der Al-Aqsa-Moschee' },
+        minshawi_shuara_radio: { en: 'Rare Historic Radio Recitation', fr: 'Récitation Radio Historique Rare', de: 'Seltene historische Radio-Rezitation' },
+        mustafa_imran_mihrab: { en: 'Immortal Recitation of Surah Aal-E-Imran', fr: 'Récitation Immortelle de Sourate Aal-E-Imran', de: 'Unsterbliche Rezitation der Sure Aal-E-Imran' },
+        mustafa_hud_naziat: { en: 'Reverent Recitation of Surah Hud', fr: 'Récitation Pieuse de Sourate Hud', de: 'Ehrfürchtige Rezitation der Sure Hud' },
+        mustafa_hussain_yusuf: { en: 'Masterpiece Recitation of Surah Yusuf', fr: 'Chef-d’œuvre de la Sourate Yusuf', de: 'Meisterhafte Rezitation der Sure Yusuf' },
+        husary_hussain_qadr: { en: 'Immortal Mujawwad Recitation of Surah Al-Qadr', fr: 'Récitation Mujawwad de Sourate Al-Qadr', de: 'Mujawwad-Rezitation der Sure Al-Qadr' },
+        husary_mujawwad_nur: { en: 'Verse of Light (Ayat An-Nur) Mujawwad', fr: 'Verset de la Lumière (Ayat An-Nur)', de: 'Lichtvers (Ayat An-Nur) Mujawwad' },
+        banna_hussain_naziat: { en: 'Reverent Recitation of Surah An-Nazi\'at', fr: 'Récitation de Sourate An-Nazi\'at', de: 'Rezitation der Sure An-Nazi\'at' },
+        banna_maryam_alex: { en: 'Opening Verses of Surah Maryam', fr: 'Ouverture de la Sourate Maryam', de: 'Eröffnungsverse der Sure Maryam' },
+        tablawi_ahzab_radio: { en: 'Verse of Blessings upon the Prophet ﷺ', fr: 'Verset de la Prière sur le Prophète ﷺ', de: 'Segensvers auf den Propheten ﷺ' },
+        tablawi_qisar_radio: { en: 'Recitation of Surah Ad-Duhaa', fr: 'Récitation de la Sourate Ad-Duhaa', de: 'Rezitation der Sure Ad-Duhaa' },
+        neana_rahman_radio: { en: 'Recitation of Surah Ar-Rahman', fr: 'Récitation de la Sourate Ar-Rahman', de: 'Rezitation der Sure Ar-Rahman' }
+      };
+      return byId[item.id]?.[lang] || byId[item.id]?.en || `${sName}`;
+    }
+
     function toArabicDigits(num) {
       const map = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
       return String(num).replace(/\d/g, d => map[Number(d)]);
@@ -6582,18 +6799,32 @@
 
     function populateSurahDropdown(selectedSurah = null) {
       if (!selectSurahEl) return;
+      const isAr = (state.currentLang || 'ar') === 'ar';
+      const lang = state.currentLang || 'ar';
       const reciterObj = state.currentReciterKey ? RECITERS_DATA[state.currentReciterKey] : null;
       const allowedList = reciterObj?.isSurahClipReciter ? reciterObj.availableSurahs : null;
+      const chooseSurahDefault = {
+        ar: '— اختر السورة —',
+        en: '— Select Surah —',
+        fr: '— Choisir la Sourate —',
+        de: '— Sure wählen —'
+      }[lang] || '— Select Surah —';
       const headerLabel = allowedList
-        ? `— اختر من سور الشيخ محمد رفعت (${toArabicDigits(allowedList.length)} سورة) —`
-        : '— اختر السورة —';
+        ? (isAr
+            ? `— اختر من سور الشيخ محمد رفعت (${toArabicDigits(allowedList.length)} سورة) —`
+            : `— Select from Sheikh Refaat Surahs (${allowedList.length}) —`)
+        : chooseSurahDefault;
 
       selectSurahEl.innerHTML = `<option value="" ${selectedSurah ? '' : 'selected'} disabled>${headerLabel}</option>`;
       SURAHS_META.forEach(([num, name, count]) => {
         if (allowedList && !allowedList.includes(num)) return;
         const opt = document.createElement('option');
         opt.value = String(num);
-        opt.textContent = `${toArabicDigits(num)}. سورة ${name} (${toArabicDigits(count)})`;
+        if (isAr) {
+          opt.textContent = `${toArabicDigits(num)}. سورة ${name} (${toArabicDigits(count)})`;
+        } else {
+          opt.textContent = `${num}. ${getLocalizedSurahName(num, true)} (${count})`;
+        }
         if (selectedSurah && Number(selectedSurah) === num) opt.selected = true;
         selectSurahEl.appendChild(opt);
       });
@@ -6603,18 +6834,22 @@
       const meta = SURAHS_META[surahNum - 1];
       if (!meta || !selectFromAyahEl || !selectToAyahEl) return;
       const count = meta[2];
-      selectFromAyahEl.innerHTML = '<option value="" disabled ' + (selectedFrom ? '' : 'selected') + '>— اختر الآية —</option>';
-      selectToAyahEl.innerHTML = '<option value="" disabled ' + (selectedTo ? '' : 'selected') + '>— اختر الآية —</option>';
+      const chooseAyahTxt = (typeof window.tRefa3y === 'function')
+        ? window.tRefa3y('optChooseAyah', '— Select Verse —')
+        : '— اختر الآية —';
+      selectFromAyahEl.innerHTML = `<option value="" disabled ${selectedFrom ? '' : 'selected'}>${chooseAyahTxt}</option>`;
+      selectToAyahEl.innerHTML = `<option value="" disabled ${selectedTo ? '' : 'selected'}>${chooseAyahTxt}</option>`;
       for (let a = 1; a <= count; a++) {
+        const lbl = getLocalizedAyahLabel(a);
         const opt1 = document.createElement('option');
         opt1.value = String(a);
-        opt1.textContent = `الآية ${toArabicDigits(a)}`;
+        opt1.textContent = lbl;
         if (selectedFrom && a === selectedFrom) opt1.selected = true;
         selectFromAyahEl.appendChild(opt1);
 
         const opt2 = document.createElement('option');
         opt2.value = String(a);
-        opt2.textContent = `الآية ${toArabicDigits(a)}`;
+        opt2.textContent = lbl;
         if (selectedTo && a === selectedTo) opt2.selected = true;
         selectToAyahEl.appendChild(opt2);
       }
@@ -6633,11 +6868,12 @@
       if (btnModeSingleAyah) btnModeSingleAyah.className = resolvedMode === 'single' ? activeCls : inactiveCls;
       if (btnModeMultiAyah) btnModeMultiAyah.className = resolvedMode === 'multi' ? activeCls : inactiveCls;
 
+      const t = window.tRefa3y || ((k, fb) => fb);
       if (resolvedMode === 'full') {
         toAyahWrapper.classList.remove('hidden');
         singleAyahApplyWrapper.classList.add('hidden');
         multiAyahApplyWrapper.classList.remove('hidden');
-        lblFromAyah.textContent = 'من الآية:';
+        lblFromAyah.textContent = t('lblFromAyahMulti', 'من الآية:');
         const sNum = parseInt(selectSurahEl?.value, 10) || state.selectedSurahNum;
         if (sNum) {
           const sCount = SURAHS_META[sNum - 1][2];
@@ -6648,12 +6884,12 @@
         toAyahWrapper.classList.remove('hidden');
         singleAyahApplyWrapper.classList.add('hidden');
         multiAyahApplyWrapper.classList.remove('hidden');
-        lblFromAyah.textContent = 'من الآية:';
+        lblFromAyah.textContent = t('lblFromAyahMulti', 'من الآية:');
       } else {
         toAyahWrapper.classList.add('hidden');
         singleAyahApplyWrapper.classList.remove('hidden');
         multiAyahApplyWrapper.classList.add('hidden');
-        lblFromAyah.textContent = 'الآية:';
+        lblFromAyah.textContent = t('lblFromAyahSingle', 'الآية:');
       }
     }
 
@@ -6674,22 +6910,29 @@
 
     function renderSurahClipControlsInSummary(surahNum, sName, sCount, startA, endA) {
       if (!surahSelectionSummary) return;
+      const isAr = (state.currentLang || 'ar') === 'ar';
       const isFullClip = (startA === 1 && endA === sCount);
-      const rangeLabel = startA === endA
-        ? `الآية ${toArabicDigits(startA)}`
-        : (isFullClip ? `المقطع كاملاً (١–${toArabicDigits(sCount)})` : `الآيات ${toArabicDigits(startA)}–${toArabicDigits(endA)}`);
+      const locSurahTitle = getLocalizedSurahName(surahNum, true);
+      const locSurahShort = getLocalizedSurahName(surahNum, false);
+      const rangeLabel = isAr
+        ? (startA === endA
+            ? `الآية ${toArabicDigits(startA)}`
+            : (isFullClip ? `المقطع كاملاً (١–${toArabicDigits(sCount)})` : `الآيات ${toArabicDigits(startA)}–${toArabicDigits(endA)}`))
+        : (startA === endA
+            ? getLocalizedAyahLabel(startA)
+            : (isFullClip ? `${window.tRefa3y ? window.tRefa3y('modeFullSurah', 'Full Clip') : 'Full Clip'} (1–${sCount})` : `${startA}–${endA}`));
 
       surahSelectionSummary.className = 'text-[11px] text-slate-200 bg-slate-950 border border-emerald-500/30 rounded-xl px-3 py-2';
       surahSelectionSummary.innerHTML = `
         <div class="flex items-center justify-between text-xs font-bold text-amber-200 flex-wrap gap-1">
-          <span>📖 سورة ${sName}</span>
+          <span>📖 ${locSurahTitle}</span>
           <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-200">${rangeLabel}</span>
         </div>
       `;
 
       const sec2HeaderBadge = document.getElementById('sec2HeaderBadge');
       if (sec2HeaderBadge) {
-        sec2HeaderBadge.textContent = `${sName} (${rangeLabel})`;
+        sec2HeaderBadge.textContent = `${locSurahShort} (${rangeLabel})`;
         sec2HeaderBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-200 truncate max-w-[120px] sm:max-w-[150px] font-bold';
       }
     }
@@ -6864,24 +7107,37 @@
         if (matches.length >= 40) break;
       }
 
+      const isAr = (state.currentLang || 'ar') === 'ar';
       if (matches.length === 0) {
-        searchStatusText.textContent = 'لا توجد نتائج مطابقة';
+        searchStatusText.textContent = isAr
+          ? 'لا توجد نتائج مطابقة'
+          : ({ en: 'No matching verses found', fr: 'Aucun verset correspondant trouvé', de: 'Keine passenden Verse gefunden' }[state.currentLang] || 'No matching verses found');
         return;
       }
 
-      searchStatusText.textContent = `النتائج (${toArabicDigits(matches.length)}) — اضغط لاختيار الآية:`;
+      searchStatusText.textContent = isAr
+        ? `النتائج (${toArabicDigits(matches.length)}) — اضغط لاختيار الآية:`
+        : ({
+            en: `Results (${matches.length}) — Click to select verse:`,
+            fr: `Résultats (${matches.length}) — Cliquez pour choisir le verset :`,
+            de: `Ergebnisse (${matches.length}) — Klicken, um Vers auszuwählen:`
+          }[state.currentLang] || `Results (${matches.length}) — Click to select verse:`);
       searchResultsList.classList.remove('hidden');
 
+      const selectLbl = isAr ? 'اختيار ←' : ({ en: 'Select →', fr: 'Choisir →', de: 'Wählen →' }[state.currentLang] || 'Select →');
       matches.forEach(m => {
         const itemBtn = document.createElement('button');
         itemBtn.type = 'button';
-        itemBtn.className = 'w-full text-right p-2 rounded-xl bg-slate-950 hover:bg-amber-500/20 border border-slate-800 hover:border-amber-400/50 transition block';
+        itemBtn.className = `w-full ${isAr ? 'text-right' : 'text-left'} p-2 rounded-xl bg-slate-950 hover:bg-amber-500/20 border border-slate-800 hover:border-amber-400/50 transition block`;
+        const locHeader = isAr
+          ? `سورة ${m.surahName} — الآية ${toArabicDigits(m.ayahNum)}`
+          : `${getLocalizedSurahName(m.surahNum, true)} — ${getLocalizedAyahLabel(m.ayahNum)}`;
         itemBtn.innerHTML = `
           <div class="flex items-center justify-between text-[11px] text-amber-300 font-bold mb-0.5">
-            <span>سورة ${m.surahName} — الآية ${toArabicDigits(m.ayahNum)}</span>
-            <span class="text-emerald-300">اختيار ←</span>
+            <span>${locHeader}</span>
+            <span class="text-emerald-300">${selectLbl}</span>
           </div>
-          <p class="font-quran text-xs text-slate-200 line-clamp-2">${m.text}</p>
+          <p class="font-quran text-xs text-slate-200 line-clamp-2 text-right" dir="rtl">${m.text}</p>
         `;
         itemBtn.addEventListener('click', () => {
           setAyahSelectionMode(false);
@@ -7319,10 +7575,33 @@
     }
 
     function getCurrentServerLabel(st, idx) {
-      if (st.serverLabels && st.serverLabels[idx]) {
-        return st.serverLabels[idx];
+      const lang = state.currentLang || 'ar';
+      if (lang === 'ar') {
+        if (st.serverLabels && st.serverLabels[idx]) {
+          return st.serverLabels[idx];
+        }
+        return `خادم ${toArabicDigits(idx + 1)}`;
       }
-      return `خادم ${toArabicDigits(idx + 1)}`;
+      const srvWord = { en: 'Server', fr: 'Serveur', de: 'Server' }[lang] || 'Server';
+      const chWord = { en: 'Channel', fr: 'Canal', de: 'Kanal' }[lang] || 'Channel';
+      if (st.id === 'mohamed_refaat_radio') {
+        const streamUrl = st.streams?.[idx] || '';
+        const matchNum = streamUrl.match(/\/(\d{3})\.mp3$/);
+        if (matchNum) {
+          const sNum = parseInt(matchNum[1], 10);
+          return `${chWord} ${idx + 1} (${getLocalizedSurahName(sNum, true)} — Sheikh Refaat)`;
+        }
+        return `${chWord} ${idx + 1} (Sheikh Mohamed Refaat)`;
+      }
+      if (st.id === 'cairo_official') {
+        return idx === 0
+          ? `${srvWord} 1 (Official Live Stream — misrquran.gov.eg)`
+          : `${srvWord} ${idx + 1} (Official Backup CDN)`;
+      }
+      const role = idx === 0
+        ? ({ en: 'Primary Live Stream', fr: 'Flux Direct Principal', de: 'Haupt-Live-Stream' }[lang] || 'Primary Live Stream')
+        : ({ en: 'Backup Stream', fr: 'Serveur de Secours', de: 'Backup-Stream' }[lang] || 'Backup Stream');
+      return `${srvWord} ${idx + 1} (${role})`;
     }
 
     function populateLiveServerSelect() {
@@ -7975,15 +8254,16 @@
       const activeTextBadge = document.getElementById('activeTextBadge');
       function syncActiveTextBadge() {
         if (!activeTextBadge || !selectTextModeEl) return;
+        const t = window.tRefa3y || ((k, fb) => fb);
         const val = selectTextModeEl.value;
         if (val === 'none') {
-          activeTextBadge.textContent = 'خلفية فقط';
+          activeTextBadge.textContent = t('badgeTextNone', 'Background Only');
           activeTextBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 truncate max-w-[120px]';
         } else if (val === 'ayah_transcript') {
-          activeTextBadge.textContent = 'آية آية متتابع';
+          activeTextBadge.textContent = t('badgeTextSeq', 'Verse-by-Verse');
           activeTextBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 truncate max-w-[120px] font-semibold';
         } else {
-          activeTextBadge.textContent = 'نص كامل';
+          activeTextBadge.textContent = t('badgeTextFull', 'Full Text');
           activeTextBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 truncate max-w-[120px] font-semibold';
         }
       }
@@ -7998,7 +8278,9 @@
       const activeWmBadge = document.getElementById('activeWatermarkBadge');
       function syncActiveWatermarkBadge() {
         if (!activeWmBadge) return;
-        const text = inputWmText ? (inputWmText.value.trim() || 'بدون توقيع') : 'Refa3y';
+        const isAr = (state.currentLang || 'ar') === 'ar';
+        const emptyLbl = isAr ? 'بدون توقيع' : 'No Signature';
+        const text = inputWmText ? (inputWmText.value.trim() || emptyLbl) : 'Refa3y';
         activeWmBadge.textContent = text.slice(0, 16);
       }
       if (inputWmText) inputWmText.addEventListener('input', syncActiveWatermarkBadge);
@@ -8137,8 +8419,8 @@
         lblCustomAudio: 'أو ارفع ملفاً صوتياً من جهازك:',
         rareSearchPlaceholder: 'ابحث باسم الشيخ (محمد رفعت، عبد الباسط، المنشاوي...) أو السورة...',
         sec2TitleStandard: 'اختر السورة والآيات',
-        sec2TitleRefaat: '٢. أداة التحكم في مقطع الشيخ محمد رفعت',
-        sec2TitleRare: '٢. أداة التحكم في المقطع والآيات المعروضة',
+        sec2TitleRefaat: 'أداة التحكم في مقطع الشيخ محمد رفعت',
+        sec2TitleRare: 'أداة التحكم في المقطع والآيات المعروضة',
         searchAyahPlaceholder: 'ابحث عن آية في المصحف...',
         btnSearchAyah: 'بحث',
         lblSurah: 'السورة:',
@@ -8324,8 +8606,8 @@
         lblCustomAudio: 'Or upload an audio file from your device:',
         rareSearchPlaceholder: 'Search by Sheikh name or Surah...',
         sec2TitleStandard: 'Select Surah & Verses',
-        sec2TitleRefaat: '2. Sheikh Mohamed Refaat Clip Controller',
-        sec2TitleRare: '2. Clip & Displayed Verses Controller',
+        sec2TitleRefaat: 'Sheikh Mohamed Refaat Clip Controller',
+        sec2TitleRare: 'Clip & Displayed Verses Controller',
         searchAyahPlaceholder: 'Search for a verse in the Quran...',
         btnSearchAyah: 'Search',
         lblSurah: 'Surah:',
@@ -8511,8 +8793,8 @@
         lblCustomAudio: 'Ou importez un fichier audio depuis votre appareil :',
         rareSearchPlaceholder: 'Rechercher par Cheikh ou Sourate...',
         sec2TitleStandard: 'Choisir la Sourate et les Versets',
-        sec2TitleRefaat: '2. Contrôle de Récitation — Cheikh Refaat',
-        sec2TitleRare: '2. Contrôle de l’Extrait et des Versets',
+        sec2TitleRefaat: 'Contrôle de Récitation — Cheikh Refaat',
+        sec2TitleRare: 'Contrôle de l’Extrait et des Versets',
         searchAyahPlaceholder: 'Rechercher un verset dans le Coran...',
         btnSearchAyah: 'Chercher',
         lblSurah: 'Sourate :',
@@ -8698,8 +8980,8 @@
         lblCustomAudio: 'Oder eigene Audiodatei vom Gerät hochladen:',
         rareSearchPlaceholder: 'Nach Scheich oder Sure suchen...',
         sec2TitleStandard: 'Sure & Verse auswählen',
-        sec2TitleRefaat: '2. Steuerung für Scheich Mohamed Refaat',
-        sec2TitleRare: '2. Steuerung für Abschnitt & Verse',
+        sec2TitleRefaat: 'Steuerung für Scheich Mohamed Refaat',
+        sec2TitleRare: 'Steuerung für Abschnitt & Verse',
         searchAyahPlaceholder: 'Nach einem Vers im Koran suchen...',
         btnSearchAyah: 'Suchen',
         lblSurah: 'Sure:',
@@ -8839,8 +9121,12 @@
 
     window.tRefa3y = function(key, fallback) {
       const lang = state.currentLang || 'ar';
-      const dict = I18N_DICT[lang] || I18N_DICT.ar;
-      return (dict && dict[key] !== undefined) ? dict[key] : (fallback !== undefined ? fallback : (I18N_DICT.ar[key] || key));
+      const dict = I18N_DICT[lang] || I18N_DICT.en || I18N_DICT.ar;
+      if (dict && dict[key] !== undefined) return dict[key];
+      if (lang !== 'ar' && I18N_DICT.en && I18N_DICT.en[key] !== undefined) {
+        return I18N_DICT.en[key];
+      }
+      return fallback !== undefined ? fallback : (I18N_DICT.en?.[key] || I18N_DICT.ar?.[key] || key);
     };
 
     window.translateStatusText = function(rawText) {
@@ -9037,6 +9323,20 @@
       setQueryTxt('#btnExpandAllSections span', d.expandAll);
       setQueryTxt('#btnCollapseAllSections span', d.collapseAll);
 
+      // تحديث أرقام الأقسام الخمسة من الخارج (١..٥ في العربية، و 1..5 في باقي اللغات) ومحاذاة الأزرار
+      document.querySelectorAll('.collapsible-section[data-section]').forEach(sec => {
+        const secNum = sec.getAttribute('data-section');
+        const toggleBtn = sec.querySelector('.section-toggle-btn');
+        if (toggleBtn) {
+          toggleBtn.classList.toggle('text-right', isRtl);
+          toggleBtn.classList.toggle('text-left', !isRtl);
+        }
+        const numBadge = sec.querySelector('.section-toggle-btn > div:first-child > span:first-child');
+        if (numBadge && secNum) {
+          numBadge.textContent = (validLang === 'ar') ? toArabicDigits(secNum) : String(secNum);
+        }
+      });
+
       setQueryTxt('.collapsible-section[data-section="1"] h2', d.sec1Title);
       if (!state.currentReciterKey && !state.customAudioUrl && !state.currentRareRecitationId) {
         setTxt('activeReciterBadge', d.badgeUnselected);
@@ -9064,13 +9364,28 @@
         btn.classList.toggle('text-right', isRtl);
         btn.classList.toggle('text-left', !isRtl);
         const rKey = btn.getAttribute('data-reciter');
-        const pair = reciterLabelsMap[rKey]?.[validLang] || reciterLabelsMap[rKey]?.ar;
+        const pair = reciterLabelsMap[rKey]?.[validLang] || reciterLabelsMap[rKey]?.en;
         const spans = btn.querySelectorAll('span');
         if (pair && spans[0] && spans[1]) {
           spans[0].textContent = pair[0];
           spans[1].textContent = pair[1];
         }
       });
+
+      // تحديث شارة القارئ النشط من الخارج (#activeReciterBadge) عند تبديل اللغة
+      if (state.currentRareRecitationId) {
+        const activeRareObj = RARE_RECITATIONS_LIST.find(r => r.id === state.currentRareRecitationId);
+        if (activeRareObj && activeReciterBadge) {
+          activeReciterBadge.textContent = (validLang === 'ar')
+            ? activeRareObj.reciterName.replace('الشيخ ', '')
+            : getLocalizedRareReciterName(activeRareObj).replace(/^(Sheikh|Cheikh|Scheich)\s+/i, '');
+        }
+      } else if (state.currentReciterKey && reciterLabelsMap[state.currentReciterKey]) {
+        const pair = reciterLabelsMap[state.currentReciterKey]?.[validLang] || reciterLabelsMap[state.currentReciterKey]?.en;
+        if (pair && activeReciterBadge) {
+          activeReciterBadge.textContent = pair[0];
+        }
+      }
 
       const rareFilterMap = {
         refaat: { ar: '🎙️ الشيخ محمد رفعت (٣١)', en: '🎙️ Sheikh Mohamed Refaat (31)', fr: '🎙️ Cheikh Mohamed Refaat (31)', de: '🎙️ Scheich Mohamed Refaat (31)' },
@@ -9084,7 +9399,7 @@
       };
       document.querySelectorAll('#rareSheikhFilterBar .rare-filter-btn').forEach(btn => {
         const fKey = btn.getAttribute('data-sheikh-filter');
-        const txt = rareFilterMap[fKey]?.[validLang] || rareFilterMap[fKey]?.ar;
+        const txt = rareFilterMap[fKey]?.[validLang] || rareFilterMap[fKey]?.en;
         if (txt) btn.textContent = txt;
       });
 
@@ -9094,6 +9409,11 @@
         setTxt('sec2HeaderBadge', d.badgeNotChosenYet);
         const sumEl = document.getElementById('surahSelectionSummary');
         if (sumEl && state.reciterTabMode !== 'rare') sumEl.textContent = d.surahSummaryEmpty;
+      } else if (state.currentRareRecitationId) {
+        const activeRareObj = RARE_RECITATIONS_LIST.find(r => r.id === state.currentRareRecitationId);
+        if (activeRareObj) {
+          setTxt('sec2HeaderBadge', getLocalizedSurahName(activeRareObj.surahNum, true));
+        }
       }
       const searchInp = document.getElementById('searchAyahInput');
       if (searchInp) searchInp.placeholder = d.searchAyahPlaceholder;
@@ -9111,6 +9431,7 @@
 
       // القسم ٣
       setTxt('sec3DynamicTitle', state.studioSubMode === 'video' ? d.sec3TitleVideo : d.sec3TitleImages);
+      updateBgGalleryActiveState();
       setQueryTxt('label[for="customBgInput"]', d.lblCustomBgImage);
       setQueryTxt('label[for="customVideoInput"]', d.lblCustomBgVideo);
       const mutedSpans = document.querySelectorAll('#videoCustomControlsPanel > div:first-child span span');
@@ -9192,6 +9513,135 @@
       const waveChkSpan = document.getElementById('chkAudioWave')?.previousElementSibling;
       if (waveChkSpan) waveChkSpan.textContent = d.lblAudioWave;
       setTxt('btnResetEffects', d.btnResetEffects);
+
+      // تحديث خوادم البث المباشر في القائمة المنسدلة
+      if (typeof populateLiveServerSelect === 'function') {
+        populateLiveServerSelect();
+      }
+
+      // تحديث قوائم السور والآيات والنوادر في القسم ١ و ٢
+      if (typeof populateSurahDropdown === 'function') {
+        const curS = Number(selectSurahEl?.value) || state.selectedSurahNum || null;
+        populateSurahDropdown(curS);
+        if (curS && typeof populateAyahDropdowns === 'function') {
+          const curFrom = Number(selectFromAyahEl?.value) || state.selectedFromAyah || null;
+          const curTo = Number(selectToAyahEl?.value) || state.selectedToAyah || null;
+          populateAyahDropdowns(curS, curFrom, curTo);
+          if (state.currentAyahKey && !state.currentRareRecitationId && curFrom) {
+            const sMeta = SURAHS_META[curS - 1];
+            if (sMeta && typeof renderSurahClipControlsInSummary === 'function') {
+              renderSurahClipControlsInSummary(curS, sMeta[1], sMeta[2], curFrom, curTo || curFrom);
+            }
+          }
+        } else {
+          setQueryTxt('#selectFromAyah option[value=""]', d.optChooseAyah || I18N_DICT.en.optChooseAyah);
+          setQueryTxt('#selectToAyah option[value=""]', d.optChooseAyah || I18N_DICT.en.optChooseAyah);
+        }
+      }
+      if (typeof renderRareRecitationsList === 'function') {
+        renderRareRecitationsList(state.activeRareSheikhFilter || 'refaat', rareSearchInput?.value || '');
+      }
+      if (state.currentRareRecitationId && typeof renderRareRecitationSelectionControls === 'function') {
+        const activeRare = RARE_RECITATIONS_LIST.find(r => r.id === state.currentRareRecitationId);
+        if (activeRare) {
+          renderRareRecitationSelectionControls(
+            activeRare,
+            state.rareSelectedFromAyah || activeRare.startAyah,
+            state.rareSelectedToAyah || activeRare.endAyah,
+            state.rareTakeFullClip !== false
+          );
+        }
+      }
+
+      // ترجمة قائمة نوع الخط العربي للآيات (#selectAyahFontFamily) مع صمام أمان للإنجليزية
+      const ayahFontOptionsMap = {
+        'Scheherazade New': {
+          ar: 'خط شهرزاد المصحفي النسخي (Scheherazade New — الافتراضي)',
+          en: 'Scheherazade New — Quranic Naskh (Default)',
+          fr: 'Scheherazade New — Naskh Coranique (Défaut)',
+          de: 'Scheherazade New — Koran-Naskh (Standard)'
+        },
+        'Amiri Quran': {
+          ar: 'خط أميري قرآني عثماني (Amiri Quran)',
+          en: 'Amiri Quran — Uthmani Script',
+          fr: 'Amiri Quran — Écriture Othmanienne',
+          de: 'Amiri Quran — Uthmanische Schrift'
+        },
+        'Noto Naskh Arabic': {
+          ar: 'خط النسخ القرآني الواضح (Noto Naskh Arabic)',
+          en: 'Noto Naskh Arabic — Clear Naskh',
+          fr: 'Noto Naskh Arabic — Naskh Clair',
+          de: 'Noto Naskh Arabic — Klares Naskh'
+        },
+        'Lateef': {
+          ar: 'خط لطيف التراثي الأنيق (Lateef)',
+          en: 'Lateef — Classic Heritage Script',
+          fr: 'Lateef — Style Patrimoine Élégant',
+          de: 'Lateef — Klassische Traditionsschrift'
+        },
+        'Amiri': {
+          ar: 'خط أميري الكلاسيكي الأصيل (Amiri)',
+          en: 'Amiri — Authentic Classical',
+          fr: 'Amiri — Classique Authentique',
+          de: 'Amiri — Authentisch Klassisch'
+        },
+        'Aref Ruqaa': {
+          ar: 'خط عارف رقعة الفني (Aref Ruqaa)',
+          en: 'Aref Ruqaa — Artistic Ruqaa',
+          fr: 'Aref Ruqaa — Ruqaa Artistique',
+          de: 'Aref Ruqaa — Künstlerisches Ruqaa'
+        },
+        'Reem Kufi': {
+          ar: 'خط ريم الكوفي المصحفي (Reem Kufi)',
+          en: 'Reem Kufi — Modern Kufic',
+          fr: 'Reem Kufi — Koufique Coranique',
+          de: 'Reem Kufi — Kufische Schrift'
+        },
+        'Harmattan': {
+          ar: 'خط هرمتان المبسّط الواضح (Harmattan)',
+          en: 'Harmattan — Simplified Clear Script',
+          fr: 'Harmattan — Écriture Simplifiée',
+          de: 'Harmattan — Vereinfachte klare Schrift'
+        }
+      };
+      document.querySelectorAll('#selectAyahFontFamily option').forEach(opt => {
+        const entry = ayahFontOptionsMap[opt.value];
+        if (entry) {
+          opt.textContent = entry[validLang] || entry.en;
+        }
+      });
+
+      // ترجمة أزرار اختيار لون كتابة الآيات ([data-ayah-color]) وأزرار لون التوقيع ([data-wm-color])
+      const ayahColorLabelsMap = {
+        '#fef08a': { ar: 'ذهبي قرآني', en: 'Quranic Gold', fr: 'Or Coranique', de: 'Koran-Gold' },
+        '#ffffff': { ar: 'أبيض ناصع', en: 'Pure White', fr: 'Blanc Pur', de: 'Reinweiß' },
+        '#fde68a': { ar: 'عاجي دافئ', en: 'Warm Ivory', fr: 'Ivoire Chaud', de: 'Warmes Elfenbein' },
+        '#fbbf24': { ar: 'ذهبي ملكي', en: 'Royal Gold', fr: 'Or Royal', de: 'Königsgold' },
+        '#a7f3d0': { ar: 'زمردي فاتح', en: 'Light Emerald', fr: 'Émeraude Clair', de: 'Hellsmaragd' },
+        '#bae6fd': { ar: 'سماوي نوراني', en: 'Radiant Sky', fr: 'Bleu Céleste', de: 'Himmelblau' },
+        '#fecdd3': { ar: 'وردي هادئ', en: 'Soft Rose', fr: 'Rose Doux', de: 'Sanftes Rosa' }
+      };
+      document.querySelectorAll('.ayah-color-swatch[data-ayah-color]').forEach(btn => {
+        const colKey = (btn.getAttribute('data-ayah-color') || '').toLowerCase();
+        const entry = ayahColorLabelsMap[colKey];
+        if (entry) {
+          btn.textContent = entry[validLang] || entry.en;
+        }
+      });
+
+      const wmColorLabelsMap = {
+        '#fde68a': { ar: 'ذهبي فاتح', en: 'Light Gold', fr: 'Or Clair', de: 'Hellgold' },
+        '#f59e0b': { ar: 'كهرماني', en: 'Amber', fr: 'Ambre', de: 'Bernstein' },
+        '#f8fafc': { ar: 'أبيض لؤلؤي', en: 'Pearl White', fr: 'Blanc Perle', de: 'Perlweiß' },
+        '#6ee7b7': { ar: 'زمردي', en: 'Emerald', fr: 'Émeraude', de: 'Smaragd' }
+      };
+      document.querySelectorAll('.wm-color-swatch[data-wm-color]').forEach(btn => {
+        const colKey = (btn.getAttribute('data-wm-color') || '').toLowerCase();
+        const entry = wmColorLabelsMap[colKey];
+        if (entry) {
+          btn.textContent = entry[validLang] || entry.en;
+        }
+      });
 
       // القسم ٥
       setQueryTxt('.collapsible-section[data-section="5"] h2', d.sec5Title);

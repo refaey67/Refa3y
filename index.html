@@ -7,11 +7,6 @@
   <script>
     (function() {
       try {
-        if ('caches' in window) {
-          caches.keys().then(function(keys) {
-            keys.forEach(function(k) { caches.delete(k); });
-          });
-        }
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
             navigator.serviceWorker.register('./sw.js').then(function(reg) {
@@ -331,6 +326,23 @@
       background-color: #ffffff !important;
       border-color: rgba(217, 119, 6, 0.35) !important;
       box-shadow: 0 10px 25px rgba(15, 23, 42, 0.14) !important;
+    }
+    html.light-theme #btnDownloadApkPureModal {
+      background-color: #10b981 !important;
+      color: #052e16 !important;
+      border-color: #059669 !important;
+    }
+    html.light-theme #btnDownloadApkPureModal:hover {
+      background-color: #34d399 !important;
+    }
+    html.light-theme #btnDownloadApkModal {
+      background-color: #ecfdf5 !important;
+      color: #047857 !important;
+      border-color: #10b981 !important;
+    }
+    html.light-theme #btnDownloadApkModal:hover {
+      background-color: #d1fae5 !important;
+      color: #065f46 !important;
     }
     #headerNavPills:not(.hidden) {
       display: grid !important;
@@ -766,6 +778,10 @@
                   <a id="downloadVideoLink" href="#videoCanvas" download="quran_video.mp4" class="hidden px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs items-center gap-1 transition">
                     <span>حفظ نسخة أخرى</span>
                   </a>
+
+                  <button id="btnShareExportedVideo" type="button" class="hidden px-3 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs items-center gap-1.5 transition">
+                    <span>📤 مشاركة / حفظ للهاتف</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -1410,7 +1426,6 @@
             <line x1="24.8" y1="28.6" x2="30.2" y2="28.6" stroke="#022c22" stroke-width="1.6" stroke-linecap="round"/>
           </svg>
         </div>
-        <img id="modalAppIconPreview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><defs><linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'><stop offset='0%25' stop-color='%230f172a'/><stop offset='100%25' stop-color='%23050811'/></linearGradient><linearGradient id='gold' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%23fde68a'/><stop offset='50%25' stop-color='%23fbbf24'/><stop offset='100%25' stop-color='%23d97706'/></linearGradient></defs><rect width='128' height='128' rx='28' fill='url(%23bg)'/><rect x='3' y='3' width='122' height='122' rx='25' fill='none' stroke='%23f59e0b' stroke-width='3.5'/><path d='M16 112V54C16 28 40 12 64 7C88 12 112 28 112 54V112M12 112H116' fill='none' stroke='%23f59e0b' stroke-width='2.6' stroke-linecap='round' opacity='0.88'/><path d='M54.5 26A9.8 9.8 0 1 0 73.5 26A8.2 8.2 0 1 1 54.5 26Z' fill='%23fde68a'/><path d='M44 22A17 17 0 0 0 44 40M36 16A25 25 0 0 0 36 46M84 22A17 17 0 0 1 84 40M92 16A25 25 0 0 1 92 46' fill='none' stroke='%23fbbf24' stroke-width='3' stroke-linecap='round'/><path d='M64 52C52 46 35 46 24 51V85C35 80 52 80 64 86ZM64 52C76 46 93 46 104 51V85C93 80 76 80 64 86Z' fill='%23062c28' stroke='url(%23gold)' stroke-width='3.8' stroke-linejoin='round'/><path d='M32 60C42 57 52 57 58 60M32 69C42 66 52 66 58 69M32 78C42 75 52 75 58 78M96 60C86 57 76 57 70 60M96 69C86 66 76 66 70 69M96 78C86 75 76 75 70 78' fill='none' stroke='%23fde68a' stroke-width='2.4' stroke-linecap='round'/><path d='M30 91L64 85L98 91M44 100L64 88L84 100' fill='none' stroke='%23f59e0b' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/></svg>" alt="Refa3y" class="hidden" />
         <div>
           <h3 class="text-base font-bold text-amber-300">تحميل وتثبيت تطبيق Refa3y</h3>
           <p class="text-xs text-slate-400">اختر طريقة التثبيت المناسبة لجهازك</p>
@@ -2121,6 +2136,7 @@
     const labelRecordBtn = document.getElementById('labelRecordBtn');
     const recordingBadge = document.getElementById('recordingBadge');
     const downloadVideoLink = document.getElementById('downloadVideoLink');
+    const btnShareExportedVideo = document.getElementById('btnShareExportedVideo');
     const chkAutoDownloadOnSelect = document.getElementById('chkAutoDownloadOnSelect');
     const exportProgressOverlay = document.getElementById('exportProgressOverlay');
     const exportOverlayTitle = document.getElementById('exportOverlayTitle');
@@ -5961,6 +5977,27 @@
     }
 
     let lastExportedVideoObjectUrl = null;
+    let lastExportedVideoFile = null;
+
+    if (btnShareExportedVideo) {
+      btnShareExportedVideo.addEventListener('click', async () => {
+        if (!lastExportedVideoFile) return;
+        try {
+          if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [lastExportedVideoFile] }))) {
+            await navigator.share({
+              files: [lastExportedVideoFile],
+              title: lastExportedVideoFile.name
+            });
+            return;
+          }
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+        }
+        if (lastExportedVideoObjectUrl) {
+          downloadVideoLink.click();
+        }
+      });
+    }
 
     function triggerInstantFileDownload(blob, filename) {
       const now = Date.now();
@@ -5981,6 +6018,17 @@
       downloadVideoLink.download = filename;
       downloadVideoLink.classList.remove('hidden');
       downloadVideoLink.classList.add('inline-flex');
+
+      try {
+        const videoFile = new File([blob], filename, { type: blob.type || 'video/mp4' });
+        lastExportedVideoFile = videoFile;
+        const canShareFile = typeof navigator.canShare === 'function' && navigator.canShare({ files: [videoFile] });
+        const isMobileOrWebView = /Android|iPhone|iPad|iPod|wv/i.test(navigator.userAgent || '');
+        if (btnShareExportedVideo && (canShareFile || (isMobileOrWebView && typeof navigator.share === 'function'))) {
+          btnShareExportedVideo.classList.remove('hidden');
+          btnShareExportedVideo.classList.add('inline-flex');
+        }
+      } catch (e) {}
 
       // تفادي التكرار إذا كان التطبيق يعمل داخل بيئة الأندرويد أو المتصفح
       const tempAnchor = document.createElement('a');
@@ -8076,6 +8124,7 @@
         autoDownload: 'تحميل تلقائي',
         btnRecordVideo: 'تحميل المقطع فوراً (فيديو + صوت القارئ)',
         btnSaveAnother: 'حفظ نسخة أخرى',
+        btnShareVideo: '📤 مشاركة / حفظ للهاتف',
         sectionsHeader: 'أقسام إعدادات التصميم',
         expandAll: 'فتح الكل',
         collapseAll: 'طي الكل',
@@ -8258,6 +8307,7 @@
         autoDownload: 'Auto-download',
         btnRecordVideo: 'Download Video Now (Video + Audio)',
         btnSaveAnother: 'Save Another Copy',
+        btnShareVideo: '📤 Share / Save to Phone',
         sectionsHeader: 'Studio Design Settings',
         expandAll: 'Expand All',
         collapseAll: 'Collapse All',
@@ -8440,6 +8490,7 @@
         autoDownload: 'Téléchargement auto',
         btnRecordVideo: 'Télécharger la Vidéo (Vidéo + Audio)',
         btnSaveAnother: 'Enregistrer une copie',
+        btnShareVideo: '📤 Partager / Enregistrer',
         sectionsHeader: 'Paramètres du Studio',
         expandAll: 'Tout Ouvrir',
         collapseAll: 'Tout Réduire',
@@ -8622,6 +8673,7 @@
         autoDownload: 'Auto-Download',
         btnRecordVideo: 'Video jetzt herunterladen (Video + Audio)',
         btnSaveAnother: 'Weitere Kopie speichern',
+        btnShareVideo: '📤 Teilen / Speichern',
         sectionsHeader: 'Design-Einstellungen',
         expandAll: 'Alle öffnen',
         collapseAll: 'Alle schließen',
@@ -8955,6 +9007,7 @@
       if (autoDlSpan) autoDlSpan.textContent = d.autoDownload;
       if (!state.isRecording) setTxt('labelRecordBtn', d.btnRecordVideo);
       setQueryTxt('#downloadVideoLink span', d.btnSaveAnother);
+      setQueryTxt('#btnShareExportedVideo span', d.btnShareVideo);
 
       if (audioStatusBadge) {
         const rawSt = state.lastRawStatusText || 'اختر القارئ والآية للبدء';

@@ -1419,24 +1419,24 @@
 
       <!-- ١. تحميل تطبيق الأندرويد (متجر APKPure الرسمي + تحميل مباشر APK) -->
       <div id="apkDownloadSectionBox" class="bg-emerald-500/10 border border-emerald-400/40 rounded-xl p-3.5 space-y-2.5">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center">
           <span class="text-xs font-bold text-emerald-300">١. نسخة تطبيق الأندرويد الكاملة (APK)</span>
-          <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-200 font-semibold">يعمل في الخلفية</span>
         </div>
         <p class="text-xs text-slate-300 leading-relaxed">حزمة تثبيت أندرويد مباشرة تعمل كتطبيق مستقل وتدعم استمرار صوت الإذاعة والتلاوة في الخلفية.</p>
 
         <div class="space-y-2 pt-0.5">
           <!-- الخيار ١: التحميل من متجر APKPure الرسمي -->
-          <a id="btnDownloadApkPureModal" href="https://apkpure.com/p/com.aistudio.refa3y.quran" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition flex items-center justify-between gap-2 shadow-md border border-amber-300/60">
-            <div class="flex items-center gap-2 min-w-0">
-              <span class="w-7 h-7 rounded-lg bg-slate-950/15 flex items-center justify-center shrink-0">
-                <svg class="w-4 h-4 text-slate-950 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/>
-                </svg>
-              </span>
-              <span id="labelApkPureMain" class="truncate">تحميل من متجر APKPure الرسمي</span>
-            </div>
-            <span id="labelApkPureBadge" class="text-[10px] px-2 py-0.5 rounded-md bg-slate-950/85 text-amber-300 font-mono font-semibold shrink-0">Get it on APKPure</span>
+          <a id="btnDownloadApkPureModal" href="https://apkpure.com/p/com.aistudio.refa3y.quran" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2.5 shadow-md border border-amber-300/60">
+            <span class="w-7 h-7 rounded-lg bg-emerald-950 border border-emerald-300/40 flex items-center justify-center shrink-0 shadow-sm">
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <!-- شعار APKPure الهندسي (حرف A المثلث مع 3 أسهم سفلية يميناً) -->
+                <path d="M12 3.2L3.4 20H7.3L9.4 15.6H14.4L12.6 12.2H10.9L12 9.8L14.9 15.6L16.8 12L12 3.2Z" fill="#ffffff"/>
+                <path d="M14.6 13.6L16.6 15.5L18.6 13.6" stroke="#6ee7b7" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.7 16.1L17.7 18.0L19.7 16.1" stroke="#34d399" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16.8 18.6L18.8 20.5L20.8 18.6" stroke="#a7f3d0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span id="labelApkPureMain" class="leading-snug text-center">تحميل من متجر APKPure الرسمي</span>
           </a>
 
           <!-- الخيار ٢: التحميل المباشر لملف APK (GitHub Release) -->
@@ -8183,10 +8183,8 @@
         modalTitle: 'تحميل وتثبيت تطبيق Refa3y',
         modalSub: 'اختر طريقة التثبيت المناسبة لجهازك',
         modalApkTitle: '١. نسخة تطبيق الأندرويد الكاملة (APK)',
-        modalApkBadge: 'يعمل في الخلفية',
         modalApkDesc: 'حزمة تثبيت أندرويد مباشرة تعمل كتطبيق مستقل وتدعم استمرار صوت الإذاعة والتلاوة في الخلفية.',
         modalApkPureBtn: 'تحميل من متجر APKPure الرسمي',
-        modalApkPureBadge: 'Get it on APKPure',
         modalApkBtn: 'تحميل مباشر لملف التطبيق (Refa3y.apk)',
         modalPwaTitle: '٢. تثبيت فوري سريع بدون تنزيل ملف:',
         modalPwaBtn: 'تثبيت مباشر على الشاشة الرئيسية',
@@ -8367,10 +8365,8 @@
         modalTitle: 'Download & Install Refa3y App',
         modalSub: 'Choose the installation method for your device',
         modalApkTitle: '1. Full Android App Package (APK)',
-        modalApkBadge: 'Background Play',
         modalApkDesc: 'Direct Android APK installer that runs as a standalone app with full background audio playback.',
-        modalApkPureBtn: 'Download from APKPure (Official Store)',
-        modalApkPureBadge: 'Get it on APKPure',
+        modalApkPureBtn: 'Download from Official APKPure Store',
         modalApkBtn: 'Direct Download (APK)',
         modalPwaTitle: '2. Instant Browser Install (No file download):',
         modalPwaBtn: 'Install Directly to Home Screen',
@@ -8551,10 +8547,8 @@
         modalTitle: 'Télécharger et Installer l’Application Refa3y',
         modalSub: 'Choisissez la méthode d’installation pour votre appareil',
         modalApkTitle: '1. Application Android Complète (APK)',
-        modalApkBadge: 'Lecture en Arrière-plan',
         modalApkDesc: 'Fichier APK Android autonome prenant en charge la lecture continue de la radio en arrière-plan.',
-        modalApkPureBtn: 'Télécharger sur APKPure (Boutique Officielle)',
-        modalApkPureBadge: 'Get it on APKPure',
+        modalApkPureBtn: 'Télécharger sur la Boutique Officielle APKPure',
         modalApkBtn: 'Téléchargement Direct (APK)',
         modalPwaTitle: '2. Installation Rapide via le Navigateur :',
         modalPwaBtn: 'Installer sur l’Écran d’Accueil',
@@ -8735,10 +8729,8 @@
         modalTitle: 'Refa3y App herunterladen & installieren',
         modalSub: 'Wählen Sie die passende Installationsmethode für Ihr Gerät',
         modalApkTitle: '1. Vollständige Android-App (APK)',
-        modalApkBadge: 'Hintergrund-Audio',
         modalApkDesc: 'Direktes Android-APK-Installationspaket mit kontinuierlicher Audiowiedergabe im Hintergrund.',
-        modalApkPureBtn: 'Von APKPure herunterladen (Offizieller Store)',
-        modalApkPureBadge: 'Get it on APKPure',
+        modalApkPureBtn: 'Vom offiziellen APKPure Store herunterladen',
         modalApkBtn: 'Direkter Download (APK)',
         modalPwaTitle: '2. Schnelle Browser-Installation (Ohne Datei-Download):',
         modalPwaBtn: 'Direkt zum Startbildschirm hinzufügen',
@@ -9156,14 +9148,12 @@
       if (modalSubEl) modalSubEl.textContent = d.modalSub;
       const apkBox = document.getElementById('apkDownloadSectionBox') || document.getElementById('btnDownloadApkModal')?.closest('.rounded-xl');
       if (apkBox) {
-        const topSpans = apkBox.querySelectorAll('div:first-child > span');
-        if (topSpans[0]) topSpans[0].textContent = d.modalApkTitle;
-        if (topSpans[1]) topSpans[1].textContent = d.modalApkBadge;
+        const topSpan = apkBox.querySelector('div:first-child > span');
+        if (topSpan) topSpan.textContent = d.modalApkTitle;
         const p = apkBox.querySelector('p');
         if (p) p.textContent = d.modalApkDesc;
       }
       setTxt('labelApkPureMain', d.modalApkPureBtn);
-      setTxt('labelApkPureBadge', d.modalApkPureBadge);
       setTxt('labelDirectApkBtn', d.modalApkBtn);
       setQueryTxt('#nativeInstallPromptBox > span', d.modalPwaTitle);
       setTxt('btnTriggerNativeInstall', d.modalPwaBtn);

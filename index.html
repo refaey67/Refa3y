@@ -771,6 +771,11 @@
                     <span>تحميل تلقائي</span>
                   </label>
 
+                  <label class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 text-xs font-semibold cursor-pointer">
+                    <input id="chkTrimLeadingSilence" type="checkbox" checked class="rounded accent-emerald-500 w-3.5 h-3.5" />
+                    <span id="labelTrimSilence">قص السكوت بالبداية</span>
+                  </label>
+
                   <button id="btnRecordVideo" type="button" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition">
                     <span id="labelRecordBtn">تحميل المقطع فوراً (فيديو + صوت القارئ)</span>
                   </button>
@@ -2092,7 +2097,9 @@
       videoTrimEnd: 10,
       isVideoPreviewLooping: false,
       focalX: 0.50,
-      focalY: 0.42
+      focalY: 0.42,
+      trimLeadingSilence: true,
+      trimmedSingleAudioUrl: null
     };
 
     const audioEl = document.getElementById('quranAudio');
@@ -2139,6 +2146,7 @@
     const downloadVideoLink = document.getElementById('downloadVideoLink');
     const btnShareExportedVideo = document.getElementById('btnShareExportedVideo');
     const chkAutoDownloadOnSelect = document.getElementById('chkAutoDownloadOnSelect');
+    const chkTrimLeadingSilence = document.getElementById('chkTrimLeadingSilence');
     const exportProgressOverlay = document.getElementById('exportProgressOverlay');
     const exportOverlayTitle = document.getElementById('exportOverlayTitle');
     const exportOverlaySub = document.getElementById('exportOverlaySub');
@@ -3134,6 +3142,87 @@
       return sliced;
     }
 
+    function trimLeadingSilence(audioBuffer, options = {}) {
+      if (!audioBuffer || !audioBuffer.length || !audioBuffer.sampleRate) {
+        return audioBuffer;
+      }
+
+      const threshold = typeof options.threshold === 'number' ? options.threshold : 0.015;
+      const windowMs = typeof options.windowMs === 'number' ? options.windowMs : 20;
+      const preRollSec = typeof options.preRollSec === 'number' ? options.preRollSec : 0.12;
+      const minTrimSec = typeof options.minTrimSec === 'number' ? options.minTrimSec : 0.20;
+      const minRemainingSec = typeof options.minRemainingSec === 'number' ? options.minRemainingSec : 0.4;
+      const maxScanSec = typeof options.maxScanSec === 'number' ? options.maxScanSec : 12;
+      const fadeInMs = typeof options.fadeInMs === 'number' ? options.fadeInMs : 15;
+
+      const rate = audioBuffer.sampleRate;
+      const numChannels = audioBuffer.numberOfChannels || 1;
+      const totalFrames = audioBuffer.length;
+      const totalDur = audioBuffer.duration || (totalFrames / rate);
+
+      if (totalDur <= minRemainingSec + minTrimSec) {
+        return audioBuffer;
+      }
+
+      const winFrames = Math.max(1, Math.round((windowMs / 1000) * rate));
+      const maxScanFrames = Math.min(
+        Math.floor(maxScanSec * rate),
+        Math.floor(totalFrames * 0.8)
+      );
+
+      const channels = [];
+      for (let ch = 0; ch < numChannels; ch++) {
+        channels.push(audioBuffer.getChannelData(ch));
+      }
+
+      let firstVoiceFrame = -1;
+      for (let frame = 0; frame < maxScanFrames; frame += winFrames) {
+        const endFrame = Math.min(totalFrames, frame + winFrames);
+        const count = endFrame - frame;
+        if (count <= 0) break;
+
+        let maxChannelRms = 0;
+        for (let ch = 0; ch < numChannels; ch++) {
+          const chData = channels[ch];
+          let sumSq = 0;
+          for (let i = frame; i < endFrame; i++) {
+            const s = chData[i];
+            sumSq += s * s;
+          }
+          const rms = Math.sqrt(sumSq / count);
+          if (rms > maxChannelRms) maxChannelRms = rms;
+        }
+
+        if (maxChannelRms >= threshold) {
+          firstVoiceFrame = frame;
+          break;
+        }
+      }
+
+      if (firstVoiceFrame < 0) {
+        return audioBuffer;
+      }
+
+      const voiceStartSec = firstVoiceFrame / rate;
+      const trimStartSec = Math.max(0, voiceStartSec - preRollSec);
+      const remainingSec = totalDur - trimStartSec;
+
+      if (trimStartSec < minTrimSec || remainingSec < minRemainingSec) {
+        return audioBuffer;
+      }
+
+      const trimmed = sliceAudioBufferBySeconds(audioBuffer, trimStartSec, audioBuffer.duration);
+      const fadeFrames = Math.min(trimmed.length, Math.max(1, Math.round((fadeInMs / 1000) * trimmed.sampleRate)));
+      for (let ch = 0; ch < trimmed.numberOfChannels; ch++) {
+        const data = trimmed.getChannelData(ch);
+        for (let i = 0; i < fadeFrames; i++) {
+          data[i] *= (i / fadeFrames);
+        }
+      }
+
+      return trimmed;
+    }
+
     function getUnifiedDuration() {
       if (state.isRefaatSingleFileClip) {
         const rawDur = isFinite(audioEl.duration) && audioEl.duration > 0 ? audioEl.duration : 0;
@@ -3283,7 +3372,10 @@
         for (let i = 0; i < totalSegments; i++) {
           if (sessionId !== state.multiMergeSessionId) return;
           setStatus(`جاري دمج الآيات (${toArabicDigits(i + 1)} / ${toArabicDigits(totalSegments)})...`, 'amber');
-          const buf = await fetchAndDecodeSingleItem(segments[i], targetRate);
+          let buf = await fetchAndDecodeSingleItem(segments[i], targetRate);
+          if (i === 0 && state.trimLeadingSilence) {
+            buf = trimLeadingSilence(buf);
+          }
           if (!targetRate) targetRate = buf.sampleRate;
           if (buf.numberOfChannels > maxChannels) maxChannels = Math.min(2, buf.numberOfChannels);
           decodedList.push(buf);
@@ -3328,6 +3420,7 @@
         state.segmentTimings = timings;
         ayah._decodedBuffers = decodedList;
         ayah._decodedReciterKey = state.currentReciterKey;
+        ayah._decodedBuffersTrimmed = Boolean(state.trimLeadingSilence);
 
         state.urlQueue = [state.mergedMultiAudioUrl];
         state.urlIndex = 0;
@@ -3419,9 +3512,71 @@
         return;
       }
 
+      if (state.trimLeadingSilence) {
+        loadAndTrimSingleAyah(ayah, reciter, autoPlay);
+        return;
+      }
+
       state.urlQueue = reciter.getUrls(ayah);
       state.urlIndex = 0;
       tryLoadAudioUrl(autoPlay);
+    }
+
+    async function loadAndTrimSingleAyah(ayah, reciter, autoPlay = false) {
+      const sessionId = ++state.multiMergeSessionId;
+      if (!audioEl.paused) audioEl.pause();
+      seekSlider.value = 0;
+      timeCurrent.textContent = '00:00';
+      timeDuration.textContent = '--:--';
+      setStatus('جاري تجهيز التلاوة...', 'amber');
+
+      try {
+        let buf = await fetchAndDecodeSingleItem(ayah, null);
+        if (sessionId !== state.multiMergeSessionId) return;
+
+        buf = trimLeadingSilence(buf);
+        ayah._decodedSingleBuffer = buf;
+        ayah._decodedSingleReciterKey = state.currentReciterKey;
+        ayah._decodedSingleTrimmed = true;
+
+        const wavBlob = encodeAudioBufferToWavBlob(buf);
+        if (state.trimmedSingleAudioUrl) {
+          try { URL.revokeObjectURL(state.trimmedSingleAudioUrl); } catch (e) {}
+        }
+        state.trimmedSingleAudioUrl = URL.createObjectURL(wavBlob);
+
+        state.urlQueue = [state.trimmedSingleAudioUrl];
+        state.urlIndex = 0;
+        audioEl.src = state.trimmedSingleAudioUrl;
+        audioEl.load();
+        timeDuration.textContent = formatTime(buf.duration);
+        updateVideoTimingComparisonUI();
+        refreshBigPlayOverlayVisibility();
+        if (autoPlay) {
+          audioEl.play().catch(() => updatePlayUI(false));
+        }
+      } catch (err) {
+        if (sessionId !== state.multiMergeSessionId) return;
+        state.urlQueue = reciter.getUrls(ayah);
+        state.urlIndex = 0;
+        tryLoadAudioUrl(autoPlay);
+      }
+    }
+
+    if (chkTrimLeadingSilence) {
+      chkTrimLeadingSilence.addEventListener('change', () => {
+        state.trimLeadingSilence = Boolean(chkTrimLeadingSilence.checked);
+        const curAyah = state.currentAyahKey ? AYAHS_DATA[state.currentAyahKey] : null;
+        if (curAyah) {
+          delete curAyah._decodedBuffers;
+          delete curAyah._decodedReciterKey;
+          delete curAyah._decodedBuffersTrimmed;
+          delete curAyah._decodedSingleBuffer;
+          delete curAyah._decodedSingleReciterKey;
+          delete curAyah._decodedSingleTrimmed;
+        }
+        loadCurrentSelection(false);
+      });
     }
 
     const mustafaSurahMetaCache = {};
@@ -6260,12 +6415,24 @@
         const segmentsList = isMultiSegment ? ayah.multiQueue : [ayah];
         const totalSegments = segmentsList.length;
 
-        const hasCachedBuffers = isMultiSegment && Array.isArray(ayah._decodedBuffers) && ayah._decodedBuffers.length === totalSegments && ayah._decodedReciterKey === state.currentReciterKey;
-        let firstBuffer = hasCachedBuffers ? ayah._decodedBuffers[0] : await fetchAndDecodeSingleItem(segmentsList[0], null);
+        const hasCachedBuffers = isMultiSegment && Array.isArray(ayah._decodedBuffers) && ayah._decodedBuffers.length === totalSegments && ayah._decodedReciterKey === state.currentReciterKey && Boolean(ayah._decodedBuffersTrimmed) === Boolean(state.trimLeadingSilence);
+        const hasCachedSingleBuffer = !isMultiSegment && !isRefaatSingle && !state.customAudioUrl && Boolean(ayah?._decodedSingleBuffer) && ayah._decodedSingleReciterKey === state.currentReciterKey && Boolean(ayah._decodedSingleTrimmed) === Boolean(state.trimLeadingSilence);
+
+        let firstBuffer = hasCachedBuffers
+          ? ayah._decodedBuffers[0]
+          : (hasCachedSingleBuffer ? ayah._decodedSingleBuffer : await fetchAndDecodeSingleItem(segmentsList[0], null));
         if (exportAbortController.cancelled) throw new Error('CANCELLED');
 
         if (isRefaatSingle && state.refaatIsSubRange && state.refaatClipEndSec > state.refaatClipStartSec) {
           firstBuffer = sliceAudioBufferBySeconds(firstBuffer, state.refaatClipStartSec, state.refaatClipEndSec);
+        }
+
+        if (isMultiSegment) {
+          if (!hasCachedBuffers && state.trimLeadingSilence) {
+            firstBuffer = trimLeadingSilence(firstBuffer);
+          }
+        } else if (!hasCachedSingleBuffer && state.trimLeadingSilence && !(isRefaatSingle && state.refaatUserAdjustedTrim)) {
+          firstBuffer = trimLeadingSilence(firstBuffer);
         }
 
         const baseSampleRate = firstBuffer.sampleRate;
@@ -8405,6 +8572,7 @@
         btnPauseRecitation: 'إيقاف مؤقت',
         statusInitial: 'اختر القارئ والآية للبدء',
         autoDownload: 'تحميل تلقائي',
+        trimSilence: 'قص السكوت بالبداية',
         btnRecordVideo: 'تحميل المقطع فوراً (فيديو + صوت القارئ)',
         btnSaveAnother: 'حفظ نسخة أخرى',
         btnShareVideo: '📤 مشاركة / حفظ للهاتف',
@@ -8592,6 +8760,7 @@
         btnPauseRecitation: 'Pause',
         statusInitial: 'Select reciter & verse to start',
         autoDownload: 'Auto-download',
+        trimSilence: 'Trim intro silence',
         btnRecordVideo: 'Download Video Now (Video + Audio)',
         btnSaveAnother: 'Save Another Copy',
         btnShareVideo: '📤 Share / Save to Phone',
@@ -8779,6 +8948,7 @@
         btnPauseRecitation: 'Pause',
         statusInitial: 'Choisissez le récitateur et le verset',
         autoDownload: 'Téléchargement auto',
+        trimSilence: 'Couper silence début',
         btnRecordVideo: 'Télécharger la Vidéo (Vidéo + Audio)',
         btnSaveAnother: 'Enregistrer une copie',
         btnShareVideo: '📤 Partager / Enregistrer',
@@ -8966,6 +9136,7 @@
         btnPauseRecitation: 'Pause',
         statusInitial: 'Rezitator & Vers zum Starten wählen',
         autoDownload: 'Auto-Download',
+        trimSilence: 'Anfangsstille kürzen',
         btnRecordVideo: 'Video jetzt herunterladen (Video + Audio)',
         btnSaveAnother: 'Weitere Kopie speichern',
         btnShareVideo: '📤 Teilen / Speichern',
@@ -9412,6 +9583,7 @@
       setTxt('labelPlayPause', state.isPlaying ? d.btnPauseRecitation : d.btnPlayRecitation);
       const autoDlSpan = document.querySelector('#chkAutoDownloadOnSelect')?.nextElementSibling;
       if (autoDlSpan) autoDlSpan.textContent = d.autoDownload;
+      setTxt('labelTrimSilence', d.trimSilence);
       if (!state.isRecording) setTxt('labelRecordBtn', d.btnRecordVideo);
       setQueryTxt('#downloadVideoLink span', d.btnSaveAnother);
       setQueryTxt('#btnShareExportedVideo span', d.btnShareVideo);

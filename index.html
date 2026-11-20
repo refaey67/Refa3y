@@ -356,6 +356,24 @@
         border-top-color: transparent !important;
       }
     }
+    .social-icon-btn {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+    .social-icon-btn:hover {
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+    }
+    html.light-theme .social-icon-btn {
+      background-color: #f8fafc !important;
+      border-color: rgba(217, 119, 6, 0.38) !important;
+      color: #b45309 !important;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+    }
+    html.light-theme .social-icon-btn:hover {
+      background-color: #fef3c7 !important;
+      border-color: #d97706 !important;
+      color: #92400e !important;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+    }
   </style>
 </head>
 <body class="p-3 sm:p-5 select-none">
@@ -1404,6 +1422,45 @@
         </div>
       </div>
     </div>
+
+    <!-- تذييل الموقع وروابط التواصل الاجتماعي -->
+    <footer id="appFooter" class="glass-panel rounded-2xl px-4 py-3 sm:px-5 sm:py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2 text-xs text-slate-300 font-medium text-center sm:text-start">
+        <span id="footerBrandText" class="gold-gradient-text font-bold">استوديو إذاعة القرآن الكريم</span>
+        <span class="text-slate-600" aria-hidden="true">•</span>
+        <span id="footerByText" class="text-slate-400">بواسطة رفاعي | By Refa3y</span>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <span id="footerFollowText" class="text-xs font-medium text-slate-400">تابعنا:</span>
+        <a
+          id="socialLinkYouTube"
+          href="https://youtube.com/@refa3y91"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+          title="YouTube"
+          class="social-icon-btn w-10 h-10 rounded-full bg-slate-900/90 hover:bg-amber-500/15 border border-amber-400/35 hover:border-amber-400 text-amber-200 hover:text-amber-300 flex items-center justify-center hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+        <a
+          id="socialLinkTikTok"
+          href="https://www.tiktok.com/@refaey91"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="TikTok"
+          title="TikTok"
+          class="social-icon-btn w-10 h-10 rounded-full bg-slate-900/90 hover:bg-amber-500/15 border border-amber-400/35 hover:border-amber-400 text-amber-200 hover:text-amber-300 flex items-center justify-center hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
 
   </div>
 
@@ -9958,6 +10015,11 @@
       setTxt('modalIosBadge', d.modalIosBadge);
       setTxt('modalIosHint', d.modalIosHint);
       setTxt('btnDoneInstallModal', d.modalCloseBtn);
+
+      // تذييل الموقع
+      setTxt('footerBrandText', d.headerTitle);
+      setTxt('footerByText', d.headerSubtitle);
+      setTxt('footerFollowText', ({ ar: 'تابعنا:', en: 'Follow us:', fr: 'Suivez-nous :', de: 'Folge uns:' }[validLang] || 'Follow us:'));
     }
 
     (function initRefa3yLanguageAndThemeManager() {

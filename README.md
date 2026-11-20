@@ -10,7 +10,7 @@
   [https://refaey67.github.io/Refa3y/](https://refaey67.github.io/Refa3y/)
 
 * **📲 التحميل من متجر APKPure الرسمي (Android Store):**
-  [https://apkpure.com/p/com.aistudio.refa3y.quran](https://apkpure.com/p/com.aistudio.refa3y.quran)
+  [https://apkpure.com/p/com.refa3y.quranstudio](https://apkpure.com/p/com.refa3y.quranstudio)
 
 * **📱 التحميل المباشر لتطبيق الأندرويد (APK):**
   [https://github.com/refaey67/Refa3y/releases/latest/download/Refa3y.apk](https://github.com/refaey67/Refa3y/releases/latest/download/Refa3y.apk)

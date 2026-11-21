@@ -10116,6 +10116,52 @@
       }
     })();
 
+    (function initYouTubeAndroidDeepLink() {
+      const ytLink = document.getElementById('socialLinkYouTube');
+      if (!ytLink) return;
+
+      ytLink.addEventListener('click', (e) => {
+        const isAndroid = /Android/i.test(navigator.userAgent || '');
+        if (!isAndroid) return;
+
+        e.preventDefault();
+        const appUrl = 'vnd.youtube://www.youtube.com/@refa3y91';
+        const fallbackUrl = 'https://www.youtube.com/@refa3y91';
+        let didLeavePage = false;
+
+        const cleanup = () => {
+          document.removeEventListener('visibilitychange', onVisibilityChange);
+          window.removeEventListener('pagehide', onLeave);
+          window.removeEventListener('blur', onLeave);
+        };
+
+        const onLeave = () => {
+          didLeavePage = true;
+          clearTimeout(fallbackTimer);
+          cleanup();
+        };
+
+        const onVisibilityChange = () => {
+          if (document.hidden || document.visibilityState === 'hidden') {
+            onLeave();
+          }
+        };
+
+        const fallbackTimer = setTimeout(() => {
+          cleanup();
+          if (!didLeavePage && !document.hidden) {
+            window.location.href = fallbackUrl;
+          }
+        }, 1200);
+
+        document.addEventListener('visibilitychange', onVisibilityChange);
+        window.addEventListener('pagehide', onLeave);
+        window.addEventListener('blur', onLeave);
+
+        window.location.href = appUrl;
+      });
+    })();
+
     window.addEventListener('load', () => {
       if (state.activeAppSection === 'studio') {
         ensureStudioResourcesReady();

@@ -374,6 +374,18 @@
       color: #92400e !important;
       box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
     }
+    .wm-toggle-track {
+      background-color: #334155;
+    }
+    input:checked + .wm-toggle-track {
+      background-color: #f59e0b;
+    }
+    html.light-theme .wm-toggle-track {
+      background-color: #cbd5e1;
+    }
+    html.light-theme input:checked + .wm-toggle-track {
+      background-color: #d97706;
+    }
   </style>
 </head>
 <body class="p-3 sm:p-5 select-none">
@@ -1355,65 +1367,90 @@
             </button>
             <div class="section-content hidden space-y-3 pt-3">
 
-            <div>
-              <label for="inputWatermarkText" class="block text-xs text-slate-300 mb-1">اسم التوقيع (الافتراضي: Refa3y أو اكتب اسماً آخر):</label>
-              <div class="flex items-center gap-1.5">
-                <input id="inputWatermarkText" type="text" value="Refa3y" maxlength="32" placeholder="Refa3y" class="flex-1 rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none focus:border-amber-400" />
-                <button id="btnResetWatermarkText" type="button" class="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-[11px] text-amber-300 border border-slate-700 transition shrink-0" title="استعادة الاسم الافتراضي Refa3y">
-                  Refa3y ↺
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <label for="selectWatermarkPos" class="block text-xs text-slate-300 mb-1">مكان التوقيع:</label>
-              <select id="selectWatermarkPos" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none">
-                <option value="bottom-right" selected>أسفل اليمين</option>
-                <option value="bottom-left">أسفل اليسار</option>
-                <option value="top-right">أعلى اليمين</option>
-                <option value="top-left">أعلى اليسار</option>
-                <option value="bottom-center">أسفل المنتصف</option>
-                <option value="top-center">أعلى المنتصف</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="selectWatermarkFont" class="block text-xs text-slate-300 mb-1">نوع الخط:</label>
-              <select id="selectWatermarkFont" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none">
-                <option value="Cinzel" selected>Cinzel</option>
-                <option value="Playfair Display">Playfair Display</option>
-                <option value="Dancing Script">Dancing Script</option>
-                <option value="Reem Kufi">Reem Kufi</option>
-                <option value="Amiri">Amiri</option>
-                <option value="Cairo">Cairo</option>
-              </select>
-            </div>
-
-            <div class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 space-y-1.5">
-              <div class="flex items-center justify-between text-xs">
-                <label for="sliderWatermarkSize" class="text-slate-300">حجم الخط:</label>
-                <span id="valWatermarkSize" class="text-amber-300 font-mono font-bold">16px</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <button id="btnWatermarkSizeDec" type="button" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-200 font-bold text-sm flex items-center justify-center border border-slate-700">−</button>
-                <input id="sliderWatermarkSize" type="range" min="11" max="34" value="16" class="flex-1 min-w-0 h-1.5 rounded-lg cursor-pointer" />
-                <button id="btnWatermarkSizeInc" type="button" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-200 font-bold text-sm flex items-center justify-center border border-slate-700">+</button>
-              </div>
-            </div>
-
+            <!-- مفتاح تفعيل أو إخفاء التوقيع بالكامل + حقل الاسم -->
             <div class="space-y-2">
-              <div class="flex items-center justify-between">
-                <label for="inputWatermarkColor" class="text-xs text-slate-300">لون التوقيع:</label>
-                <div class="flex items-center gap-2">
-                  <input id="inputWatermarkColor" type="color" value="#fde68a" class="w-6 h-6 rounded cursor-pointer bg-transparent border border-slate-600 p-0.5" />
-                  <span id="watermarkColorHex" class="text-[11px] font-mono text-amber-200">#FDE68A</span>
+              <div class="flex items-center justify-between gap-2 bg-slate-900/90 border border-slate-800 rounded-xl px-2.5 py-2">
+                <label for="chkShowWatermark" id="lblShowWatermark" class="text-xs font-semibold text-amber-200 cursor-pointer select-none">إظهار التوقيع</label>
+                <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                  <input id="chkShowWatermark" type="checkbox" checked class="sr-only peer" />
+                  <div class="wm-toggle-track w-9 h-5 rounded-full transition-colors after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:shadow-sm after:transition-all peer-checked:after:translate-x-4 rtl:peer-checked:after:-translate-x-4"></div>
+                </label>
+              </div>
+
+              <div id="watermarkInputWrap">
+                <label for="inputWatermarkText" class="block text-xs text-slate-300 mb-1">اسم التوقيع (الافتراضي: Refa3y أو اكتب اسماً آخر):</label>
+                <div class="flex items-center gap-1.5">
+                  <input id="inputWatermarkText" type="text" value="Refa3y" maxlength="32" placeholder="Refa3y" class="flex-1 rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none focus:border-amber-400" />
+                  <button id="btnResetWatermarkText" type="button" class="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-[11px] text-amber-300 border border-slate-700 transition shrink-0" title="استعادة الاسم الافتراضي Refa3y">
+                    Refa3y ↺
+                  </button>
                 </div>
               </div>
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <button type="button" data-wm-color="#fde68a" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-amber-300 bg-amber-200/20 text-amber-100">ذهبي فاتح</button>
-                <button type="button" data-wm-color="#f59e0b" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-slate-700 bg-amber-500/20 text-amber-300">كهرماني</button>
-                <button type="button" data-wm-color="#f8fafc" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-slate-700 bg-slate-100/15 text-slate-100">أبيض لؤلؤي</button>
-                <button type="button" data-wm-color="#6ee7b7" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-slate-700 bg-emerald-400/15 text-emerald-200">زمردي</button>
+            </div>
+
+            <div id="watermarkStylingControlsBox" class="space-y-3 transition-opacity duration-200">
+              <div>
+                <label for="selectWatermarkFrameStyle" class="block text-xs text-amber-300 font-semibold mb-1">نمط البرواز:</label>
+                <select id="selectWatermarkFrameStyle" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none focus:border-amber-400">
+                  <option value="text_only">نص فقط - بدون برواز</option>
+                  <option value="classic_pill" selected>إطار كلاسيكي</option>
+                  <option value="double_frame">إطار ذهبي مزدوج</option>
+                  <option value="minimal_line">خط أنيق</option>
+                  <option value="ornate_brackets">أقواس زخرفية</option>
+                  <option value="glass_badge">خلفية زجاجية</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="selectWatermarkPos" class="block text-xs text-slate-300 mb-1">مكان التوقيع:</label>
+                <select id="selectWatermarkPos" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none">
+                  <option value="bottom-right" selected>أسفل اليمين</option>
+                  <option value="bottom-left">أسفل اليسار</option>
+                  <option value="top-right">أعلى اليمين</option>
+                  <option value="top-left">أعلى اليسار</option>
+                  <option value="bottom-center">أسفل المنتصف</option>
+                  <option value="top-center">أعلى المنتصف</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="selectWatermarkFont" class="block text-xs text-slate-300 mb-1">نوع الخط:</label>
+                <select id="selectWatermarkFont" class="w-full rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-100 p-2 focus:outline-none">
+                  <option value="Cinzel" selected>Cinzel</option>
+                  <option value="Playfair Display">Playfair Display</option>
+                  <option value="Dancing Script">Dancing Script</option>
+                  <option value="Reem Kufi">Reem Kufi</option>
+                  <option value="Amiri">Amiri</option>
+                  <option value="Cairo">Cairo</option>
+                </select>
+              </div>
+
+              <div class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 space-y-1.5">
+                <div class="flex items-center justify-between text-xs">
+                  <label for="sliderWatermarkSize" class="text-slate-300">حجم الخط:</label>
+                  <span id="valWatermarkSize" class="text-amber-300 font-mono font-bold">16px</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button id="btnWatermarkSizeDec" type="button" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-200 font-bold text-sm flex items-center justify-center border border-slate-700">−</button>
+                  <input id="sliderWatermarkSize" type="range" min="11" max="34" value="16" class="flex-1 min-w-0 h-1.5 rounded-lg cursor-pointer" />
+                  <button id="btnWatermarkSizeInc" type="button" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-200 font-bold text-sm flex items-center justify-center border border-slate-700">+</button>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <label for="inputWatermarkColor" class="text-xs text-slate-300">لون التوقيع:</label>
+                  <div class="flex items-center gap-2">
+                    <input id="inputWatermarkColor" type="color" value="#fde68a" class="w-6 h-6 rounded cursor-pointer bg-transparent border border-slate-600 p-0.5" />
+                    <span id="watermarkColorHex" class="text-[11px] font-mono text-amber-200">#FDE68A</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <button type="button" data-wm-color="#fde68a" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-amber-300 bg-amber-200/20 text-amber-100">ذهبي فاتح</button>
+                  <button type="button" data-wm-color="#f59e0b" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-slate-700 bg-amber-500/20 text-amber-300">كهرماني</button>
+                  <button type="button" data-wm-color="#f8fafc" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-slate-700 bg-slate-100/15 text-slate-100">أبيض لؤلؤي</button>
+                  <button type="button" data-wm-color="#6ee7b7" class="wm-color-swatch px-2.5 py-1 rounded-lg text-[11px] font-semibold border border-slate-700 bg-emerald-400/15 text-emerald-200">زمردي</button>
+                </div>
               </div>
             </div>
             </div>
@@ -2121,7 +2158,9 @@
       ayahTextColor: '#fef08a',
       ayahFrameStyle: 'ornate_gold',
       ayahFrameOpacity: 0.88,
+      showWatermark: true,
       watermarkText: 'Refa3y',
+      watermarkFrameStyle: 'classic_pill',
       watermarkSize: 16,
       glowIntensity: 0.85,
       particlesIntensity: 0.60,
@@ -4567,22 +4606,56 @@
         targetCtx.restore();
       }
 
-      // حساب أبعاد توقيع حفظ الحقوق (الافتراضي Refa3y أو الاسم المختار من المستخدم)
-      const wmText = (state.watermarkText && state.watermarkText.trim()) ? state.watermarkText.trim() : 'Refa3y';
+      // حساب أبعاد توقيع حفظ الحقوق (يُخفى بالكامل عند إيقاف التوقيع أو مسح النص دون الرجوع لأي نص افتراضي)
+      const wmTextRaw = (typeof state.watermarkText === 'string') ? state.watermarkText.trim() : '';
+      const hasVisibleWatermark = Boolean(state.showWatermark !== false && wmTextRaw.length > 0);
+      const wmText = wmTextRaw;
       const wmFont = state.watermarkFont || 'Cinzel';
       const wmColor = state.watermarkColor || '#fde68a';
       const wmPosCurrent = state.watermarkPos || 'bottom-right';
+      const wmFrameStyle = state.watermarkFrameStyle || 'classic_pill';
       const wmFontSize = Math.max(11, Math.min(34, Number(state.watermarkSize) || 16));
-      targetCtx.save();
-      targetCtx.font = `600 ${wmFontSize}px "${wmFont}", "Cairo", "Amiri", sans-serif`;
-      const wmTextWidth = targetCtx.measureText(wmText).width;
-      targetCtx.restore();
+      let wmTextWidth = 0;
+      if (hasVisibleWatermark) {
+        targetCtx.save();
+        targetCtx.font = `600 ${wmFontSize}px "${wmFont}", "Cairo", "Amiri", sans-serif`;
+        wmTextWidth = targetCtx.measureText(wmText).width;
+        targetCtx.restore();
+      }
 
-      const wmPillPadX = Math.max(11, Math.round(wmFontSize * 0.78));
-      const wmPillH = Math.max(24, Math.round(wmFontSize * 1.72));
       const wmDotRadius = Math.max(2.2, wmFontSize * 0.15);
       const wmDotSpace = Math.round(wmDotRadius * 2 + 8);
-      const wmPillW = Math.min(W - 32, Math.ceil(wmTextWidth + wmPillPadX * 2 + wmDotSpace));
+      let wmPillPadX = Math.max(11, Math.round(wmFontSize * 0.78));
+      let wmPillH = 0;
+      let wmPillW = 0;
+      if (hasVisibleWatermark) {
+        if (wmFrameStyle === 'text_only') {
+          wmPillPadX = Math.max(6, Math.round(wmFontSize * 0.35));
+          wmPillH = Math.max(22, Math.round(wmFontSize * 1.45));
+          wmPillW = Math.min(W - 32, Math.ceil(wmTextWidth + wmPillPadX * 2));
+        } else if (wmFrameStyle === 'double_frame') {
+          wmPillPadX = Math.max(14, Math.round(wmFontSize * 0.95));
+          wmPillH = Math.max(28, Math.round(wmFontSize * 1.92));
+          wmPillW = Math.min(W - 32, Math.ceil(wmTextWidth + wmPillPadX * 2));
+        } else if (wmFrameStyle === 'minimal_line') {
+          wmPillPadX = Math.max(10, Math.round(wmFontSize * 0.65));
+          wmPillH = Math.max(26, Math.round(wmFontSize * 1.78));
+          wmPillW = Math.min(W - 32, Math.ceil(wmTextWidth + wmPillPadX * 2));
+        } else if (wmFrameStyle === 'ornate_brackets') {
+          wmPillPadX = Math.max(16, Math.round(wmFontSize * 1.1));
+          wmPillH = Math.max(26, Math.round(wmFontSize * 1.75));
+          wmPillW = Math.min(W - 32, Math.ceil(wmTextWidth + wmPillPadX * 2));
+        } else if (wmFrameStyle === 'glass_badge') {
+          wmPillPadX = Math.max(13, Math.round(wmFontSize * 0.85));
+          wmPillH = Math.max(26, Math.round(wmFontSize * 1.76));
+          wmPillW = Math.min(W - 32, Math.ceil(wmTextWidth + wmPillPadX * 2));
+        } else {
+          // classic_pill
+          wmPillPadX = Math.max(11, Math.round(wmFontSize * 0.78));
+          wmPillH = Math.max(24, Math.round(wmFontSize * 1.72));
+          wmPillW = Math.min(W - 32, Math.ceil(wmTextWidth + wmPillPadX * 2 + wmDotSpace));
+        }
+      }
       const wmMarginX = isVertical ? 22 : 24;
       const wmMarginY = isVertical ? 18 : 16;
 
@@ -4590,7 +4663,7 @@
       const baseTopAfterHeader = hasTopBarVisible ? (topBarY + topBarH) : wmMarginY;
 
       let topSafeY = hasTopBarVisible ? (topBarY + topBarH + (isVertical ? 18 : 14)) : (wmMarginY + 8);
-      if (wmPosCurrent === 'top-center' || wmPosCurrent === 'top-right' || wmPosCurrent === 'top-left') {
+      if (hasVisibleWatermark && (wmPosCurrent === 'top-center' || wmPosCurrent === 'top-right' || wmPosCurrent === 'top-left')) {
         if (!hasTopBarVisible) {
           topSafeY = wmMarginY + wmPillH + 14;
         } else if (wmPosCurrent === 'top-center' || !canFitAlongsideTopBar) {
@@ -4599,8 +4672,9 @@
       }
 
       const waveReservedBottom = state.showAudioWave ? (isVertical ? 54 : 42) : 16;
-      let bottomSafeY = H - Math.max(waveReservedBottom, wmMarginY + wmPillH + 12);
-      if (wmPosCurrent === 'bottom-center' && state.showAudioWave) {
+      const wmBottomReserved = hasVisibleWatermark ? (wmMarginY + wmPillH + 12) : 16;
+      let bottomSafeY = H - Math.max(waveReservedBottom, wmBottomReserved);
+      if (hasVisibleWatermark && wmPosCurrent === 'bottom-center' && state.showAudioWave) {
         bottomSafeY = H - (isVertical ? 60 : 48) - wmPillH - 12;
       }
 
@@ -4820,8 +4894,8 @@
         targetCtx.restore();
       }
 
-      // LAYER 7: توقيع حفظ الحقوق (الافتراضي Refa3y أو الاسم المختار من المستخدم)
-      {
+      // LAYER 7: توقيع حفظ الحقوق — مطابق 100% بين المعاينة الحية وتصدير الفيديو (لا يُرسم شيء عند الإيقاف أو فراغ النص)
+      if (hasVisibleWatermark) {
         targetCtx.save();
         targetCtx.font = `600 ${wmFontSize}px "${wmFont}", "Cairo", "Amiri", sans-serif`;
         let wx = W - wmMarginX - wmPillW;
@@ -4849,28 +4923,191 @@
           wy = !hasTopBarVisible ? wmMarginY : (topBarY + topBarH + 10);
         }
 
-        targetCtx.globalAlpha = 0.86;
-        targetCtx.fillStyle = 'rgba(7, 11, 20, 0.55)';
-        targetCtx.strokeStyle = wmColor;
-        targetCtx.lineWidth = 1;
-        targetCtx.beginPath();
-        targetCtx.roundRect(wx, wy, wmPillW, wmPillH, wmPillH / 2);
-        targetCtx.fill();
-        targetCtx.globalAlpha = 0.35;
-        targetCtx.stroke();
-
-        const dotX = wx + wmPillW - wmPillPadX - wmDotRadius;
-        targetCtx.globalAlpha = 0.95;
-        targetCtx.fillStyle = wmColor;
-        targetCtx.beginPath();
-        targetCtx.arc(dotX, wy + wmPillH / 2, wmDotRadius, 0, Math.PI * 2);
-        targetCtx.fill();
-
-        const textCenterAreaW = wmPillW - wmPillPadX * 2 - wmDotSpace;
-        const textCenterX = wx + wmPillPadX + textCenterAreaW * 0.5;
+        const cx = wx + wmPillW / 2;
+        const cy = wy + wmPillH / 2;
         targetCtx.textAlign = 'center';
         targetCtx.textBaseline = 'middle';
-        targetCtx.fillText(wmText, textCenterX, wy + wmPillH / 2 + 0.5);
+
+        if (wmFrameStyle === 'text_only') {
+          // 1. نص فقط بدون برواز أو خلفية مع ظل داكن ناعم للوضوح
+          targetCtx.globalAlpha = 0.96;
+          targetCtx.fillStyle = wmColor;
+          targetCtx.shadowColor = 'rgba(0, 0, 0, 0.88)';
+          targetCtx.shadowBlur = 8;
+          targetCtx.shadowOffsetX = 0;
+          targetCtx.shadowOffsetY = 2;
+          targetCtx.fillText(wmText, cx, cy + 0.5);
+        } else if (wmFrameStyle === 'double_frame') {
+          // 3. إطار ذهبي مزدوج أنيق بمسافة داخلية متناسقة
+          const outerR = 6;
+          const inset = 3.5;
+          const innerR = Math.max(2, outerR - 2.5);
+          targetCtx.globalAlpha = 0.86;
+          targetCtx.fillStyle = 'rgba(7, 11, 20, 0.56)';
+          targetCtx.beginPath();
+          targetCtx.roundRect(wx, wy, wmPillW, wmPillH, outerR);
+          targetCtx.fill();
+
+          targetCtx.globalAlpha = 0.88;
+          targetCtx.strokeStyle = wmColor;
+          targetCtx.lineWidth = 1.25;
+          targetCtx.stroke();
+
+          targetCtx.globalAlpha = 0.55;
+          targetCtx.lineWidth = 0.85;
+          targetCtx.beginPath();
+          targetCtx.roundRect(wx + inset, wy + inset, wmPillW - inset * 2, wmPillH - inset * 2, innerR);
+          targetCtx.stroke();
+
+          targetCtx.globalAlpha = 0.96;
+          targetCtx.fillStyle = wmColor;
+          targetCtx.shadowColor = 'rgba(0, 0, 0, 0.78)';
+          targetCtx.shadowBlur = 5;
+          targetCtx.shadowOffsetY = 1;
+          targetCtx.fillText(wmText, cx, cy + 0.5);
+        } else if (wmFrameStyle === 'minimal_line') {
+          // 4. خط أنيق رفيع أسفل التوقيع بدون صندوق مغلق
+          targetCtx.globalAlpha = 0.96;
+          targetCtx.fillStyle = wmColor;
+          targetCtx.shadowColor = 'rgba(0, 0, 0, 0.88)';
+          targetCtx.shadowBlur = 8;
+          targetCtx.shadowOffsetX = 0;
+          targetCtx.shadowOffsetY = 2;
+          targetCtx.fillText(wmText, cx, wy + wmPillH * 0.42);
+
+          const lineW = Math.max(24, wmPillW * 0.88);
+          const lineStartX = cx - lineW / 2;
+          const lineEndX = cx + lineW / 2;
+          const lineY = wy + wmPillH - 3.5;
+          const lineGrad = targetCtx.createLinearGradient(lineStartX, lineY, lineEndX, lineY);
+          lineGrad.addColorStop(0, 'rgba(253, 230, 138, 0)');
+          lineGrad.addColorStop(0.22, wmColor);
+          lineGrad.addColorStop(0.78, wmColor);
+          lineGrad.addColorStop(1, 'rgba(253, 230, 138, 0)');
+
+          targetCtx.shadowBlur = 4;
+          targetCtx.shadowOffsetY = 1;
+          targetCtx.globalAlpha = 0.9;
+          targetCtx.strokeStyle = lineGrad;
+          targetCtx.lineWidth = 1.4;
+          targetCtx.beginPath();
+          targetCtx.moveTo(lineStartX, lineY);
+          targetCtx.lineTo(lineEndX, lineY);
+          targetCtx.stroke();
+
+          // معين زخرفي صغير في منتصف الخط
+          const dSz = 2.6;
+          targetCtx.fillStyle = wmColor;
+          targetCtx.beginPath();
+          targetCtx.moveTo(cx, lineY - dSz);
+          targetCtx.lineTo(cx + dSz, lineY);
+          targetCtx.lineTo(cx, lineY + dSz);
+          targetCtx.lineTo(cx - dSz, lineY);
+          targetCtx.closePath();
+          targetCtx.fill();
+        } else if (wmFrameStyle === 'ornate_brackets') {
+          // 5. أقواس زخرفية جانبية كلاسيكية على يمين ويسار التوقيع بدون مستطيل مغلق
+          const bH = wmPillH * 0.72;
+          const bTop = cy - bH / 2;
+          const bBot = cy + bH / 2;
+          const bCurve = Math.max(5.5, wmFontSize * 0.34);
+          const lx = wx + 5;
+          const rx = wx + wmPillW - 5;
+
+          targetCtx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+          targetCtx.shadowBlur = 6;
+          targetCtx.shadowOffsetY = 1.5;
+          targetCtx.strokeStyle = wmColor;
+          targetCtx.fillStyle = wmColor;
+          targetCtx.lineWidth = 1.5;
+          targetCtx.lineCap = 'round';
+          targetCtx.globalAlpha = 0.92;
+
+          // القوس الأيسر المزخرف
+          targetCtx.beginPath();
+          targetCtx.moveTo(lx + bCurve, bTop);
+          targetCtx.quadraticCurveTo(lx, cy, lx + bCurve, bBot);
+          targetCtx.stroke();
+          targetCtx.beginPath();
+          targetCtx.arc(lx - 1.5, cy, 1.5, 0, Math.PI * 2);
+          targetCtx.fill();
+
+          // القوس الأيمن المزخرف
+          targetCtx.beginPath();
+          targetCtx.moveTo(rx - bCurve, bTop);
+          targetCtx.quadraticCurveTo(rx, cy, rx - bCurve, bBot);
+          targetCtx.stroke();
+          targetCtx.beginPath();
+          targetCtx.arc(rx + 1.5, cy, 1.5, 0, Math.PI * 2);
+          targetCtx.fill();
+
+          targetCtx.globalAlpha = 0.96;
+          targetCtx.fillText(wmText, cx, cy + 0.5);
+        } else if (wmFrameStyle === 'glass_badge') {
+          // 6. خلفية زجاجية داكنة ناعمة بإطار فائق الرقة ولمعة زجاجية علوية
+          const r = wmPillH / 2;
+          const glassGrad = targetCtx.createLinearGradient(wx, wy, wx, wy + wmPillH);
+          glassGrad.addColorStop(0, 'rgba(30, 41, 59, 0.52)');
+          glassGrad.addColorStop(1, 'rgba(7, 11, 20, 0.42)');
+
+          targetCtx.globalAlpha = 0.94;
+          targetCtx.fillStyle = glassGrad;
+          targetCtx.beginPath();
+          targetCtx.roundRect(wx, wy, wmPillW, wmPillH, r);
+          targetCtx.fill();
+
+          // لمعة زجاجية رقيقة في النصف العلوي
+          targetCtx.save();
+          targetCtx.beginPath();
+          targetCtx.roundRect(wx + 1, wy + 1, wmPillW - 2, wmPillH - 2, Math.max(1, r - 1));
+          targetCtx.clip();
+          const topSheen = targetCtx.createLinearGradient(wx, wy, wx, wy + wmPillH * 0.55);
+          topSheen.addColorStop(0, 'rgba(255, 255, 255, 0.16)');
+          topSheen.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          targetCtx.fillStyle = topSheen;
+          targetCtx.fillRect(wx, wy, wmPillW, wmPillH * 0.55);
+          targetCtx.restore();
+
+          // إطار زجاجي فائق الرقة
+          targetCtx.globalAlpha = 0.28;
+          targetCtx.strokeStyle = '#ffffff';
+          targetCtx.lineWidth = 0.9;
+          targetCtx.beginPath();
+          targetCtx.roundRect(wx, wy, wmPillW, wmPillH, r);
+          targetCtx.stroke();
+
+          targetCtx.globalAlpha = 0.96;
+          targetCtx.fillStyle = wmColor;
+          targetCtx.shadowColor = 'rgba(0, 0, 0, 0.72)';
+          targetCtx.shadowBlur = 5;
+          targetCtx.shadowOffsetY = 1;
+          targetCtx.fillText(wmText, cx, cy + 0.5);
+        } else {
+          // 2. إطار كلاسيكي (Classic Pill)
+          targetCtx.globalAlpha = 0.88;
+          targetCtx.fillStyle = 'rgba(7, 11, 20, 0.58)';
+          targetCtx.strokeStyle = wmColor;
+          targetCtx.lineWidth = 1.15;
+          targetCtx.beginPath();
+          targetCtx.roundRect(wx, wy, wmPillW, wmPillH, wmPillH / 2);
+          targetCtx.fill();
+          targetCtx.globalAlpha = 0.45;
+          targetCtx.stroke();
+
+          const dotX = wx + wmPillW - wmPillPadX - wmDotRadius;
+          targetCtx.globalAlpha = 0.95;
+          targetCtx.fillStyle = wmColor;
+          targetCtx.beginPath();
+          targetCtx.arc(dotX, cy, wmDotRadius, 0, Math.PI * 2);
+          targetCtx.fill();
+
+          const textCenterAreaW = wmPillW - wmPillPadX * 2 - wmDotSpace;
+          const textCenterX = wx + wmPillPadX + textCenterAreaW * 0.5;
+          targetCtx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+          targetCtx.shadowBlur = 4;
+          targetCtx.shadowOffsetY = 1;
+          targetCtx.fillText(wmText, textCenterX, cy + 0.5);
+        }
         targetCtx.restore();
       }
     }
@@ -6149,8 +6386,12 @@
       requestRenderOnce();
     });
 
+    const chkShowWatermark = document.getElementById('chkShowWatermark');
+    const watermarkInputWrap = document.getElementById('watermarkInputWrap');
+    const watermarkStylingControlsBox = document.getElementById('watermarkStylingControlsBox');
     const inputWatermarkText = document.getElementById('inputWatermarkText');
     const btnResetWatermarkText = document.getElementById('btnResetWatermarkText');
+    const selectWatermarkFrameStyle = document.getElementById('selectWatermarkFrameStyle');
     const selectWatermarkPos = document.getElementById('selectWatermarkPos');
     const selectWatermarkFont = document.getElementById('selectWatermarkFont');
     const inputWatermarkColor = document.getElementById('inputWatermarkColor');
@@ -6160,21 +6401,70 @@
     const btnWatermarkSizeDec = document.getElementById('btnWatermarkSizeDec');
     const btnWatermarkSizeInc = document.getElementById('btnWatermarkSizeInc');
 
+    function syncWatermarkControlsAndBadge() {
+      const isEnabled = state.showWatermark !== false;
+      const trimmedText = (typeof state.watermarkText === 'string') ? state.watermarkText.trim() : '';
+      const isEffectivelyVisible = isEnabled && trimmedText.length > 0;
+
+      if (chkShowWatermark) chkShowWatermark.checked = isEnabled;
+      if (inputWatermarkText) inputWatermarkText.disabled = !isEnabled;
+      if (watermarkInputWrap) {
+        watermarkInputWrap.classList.toggle('opacity-50', !isEnabled);
+      }
+      if (selectWatermarkFrameStyle) selectWatermarkFrameStyle.disabled = !isEnabled;
+      if (selectWatermarkPos) selectWatermarkPos.disabled = !isEnabled;
+      if (selectWatermarkFont) selectWatermarkFont.disabled = !isEnabled;
+      if (sliderWatermarkSize) sliderWatermarkSize.disabled = !isEnabled;
+      if (inputWatermarkColor) inputWatermarkColor.disabled = !isEnabled;
+      if (watermarkStylingControlsBox) {
+        watermarkStylingControlsBox.classList.toggle('opacity-45', !isEnabled);
+        watermarkStylingControlsBox.classList.toggle('pointer-events-none', !isEnabled);
+      }
+
+      const wmBadge = document.getElementById('activeWatermarkBadge');
+      if (wmBadge) {
+        const t = window.tRefa3y || ((k, fb) => fb);
+        const noSigLbl = t('badgeNoSignature', (state.currentLang || 'ar') === 'ar' ? 'بدون توقيع' : 'No Signature');
+        if (isEffectivelyVisible) {
+          wmBadge.textContent = trimmedText.slice(0, 16);
+          wmBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono font-bold truncate max-w-[100px]';
+        } else {
+          wmBadge.textContent = noSigLbl;
+          wmBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-semibold truncate max-w-[100px]';
+        }
+      }
+    }
+    window.syncWatermarkControlsAndBadge = syncWatermarkControlsAndBadge;
+
+    if (chkShowWatermark) {
+      chkShowWatermark.addEventListener('change', () => {
+        state.showWatermark = Boolean(chkShowWatermark.checked);
+        syncWatermarkControlsAndBadge();
+        requestRenderOnce();
+      });
+    }
+
     if (inputWatermarkText) {
       inputWatermarkText.addEventListener('input', () => {
         state.watermarkText = inputWatermarkText.value;
-        const wmBadge = document.getElementById('activeWatermarkBadge');
-        if (wmBadge) wmBadge.textContent = (inputWatermarkText.value || '').trim() || 'Refa3y';
+        syncWatermarkControlsAndBadge();
         requestRenderOnce();
       });
     }
 
     if (btnResetWatermarkText) {
       btnResetWatermarkText.addEventListener('click', () => {
+        state.showWatermark = true;
         state.watermarkText = 'Refa3y';
         if (inputWatermarkText) inputWatermarkText.value = 'Refa3y';
-        const wmBadge = document.getElementById('activeWatermarkBadge');
-        if (wmBadge) wmBadge.textContent = 'Refa3y';
+        syncWatermarkControlsAndBadge();
+        requestRenderOnce();
+      });
+    }
+
+    if (selectWatermarkFrameStyle) {
+      selectWatermarkFrameStyle.addEventListener('change', () => {
+        state.watermarkFrameStyle = selectWatermarkFrameStyle.value;
         requestRenderOnce();
       });
     }
@@ -6213,18 +6503,20 @@
       if (selectMediaFitMode) selectMediaFitMode.value = state.aspectRatio || '9:16';
       if (sliderBgBrightness) sliderBgBrightness.value = '100';
       if (valBgBrightness) valBgBrightness.textContent = '100%';
+      state.showWatermark = true;
       state.watermarkText = 'Refa3y';
+      state.watermarkFrameStyle = 'classic_pill';
       state.watermarkPos = 'bottom-right';
       state.watermarkColor = '#fde68a';
       state.watermarkFont = 'Cinzel';
       setWatermarkSize(16);
       if (inputWatermarkText) inputWatermarkText.value = 'Refa3y';
-      const wmBadge = document.getElementById('activeWatermarkBadge');
-      if (wmBadge) wmBadge.textContent = 'Refa3y';
+      if (selectWatermarkFrameStyle) selectWatermarkFrameStyle.value = 'classic_pill';
       if (selectWatermarkPos) selectWatermarkPos.value = 'bottom-right';
       if (selectWatermarkFont) selectWatermarkFont.value = 'Cinzel';
       if (inputWatermarkColor) inputWatermarkColor.value = '#fde68a';
       if (watermarkColorHex) watermarkColorHex.textContent = '#FDE68A';
+      syncWatermarkControlsAndBadge();
       requestRenderOnce();
     });
 
@@ -6257,6 +6549,7 @@
         requestRenderOnce();
       });
     }
+    syncWatermarkControlsAndBadge();
     if (inputWatermarkColor) {
       inputWatermarkColor.addEventListener('input', () => {
         state.watermarkColor = inputWatermarkColor.value;
@@ -8497,18 +8790,9 @@
       }
 
       // مزامنة شارة توقيع حفظ الحقوق في عنوان القسم ٥
-      const inputWmText = document.getElementById('inputWatermarkText');
-      const btnResetWm = document.getElementById('btnResetWatermarkText');
-      const activeWmBadge = document.getElementById('activeWatermarkBadge');
-      function syncActiveWatermarkBadge() {
-        if (!activeWmBadge) return;
-        const isAr = (state.currentLang || 'ar') === 'ar';
-        const emptyLbl = isAr ? 'بدون توقيع' : 'No Signature';
-        const text = inputWmText ? (inputWmText.value.trim() || emptyLbl) : 'Refa3y';
-        activeWmBadge.textContent = text.slice(0, 16);
+      if (typeof window.syncWatermarkControlsAndBadge === 'function') {
+        window.syncWatermarkControlsAndBadge();
       }
-      if (inputWmText) inputWmText.addEventListener('input', syncActiveWatermarkBadge);
-      if (btnResetWm) btnResetWm.addEventListener('click', () => setTimeout(syncActiveWatermarkBadge, 20));
     }
 
 
@@ -8726,7 +9010,16 @@
         lblAudioWave: 'إظهار شريط النبضات الصوتية من الأسفل (موجات صوتية)',
         btnResetEffects: 'إعادة ضبط التأثيرات',
         sec5Title: 'توقيع حفظ الحقوق',
+        lblShowWatermark: 'إظهار التوقيع',
+        badgeNoSignature: 'بدون توقيع',
         lblWatermarkText: 'اسم التوقيع (الافتراضي: Refa3y أو اكتب اسماً آخر):',
+        lblWatermarkFrameStyle: 'نمط البرواز:',
+        wmFrmTextOnly: 'نص فقط - بدون برواز',
+        wmFrmClassicPill: 'إطار كلاسيكي',
+        wmFrmDoubleFrame: 'إطار ذهبي مزدوج',
+        wmFrmMinimalLine: 'خط أنيق',
+        wmFrmOrnateBrackets: 'أقواس زخرفية',
+        wmFrmGlassBadge: 'خلفية زجاجية',
         lblWatermarkPos: 'مكان التوقيع:',
         wmBottomRight: 'أسفل اليمين',
         wmBottomLeft: 'أسفل اليسار',
@@ -8914,7 +9207,16 @@
         lblAudioWave: 'Show Audio Waveform Spectrum at Bottom',
         btnResetEffects: 'Reset Effects',
         sec5Title: 'Copyright Watermark Signature',
+        lblShowWatermark: 'Show Signature',
+        badgeNoSignature: 'No Signature',
         lblWatermarkText: 'Signature Text (Default: Refa3y or custom name):',
+        lblWatermarkFrameStyle: 'Frame Style:',
+        wmFrmTextOnly: 'Text Only',
+        wmFrmClassicPill: 'Classic Pill',
+        wmFrmDoubleFrame: 'Double Frame',
+        wmFrmMinimalLine: 'Minimal Line',
+        wmFrmOrnateBrackets: 'Ornate Brackets',
+        wmFrmGlassBadge: 'Glass Badge',
         lblWatermarkPos: 'Signature Position:',
         wmBottomRight: 'Bottom Right',
         wmBottomLeft: 'Bottom Left',
@@ -9102,7 +9404,16 @@
         lblAudioWave: 'Afficher les Ondes Audio en Bas',
         btnResetEffects: 'Réinitialiser les Effets',
         sec5Title: 'Signature et Droits (Watermark)',
+        lblShowWatermark: 'Afficher la signature',
+        badgeNoSignature: 'Sans signature',
         lblWatermarkText: 'Nom de la Signature (Défaut : Refa3y) :',
+        lblWatermarkFrameStyle: 'Style de cadre :',
+        wmFrmTextOnly: 'Texte seul (Sans cadre)',
+        wmFrmClassicPill: 'Cadre Classique',
+        wmFrmDoubleFrame: 'Double Cadre Doré',
+        wmFrmMinimalLine: 'Ligne Minimale',
+        wmFrmOrnateBrackets: 'Crochets Ornementaux',
+        wmFrmGlassBadge: 'Badge Verre Dépoli',
         lblWatermarkPos: 'Position de la Signature :',
         wmBottomRight: 'En Bas à Droite',
         wmBottomLeft: 'En Bas à Gauche',
@@ -9290,7 +9601,16 @@
         lblAudioWave: 'Audiowellen-Spektrum unten anzeigen',
         btnResetEffects: 'Effekte zurücksetzen',
         sec5Title: 'Wasserzeichen / Urheberrecht',
+        lblShowWatermark: 'Signatur anzeigen',
+        badgeNoSignature: 'Keine Signatur',
         lblWatermarkText: 'Signaturname (Standard: Refa3y oder eigener Name):',
+        lblWatermarkFrameStyle: 'Rahmenstil:',
+        wmFrmTextOnly: 'Nur Text (Ohne Rahmen)',
+        wmFrmClassicPill: 'Klassischer Rahmen',
+        wmFrmDoubleFrame: 'Doppelter Goldrahmen',
+        wmFrmMinimalLine: 'Elegante Linie',
+        wmFrmOrnateBrackets: 'Verzierte Klammern',
+        wmFrmGlassBadge: 'Glas-Abzeichen',
         lblWatermarkPos: 'Signaturposition:',
         wmBottomRight: 'Unten rechts',
         wmBottomLeft: 'Unten links',
@@ -9978,7 +10298,15 @@
 
       // القسم ٥
       setQueryTxt('.collapsible-section[data-section="5"] h2', d.sec5Title);
+      setTxt('lblShowWatermark', d.lblShowWatermark);
       setQueryTxt('label[for="inputWatermarkText"]', d.lblWatermarkText);
+      setQueryTxt('label[for="selectWatermarkFrameStyle"]', d.lblWatermarkFrameStyle);
+      setQueryTxt('#selectWatermarkFrameStyle option[value="text_only"]', d.wmFrmTextOnly);
+      setQueryTxt('#selectWatermarkFrameStyle option[value="classic_pill"]', d.wmFrmClassicPill);
+      setQueryTxt('#selectWatermarkFrameStyle option[value="double_frame"]', d.wmFrmDoubleFrame);
+      setQueryTxt('#selectWatermarkFrameStyle option[value="minimal_line"]', d.wmFrmMinimalLine);
+      setQueryTxt('#selectWatermarkFrameStyle option[value="ornate_brackets"]', d.wmFrmOrnateBrackets);
+      setQueryTxt('#selectWatermarkFrameStyle option[value="glass_badge"]', d.wmFrmGlassBadge);
       setQueryTxt('label[for="selectWatermarkPos"]', d.lblWatermarkPos);
       setQueryTxt('#selectWatermarkPos option[value="bottom-right"]', d.wmBottomRight);
       setQueryTxt('#selectWatermarkPos option[value="bottom-left"]', d.wmBottomLeft);
@@ -9989,6 +10317,9 @@
       setQueryTxt('label[for="selectWatermarkFont"]', d.lblWatermarkFont);
       setQueryTxt('label[for="sliderWatermarkSize"]', d.lblWatermarkSize);
       setQueryTxt('label[for="inputWatermarkColor"]', d.lblWatermarkColor);
+      if (typeof window.syncWatermarkControlsAndBadge === 'function') {
+        window.syncWatermarkControlsAndBadge();
+      }
 
       // نافذة تثبيت التطبيق (#installAppModal)
       const modalCard = document.querySelector('#installAppModal > div');
